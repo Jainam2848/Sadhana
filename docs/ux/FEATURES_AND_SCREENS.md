@@ -179,3 +179,70 @@ Primary CTA: A large, pulsing button "Start 7-Day Free Trial" (background: #D354
 Cancel link: In the top right corner, place a clear "Skip / Try Free" text link (Raleway, color: #2C3E50/60) to allow free users to access the standard non-customized dashboard.
 Micro-Interactions & Motions (Paywall): The highlighted "Annual Sanctuary Pass" card outline must display a slow, subtle color-shifting metallic gradient animation that sweeps around its border. Tapping a plan card triggers a micro-contraction (scale(0.97)) and a 150ms checkmark transition. The main "Start 7-Day Free Trial" CTA button must possess a slow breathing glow and a horizontal text reflection sheen that sweeps across the text every 4 seconds. The top-right "Skip" option should fade in slowly with a 2-second delay after paywall entrance to encourage users to review the premium options first.
 ```
+
+### 3.5 GDPR Consent & Permission Priming Prompts (Screens 3 & 4)
+```text
+Generate a mobile-first privacy consent and alert priming flow for the 'Sadhana' app.
+Theme: Earth Premium (Cream background #FDFEFE, charcoal text #2C3E50).
+Screen 3 GDPR Consent: Display a centered legal disclosure layout with the Lora heading "Your Privacy Sanctuary". Include a descriptive body detailing analytics tracking in Raleway, two toggles (essential vs. performance tracking) in slate-gray, a primary button "Agree to All" (terracotta #D35400), and a link "Manage Options".
+Micro-Interactions & Motions (Screen 3): The consent panel must slide up from the bottom with a 300ms transition. The switches must toggle with a smooth 200ms slide and a color transition from slate-200 to olive-green (#1E8449) when enabled.
+Screen 4 Permission Priming: Display an illustrative interface contextualizing why notifications matter (streak tracking). Show a Lora heading "Cultivate the Habit", a graphic of an animated calendar with a streak flame, a primary button "Enable Reminders" (terracotta #D35400), and a "Skip" link.
+Micro-Interactions & Motions (Screen 4): The calendar flame graphic should pulse gently (transform: scale(1.03) every 2 seconds). Clicking "Enable Reminders" triggers a double-ripple expansion effect from the button center before presenting the native OS prompt.
+```
+
+### 3.6 Auth & Register Prompt (Screen 5)
+```text
+Generate a clean, mobile-first registration and login portal for 'Sadhana'.
+Theme: Earth Premium (Cream background #FDFEFE, charcoal text #2C3E50, terracotta accents #D35400).
+Layout: Top-right "Skip to Guest" link (color: #2C3E50/60). Center Lora title "Begin Your Practice". Two text inputs (Email and Secure Password) with a 1px border. A primary "Create Account" button and a togglable link at the bottom "Already have an account? Sign In".
+Micro-Interactions & Motions (Auth Screen): Tapping the "Sign In" toggle link must trigger a seamless 250ms horizontal cross-fade animation between the registration and login input forms. Form fields must display a border-color transition to terracotta and a soft inner shadow upon focus. The "Skip to Guest" link should fade in slowly with a 1.5-second delay to incentivize registration first.
+```
+
+### 3.7 Session Completed & Interstitial Ads Prompt (Screen 9)
+```text
+Generate a congratulatory session completion screen with ad-gating for 'Sadhana'.
+Theme: Earth Premium (Cream background #FDFEFE, charcoal text #2C3E50, terracotta accents #D35400).
+Screen Layout: Large centered circular graphic displaying "Sadhana Complete!". Below, show a statistics dashboard card displaying Session Duration "15 mins" and Streak Counter "5 Days 🔥". Place a primary button "Claim Rewards" (olive-green #1E8449). Include a full-screen interstitial ad container (Free tier only).
+Micro-Interactions & Motions (Completion Screen): Upon screen load, a 1-second confetti canvas overlay should fire, cascading colored terracotta, cream, and olive petals downward with varying rotational speeds. The Streak Flame must scale up with a spring bounce.
+Ad Countdown Timer: The full-screen interstitial ad overlay must display a prominent countdown badge in the top right corner. The badge displays a 10-second countdown with a circular progress stroke that drains slowly. The "Skip / Close" button remains completely hidden, fading in with a 200ms ease-in transition only when the counter reaches 0.
+```
+
+### 3.8 Library Browser, Course Detail & Single Media Player Prompts (Screens 10, 11 & 12)
+```text
+Generate a mobile-first course browser, details dashboard, and standalone media player stack for the 'Sadhana' Library tab.
+Theme: Earth Premium.
+Screen 10 Library Browser: Search bar at top. Horizontal category chips: "Asana Stretches", "Pranayama Breath", "Dhyana Meditation", "Philosophy". Vertical scroll list of featured course cards (displaying small lock symbols for premium courses).
+Micro-Interactions & Motions (Screen 10): Tapping a category chip scales it up (1.05) and changes background color from cream to terracotta with a 150ms ease-out transition. Locked course cards trigger a brief side-to-side shake animation and highlight a brief paywall tooltip if clicked by a guest.
+Screen 11 Course Detail: Hero banner image with a parallax scroll offset. Lora title "Roots of Pranayama". Syllabus vertical list of sessions (showing play buttons for free sessions, lock badges for premium). Primary CTA button "Begin Course" at the bottom.
+Micro-Interactions & Motions (Screen 11): Scrolling must trigger a parallax scale displacement on the hero image. Session cards expand slightly on hover.
+Screen 12 Single Player: Center vinyl-style artwork container, media play/pause controls, loop toggle, and "Mark as Complete" CTA.
+Micro-Interactions & Motions (Screen 12): Tapping play triggers a rotating spin animation on the central artwork (speed: 1 rotation per 12 seconds, easing to stop on pause).
+```
+
+### 3.9 Rewards Dashboard & Karma Coins Redemption Prompts (Screens 13 & 14)
+```text
+Generate a rewards dashboard and points redemption shop for the 'Sadhana' Rewards tab.
+Theme: Earth Premium.
+Screen 13 Rewards Dashboard: Monthly milestones tracking card (progress bar displaying unlocks at 10, 30, and 50 ad views). Karma Coins wallet card displaying balance "120 Coins". Primary CTA "Watch Rewarded Ad (+10 Coins)". List of unlockable rewards below.
+Micro-Interactions & Motions (Screen 13): The milestone progress bar must fill with a smooth liquid wave animation when views are recorded. Watching an ad triggers a spin transition on the coin balance card, animating the text counts scroll-ticking upwards (e.g. 110 to 120).
+Screen 14 Redemption Shop: Grid of wellness coupons and a donation card "Indian Heritage Script Preservation". A confirmation bottom sheet.
+Micro-Interactions & Motions (Screen 14): Tapping a coupon triggers a spring squeeze scale(0.96). Confirming a redemption triggers a stamp-lock success animation (a circular green stamp "REDEEMED" overlaying the card with a firm spring bounce) and a coin reduction counter animation.
+```
+
+### 3.10 Profile Dashboard & Preferences Prompts (Screens 15, 16, 17, 18)
+```text
+Generate a user profile dashboard, preferences panel, and data privacy portal for 'Sadhana'.
+Theme: Earth Premium.
+Screen 15 Profile Dashboard: User avatar card, lifetime statistics grid, and streak heatmap calendar (showing a grid of colored dates). Top-right settings gear icon.
+Micro-Interactions & Motions (Screen 15): Heatmap calendar cells fade in sequentially in a grid-wave entrance. Lifetime statistics counters animate counting up from 0 on entry.
+Screen 17 Preferences: Typography accessibility slider ( Elena's preview ) and notifications time selector.
+Micro-Interactions & Motions (Screen 17): Adjusting the typography scale slider must dynamically scale a sample text paragraph in real-time with a fluid, elastic resize transition.
+```
+
+### 3.11 Account Deletion Prompt (Screen 19)
+```text
+Generate a destructive account deletion confirmation screen for 'Sadhana'.
+Theme: Earth Premium (Cream background #FDFEFE, primary text #2C3E50).
+Layout: Warning callout box with terracotta background and cream warning text. Instruction: "To confirm deletion, type DELETE in the box below". Input field. Primary button "Confirm Account Deletion" (red #C0392B, disabled state: background #BDC3C7).
+Micro-Interactions & Motions (Screen 19): Tapping the "Confirm Account Deletion" button while it is disabled triggers a rapid triple horizontal shake animation on the form and triggers a red error glow around the input field. Typing the exact word "DELETE" activates the button with a smooth 200ms opacity and border-color transition to solid red.
+```
