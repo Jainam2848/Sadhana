@@ -62,10 +62,10 @@ This is the **table of contents** for the entire project's documentation. Every 
 
 | Status | Document | Path | Phase |
 |--------|----------|------|-------|
-| 🔲 | Design System | [`design/DESIGN_SYSTEM.md`](../design/DESIGN_SYSTEM.md) | 3 |
+| ✅ | Design System | [`design/DESIGN_SYSTEM.md`](../design/DESIGN_SYSTEM.md) | 3 |
 | ✅ | Platform Rules (HIG + Material) | [`PLATFORM_RULES.md`](../PLATFORM_RULES.md) | 2 |
-| 🔲 | Stitch Design Config | [`.stitch/DESIGN.md`](../../.stitch/DESIGN.md) | 3 |
-| 🔲 | Stitch Site Map | [`.stitch/SITE.md`](../../.stitch/SITE.md) | 3 |
+| ✅ | Stitch Design Config | [`.stitch/DESIGN.md`](../../.stitch/DESIGN.md) | 3 |
+| ✅ | Stitch Site Map | [`.stitch/SITE.md`](../../.stitch/SITE.md) | 3 |
 
 ---
 
