@@ -128,7 +128,7 @@ This numbered inventory lists all 19 screens in the Sadhana application, mapping
 
 ## 3. Google Stitch Generation Prompts (Phase 3 Integration)
 
-To ensure that Google Stitch generates high-fidelity, unified frontend code in Phase 3 that complies with the **Earth Premium** styling, use these exact, detailed prompts:
+To ensure that Google Stitch generates high-fidelity, unified frontend code in Phase 3 that complies with the **Earth Premium** styling and incorporates fluid, micro-interactive design details, use these exact prompts:
 
 ### 3.1 Onboarding & Quiz Prompts (Screens 1 & 2)
 ```text
@@ -137,7 +137,9 @@ Layout: Vertical stack, centered alignment.
 Color Palette (Earth Premium): Background #FDFEFE (Cream), Primary text #2C3E50 (Charcoal), Accent colors #D35400 (Terracotta) for active states and #1E8449 (Olive) for progress states.
 Typography: Headings set to Lora serif (font-family: 'Lora', serif), body text set to Raleway (font-family: 'Raleway', sans-serif).
 Screen 1: Welcome slide with a centered terracotta logo icon (use an SVG flower/lotus glyph), a Lora heading "Your Daily Mind-Body Sanctuary" (font-size: 28px, font-weight: 600, color: #2C3E50), a Raleway body text, and a primary action button with background color #D35400, text color #FDFEFE, and height 48px with cursor-pointer. Include a subtle scrolling text container at the bottom displaying client feedback quotes.
-Screen 2: Personalization questionnaire. Include a top progress bar with olive background. Display a Lora heading "What is your primary goal?" followed by three clickable single-select card components: 1. "Relieve Stress & Anxiety", 2. "Improve Joint Mobility", 3. "Connect with Philosophy". Each card should have background #FDFEFE, border 1px solid #2C3E50, height 56px, and dynamic haptic-ready hover states that change background to #ECFDF5 and border to #1E8449.
+Micro-Interactions & Motions (Screen 1): The welcome title must have a subtle, delayed slide-up entrance effect (100px vertical displacement over 600ms, using ease-out). The swipe indicators (carousel dots) must animate with a fluid width expansion (from 8px circle to a 20px pill) when active. Include a gentle, repeating bounce animation on a down-chevron icon at the very bottom of the viewport to indicate scrolling potential.
+Screen 2: Personalization questionnaire. Include a top progress bar with olive background. Display a Lora heading "What is your primary goal?" followed by three clickable single-select card components: 1. "Relieve Stress & Anxiety", 2. "Improve Joint Mobility", 3. "Connect with Philosophy". Each card should have background #FDFEFE, border 1px solid #2C3E50/15, height 56px, and dynamic haptic-ready hover states that change background to #ECFDF5 and border to #1E8449.
+Micro-Interactions & Motions (Screen 2): The top progress bar should have a continuous, horizontal shimmer/sheen animation that sweeps from left to right every 3 seconds to indicate vitality. Tapping any goal card triggers a 150ms transform: scale(0.97) spring-squeeze animation, and overlays a thin, hand-drawn outline transition around the card border (duration 200ms) with a fade-in checkmark indicator.
 All interactive elements must have a cursor-pointer class and aria-labels for accessibility.
 ```
 
@@ -146,7 +148,9 @@ All interactive elements must have a cursor-pointer class and aria-labels for ac
 Generate a mobile-first dashboard and routine config layout for the 'Sadhana' home tab.
 Style: Earth Premium theme. 
 Screen 6 Dashboard: Display a dynamic greeting "Hari Om, Sarah" (Lora, 24px) next to an animated orange flame icon showing a streak count "5 Days 🔥". Place a large, floating "Today's Sadhana" Card container (background: #FDFEFE, box-shadow: 0 4px 6px rgba(44,62,80,0.05), border-radius: 12px, border: 1px solid #2C3E50/10). Inside the card, display routine title "Morning Sanctuary Sadhana", duration "12 min", and segments list: 1. Asana (Stretching), 2. Pranayama (Breathing), 3. Dhyana (Meditation) in terracotta tags. Add a primary CTA button: "Prepare Sadhana" (background: #D35400, width: 100%).
+Micro-Interactions & Motions (Screen 6): The streak flame icon (🔥) must animate with a slow, breathing pulse glow effect (opacity shifting from 0.8 to 1.0, and a drop shadow filter expanding from 2px to 8px in a terracotta shade, repeating every 2.5 seconds). The "Today's Sadhana" card must float upwards slightly (transform: translateY(-4px) and shadow deepening) when focused or hovered.
 Screen 7 Routine Config: Detail the three segments. Show an offline download toggle switch (use custom SVG toggle, color: #1E8449 when active). Add a "Start Practice" button (height: 48px, background: #D35400).
+Micro-Interactions & Motions (Screen 7): The segment list items should fade in sequentially (staggered delay of 100ms per card). The custom SVG download toggle switch must animate with a smooth 250ms left-to-right slider translation, changing background color from slate-200 to olive-green (#1E8449).
 Ensure all touch targets are at least 44px in height. No emojis used as icons; utilize SVG paths for play/pause/download symbols.
 ```
 
@@ -156,7 +160,9 @@ Generate an immersive, full-screen mobile media player for the 'Sadhana' app's a
 Theme: Minimalist dark-leaning Earth Premium.
 Visual layout: Center viewport displays a high-definition video frame (active for Asana stretches) or fades to a static cream-and-olive mandala artwork container with a pulsing visualizer overlay (active for Pranayama breathwork).
 Controls (Bottom): Large terracotta Play/Pause button (diameter 56px, background: #D35400, color: #FDFEFE), surrounded by previous/next segment skip buttons (SVG paths). Include a horizontal track slider showing elapsed time vs total time.
+Micro-Interactions & Motions (Active Player): For Pranayama/Dhyana, the mandala artwork visualizer should have three concentric SVG circle paths that slowly expand and fade in opacity, synchronized to a relaxed breathing pattern: expanding outwards for 4 seconds (inhale), remaining static and slightly glowing for 4 seconds (hold), and contracting/fading back for 4 seconds (exhale). The main play/pause button should scale up to 1.08 and trigger a light concentric ripple wave when clicked.
 Sanskrit Tooltip overlay: Include a small button "Sanskrit Glossary". Tapping it slides up a modal bottom sheet (background: #FDFEFE, padding: 20px) displaying terms like "Ujjayi Pranayama" in Lora bold, Sanskrit letters "उज्जायी प्राणायाम", and scientific benefits in Raleway.
+Micro-Interactions & Motions (Glossary Sheet): The bottom glossary sheet must slide up smoothly from the bottom margin (0ms to 300ms, using cubic-bezier(0.16, 1, 0.3, 1)) accompanied by a frosted glass backdrop filter (backdrop-filter: blur(12px)) blurring out the player layout behind it.
 Ensure the layout is responsive, respects safe areas, and has no horizontal overflow.
 ```
 
@@ -171,4 +177,5 @@ Subscription Cards: Display two plan cards side-by-side or stacked:
 Benefit checklist: 5 items with olive-green checkmarks (SVG) showing Free vs. Premium features (e.g. Personalized Routine, Offline Downloads, Karma Coins).
 Primary CTA: A large, pulsing button "Start 7-Day Free Trial" (background: #D35400, text: #FDFEFE, font-weight: 600, height: 52px).
 Cancel link: In the top right corner, place a clear "Skip / Try Free" text link (Raleway, color: #2C3E50/60) to allow free users to access the standard non-customized dashboard.
+Micro-Interactions & Motions (Paywall): The highlighted "Annual Sanctuary Pass" card outline must display a slow, subtle color-shifting metallic gradient animation that sweeps around its border. Tapping a plan card triggers a micro-contraction (scale(0.97)) and a 150ms checkmark transition. The main "Start 7-Day Free Trial" CTA button must possess a slow breathing glow and a horizontal text reflection sheen that sweeps across the text every 4 seconds. The top-right "Skip" option should fade in slowly with a 2-second delay after paywall entrance to encourage users to review the premium options first.
 ```
