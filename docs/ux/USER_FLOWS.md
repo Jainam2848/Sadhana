@@ -11,8 +11,8 @@
 
 These user flows trace key journeys through the **Sadhana** mobile experience. They specify decision nodes, loading states, and platform-specific behaviors (such as iOS haptics or Android system back gestures).
 
-### Flow A: First-Time User Onboarding
-This journey shows the progression from initial install to the core "value moment" (completing the first short Sadhana routine). It uses progressive disclosure to avoid cognitive overload and primes permissions before invoking OS prompts.
+### Flow A: First-Time User Onboarding & Paywall Gating
+This journey shows the progression from initial install to the core "value moment" (completing the first short Sadhana routine). It handles the onboarding personalization questionnaire, GDPR checks, notification priming, the soft-gated paywall, and routes users to either a custom Personalized Plan (Premium) or a static Global Plan (Free).
 
 ```mermaid
 flowchart TD
@@ -26,23 +26,33 @@ flowchart TD
     
     NotifyPrime[Permission Priming Modal:\nExplain Benefit of Daily Streak] --> NotifyOS{User Accepts Benefit?}
     
-    NotifyOS -- Tap Yes --> NativeNotify[Trigger Native OS Notification Prompt] --> AuthChoice
-    NotifyOS -- Tap Skip --> AuthChoice
+    NotifyOS -- Tap Yes --> NativeNotify[Trigger Native OS Notification Prompt] --> OnboardingPaywall
+    NotifyOS -- Tap Skip --> OnboardingPaywall
     
-    AuthChoice{Auth Option Selected}
-    AuthChoice -- Email Sign Up --> AuthRegister[Enter Email & Password\nStrict Client-Side Validation] --> CreateAccount[Call Auth API & Save JWT\nin SecureStore] --> Dashboard
-    AuthChoice -- Skip / Guest --> GuestCreate[Initialize Anonymous Guest Session\nin Local State] --> Dashboard
+    OnboardingPaywall[Soft-Gated Onboarding Paywall:\nPrompts Subscription / 7-Day Trial] --> PaywallChoice{User Subscribes?}
     
-    Dashboard[Dashboard Loaded:\nToday's Sadhana Card Active] --> TapPlay[User Taps Today's Sadhana\nstarts first session]
-    TapPlay --> PlayRoutine[Active Session Player:\n12-Min Short Practice]
-    PlayRoutine --> ValueMoment([Value Moment:\nCompleted First Sadhana & Feel Calm])
+    PaywallChoice -- Yes --> Subscribe[Process Purchase & Set premium = true\nVerify Receipt Callback] --> AuthChoicePremium
+    PaywallChoice -- No / Skip --> SetFree[Set premium = false] --> AuthChoiceFree
+    
+    AuthChoicePremium{Auth Option Selected}
+    AuthChoicePremium -- Email Sign Up --> AuthRegP[Enter Details & Save JWT] --> DashboardPremium[Dashboard Loaded:\nPersonalized Daily Sadhana Active]
+    AuthChoicePremium -- Guest / Skip --> GuestP[Initialize Premium Guest Session] --> DashboardPremium
+    
+    AuthChoiceFree{Auth Option Selected}
+    AuthChoiceFree -- Email Sign Up --> AuthRegF[Enter Details & Save JWT] --> DashboardFree[Dashboard Loaded:\nLocked Custom Plan, Static Global Daily Sadhana]
+    AuthChoiceFree -- Guest / Skip --> GuestF[Initialize Free Guest Session] --> DashboardFree
+    
+    DashboardPremium --> PlayCustom[Play Personalized Routine\nAsana + Pranayama + Dhyana custom plan] --> ValueMoment
+    DashboardFree --> PlayGlobal[Play Static Global Routine\nFixed 12-Min Short Practice] --> ValueMoment
+    
+    ValueMoment([Value Moment:\nCompleted First Sadhana & Feel Calm])
 
     classDef default fill:#FDFEFE,stroke:#2C3E50,stroke-width:1px;
     classDef action fill:#D35400,stroke:#2C3E50,stroke-width:2px,color:#FDFEFE;
     classDef decision fill:#ECFDF5,stroke:#1E8449,stroke-width:2px,color:#064E3B;
-    class Welcome,Welcome2,Personalize,GDPRPrompt,NotifyPrime,AuthRegister,Dashboard,PlayRoutine default;
-    class Start,ValueMoment,TapPlay action;
-    class GDPRCheck,NotifyOS,AuthChoice decision;
+    class Welcome,Welcome2,Personalize,GDPRPrompt,NotifyPrime,OnboardingPaywall,AuthRegP,AuthRegF,DashboardPremium,DashboardFree,PlayCustom,PlayGlobal default;
+    class Start,ValueMoment,Subscribe,SetFree action;
+    class GDPRCheck,NotifyOS,PaywallChoice,AuthChoicePremium,AuthChoiceFree decision;
 ```
 
 ---
@@ -197,11 +207,11 @@ This is a numbered inventory of every screen in the **Sadhana** MVP. It specifie
 6.  **Sadhana Dashboard (Home Screen)**
     *   *Purpose:* The central hub displaying daily streak status, quick routine access, and notifications.
     *   *Parent:* Root Tab Controller.
-    *   *Key Components:* Animated Streak Flame counter (🔥), Today's Sadhana Card (combining Asana, Pranayama, Dhyana), "Recent Sessions" horizontal list, dynamic greeting text ("Hari Om, [Name]").
+    *   *Key Components:* Animated Streak Flame counter (🔥), Today's Sadhana Card (displays customized Personalized Plan for Premium; displays locked custom plan badge and routes to static "Global Daily Sadhana" for Free), "Recent Sessions" horizontal list, dynamic greeting text ("Hari Om, [Name]").
 7.  **Routine Config Screen**
     *   *Purpose:* Preview and configure the selected Sadhana routine before starting.
     *   *Parent:* Sadhana Dashboard.
-    *   *Key Components:* Summary of the daily routine (Asana, Pranayama, Dhyana), total duration indicator, offline cache toggle switch, "Start Sadhana" primary CTA button.
+    *   *Key Components:* Summary of the routine (dynamic personalized segments for Premium; fixed global segments for Free), total duration indicator, offline cache toggle switch (Premium only), "Start Sadhana" primary CTA button.
 8.  **Active Routine Player Screen**
     *   *Purpose:* A clean, high-performance media player that plays physical sequences and guides breathing/meditation.
     *   *Parent:* Routine Config Screen.

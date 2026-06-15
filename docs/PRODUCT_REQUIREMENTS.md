@@ -75,6 +75,9 @@ To hit our **3-week MVP deadline**, features are strictly triaged:
     *   Point-based reward mechanics for both Free and Paid tiers.
     *   Tracking monthly ad views with milestone notifications.
     *   Tier-specific reward structures (Free: premium unlocks/ad-free passes; Paid: redeemable Karma Coins).
+8.  **Personalized Sadhana Planner (Premium Only):**
+    *   Onboarding questionnaire inputs (goals, physical tightness, level) dynamically generate a customized daily routine (Asana + Pranayama + Dhyana) tailored specifically to the user.
+    *   *Gating:* Locked behind subscription paywall. Free tier users receive a static, non-personalized "Global Daily Sadhana".
 
 ### Should Have (MVP — High Priority)
 1.  **Offline Downloads:** Premium users can download audio and video sessions locally for offline use (e.g., traveling, outdoors).
@@ -82,8 +85,7 @@ To hit our **3-week MVP deadline**, features are strictly triaged:
 3.  **GDPR Compliance Controls:** Account deletion request buttons inside settings, strict opt-in consent pop-up for EU users on launch, and dynamic data-safety disclosures.
 
 ### Could Have (V2 — Post-MVP)
-1.  **Personalized Sadhana Planner:** Onboarding questionnaire generates a custom daily routine based on user goals, physical level, and time availability.
-2.  **AI Wellness Coach:** Interactive chatbot guided by authentic yogic scriptures and modern science to answer wellness questions and recommend practices.
+1.  **AI Wellness Coach:** Interactive chatbot guided by authentic yogic scriptures and modern science to answer wellness questions and recommend practices.
 3.  **Wearable Syncing:** Connecting with Apple HealthKit / Google Fit to track heart rate variability (HRV) and calories during yoga/pranayama.
 4.  **Community & Social:** Group challenges, milestone sharing, and teacher Q&A forums.
 
@@ -117,12 +119,16 @@ Karma Coins are stored in the user's permanent wallet and do not expire. Premium
 
 ## 4. Functional Requirements & User Flows
 
-### Flow 1: User Onboarding & Permission Priming
+### Flow 1: User Onboarding, Personalization, & Paywall
 1.  User launches the app for the first time.
 2.  Welcoming slide-show showcasing the authentic Indian roots (breath, movement, philosophy).
-3.  **Permission Priming:** Before triggering the OS-level notifications prompt, show a beautiful in-app dialog explaining *why* daily reminders help (e.g., "Build your daily Sadhana streak").
-4.  Option to sign up (Email/Password) or skip to explore (logged in as an anonymous guest).
-5.  *EU Users only:* Explicit GDPR tracking consent prompt.
+3.  **Personalization Quiz:** User answers questions regarding their physical tightness, experience level, and health goals.
+4.  *EU Users only:* Explicit GDPR tracking consent prompt.
+5.  **Permission Priming:** Before triggering the OS-level notifications prompt, show a beautiful in-app dialog explaining *why* daily reminders help (e.g., "Build your daily Sadhana streak").
+6.  **Soft-Gated Onboarding Paywall:** Displays subscription tiers and a 7-day free trial button.
+    *   *If User Subscribes/Trial:* System initializes their customized **Personalized Sadhana Plan**.
+    *   *If User Skips/Close:* System routes them to the Free Tier dashboard, loading a static, non-personalized "Global Daily Sadhana".
+7.  Option to sign up (Email/Password) or skip to explore (logged in as an anonymous guest).
 
 ### Flow 2: Completing a Session (Free Tier Ad Logic)
 ```mermaid

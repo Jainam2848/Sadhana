@@ -64,6 +64,10 @@
 *   **Free Tier:** Ad-viewing counts reset monthly. Milestones at 10, 30, and 50 ads unlock single premium classes, guided course bundles, or a 24-hour ad-free pass respectively.
 *   **Paid/Premium Tier:** Reward views accumulate **Karma Coins** in a permanent wallet. Points can be redeemed for subscription renewal discounts, partner wellness gear discounts, or Indian heritage charity donations.
 
+### Personalization & Routine Gating
+*   **Premium Users:** Questionnaire outputs dynamically generate a tailored daily routine combining Asana, Pranayama, and Dhyana segments (Personalized Sadhana Plan).
+*   **Free Users:** Gated from personalized plans. Bypasses custom routine generation and defaults to a static, non-personalized "Global Daily Sadhana of the Day".
+
 ---
 
 ## User Persona Summaries
