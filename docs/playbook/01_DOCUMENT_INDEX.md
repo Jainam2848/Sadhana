@@ -1,7 +1,7 @@
 # Documentation Index — Sadhana
 
 > **Skill Used:** `wiki-architect` — Hierarchical catalogue of all project documentation.
-> **Last Updated:** Phase 2 Prompt 2.2
+> **Last Updated:** Phase 2 Prompt 2.3
 
 ---
 
@@ -49,7 +49,7 @@ This is the **table of contents** for the entire project's documentation. Every 
 |--------|----------|------|-------|
 | ✅ | User Personas | [`ux/USER_PERSONAS.md`](../ux/USER_PERSONAS.md) | 2 |
 | ✅ | User Flows & Screen Inventory | [`ux/USER_FLOWS.md`](../ux/USER_FLOWS.md) | 2 |
-| 🔲 | Onboarding Strategy | [`ux/ONBOARDING_STRATEGY.md`](../ux/ONBOARDING_STRATEGY.md) | 2 |
+| ✅ | Onboarding Strategy | [`ux/ONBOARDING_STRATEGY.md`](../ux/ONBOARDING_STRATEGY.md) | 2 |
 
 
 ---
@@ -61,7 +61,7 @@ This is the **table of contents** for the entire project's documentation. Every 
 | Status | Document | Path | Phase |
 |--------|----------|------|-------|
 | 🔲 | Design System | [`design/DESIGN_SYSTEM.md`](../design/DESIGN_SYSTEM.md) | 3 |
-| 🔲 | Platform Rules (HIG + Material) | [`PLATFORM_RULES.md`](../PLATFORM_RULES.md) | 3 |
+| ✅ | Platform Rules (HIG + Material) | [`PLATFORM_RULES.md`](../PLATFORM_RULES.md) | 2 |
 | 🔲 | Stitch Design Config | [`.stitch/DESIGN.md`](../../.stitch/DESIGN.md) | 3 |
 | 🔲 | Stitch Site Map | [`.stitch/SITE.md`](../../.stitch/SITE.md) | 3 |
 
