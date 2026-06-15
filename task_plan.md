@@ -32,12 +32,14 @@
 
 ## Current Phase Tasks
 
-### Phase 2: UX Research & Information Architecture
+### Phase 3: Design System & UI Generation
 
-- [x] Create `docs/ux/USER_PERSONAS.md` (Detailed customer psychographic profiling and JTBD progress matrix)
-- [x] Create `docs/ux/USER_FLOWS.md` (Mermaid journey flows, 19-screen inventory, and bottom-tab navigation map)
-- [x] Create `docs/ux/ONBOARDING_STRATEGY.md` (progressive disclosure sequence, permission priming logic)
-- [x] Create `docs/PLATFORM_RULES.md` (segregated design principles for Apple HIG and Android Material 3)
+- [ ] Create `docs/design/DESIGN_SYSTEM.md` (Light & dark themes, typography scale, component specs)
+- [ ] Create `.stitch/DESIGN.md` (Stitch UI configuration visual spec)
+- [ ] Create `.stitch/SITE.md` (Stitch Sitemap 20-screen checklist and roadmap)
+- [ ] Generate App Icon variations using `generate_image` tool
+- [ ] Generate Splash Screen artwork concept using `generate_image` tool
+- [ ] Update documentation index `docs/playbook/01_DOCUMENT_INDEX.md`
 
 
 
