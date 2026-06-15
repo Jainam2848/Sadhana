@@ -47,7 +47,7 @@
     - Tab 2: Library Stack (Category Browser, Course Details, Single Player)
     - Tab 3: Rewards Stack (Milestone Progress, Karma Coins Wallet, Redemption Screen)
     - Tab 4: Profile Stack (Lifetime Stats, Settings Sub-stack, Paywall Screen)
-*   **Screen Inventory:** Documented 19 distinct screens mapping modal flows, stacks, and tab routes.
+*   **Screen Inventory & Prompts:** Documented 20 distinct screens and detailed explicit layout prompts for Google Stitch in `docs/ux/FEATURES_AND_SCREENS.md`.
 
 
 ---

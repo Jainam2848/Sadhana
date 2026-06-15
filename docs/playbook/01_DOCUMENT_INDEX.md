@@ -48,8 +48,10 @@ This is the **table of contents** for the entire project's documentation. Every 
 | Status | Document | Path | Phase |
 |--------|----------|------|-------|
 | ✅ | User Personas | [`ux/USER_PERSONAS.md`](../ux/USER_PERSONAS.md) | 2 |
-| ✅ | User Flows & Screen Inventory | [`ux/USER_FLOWS.md`](../ux/USER_FLOWS.md) | 2 |
+| ✅ | User Flows | [`ux/USER_FLOWS.md`](../ux/USER_FLOWS.md) | 2 |
 | ✅ | Onboarding Strategy | [`ux/ONBOARDING_STRATEGY.md`](../ux/ONBOARDING_STRATEGY.md) | 2 |
+| ✅ | Features & Screens | [`ux/FEATURES_AND_SCREENS.md`](../ux/FEATURES_AND_SCREENS.md) | 2 |
+
 
 
 ---
