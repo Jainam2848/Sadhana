@@ -1,0 +1,29 @@
+# Sadhana
+> A top-tier mobile application built entirely in the Antigravity agentic environment.
+> **Project Root:** `D:\Desktop\Fitness`
+
+## Core Files
+- [docs/playbook/00_MASTER_PLAYBOOK.md]: Master development playbook — 10 phases from discovery to launch
+- [docs/playbook/01_DOCUMENT_INDEX.md]: Wiki-style catalogue of all project documentation
+- [docs/playbook/02_SKILL_QUICKREF.md]: Quick-reference for 50+ agent skills and when to use them
+- [docs/PRODUCT_REQUIREMENTS.md]: Product requirements document (Phase 1)
+- [docs/design/DESIGN_SYSTEM.md]: Design system tokens and component specs (Phase 3)
+- [docs/architecture/ARCHITECTURE.md]: Technical architecture and system design (Phase 4)
+
+## Key Concepts
+- Agentic Development: Autonomous AI agents build each feature with human-in-the-loop approval gates
+- Subagent-Driven: Fresh subagent per task with two-stage review (spec compliance → code quality)
+- Planning-with-Files: Persistent working memory via task_plan.md, findings.md, progress.md
+- Phase-Gated: 10 sequential phases, each producing required documentation before code
+
+## Tech Stack
+- Frontend: React Native + Expo + TypeScript (strict mode)
+- Styling: NativeWind (Tailwind CSS v4 for React Native)
+- State: Zustand + React Query
+- Backend: TBD (Supabase / Firebase / Custom Node.js — decided in Phase 4, ADR-001)
+- Payments: TBD (Stripe / RevenueCat / Native IAP — decided in Phase 6, ADR-005)
+- Testing: Jest + React Native Testing Library + Detox/Maestro
+
+## Status
+- Current Phase: 0 (Project Bootstrap)
+- Next Milestone: User approval of playbook → Phase 1 Discovery
