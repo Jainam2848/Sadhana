@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile - Sadhana</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#c44b22",
+                      "background-bone": "#FDFAF5",
+                      "charcoal": "#1C1409",
+                      "border-subtle": "rgba(42, 29, 10, 0.08)",
+                      "surface-white": "#FFFFFF",
+                      "surface-dim": "#e8d7c5",
+                      "secondary": "#6d5c43",
+                      "secondary-container": "#f7dfbf",
+                      "on-secondary-container": "#736248",
+                      "destructive-red": "#991F1F"
+              },
+              "fontFamily": {
+                      "body-lg": ["DM Sans"],
+                      "headline-md": ["Cormorant Garamond", "EB Garamond"],
+                      "label-md": ["DM Sans"],
+                      "label-sm": ["DM Sans"],
+                      "body-md": ["DM Sans"]
+              }
+            }
+          }
+        }
+</script>
+<style>
+        body {
+            background-color: #FDFAF5;
+            color: #1C1409;
+            min-height: max(884px, 100dvh);
+        }
+        h1, h2, h3, h4, h5, h6, .cormorant {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .dm-sans {
+            font-family: 'DM Sans', sans-serif;
+        }
+        
+        .mandala-thread {
+            position: fixed;
+            top: -20px;
+            right: -20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 10;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #C44B22;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #C44B22;
+        }
+        .toggle-checkbox:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .toggle-label {
+            width: 40px;
+            height: 24px;
+            background-color: #e8d7c5;
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .toggle-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .toggle-checkbox:checked + .toggle-label::after {
+            transform: translateX(16px);
+        }
+
+        /* Heatmap animations */
+        .heatmap-cell {
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+        }
+        .heatmap-tier-0 { background-color: #f7dfbf; opacity: 0.3; } /* Very light */
+        .heatmap-tier-1 { background-color: #ffdbd0; } /* Light */
+        .heatmap-tier-2 { background-color: #ffb59e; } /* Medium */
+        .heatmap-tier-3 { background-color: #c44b22; } /* Dark / Terracotta */
+
+        /* Tap flash */
+        .tap-flash {
+            transition: background-color 0.2s ease;
+        }
+        .tap-flash:active {
+            background-color: #f1e0cd;
+        }
+
+        /* Reading preview */
+        .reading-preview {
+            transition: font-size 0.15s ease-out;
+        }
+        
+        /* Range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #C44B22;
+            cursor: pointer;
+            margin-top: -8px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e8d7c5;
+            border-radius: 2px;
+        }
+</style>
+</head>
+<body class="min-h-screen pb-24 relative overflow-x-hidden">
+<!-- Mandala Thread Brand Anchor -->
+<div class="mandala-thread"></div>
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-background-bone/90 backdrop-blur-md border-b border-border-subtle flex items-center h-16 px-6 max-w-7xl mx-auto z-40">
+<button class="mr-4 hover:opacity-80 transition-opacity active:scale-95 transition-transform text-secondary">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="cormorant text-2xl font-semibold text-[#c44b22]">Profile</h1>
+</header>
+<main class="max-w-3xl mx-auto px-6 pt-8 pb-12 space-y-12">
+<!-- Profile Header -->
+<section class="flex flex-col items-center justify-center text-center space-y-4">
+<div class="relative">
+<div class="w-24 h-24 rounded-full border border-primary-container p-1">
+<img alt="Avatar for Asha Devi" class="w-full h-full object-cover rounded-full" data-alt="A serene portrait of a South Asian woman with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU4rze07XFKfWs--9lYl1SLu5Dwc9f2i9OLbeYHxVWjKNMJgDSbYLbTjvbtDdl-u0TK4G9LWRTLwlJslNDoWIl-XBKG9lMbZT4Bljdyxaz2jGHmhuhViqSeMjfF1sjArH_JeXL-ceHWb7SJfs5meuUorPJeidxYInXadeCVlQGNpcSg0RjcGCcyYX6mCCoB54vHDQCq0r_ToC6Y_Mp7Rh1N5CPC6qW7ozUcJGeQ7QQF0lRZbdFvOwR1EFtmMkBkLALfcdt9_XKCA"/>
+</div>
+</div>
+<div>
+<h2 class="cormorant text-2xl font-semibold text-charcoal">Asha Devi</h2>
+<p class="dm-sans text-xs font-medium text-primary-container mt-1 uppercase tracking-wider">Creator+ Member</p>
+</div>
+</section>
+<!-- SCREEN 15: Profile Dashboard (Stats & Heatmap) -->
+<section class="space-y-8">
+<!-- Stats -->
+<div class="grid grid-cols-3 gap-4 border-y border-border-subtle py-6">
+<div class="text-center flex flex-col items-center">
+<span class="cormorant text-3xl font-semibold text-charcoal counter" data-target="142">0</span>
+<span class="dm-sans text-xs text-secondary mt-1">Sessions</span>
+</div>
+<div class="text-center flex flex-col items-center border-l border-r border-border-subtle px-4">
+<span class="cormorant text-3xl font-semibold text-charcoal counter" data-target="28">0</span>
+<span class="dm-sans text-xs text-secondary mt-1">Hours</span>
+</div>
+<div class="text-center flex flex-col items-center">
+<span class="cormorant text-3xl font-semibold text-charcoal counter" data-target="14">0</span>
+<span class="dm-sans text-xs text-secondary mt-1">Day Streak</span>
+</div>
+</div>
+<!-- Heatmap -->
+<div class="space-y-4">
+<h3 class="cormorant text-[18px] font-medium text-charcoal">Practice Heatmap</h3>
+<div class="bg-surface-white rounded-xl border border-border-subtle p-6 overflow-x-auto">
+<div class="flex gap-2 w-max mx-auto" id="heatmap-container">
+<!-- Javascript will populate a 6x7 grid (6 cols, 7 rows) here -->
+</div>
+</div>
+</div>
+</section>
+<!-- SCREEN 17: Preferences -->
+<section class="space-y-4">
+<h3 class="cormorant text-[18px] font-medium text-charcoal">Preferences</h3>
+<div class="bg-surface-white rounded-xl border border-border-subtle p-5 space-y-6">
+<div>
+<span class="dm-sans text-sm font-medium text-secondary block mb-4">Reading Size</span>
+<div class="flex items-center space-x-4">
+<span class="dm-sans text-sm text-secondary">A</span>
+<input class="flex-1" id="reading-size-slider" max="24" min="14" type="range" value="18"/>
+<span class="dm-sans text-lg text-secondary">A</span>
+</div>
+</div>
+<div class="p-4 bg-background-bone rounded-lg border border-border-subtle text-center">
+<p class="cormorant reading-preview text-charcoal" id="reading-preview-text" style="font-size: 18px;">
+                    Start your morning with stillness
+                </p>
+</div>
+</div>
+</section>
+<!-- SCREEN 16: Settings -->
+<section class="space-y-4">
+<h3 class="cormorant text-[18px] font-medium text-charcoal">Account Details</h3>
+<div class="bg-surface-white rounded-xl border border-border-subtle overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-border-subtle tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Name</span>
+<span class="dm-sans text-base text-charcoal">Asha Devi</span>
+</div>
+<div class="flex items-center justify-between p-4 tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Email</span>
+<span class="dm-sans text-base text-charcoal">asha.devi@example.com</span>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h3 class="cormorant text-[18px] font-medium text-charcoal">App Settings</h3>
+<div class="bg-surface-white rounded-xl border border-border-subtle overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-border-subtle tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Dark Mode</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="darkmode-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-dim cursor-pointer" for="darkmode-toggle"></label>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-border-subtle tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Language</span>
+<div class="flex items-center text-charcoal">
+<span class="dm-sans text-base mr-2">English</span>
+<span class="material-symbols-outlined text-secondary opacity-70">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Downloads &amp; Storage</span>
+<span class="material-symbols-outlined text-secondary opacity-70">chevron_right</span>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h3 class="cormorant text-[18px] font-medium text-charcoal">Support &amp; Legal</h3>
+<div class="bg-surface-white rounded-xl border border-border-subtle overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-border-subtle tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Help Center</span>
+<span class="material-symbols-outlined text-secondary opacity-70">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-border-subtle tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-secondary">Privacy Policy</span>
+<span class="material-symbols-outlined text-secondary opacity-70">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 tap-flash cursor-pointer">
+<span class="dm-sans text-sm font-medium text-destructive-red">Logout</span>
+<span class="material-symbols-outlined text-destructive-red opacity-70">logout</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-white border-t border-border-subtle">
+<button class="flex flex-col items-center justify-center text-secondary px-4 py-1 hover:text-primary-container transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1">self_improvement</span>
+<span class="dm-sans text-xs font-medium">Practice</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary px-4 py-1 hover:text-primary-container transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1">auto_awesome</span>
+<span class="dm-sans text-xs font-medium">Rituals</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary px-4 py-1 hover:text-primary-container transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="dm-sans text-xs font-medium">Journal</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 hover:text-primary-container transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="dm-sans text-xs font-semibold">Profile</span>
+</button>
+</nav>
+<script>
+    // 1. Counter Animation
+    const duration = 1000;
+    document.querySelectorAll('.counter').forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const startTime = performance.now();
+        
+        function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out quad
+            const easeOut = progress * (2 - progress);
+            
+            counter.innerText = Math.floor(easeOut * target);
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.innerText = target;
+            }
+        }
+        requestAnimationFrame(updateCounter);
+    });
+
+    // 2. Heatmap Generation & Animation
+    const heatmapContainer = document.getElementById('heatmap-container');
+    const cols = 6;
+    const rows = 7;
+    
+    // Generate dummy data (0-3 tiers)
+    for (let c = 0; c < cols; c++) {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'flex flex-col gap-2';
+        
+        for (let r = 0; r < rows; r++) {
+            const cell = document.createElement('div');
+            // Randomize tier for visual interest, weighting towards lower tiers
+            const tier = Math.floor(Math.pow(Math.random(), 2) * 4); 
+            cell.className = `w-4 h-4 rounded-sm heatmap-cell heatmap-tier-${tier}`;
+            
+            // Stagger animation column by column (30ms per column)
+            setTimeout(() => {
+                cell.style.opacity = '1';
+            }, c * 30 + (r * 10)); // Slight row stagger too for nice effect
+            
+            colDiv.appendChild(cell);
+        }
+        heatmapContainer.appendChild(colDiv);
+    }
+
+    // 3. Reading Size Slider
+    const slider = document.getElementById('reading-size-slider');
+    const previewText = document.getElementById('reading-preview-text');
+    
+    slider.addEventListener('input', (e) => {
+        previewText.style.fontSize = `${e.target.value}px`;
+    });
+</script>
+</body></html>

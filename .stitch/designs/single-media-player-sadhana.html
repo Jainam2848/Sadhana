@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sadhana - Media Player</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:wght@400;500;600;700&amp;family=Noto+Serif+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#fff8f4",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-secondary-container": "#736248",
+                        "on-primary-fixed": "#3a0b00",
+                        "tertiary-container": "#0079b0",
+                        "inverse-surface": "#392f22",
+                        "secondary-fixed": "#f7dfbf",
+                        "inverse-on-surface": "#ffeedc",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#c44b22",
+                        "surface-container-low": "#fff1e4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "success-ashoka": "#1A6B3A",
+                        "surface-tint": "#a9380f",
+                        "surface-container-lowest": "#ffffff",
+                        "destructive-red": "#991F1F",
+                        "secondary": "#6d5c43",
+                        "highlight-sandstone": "#F5E6C8",
+                        "on-tertiary-container": "#f5f9ff",
+                        "inverse-primary": "#ffb59e",
+                        "background": "#fff8f4",
+                        "primary-fixed-dim": "#ffb59e",
+                        "secondary-container": "#f7dfbf",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "outline-variant": "#e0c0b6",
+                        "on-surface-variant": "#58423b",
+                        "on-error": "#ffffff",
+                        "surface-container": "#fdebd8",
+                        "on-primary-container": "#fff7f5",
+                        "on-background": "#231a0f",
+                        "surface-container-highest": "#f1e0cd",
+                        "primary": "#a3330a",
+                        "surface-container-high": "#f7e5d2",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "surface-white": "#FFFFFF",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-dim": "#e8d7c5",
+                        "on-secondary-fixed": "#251906",
+                        "surface-variant": "#f1e0cd",
+                        "surface-bright": "#fff8f4",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "tertiary-fixed": "#cae6ff",
+                        "tertiary": "#005f8c",
+                        "background-bone": "#FDFAF5",
+                        "on-surface": "#231a0f",
+                        "outline": "#8c7169",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-primary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "label-md": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "body-md": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "label-sm": ["DM Sans"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0D0A06;
+            color: #F7E5D2;
+        }
+        
+        .mandala-art {
+            animation: rotate-art 16s linear infinite;
+            animation-play-state: paused;
+            transition: transform 0.5s ease-out;
+        }
+        
+        .mandala-art.playing {
+            animation-play-state: running;
+        }
+
+        @keyframes rotate-art {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Thread anchor top right */
+        .thread-anchor {
+            position: absolute;
+            top: -24px;
+            right: -24px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #2a1f16;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #C44B22;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-body-md antialiased overflow-hidden">
+<!-- Brand Anchor -->
+<div class="thread-anchor"></div>
+<!-- Top App Bar (Modified for Dark Theme context) -->
+<header class="w-full top-0 sticky flex justify-between items-center px-margin-page py-4 max-w-7xl mx-auto z-50">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#1a140d] transition-colors" onclick="window.history.back()">
+<span class="material-symbols-outlined text-[#F7E5D2]" style="font-variation-settings: 'wght' 300;">expand_more</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-[#a38c75] uppercase tracking-widest">Now Playing</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#1a140d] transition-colors">
+<span class="material-symbols-outlined text-[#F7E5D2]" style="font-variation-settings: 'wght' 300;">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-between px-margin-page pb-12 pt-8 max-w-md mx-auto w-full relative z-10">
+<!-- Artwork Section -->
+<div class="flex-grow flex flex-col items-center justify-center w-full mb-8">
+<div class="w-[200px] h-[200px] bg-[#1C1409] rounded-lg shadow-2xl relative overflow-hidden flex items-center justify-center border border-[#2a1f16]" id="artwork-container">
+<svg class="mandala-art w-[160px] h-[160px]" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="48" stroke="#C44B22" stroke-dasharray="2 4" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" r="40" stroke="#C44B22" stroke-width="0.5"></circle>
+<path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#C44B22" stroke-width="0.25"></path>
+<circle cx="50" cy="50" r="25" stroke="#C44B22" stroke-dasharray="1 2" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="#1C1409" r="10" stroke="#C44B22" stroke-width="1"></circle>
+</svg>
+</div>
+<div class="text-center mt-stack-lg w-full">
+<h1 class="font-headline-md text-headline-md text-[#F7E5D2] mb-1">Morning Prana</h1>
+<p class="font-label-md text-label-md text-[#a38c75]">Dr. Vasant Lad • Breathwork</p>
+</div>
+</div>
+<!-- Scrubber Section -->
+<div class="w-full mb-stack-lg">
+<input class="custom-slider mb-2" id="progress-slider" max="100" min="0" type="range" value="35">
+<div class="flex justify-between items-center w-full px-1">
+<span class="font-label-sm text-label-sm text-[#a38c75]">04:12</span>
+<span class="font-label-sm text-label-sm text-[#a38c75]">-07:48</span>
+</div>
+</div>
+<!-- Controls Section -->
+<div class="flex items-center justify-between w-full px-4 mb-section-gap">
+<button class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-[#1a140d] transition-colors text-[#a38c75]" id="loop-btn">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">repeat</span>
+</button>
+<button class="w-14 h-14 flex items-center justify-center rounded-full hover:bg-[#1a140d] transition-colors text-[#F7E5D2]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">replay_10</span>
+</button>
+<button class="w-[72px] h-[72px] bg-[#C44B22] text-white rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform" id="play-pause-btn">
+<span class="material-symbols-outlined text-[32px]" id="play-icon" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="w-14 h-14 flex items-center justify-center rounded-full hover:bg-[#1a140d] transition-colors text-[#F7E5D2]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">forward_10</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-[#1a140d] transition-colors text-[#a38c75]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">favorite_border</span>
+</button>
+</div>
+<!-- Action Button -->
+<div class="w-full">
+<button class="w-full h-12 rounded-full border border-[#C44B22] text-[#C44B22] font-label-md text-label-md flex items-center justify-center transition-all duration-300 relative overflow-hidden group" id="complete-btn">
+<span class="absolute inset-0 bg-[#C44B22] opacity-0 group-active:opacity-10 transition-opacity"></span>
+<span class="flex items-center gap-2" id="complete-content">
+                    Mark as complete
+                </span>
+</button>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playBtn = document.getElementById('play-pause-btn');
+            const playIcon = document.getElementById('play-icon');
+            const artwork = document.querySelector('.mandala-art');
+            const loopBtn = document.getElementById('loop-btn');
+            const completeBtn = document.getElementById('complete-btn');
+            const completeContent = document.getElementById('complete-content');
+            let isPlaying = false;
+            let isLooping = false;
+
+            playBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                
+                if (isPlaying) {
+                    playIcon.textContent = 'pause';
+                    artwork.classList.add('playing');
+                } else {
+                    playIcon.textContent = 'play_arrow';
+                    artwork.classList.remove('playing');
+                }
+                
+                // Simple haptic feedback if available
+                if (navigator.vibrate) navigator.vibrate(50);
+            });
+
+            loopBtn.addEventListener('click', () => {
+                isLooping = !isLooping;
+                if (isLooping) {
+                    loopBtn.classList.remove('text-[#a38c75]');
+                    loopBtn.classList.add('text-[#C44B22]');
+                } else {
+                    loopBtn.classList.add('text-[#a38c75]');
+                    loopBtn.classList.remove('text-[#C44B22]');
+                }
+            });
+
+            completeBtn.addEventListener('click', () => {
+                // Haptic logic
+                if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+
+                // Transition to green checkmark
+                completeBtn.classList.remove('border-[#C44B22]', 'text-[#C44B22]');
+                completeBtn.classList.add('border-[#1A6B3A]', 'bg-[#1A6B3A]/10', 'text-[#1A6B3A]');
+                
+                completeContent.innerHTML = `
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">check</span>
+                    Completed
+                `;
+                
+                completeBtn.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    completeBtn.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body></html>

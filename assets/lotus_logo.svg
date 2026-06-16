@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" fill="none" stroke="#C44B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Center Petal -->
+  <path d="M50 20 C42 40 42 70 50 80 C58 70 58 40 50 20 Z" />
+  <!-- Inner Left Petal -->
+  <path d="M50 35 C35 50 38 72 50 80 C40 70 42 45 50 35 Z" />
+  <!-- Inner Right Petal -->
+  <path d="M50 35 C65 50 62 72 50 80 C60 70 58 45 50 35 Z" />
+  <!-- Mid Left Petal -->
+  <path d="M50 48 C20 60 28 80 50 80 C30 75 35 55 50 48 Z" />
+  <!-- Mid Right Petal -->
+  <path d="M50 48 C80 60 72 80 50 80 C70 75 65 55 50 48 Z" />
+  <!-- Outer Left Petal -->
+  <path d="M50 60 C12 70 18 80 50 80 C18 78 28 65 50 60 Z" />
+  <!-- Outer Right Petal -->
+  <path d="M50 60 C88 70 82 80 50 80 C82 78 72 65 50 60 Z" />
+</svg>

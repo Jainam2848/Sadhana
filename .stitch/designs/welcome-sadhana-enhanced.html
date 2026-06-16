@@ -1,0 +1,284 @@
+<!DOCTYPE html><html class="light" lang="en"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Welcome - Sadhana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#392f22",
+                        "surface-container-high": "#f7e5d2",
+                        "primary-fixed": "#ffdbd0",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "inverse-on-surface": "#ffeedc",
+                        "background-bone": "#FDFAF5",
+                        "highlight-sandstone": "#F5E6C8",
+                        "surface-dim": "#e8d7c5",
+                        "outline": "#8c7169",
+                        "on-primary-fixed-variant": "#852400",
+                        "primary-container": "#c44b22",
+                        "on-secondary-container": "#736248",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#005f8c",
+                        "primary-fixed-dim": "#ffb59e",
+                        "surface-container-highest": "#f1e0cd",
+                        "tertiary-fixed": "#cae6ff",
+                        "on-secondary-fixed": "#251906",
+                        "on-surface-variant": "#58423b",
+                        "secondary-fixed": "#f7dfbf",
+                        "tertiary-container": "#0079b0",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-surface": "#231a0f",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#f7dfbf",
+                        "surface-variant": "#f1e0cd",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "outline-variant": "#e0c0b6",
+                        "on-background": "#231a0f",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "surface-tint": "#a9380f",
+                        "inverse-primary": "#ffb59e",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "destructive-red": "#991F1F",
+                        "surface": "#fff8f4",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "background": "#fff8f4",
+                        "on-primary-fixed": "#3a0b00",
+                        "surface-white": "#FFFFFF",
+                        "on-tertiary-container": "#f5f9ff",
+                        "surface-container-low": "#fff1e4",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "success-ashoka": "#1A6B3A",
+                        "surface-bright": "#fff8f4",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#fdebd8",
+                        "primary": "#a3330a",
+                        "on-primary-container": "#fff7f5",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#6d5c43"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["DM Sans"],
+                        "headline-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "display-lg": ["EB Garamond"],
+                        "body-md": ["DM Sans"],
+                        "cormorant": ["Cormorant Garamond", "serif"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    },
+                    "animation": {
+                        "marquee": "marquee 25s linear infinite",
+                        "fade-in-up": "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+                        "stroke-draw": "strokeDraw 1.2s ease-in-out forwards",
+                        "float": "float 4s ease-in-out infinite"
+                    },
+                    "keyframes": {
+                        "marquee": {
+                            "0%": { transform: "translateX(0%)" },
+                            "100%": { transform: "translateX(-100%)" }
+                        },
+                        "fadeInUp": {
+                            "0%": { opacity: "0", transform: "translateY(20px)" },
+                            "100%": { opacity: "1", transform: "translateY(0)" }
+                        },
+                        "strokeDraw": {
+                            "0%": { strokeDasharray: "200", strokeDashoffset: "200" },
+                            "100%": { strokeDasharray: "200", strokeDashoffset: "0" }
+                        },
+                        "float": {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-5px)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FDFAF5; /* background-bone */
+            overflow-x: hidden;
+        }
+        
+        .mandala-thread {
+            position: absolute;
+            top: -5vw;
+            right: -5vw;
+            width: 35vw;
+            height: 35vw;
+            min-width: 250px;
+            min-height: 250px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22; /* primary-container / terracotta */
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .anim-delay-300 { animation-delay: 300ms; }
+        .anim-delay-500 { animation-delay: 500ms; }
+        .anim-delay-700 { animation-delay: 700ms; }
+        .anim-delay-900 { animation-delay: 900ms; }
+
+        .petal {
+            fill: none;
+            stroke: #C44B22;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: strokeDraw 2s ease-out forwards;
+        }
+        .petal-center { animation-delay: 0.2s; }
+        .petal-inner-left { animation-delay: 0.4s; }
+        .petal-inner-right { animation-delay: 0.4s; }
+        .petal-mid-left { animation-delay: 0.6s; }
+        .petal-mid-right { animation-delay: 0.6s; }
+        .petal-outer-left { animation-delay: 0.8s; }
+        .petal-outer-right { animation-delay: 0.8s; }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-surface antialiased min-h-screen flex flex-col relative selection:bg-highlight-sandstone selection:text-on-surface">
+<!-- Paper Grain Texture -->
+<svg class="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.03]">
+<filter id="noise">
+<feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"></feTurbulence>
+</filter>
+<rect filter="url(#noise)" height="100%" width="100%"></rect>
+</svg>
+<!-- Mandala Thread Anchor -->
+<div class="mandala-thread"></div>
+<main class="flex-grow flex flex-col relative z-10 w-full max-w-md mx-auto h-screen md:max-w-2xl lg:max-w-4xl px-margin-page py-12 justify-between">
+<!-- Top Section (40%) -->
+<section class="flex flex-col items-center text-center pt-8 md:pt-16 lg:pt-24 shrink-0">
+<!-- Lotus Glyph -->
+<div class="w-16 h-16 mb-6">
+<svg class="w-full h-full text-primary-container animate-float" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<!-- 7-petal lotus glyph -->
+<!-- Center Petal -->
+<path class="petal petal-center" d="M50 25 C55 40 55 60 50 75 C45 60 45 40 50 25 Z"></path>
+<!-- Inner Petals -->
+<path class="petal petal-inner-left" d="M50 75 C40 65 30 50 35 35 C40 45 45 65 50 75 Z"></path>
+<path class="petal petal-inner-right" d="M50 75 C60 65 70 50 65 35 C60 45 55 65 50 75 Z"></path>
+<!-- Mid Petals -->
+<path class="petal petal-mid-left" d="M50 75 C30 70 20 55 25 45 C30 55 40 65 50 75 Z"></path>
+<path class="petal petal-mid-right" d="M50 75 C70 70 80 55 75 45 C70 55 60 65 50 75 Z"></path>
+<!-- Outer Petals -->
+<path class="petal petal-outer-left" d="M50 75 C20 75 10 65 15 60 C20 65 35 70 50 75 Z"></path>
+<path class="petal petal-outer-right" d="M50 75 C80 75 90 65 85 60 C80 65 65 70 50 75 Z"></path>
+</svg>
+</div>
+<!-- Headings -->
+<h1 class="font-cormorant text-[36px] leading-tight text-on-surface mb-4 opacity-0 animate-fade-in-up anim-delay-300">
+                Your Morning Begins Here
+            </h1>
+<p class="font-body-md text-[16px] text-on-surface-variant max-w-[280px] md:max-w-sm opacity-0 animate-fade-in-up anim-delay-500">
+                A sanctuary for daily rituals, grounded in mindfulness and gentle observation.
+            </p>
+</section>
+<!-- Mid Section: Marquee -->
+<section class="w-full relative overflow-hidden py-8 shrink-0 opacity-0 animate-fade-in-up anim-delay-700">
+<!-- Horizontal Dividers -->
+<div class="absolute top-0 left-0 right-0 border-t-[0.5px] border-outline opacity-20"></div>
+<div class="absolute bottom-0 left-0 right-0 border-b-[0.5px] border-outline opacity-20"></div>
+<!-- Fade edges -->
+<div class="absolute left-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-r from-background-bone to-transparent z-10 pointer-events-none"></div>
+<div class="absolute right-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-l from-background-bone to-transparent z-10 pointer-events-none"></div>
+<div class="flex whitespace-nowrap animate-marquee py-2">
+<!-- Testimonial Items -->
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"A grounding start to every day."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"Finally, space to breathe."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"Editorial minimalism at its best."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"The ritual I didn't know I needed."</span>
+</div>
+<!-- Duplicate for seamless loop -->
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"A grounding start to every day."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"Finally, space to breathe."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"Editorial minimalism at its best."</span>
+</div>
+<div class="inline-flex items-center mx-8 space-x-2">
+<span class="w-1 h-1 rounded-full bg-primary-container opacity-50"></span>
+<span class="font-body-md text-[13px] italic text-on-surface-variant">"The ritual I didn't know I needed."</span>
+</div>
+</div>
+</section>
+<!-- Bottom Section -->
+<section class="flex flex-col items-center pb-8 shrink-0 w-full opacity-0 animate-fade-in-up anim-delay-900">
+<button class="w-full max-w-[320px] min-h-[48px] bg-primary-container text-surface-white rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center justify-center tracking-wide">
+                Begin Your Journey
+            </button>
+<p class="mt-6 font-body-md text-[14px] text-on-surface-variant">
+                Already have an account? 
+                <a class="text-primary-container hover:underline underline-offset-4 font-medium transition-all" href="#">Sign in</a>
+</p>
+</section>
+</main>
+</body></html>

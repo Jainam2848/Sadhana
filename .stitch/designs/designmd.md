@@ -1,5 +1,5 @@
 # Design System: Sadhana
-**Project ID:** 669110078172882916
+**Project ID:** [TBD_PROJECT_ID]
 
 ## 1. Visual Theme & Atmosphere
 The visual identity of Sadhana is **Earth Ritual** (Tactile Grounding & Editorial Restraint). The aesthetic mirrors a high-end yoga journal or printed scripture, prioritizing generous white space and hair-thin border lines over complex shadows or heavy fills. Every viewport features a thin decorative, cropped SVG arc in the top-right corner called the **Mandala thread**.

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sadhana - Account Deletion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Noto+Serif+Devanagari:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#c44b22",
+                        "inverse-primary": "#ffb59e",
+                        "on-background": "#231a0f",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "surface-bright": "#fff8f4",
+                        "on-tertiary-fixed": "#001e30",
+                        "surface-container-highest": "#f1e0cd",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "outline-variant": "#e0c0b6",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "secondary-container": "#f7dfbf",
+                        "on-primary-fixed-variant": "#852400",
+                        "tertiary": "#005f8c",
+                        "primary": "#a3330a",
+                        "on-primary": "#ffffff",
+                        "highlight-sandstone": "#F5E6C8",
+                        "surface-container-high": "#f7e5d2",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#736248",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "inverse-on-surface": "#ffeedc",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#a9380f",
+                        "on-tertiary": "#ffffff",
+                        "destructive-red": "#991F1F",
+                        "surface": "#fff8f4",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary-fixed": "#251906",
+                        "on-tertiary-container": "#f5f9ff",
+                        "surface-variant": "#f1e0cd",
+                        "secondary": "#6d5c43",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background-bone": "#FDFAF5",
+                        "on-primary-fixed": "#3a0b00",
+                        "secondary-fixed": "#f7dfbf",
+                        "outline": "#8c7169",
+                        "on-primary-container": "#fff7f5",
+                        "inverse-surface": "#392f22",
+                        "surface-container-low": "#fff1e4",
+                        "primary-fixed-dim": "#ffb59e",
+                        "surface-container": "#fdebd8",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "on-surface-variant": "#58423b",
+                        "tertiary-fixed": "#cae6ff",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface": "#231a0f",
+                        "success-ashoka": "#1A6B3A",
+                        "surface-dim": "#e8d7c5",
+                        "background": "#fff8f4",
+                        "tertiary-container": "#0079b0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "label-sm": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-md": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FDFAF5; /* Bone background */
+        }
+        .mandala-thread {
+            position: fixed;
+            top: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22; /* Terracotta */
+            pointer-events: none;
+            z-index: 0;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0); /* Arc crop */
+            opacity: 0.3;
+        }
+
+        /* Custom Header Font Override for User Spec */
+        .text-header-custom {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6B5A41;
+        }
+
+        .text-warning-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1C1409;
+        }
+
+        .text-warning-body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B5A41;
+            line-height: 1.5;
+        }
+
+        .text-confirm-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #1C1409;
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        
+        .shake-animation {
+            animation: shake 75ms ease-in-out 4; /* 4 cycles, ~300ms total */
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .shake-animation {
+                animation: none;
+            }
+        }
+
+        /* Button States */
+        .btn-delete-disabled {
+            background-color: rgba(153,31,31,0.25);
+            color: rgba(253,250,245,0.5);
+            pointer-events: auto; /* Allow click to trigger animation */
+            cursor: not-allowed;
+        }
+        
+        .btn-delete-enabled {
+            background-color: #991F1F;
+            color: #FDFAF5;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn-delete-enabled:active {
+            opacity: 0.9;
+        }
+
+        /* Input States */
+        .input-default {
+            border: 1px solid #8c7169; /* Outline color */
+        }
+        
+        .input-matched {
+            border: 1px solid #991F1F !important;
+        }
+        
+        .input-error-pulse {
+            border-color: #991F1F !important;
+            transition: border-color 0.2s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Mandala Thread Decoration -->
+<div class="mandala-thread"></div>
+<!-- Header -->
+<header class="flex items-center justify-between px-margin-page py-4 sticky top-0 bg-background-bone z-10">
+<button aria-label="Go back" class="w-12 h-12 flex items-center justify-start -ml-2 text-on-surface hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-size: 24px; font-weight: 300;">chevron_left</span>
+</button>
+<h1 class="text-header-custom uppercase tracking-wider absolute left-1/2 transform -translate-x-1/2">Account Deletion</h1>
+<div class="w-12 h-12"></div> <!-- Spacer to center title -->
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col px-margin-page py-stack-lg max-w-md mx-auto w-full z-10 relative">
+<!-- Warning Box -->
+<div class="bg-[#FDF0EE] border border-[rgba(153,31,31,0.15)] rounded-[12px] p-stack-md mb-stack-lg">
+<h2 class="text-warning-title mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-destructive-red" style="font-size: 18px;">warning</span>
+                This cannot be undone
+            </h2>
+<p class="text-warning-body">
+                Your sessions, streak history, and Karma Coins will be permanently removed. Subscriptions are not automatically cancelled — manage billing separately.
+            </p>
+</div>
+<!-- Confirmation Input Area -->
+<div class="mb-section-gap flex-grow">
+<label class="block text-confirm-label mb-stack-sm" for="delete-input">
+                To confirm, type <span class="font-bold">DELETE</span> below:
+            </label>
+<input autocomplete="off" class="w-full h-[52px] rounded-[12px] bg-surface-white input-default text-on-surface px-4 focus:ring-0 focus:outline-none transition-colors" id="delete-input" placeholder="DELETE" type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-stack-md mt-auto pb-stack-lg">
+<button class="w-full h-[48px] rounded-full btn-delete-disabled font-label-md transition-all flex items-center justify-center" id="delete-btn">
+                Permanently delete my account
+            </button>
+<a class="text-center font-body-md text-[13px] text-[#6B5A41] hover:text-on-surface transition-colors py-2" href="#">
+                Take me back
+            </a>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('delete-input');
+            const btn = document.getElementById('delete-btn');
+            const requiredText = 'DELETE';
+
+            // Input Event Listener
+            input.addEventListener('input', (e) => {
+                const val = e.target.value;
+                
+                // Remove error styling if user starts typing again
+                input.classList.remove('input-error-pulse');
+                btn.classList.remove('shake-animation');
+
+                if (val === requiredText) {
+                    input.classList.add('input-matched');
+                    input.classList.remove('input-default');
+                    
+                    btn.classList.remove('btn-delete-disabled');
+                    btn.classList.add('btn-delete-enabled');
+                } else {
+                    input.classList.remove('input-matched');
+                    input.classList.add('input-default');
+                    
+                    btn.classList.remove('btn-delete-enabled');
+                    btn.classList.add('btn-delete-disabled');
+                }
+            });
+
+            // Button Click Handler (Disabled State Interaction)
+            btn.addEventListener('click', (e) => {
+                if (btn.classList.contains('btn-delete-disabled')) {
+                    e.preventDefault();
+                    
+                    // Trigger Shake on Button
+                    btn.classList.remove('shake-animation');
+                    void btn.offsetWidth; // Trigger reflow
+                    btn.classList.add('shake-animation');
+                    
+                    // Trigger Error Pulse on Input
+                    input.classList.add('input-error-pulse');
+                    
+                    // Focus input to encourage user to type
+                    input.focus();
+                    
+                    // Cleanup error pulse class after animation completes to allow re-triggering
+                    setTimeout(() => {
+                        input.classList.remove('input-error-pulse');
+                    }, 500);
+                } else {
+                    // Proceed with actual deletion logic
+                    console.log('Account deletion confirmed.');
+                    // In a real app, this would submit the form or make an API call
+                }
+            });
+        });
+    </script>
+</body></html>

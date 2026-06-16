@@ -1,0 +1,233 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Morning Sanctuary - Sadhana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Noto+Serif+Devanagari:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#392f22",
+                        "primary": "#a3330a",
+                        "tertiary-container": "#0079b0",
+                        "on-primary-container": "#fff7f5",
+                        "surface-tint": "#a9380f",
+                        "outline": "#8c7169",
+                        "surface-container-highest": "#f1e0cd",
+                        "primary-container": "#c44b22",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#ffeedc",
+                        "surface-container-low": "#fff1e4",
+                        "surface-variant": "#f1e0cd",
+                        "background-bone": "#FDFAF5",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb59e",
+                        "on-secondary-container": "#736248",
+                        "success-ashoka": "#1A6B3A",
+                        "on-surface-variant": "#58423b",
+                        "inverse-primary": "#ffb59e",
+                        "on-tertiary-container": "#f5f9ff",
+                        "secondary-container": "#f7dfbf",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "on-surface": "#231a0f",
+                        "tertiary-fixed": "#cae6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#231a0f",
+                        "surface": "#fff8f4",
+                        "outline-variant": "#e0c0b6",
+                        "secondary-fixed": "#f7dfbf",
+                        "surface-container": "#fdebd8",
+                        "secondary": "#6d5c43",
+                        "surface-bright": "#fff8f4",
+                        "on-primary-fixed-variant": "#852400",
+                        "error": "#ba1a1a",
+                        "destructive-red": "#991F1F",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e8d7c5",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#3a0b00",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-container-high": "#f7e5d2",
+                        "background": "#fff8f4",
+                        "on-secondary-fixed": "#251906",
+                        "tertiary": "#005f8c",
+                        "highlight-sandstone": "#F5E6C8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-page": "24px",
+                        "gutter-grid": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "section-gap": "48px"
+                    },
+                    "fontFamily": {
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "label-sm": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "sanskrit-overlay": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FDFAF5; /* Warm Bone */
+            color: #231a0f;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* The Mandala Thread */
+        .mandala-thread {
+            position: fixed;
+            top: -20vw;
+            right: -20vw;
+            width: 50vw;
+            height: 50vw;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22; /* Terracotta */
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+            max-width: 400px;
+            max-height: 400px;
+        }
+
+        /* Animation Classes */
+        .stagger-enter {
+            opacity: 0;
+            transform: translateY(8px);
+            animation: slideUpFadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes slideUpFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Toggle Switch Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #1A6B3A; /* Ashoka Green */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #1A6B3A; /* Ashoka Green */
+        }
+        
+        .interaction-spring {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .interaction-spring:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative font-body-md text-body-md">
+<!-- The Mandala Thread Anchor -->
+<div class="mandala-thread hidden md:block"></div>
+<div class="mandala-thread md:hidden" style="width: 70vw; height: 70vw; top: -25vw; right: -25vw;"></div>
+<!-- Top Navigation (Transactional/Task focused, hides BottomNav) -->
+<header class="flex justify-between items-center px-margin-page h-16 w-full bg-background-bone/80 backdrop-blur-md sticky top-0 z-50">
+<button aria-label="Back" class="w-10 h-10 flex items-center justify-center text-primary-container interaction-spring">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">arrow_back_ios_new</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-background text-center flex-1">Morning Sanctuary</h1>
+<div class="w-10"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-page py-stack-md flex flex-col w-full max-w-2xl mx-auto z-10 relative">
+<!-- Routine Segments -->
+<div class="flex flex-col gap-stack-sm mb-section-gap">
+<!-- Segment 1: Asana -->
+<div class="bg-surface-white rounded-xl border border-border-subtle p-4 flex items-center gap-4 stagger-enter" style="animation-delay: 100ms;">
+<div class="w-12 h-12 rounded-full bg-highlight-sandstone flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">accessibility_new</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Asana</h3>
+<p class="font-label-sm text-label-sm text-secondary">Sun Salutations</p>
+</div>
+<div class="font-label-sm text-label-sm text-secondary shrink-0">5 min</div>
+</div>
+<!-- Segment 2: Pranayama -->
+<div class="bg-surface-white rounded-xl border border-border-subtle p-4 flex items-center gap-4 stagger-enter" style="animation-delay: 200ms;">
+<div class="w-12 h-12 rounded-full bg-highlight-sandstone flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">air</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Pranayama</h3>
+<p class="font-label-sm text-label-sm text-secondary">Equal Breathing</p>
+</div>
+<div class="font-label-sm text-label-sm text-secondary shrink-0">4 min</div>
+</div>
+<!-- Segment 3: Dhyana -->
+<div class="bg-surface-white rounded-xl border border-border-subtle p-4 flex items-center gap-4 stagger-enter" style="animation-delay: 300ms;">
+<div class="w-12 h-12 rounded-full bg-highlight-sandstone flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Dhyana</h3>
+<p class="font-label-sm text-label-sm text-secondary">Silent Observation</p>
+</div>
+<div class="font-label-sm text-label-sm text-secondary shrink-0">3 min</div>
+</div>
+</div>
+<!-- Configuration Options -->
+<div class="mt-auto stagger-enter" style="animation-delay: 400ms;">
+<hr class="border-t border-border-subtle mb-stack-md">
+<div class="flex justify-between items-center mb-stack-sm">
+<span class="font-label-md text-[13px] text-on-surface">Download for offline</span>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-surface-white border-4 border-surface-container-high appearance-none cursor-pointer z-10 top-0 transition-all duration-300" id="offline-toggle" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-300" for="offline-toggle"></label>
+</div>
+</div>
+<div class="text-center mt-stack-lg mb-stack-md">
+<span class="font-label-md text-[13px] text-secondary">12 minutes · 3 segments</span>
+</div>
+</div>
+</main>
+<!-- Sticky Bottom Action -->
+<div class="sticky bottom-0 left-0 w-full bg-background-bone/90 backdrop-blur-md p-margin-page pb-8 z-50 flex justify-center stagger-enter" style="animation-delay: 500ms;">
+<button class="w-full max-w-md bg-primary-container text-on-primary font-label-md text-label-md py-4 px-6 rounded-full interaction-spring flex items-center justify-center gap-2">
+<span>Start Practice</span>
+<span class="material-symbols-outlined" style="font-size: 20px;">play_arrow</span>
+</button>
+</div>
+</body></html>

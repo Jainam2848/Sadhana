@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sadhana - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Noto+Serif+Devanagari:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#f7dfbf",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "outline-variant": "#e0c0b6",
+                        "background-bone": "#FDFAF5",
+                        "surface-container-highest": "#f1e0cd",
+                        "tertiary": "#005f8c",
+                        "on-surface": "#231a0f",
+                        "on-primary-fixed": "#3a0b00",
+                        "surface-tint": "#a9380f",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary-container": "#736248",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#fff1e4",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#fff7f5",
+                        "on-tertiary-fixed": "#001e30",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "on-secondary-fixed": "#251906",
+                        "primary-container": "#c44b22",
+                        "destructive-red": "#991F1F",
+                        "tertiary-container": "#0079b0",
+                        "inverse-primary": "#ffb59e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#fdebd8",
+                        "secondary": "#6d5c43",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#58423b",
+                        "tertiary-fixed": "#cae6ff",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "outline": "#8c7169",
+                        "on-primary-fixed-variant": "#852400",
+                        "surface-variant": "#f1e0cd",
+                        "highlight-sandstone": "#F5E6C8",
+                        "primary": "#a3330a",
+                        "on-background": "#231a0f",
+                        "background": "#fff8f4",
+                        "on-error-container": "#93000a",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "inverse-surface": "#392f22",
+                        "success-ashoka": "#1A6B3A",
+                        "secondary-fixed": "#f7dfbf",
+                        "surface-dim": "#e8d7c5",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fff8f4",
+                        "inverse-on-surface": "#ffeedc",
+                        "on-error": "#ffffff",
+                        "surface": "#fff8f4",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "primary-fixed-dim": "#ffb59e",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-container-high": "#f7e5d2",
+                        "on-tertiary-container": "#f5f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "section-gap": "48px",
+                        "stack-sm": "8px",
+                        "gutter-grid": "16px",
+                        "margin-page": "24px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .mandala-thread {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .mandala-thread::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 0.5px solid var(--tw-colors-primary-container);
+            opacity: 0.5;
+        }
+
+        .breathing-circle {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .breathe-inhale .circle-1 { transform: scale(1.1); opacity: 0.8; }
+        .breathe-inhale .circle-2 { transform: scale(1.4); opacity: 0.6; }
+        .breathe-inhale .circle-3 { transform: scale(1.8); opacity: 0.4; }
+
+        .breathe-hold .circle-1 { transform: scale(1.1); opacity: 0.7; animation: pulse 2s infinite alternate; }
+        .breathe-hold .circle-2 { transform: scale(1.4); opacity: 0.5; animation: pulse 2s infinite alternate; }
+        .breathe-hold .circle-3 { transform: scale(1.8); opacity: 0.3; animation: pulse 2s infinite alternate; }
+
+        .breathe-exhale .circle-1 { transform: scale(1); opacity: 0.3; }
+        .breathe-exhale .circle-2 { transform: scale(1); opacity: 0.2; }
+        .breathe-exhale .circle-3 { transform: scale(1); opacity: 0.1; }
+
+        @keyframes pulse {
+            from { opacity: 0.7; }
+            to { opacity: 0.5; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .breathing-circle { transition: none; animation: none; transform: scale(1); opacity: 0.5; }
+            .breathe-inhale .circle-1, .breathe-inhale .circle-2, .breathe-inhale .circle-3 { transform: scale(1); opacity: 0.8; }
+            .breathe-hold .circle-1, .breathe-hold .circle-2, .breathe-hold .circle-3 { transform: scale(1); opacity: 0.6; }
+            .breathe-exhale .circle-1, .breathe-exhale .circle-2, .breathe-exhale .circle-3 { transform: scale(1); opacity: 0.2; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-initial {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-bone text-on-background min-h-screen flex flex-col relative overflow-hidden font-body-md text-body-md antialiased">
+<div class="mandala-thread"></div>
+<main class="flex-1 flex flex-col w-full max-w-md mx-auto relative z-10 px-margin-page py-stack-lg">
+<!-- Top Section -->
+<header class="flex flex-col gap-stack-md w-full items-center mt-8">
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[30%]"></div>
+</div>
+<div class="text-center flex flex-col gap-stack-sm items-center mt-section-gap">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Experience Stillness</span>
+<h1 class="font-headline-md text-headline-md text-on-surface text-center px-4">A 30-Second Breathing Space</h1>
+</div>
+</header>
+<!-- Center Section (Breathing Animation) -->
+<section class="flex-1 flex flex-col items-center justify-center relative my-section-gap w-full">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- If animation asset was provided, it would go here -->
+
+<!-- CSS Fallback/Overlay -->
+<div class="absolute inset-0 flex items-center justify-center breathe-exhale" id="breathing-container">
+<div class="breathing-circle circle-3 absolute w-32 h-32 rounded-full border border-primary-container opacity-10"></div>
+<div class="breathing-circle circle-2 absolute w-32 h-32 rounded-full bg-surface-container-highest opacity-20"></div>
+<div class="breathing-circle circle-1 absolute w-32 h-32 rounded-full bg-surface-container opacity-30"></div>
+<div class="absolute inset-0 flex items-center justify-center z-10">
+<span class="font-headline-lg text-headline-lg text-primary" id="breathing-text">Ready</span>
+</div>
+</div>
+</div>
+<div class="mt-section-gap text-center">
+<button class="group flex flex-col items-center gap-1 focus:outline-none" onclick="toggleBottomSheet()">
+<span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                        Sanskrit: <span class="font-sanskrit-overlay text-sanskrit-overlay text-primary">प्राणायाम</span> (Pranayama)
+                    </span>
+<span class="font-label-sm text-label-sm text-outline group-hover:text-primary transition-colors border-b border-dashed border-outline group-hover:border-primary">What is this?</span>
+</button>
+</div>
+</section>
+<!-- Bottom Section -->
+<footer class="w-full mt-auto pb-safe">
+<button class="w-full h-12 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hidden-initial transition-all hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container focus:ring-offset-background-bone" id="continue-btn">
+                Continue
+            </button>
+</footer>
+</main>
+<!-- Bottom Sheet -->
+<div class="fixed inset-0 z-50 flex items-end justify-center pointer-events-none opacity-0 transition-opacity duration-300" id="bottom-sheet">
+<div class="absolute inset-0 bg-on-background/20 pointer-events-auto" onclick="toggleBottomSheet()"></div>
+<div class="bg-surface-white w-full max-w-md rounded-t-[24px] p-margin-page pb-12 flex flex-col gap-stack-md transform translate-y-full transition-transform duration-300 pointer-events-auto shadow-[0_-4px_24px_rgba(42,29,10,0.08)] border-t border-border-subtle">
+<div class="w-12 h-1 bg-surface-variant rounded-full mx-auto mb-2"></div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="font-sanskrit-overlay text-sanskrit-overlay text-primary text-2xl">प्राणायाम</span> Pranayama
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Prana means "life force" or "breath," and yama means "control." Pranayama is the practice of breath regulation, a core component of yoga. It's a method to clear the physical and emotional obstacles in our body to free the breath and so the flow of prana.
+            </p>
+<button class="mt-4 w-full h-12 rounded-full border border-primary-container text-primary-container font-label-md text-label-md hover:bg-surface-container-low transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container focus:ring-offset-surface-white" onclick="toggleBottomSheet()">
+                Close
+            </button>
+</div>
+</div>
+<script>
+        const container = document.getElementById('breathing-container');
+        const textElement = document.getElementById('breathing-text');
+        const continueBtn = document.getElementById('continue-btn');
+        const bottomSheet = document.getElementById('bottom-sheet');
+        let bottomSheetOpen = false;
+
+        function vibrate(duration) {
+            if (navigator.vibrate) {
+                navigator.vibrate(duration);
+            }
+        }
+
+        function startBreathingCycle() {
+            let cycleCount = 0;
+            const maxCycles = 1; // Run for roughly 10 seconds total (1 cycle = 10s)
+
+            function cycle() {
+                if (cycleCount >= maxCycles) {
+                    textElement.innerText = "Complete";
+                    container.className = "absolute inset-0 flex items-center justify-center breathe-exhale";
+                    
+                    // Show continue button
+                    continueBtn.classList.remove('hidden-initial');
+                    continueBtn.classList.add('fade-in');
+                    continueBtn.style.pointerEvents = 'auto';
+                    vibrate([50, 100, 50]);
+                    return;
+                }
+
+                // Inhale (0-4s)
+                container.className = "absolute inset-0 flex items-center justify-center breathe-inhale";
+                textElement.innerText = "Inhale";
+                vibrate(50);
+                
+                setTimeout(() => {
+                    // Hold (4-6s)
+                    container.className = "absolute inset-0 flex items-center justify-center breathe-hold";
+                    textElement.innerText = "Hold";
+                    vibrate(30);
+
+                    setTimeout(() => {
+                        // Exhale (6-10s)
+                        container.className = "absolute inset-0 flex items-center justify-center breathe-exhale";
+                        textElement.innerText = "Exhale";
+                        vibrate(50);
+
+                        setTimeout(() => {
+                            cycleCount++;
+                            cycle();
+                        }, 4000);
+                    }, 2000);
+                }, 4000);
+            }
+
+            // Start first cycle slightly delayed for smoothness
+            setTimeout(cycle, 1000);
+        }
+
+        // Initialize animation
+        window.addEventListener('DOMContentLoaded', () => {
+            textElement.innerText = "Ready";
+            setTimeout(startBreathingCycle, 1000);
+        });
+
+        // Bottom Sheet Logic
+        function toggleBottomSheet() {
+            bottomSheetOpen = !bottomSheetOpen;
+            const sheetContent = bottomSheet.querySelector('.bg-surface-white');
+            
+            if (bottomSheetOpen) {
+                bottomSheet.classList.remove('opacity-0', 'pointer-events-none');
+                bottomSheet.classList.add('opacity-100');
+                sheetContent.classList.remove('translate-y-full');
+            } else {
+                bottomSheet.classList.remove('opacity-100');
+                bottomSheet.classList.add('opacity-0', 'pointer-events-none');
+                sheetContent.classList.add('translate-y-full');
+            }
+        }
+    </script>
+</body></html>

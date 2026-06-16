@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upgrade to Creator Tier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Noto+Serif+Devanagari:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#0079b0",
+                    "surface-white": "#FFFFFF",
+                    "on-secondary-fixed-variant": "#54442d",
+                    "on-primary-fixed-variant": "#852400",
+                    "surface": "#fff8f4",
+                    "primary-fixed-dim": "#ffb59e",
+                    "destructive-red": "#991F1F",
+                    "tertiary-fixed-dim": "#8ccdff",
+                    "on-primary-container": "#fff7f5",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#e0c0b6",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#ffdbd0",
+                    "surface-container": "#fdebd8",
+                    "secondary-container": "#f7dfbf",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#f7dfbf",
+                    "surface-container-low": "#fff1e4",
+                    "on-surface-variant": "#58423b",
+                    "primary": "#a3330a",
+                    "inverse-primary": "#ffb59e",
+                    "outline": "#8c7169",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004b70",
+                    "background-bone": "#FDFAF5",
+                    "tertiary": "#005f8c",
+                    "success-ashoka": "#1A6B3A",
+                    "background": "#fff8f4",
+                    "surface-container-high": "#f7e5d2",
+                    "highlight-sandstone": "#F5E6C8",
+                    "inverse-on-surface": "#ffeedc",
+                    "secondary": "#6d5c43",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#a9380f",
+                    "border-subtle": "rgba(42, 29, 10, 0.08)",
+                    "surface-dim": "#e8d7c5",
+                    "inverse-surface": "#392f22",
+                    "on-secondary-fixed": "#251906",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#c44b22",
+                    "on-tertiary-container": "#f5f9ff",
+                    "surface-container-highest": "#f1e0cd",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#231a0f",
+                    "surface-bright": "#fff8f4",
+                    "on-tertiary-fixed": "#001e30",
+                    "on-primary-fixed": "#3a0b00",
+                    "on-background": "#231a0f",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#dac3a4",
+                    "tertiary-fixed": "#cae6ff",
+                    "on-secondary-container": "#736248",
+                    "surface-variant": "#f1e0cd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "section-gap": "48px",
+                    "stack-md": "16px",
+                    "margin-page": "24px",
+                    "gutter-grid": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "sanskrit-overlay": [
+                            "Noto Serif Devanagari"
+                    ],
+                    "body-lg": [
+                            "DM Sans"
+                    ],
+                    "headline-md": [
+                            "EB Garamond"
+                    ],
+                    "label-sm": [
+                            "DM Sans"
+                    ],
+                    "headline-lg": [
+                            "EB Garamond"
+                    ],
+                    "display-lg": [
+                            "EB Garamond"
+                    ],
+                    "label-md": [
+                            "DM Sans"
+                    ],
+                    "body-md": [
+                            "DM Sans"
+                    ]
+            },
+            "fontSize": {
+                    "sanskrit-overlay": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-bone text-on-surface font-body-md min-h-screen relative overflow-x-hidden antialiased">
+<!-- Mandatory Mandala Thread Arc -->
+<svg class="absolute top-0 right-0 w-48 h-48 pointer-events-none opacity-60 text-primary-container" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M100 0 A100 100 0 0 0 0 100" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M100 20 A80 80 0 0 0 20 100" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M100 40 A60 60 0 0 0 40 100" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M100 60 A40 40 0 0 0 60 100" stroke="currentColor" stroke-width="0.5"></path>
+</svg>
+<!-- Header -->
+<header class="px-margin-page py-6 flex items-center sticky top-0 bg-background-bone/90 backdrop-blur-sm z-40">
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors" data-icon="chevron_left">chevron_left</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="pb-32 max-w-2xl mx-auto">
+<!-- Hero Section -->
+<section class="px-margin-page pt-4 pb-8">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Deepen your practice</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                Transcend limits with the Creator Tier. Unlock the full tactile library, uninterrupted sessions, and editorial guidance.
+            </p>
+</section>
+<!-- Editorial Image -->
+<section class="px-margin-page mb-section-gap">
+<div class="w-full h-48 rounded-xl overflow-hidden border border-border-subtle bg-surface-container-low relative">
+<img alt="Tactile editorial representation of mindfulness practice" class="w-full h-full object-cover opacity-90 mix-blend-multiply" data-alt="A macro photography shot of highly textured, thick artisanal paper laid over a smooth, warm sandstone surface. Delicate, dried terracotta-colored botanical elements rest gently on the paper. The scene is illuminated by soft, natural, diffused morning light creating subtle, low-contrast shadows. The mood is calm, grounded, minimalist, and deeply tactile, aligning with a high-end editorial Earth Ritual aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClupWHsdp-tsWyVRBdAapBk63B2UidJ3Ry_MLyfU6psR9pniAp_AH5XfbHdyFuQ8L60PIB21y89HUrNgs5hCxg81eISCKwkEgnZwppgbiMZwIhbJ64ZFiveoYsjMn7RBwHj8Kf5LfpX20I7FnBqJHH6gG-0VUVnE6X1LmFerXWQTVqBwug1J5WNzjnC1njw1O6v4K4hF3cr8mLtm3tlIAgRhAtyTZ67vomKvHjLhtg34eaaJ0OkvTWr0c0BnZIttnqdT9aYlsOEA"/>
+</div>
+</section>
+<!-- Feature Comparison Matrix -->
+<section class="px-margin-page mb-section-gap">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">The Creator path</h2>
+<div class="bg-surface-white rounded-xl border border-border-subtle p-6">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle">
+<th class="pb-4 font-label-md text-label-md text-on-surface-variant font-normal w-1/2">Benefits</th>
+<th class="pb-4 font-label-md text-label-md text-on-surface-variant font-normal text-center w-1/4">Free</th>
+<th class="pb-4 font-label-md text-label-md text-primary font-semibold text-center w-1/4">Creator</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-border-subtle">
+<td class="py-4 pr-2">Ad-free editorial experience</td>
+<td class="py-4 text-center text-on-surface-variant">-</td>
+<td class="py-4 text-center text-success-ashoka"><span class="material-symbols-outlined icon-fill text-[20px]" data-icon="check_circle">check_circle</span></td>
+</tr>
+<tr class="border-b border-border-subtle">
+<td class="py-4 pr-2">Full Mandala library access</td>
+<td class="py-4 text-center text-on-surface-variant font-label-sm text-label-sm">Limited</td>
+<td class="py-4 text-center text-success-ashoka"><span class="material-symbols-outlined icon-fill text-[20px]" data-icon="check_circle">check_circle</span></td>
+</tr>
+<tr class="border-b border-border-subtle">
+<td class="py-4 pr-2">Offline session downloads</td>
+<td class="py-4 text-center text-on-surface-variant">-</td>
+<td class="py-4 text-center text-success-ashoka"><span class="material-symbols-outlined icon-fill text-[20px]" data-icon="check_circle">check_circle</span></td>
+</tr>
+<tr>
+<td class="pt-4 pr-2">Advanced progress insights</td>
+<td class="pt-4 text-center text-on-surface-variant">-</td>
+<td class="pt-4 text-center text-success-ashoka"><span class="material-symbols-outlined icon-fill text-[20px]" data-icon="check_circle">check_circle</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Plan Selection -->
+<section class="px-margin-page mb-section-gap">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Choose your rhythm</h2>
+<div class="flex flex-col gap-stack-md">
+<!-- Annual Card (Selected State) -->
+<label class="relative block cursor-pointer group">
+<input checked="" class="peer sr-only" name="plan" type="radio" value="annual"/>
+<div class="w-full bg-surface-white rounded-xl border border-primary p-5 transition-all duration-300 peer-checked:bg-highlight-sandstone/20 peer-checked:shadow-[0_0_0_1px_#c44b22] relative overflow-hidden">
+<!-- Best Value Tag -->
+<div class="absolute top-0 right-0 bg-primary-container text-on-primary-container font-label-sm text-label-sm px-3 py-1 rounded-bl-lg">
+                            Best Value
+                        </div>
+<div class="flex items-center gap-4">
+<div class="w-5 h-5 rounded-full border border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1 flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Annual</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">$7.99 / month</p>
+</div>
+<div class="text-right pr-2">
+<span class="font-headline-md text-headline-md text-on-surface block leading-tight">$95.88</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">billed yearly</span>
+</div>
+</div>
+</div>
+</div>
+</label>
+<!-- Monthly Card (Unselected State) -->
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="plan" type="radio" value="monthly"/>
+<div class="w-full bg-surface-white rounded-xl border border-border-subtle p-5 transition-all duration-300 peer-checked:border-primary peer-checked:bg-highlight-sandstone/20 hover:border-outline-variant">
+<div class="flex items-center gap-4">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center peer-checked:border-primary">
+<div class="w-2.5 h-2.5 bg-primary rounded-full opacity-0 transition-opacity"></div>
+</div>
+<div class="flex-1 flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Monthly</h3>
+</div>
+<div class="text-right pr-2">
+<span class="font-headline-md text-headline-md text-on-surface block leading-tight">$12.99</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">billed monthly</span>
+</div>
+</div>
+</div>
+</div>
+</label>
+</div>
+</section>
+</main>
+<!-- Sticky Footer CTA -->
+<footer class="fixed bottom-0 left-0 w-full bg-background-bone/95 backdrop-blur-md border-t border-border-subtle p-margin-page pb-8 z-50 flex flex-col items-center max-w-2xl mx-auto right-0">
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-primary transition-colors font-label-md text-label-md h-12 rounded-full flex items-center justify-center active:scale-[0.98]">
+            Start 7-day free trial
+        </button>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-stack-md text-center max-w-[280px]">
+            Cancel anytime in settings. After trial, auto-renews at selected plan price unless canceled.
+        </p>
+</footer>
+<script>
+        // Simple script to handle radio button visual state updates for the custom radio buttons
+        const radioInputs = document.querySelectorAll('input[name="plan"]');
+        
+        radioInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                // Reset all inner circles
+                document.querySelectorAll('input[name="plan"] ~ div .w-2\\.5').forEach(circle => {
+                    circle.classList.remove('opacity-100');
+                    circle.classList.add('opacity-0');
+                });
+                document.querySelectorAll('input[name="plan"] ~ div .w-5').forEach(border => {
+                    border.classList.remove('border-primary');
+                    border.classList.add('border-outline');
+                });
+
+                // Set active inner circle
+                if(this.checked) {
+                    const activeContainer = this.nextElementSibling;
+                    const activeCircle = activeContainer.querySelector('.w-2\\.5');
+                    const activeBorder = activeContainer.querySelector('.w-5');
+                    if(activeCircle) {
+                        activeCircle.classList.remove('opacity-0');
+                        activeCircle.classList.add('opacity-100');
+                    }
+                    if(activeBorder) {
+                        activeBorder.classList.remove('border-outline');
+                        activeBorder.classList.add('border-primary');
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

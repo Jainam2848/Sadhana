@@ -8,7 +8,7 @@
 
 ## Current Phase
 
-**Phase 3: Design System & UI Generation** — `completed`
+**Phase 5: Frontend Build & Integration** — `in_progress`
 
 ---
 
@@ -20,8 +20,9 @@
 | Phase 1: Discovery & Strategy | `completed` | 2026-06-15 | 2026-06-15 |
 | Phase 2: UX Research & IA | `completed` | 2026-06-15 | 2026-06-15 |
 | Phase 3: Design System & UI | `completed` | 2026-06-15 | 2026-06-15 |
-| Phase 4: Architecture & Backend | `in_progress` | 2026-06-15 | — |
-| Phase 5: Frontend Build | `not_started` | — | — |
+| Phase 4: Architecture & Backend | `completed` | 2026-06-15 | 2026-06-16 |
+| Phase 5: Frontend Build | `in_progress` | 2026-06-16 | — |
+
 | Phase 6: Monetization | `not_started` | — | — |
 | Phase 7: UX Polish | `not_started` | — | — |
 | Phase 8: Testing & QA | `not_started` | — | — |
@@ -32,14 +33,24 @@
 
 ## Current Phase Tasks
 
-### Phase 3: Design System & UI Generation
+### Phase 4: Architecture & Backend
 
-- [x] Create `docs/design/DESIGN_SYSTEM.md` (Light & dark themes, typography scale, component specs)
-- [x] Create `.stitch/DESIGN.md` (Stitch UI configuration visual spec)
-- [x] Create `.stitch/SITE.md` (Stitch Sitemap 20-screen checklist and roadmap)
-- [x] Generate App Icon variations using `generate_image` tool
-- [x] Generate Splash Screen artwork concept using `generate_image` tool
-- [x] Update documentation index `docs/playbook/01_DOCUMENT_INDEX.md`
+- [x] Write ADR-001: Tech Stack Selection (Supabase)
+- [x] Write ADR-002: Auth Strategy (Email/Password + OAuth)
+- [x] Write ADR-003: State Management (Zustand + React Query)
+- [x] Write `docs/architecture/DATABASE_SCHEMA.md` with ERD and SQL schemas
+- [x] Write `docs/architecture/API_SPEC.md` with endpoint JSON specs and error models
+- [x] Write `docs/architecture/ARCHITECTURE.md` with system and sync diagrams
+- [x] Update findings.md and progress.md
+- [x] Initialize backend project (Supabase local environment config)
+- [x] Implement database migrations (Supabase tables, triggers, and RLS policies)
+- [x] Set up Supabase Storage buckets and security policies
+- [x] Connect client environment config with Supabase tokens
+
+
+
+
+
 
 
 

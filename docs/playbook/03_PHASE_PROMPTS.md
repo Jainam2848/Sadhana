@@ -360,7 +360,7 @@ Context (read these files first):
 - .stitch/SITE.md (sitemap)
 
 Stitch Project details:
-- Project ID: [PASTE YOUR STITCH PROJECT ID HERE]
+- Project ID: https://stitch.withgoogle.com/projects/669110078172882916
 
 Do the following:
 

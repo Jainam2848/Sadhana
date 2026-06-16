@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Data - Sadhana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Noto+Serif+Devanagari:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#f7dfbf",
+                      "on-primary-container": "#fff7f5",
+                      "tertiary-fixed": "#cae6ff",
+                      "surface-bright": "#fff8f4",
+                      "background": "#fff8f4",
+                      "inverse-on-surface": "#ffeedc",
+                      "secondary": "#6d5c43",
+                      "primary": "#a3330a",
+                      "outline": "#8c7169",
+                      "tertiary": "#005f8c",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#3a0b00",
+                      "tertiary-fixed-dim": "#8ccdff",
+                      "on-tertiary-fixed-variant": "#004b70",
+                      "on-secondary-fixed": "#251906",
+                      "surface-container-high": "#f7e5d2",
+                      "surface-container-low": "#fff1e4",
+                      "tertiary-container": "#0079b0",
+                      "secondary-fixed-dim": "#dac3a4",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#fdebd8",
+                      "surface-dim": "#e8d7c5",
+                      "secondary-container": "#f7dfbf",
+                      "on-tertiary-fixed": "#001e30",
+                      "primary-container": "#c44b22",
+                      "on-secondary-fixed-variant": "#54442d",
+                      "highlight-sandstone": "#F5E6C8",
+                      "background-bone": "#FDFAF5",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#392f22",
+                      "primary-fixed": "#ffdbd0",
+                      "destructive-red": "#991F1F",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#58423b",
+                      "surface-container-highest": "#f1e0cd",
+                      "outline-variant": "#e0c0b6",
+                      "surface-white": "#FFFFFF",
+                      "surface-tint": "#a9380f",
+                      "success-ashoka": "#1A6B3A",
+                      "inverse-primary": "#ffb59e",
+                      "on-background": "#231a0f",
+                      "on-tertiary-container": "#f5f9ff",
+                      "surface-variant": "#f1e0cd",
+                      "surface": "#fff8f4",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#852400",
+                      "border-subtle": "rgba(42, 29, 10, 0.08)",
+                      "on-secondary-container": "#736248",
+                      "primary-fixed-dim": "#ffb59e",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#231a0f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "48px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px",
+                      "margin-page": "24px",
+                      "gutter-grid": "16px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "DM Sans"
+                      ],
+                      "sanskrit-overlay": [
+                              "Noto Serif Devanagari"
+                      ],
+                      "headline-md": [
+                              "EB Garamond"
+                      ],
+                      "headline-lg": [
+                              "EB Garamond"
+                      ],
+                      "label-sm": [
+                              "DM Sans"
+                      ],
+                      "body-lg": [
+                              "DM Sans"
+                      ],
+                      "label-md": [
+                              "DM Sans"
+                      ],
+                      "display-lg": [
+                              "EB Garamond"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "sanskrit-overlay": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #C44B22;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #C44B22;
+        }
+        .toggle-checkbox:checked:disabled + .toggle-label {
+            background-color: #dac3a4; /* secondary-fixed-dim */
+        }
+        
+        /* Mandala Arc Pattern */
+        .mandala-arc {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .mandala-arc::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+        }
+        .mandala-arc::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-bone text-on-background font-body-md min-h-screen relative overflow-x-hidden antialiased">
+<!-- Mandatory Shell Logic: Suppressed for Linear/Task-Focused Intent (Settings sub-page) -->
+<!-- Mandala Thread Anchor -->
+<div class="mandala-arc"></div>
+<main class="max-w-[480px] mx-auto px-margin-page py-6 relative z-10 flex flex-col min-h-screen">
+<!-- Header -->
+<header class="flex items-center mb-stack-lg pt-4">
+<button aria-label="Go back" class="w-10 h-10 flex items-center justify-center -ml-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-[#1C1409] ml-2 tracking-tight">Your Data</h1>
+</header>
+<!-- Intro -->
+<section class="mb-stack-lg">
+<p class="font-body-md text-[15px] leading-relaxed text-[#6B5A41]">
+                Sadhana never sells your user data. We respect your privacy as a sacred trust, focusing entirely on providing you a secure space for your practice.
+            </p>
+</section>
+<!-- Toggles Container -->
+<div class="bg-surface-white rounded-xl border border-border-subtle mb-stack-lg">
+<!-- Essential Cookies (Disabled ON) -->
+<div class="p-stack-md flex items-center justify-between border-b border-border-subtle">
+<div class="pr-4">
+<h2 class="font-body-md text-[15px] text-[#1C1409]">Essential cookies</h2>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in opacity-70">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-not-allowed z-10 top-1 transition-transform duration-200 ease-in-out right-0 border-transparent" disabled="" id="toggle-essential" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-8 rounded-full bg-[#dac3a4] cursor-not-allowed" for="toggle-essential"></label>
+</div>
+</div>
+<!-- Analytics -->
+<div class="p-stack-md flex items-center justify-between border-b border-border-subtle">
+<div class="pr-4">
+<h2 class="font-body-md text-[15px] text-[#1C1409]">Analytics &amp; improvement</h2>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 top-1 transition-all duration-200 ease-in-out left-1 border-transparent" id="toggle-analytics" name="toggle-analytics" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-8 rounded-full bg-surface-variant cursor-pointer transition-colors duration-200 ease-in-out" for="toggle-analytics"></label>
+</div>
+</div>
+<!-- Personalisation -->
+<div class="p-stack-md flex items-center justify-between">
+<div class="pr-4">
+<h2 class="font-body-md text-[15px] text-[#1C1409]">Personalisation data</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Required for personalized routines</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 top-1 transition-all duration-200 ease-in-out right-1 border-transparent" id="toggle-personal" name="toggle-personal" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-8 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out" for="toggle-personal"></label>
+</div>
+</div>
+</div>
+<!-- Action Rows -->
+<div class="flex flex-col gap-2 mt-auto mb-stack-lg">
+<button class="w-full flex items-center justify-between p-stack-md bg-surface-white rounded-xl border border-border-subtle hover:bg-surface-variant transition-colors group">
+<span class="font-body-md text-[15px] text-success-ashoka flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                    Download my data
+                </span>
+<span class="material-symbols-outlined text-success-ashoka group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-md bg-surface-white rounded-xl border border-border-subtle hover:bg-error-container transition-colors group">
+<span class="font-body-md text-[15px] text-destructive-red flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">delete_forever</span>
+                    Delete my account
+                </span>
+<span class="material-symbols-outlined text-destructive-red group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+<!-- Footer -->
+<footer class="mt-auto pb-stack-lg text-center">
+<p class="font-label-sm text-[11px] text-[#6B5A41] max-w-[280px] mx-auto opacity-80">
+                Data export takes 24–48 hours and is delivered to your registered email.
+            </p>
+</footer>
+</main>
+<script>
+        // Custom toggle logic for Tailwind since peer-checked can be tricky without utility plugins in raw HTML sometimes
+        document.querySelectorAll('input[type="checkbox"]:not(:disabled)').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.nextElementSibling;
+                if(this.checked) {
+                    this.style.left = 'auto';
+                    this.style.right = '4px';
+                    label.style.backgroundColor = '#C44B22'; // primary-container
+                } else {
+                    this.style.right = 'auto';
+                    this.style.left = '4px';
+                    label.style.backgroundColor = '#f1e0cd'; // surface-variant
+                }
+            });
+            
+            // Init state visually
+            const label = checkbox.nextElementSibling;
+            if(checkbox.checked) {
+                checkbox.style.left = 'auto';
+                checkbox.style.right = '4px';
+                label.style.backgroundColor = '#C44B22';
+            } else {
+                checkbox.style.right = 'auto';
+                checkbox.style.left = '4px';
+                label.style.backgroundColor = '#f1e0cd';
+            }
+        });
+    </script>
+</body></html>

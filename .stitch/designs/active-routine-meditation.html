@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Pranayama Practice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:wght@400;600;700&amp;family=Noto+Serif+Devanagari:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#6d5c43",
+                        "primary-fixed-dim": "#ffb59e",
+                        "tertiary-container": "#0079b0",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#f1e0cd",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "surface-container-low": "#fff1e4",
+                        "surface-container": "#fdebd8",
+                        "success-ashoka": "#1A6B3A",
+                        "inverse-on-surface": "#ffeedc",
+                        "on-primary": "#ffffff",
+                        "outline": "#8c7169",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fff8f4",
+                        "destructive-red": "#991F1F",
+                        "secondary-container": "#f7dfbf",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-tertiary-fixed": "#001e30",
+                        "inverse-primary": "#ffb59e",
+                        "background-bone": "#FDFAF5",
+                        "secondary-fixed": "#f7dfbf",
+                        "on-surface": "#231a0f",
+                        "on-secondary-container": "#736248",
+                        "on-background": "#231a0f",
+                        "inverse-surface": "#392f22",
+                        "surface": "#fff8f4",
+                        "on-secondary": "#ffffff",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary-fixed": "#251906",
+                        "primary-fixed": "#ffdbd0",
+                        "tertiary-fixed": "#cae6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f5f9ff",
+                        "surface-dim": "#e8d7c5",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "on-primary-fixed": "#3a0b00",
+                        "on-error-container": "#93000a",
+                        "primary": "#a3330a",
+                        "outline-variant": "#e0c0b6",
+                        "primary-container": "#c44b22",
+                        "on-surface-variant": "#58423b",
+                        "error": "#ba1a1a",
+                        "tertiary": "#005f8c",
+                        "on-primary-container": "#fff7f5",
+                        "surface-container-high": "#f7e5d2",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "background": "#fff8f4",
+                        "highlight-sandstone": "#F5E6C8",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#a9380f",
+                        "surface-container-highest": "#f1e0cd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-page": "24px",
+                        "section-gap": "48px",
+                        "gutter-grid": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "headline-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "display-lg": ["EB Garamond"],
+                        "body-md": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "label-md": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Specific immersive background as requested, overriding general theme for this player state */
+        .immersive-bg {
+            background-color: #0D0A06;
+        }
+
+        /* Breathing Animation Keyframes */
+        @keyframes breathe-path {
+            0% { transform: scale(1); opacity: 0.6; }
+            33% { transform: scale(1.6); opacity: 1; }
+            50% { transform: scale(1.63); opacity: 1; } /* Subtle pulse during hold */
+            66% { transform: scale(1.6); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
+
+        @keyframes breathe-path-inner {
+            0% { transform: scale(1); opacity: 0.4; }
+            33% { transform: scale(1.4); opacity: 0.8; }
+            50% { transform: scale(1.42); opacity: 0.8; }
+            66% { transform: scale(1.4); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.4; }
+        }
+
+        @keyframes breathe-path-core {
+            0% { transform: scale(1); opacity: 0.2; }
+            33% { transform: scale(1.2); opacity: 0.6; }
+            50% { transform: scale(1.21); opacity: 0.6; }
+            66% { transform: scale(1.2); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0.2; }
+        }
+
+        .anim-breathe-outer { animation: breathe-path 12s infinite cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; }
+        .anim-breathe-inner { animation: breathe-path-inner 12s infinite cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; }
+        .anim-breathe-core { animation: breathe-path-core 12s infinite cubic-bezier(0.4, 0, 0.2, 1); transform-origin: center; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .anim-breathe-outer, .anim-breathe-inner, .anim-breathe-core {
+                animation: none;
+                transform: scale(1.2); /* Static middle state */
+                transition: opacity 12s infinite;
+            }
+            .anim-breathe-outer { animation: fade-pulse 12s infinite; }
+            
+            @keyframes fade-pulse {
+                0%, 100% { opacity: 0.5; }
+                50% { opacity: 1; }
+            }
+        }
+
+        .text-fade {
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Custom range slider styling for minimal aesthetic */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        /* Filled portion of track (simulated via background gradient in inline style if needed, or just keep it minimal) */
+    </style>
+</head>
+<body class="immersive-bg text-surface-white h-screen w-full overflow-hidden flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-white relative">
+<!-- Mandala Thread Anchor (Top Right) -->
+<svg class="absolute top-0 right-0 w-32 h-32 pointer-events-none opacity-40" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M 100 0 A 100 100 0 0 0 0 100" stroke="#C44B22" stroke-dasharray="2 4" stroke-width="0.5"></path>
+<path d="M 100 10 A 90 90 0 0 0 10 100" opacity="0.5" stroke="#C44B22" stroke-width="0.25"></path>
+</svg>
+<!-- Header (Minimal for immersive mode) -->
+<header class="flex items-center justify-between px-margin-page py-6 w-full max-w-7xl mx-auto relative z-10">
+<button aria-label="Close Player" class="p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center text-surface-white/70 hover:text-white">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="font-headline-md text-headline-md text-surface-white tracking-wide">Pranayama</h1>
+<span class="font-label-sm text-label-sm text-surface-white/60 uppercase tracking-widest mt-1">Sama Vritti</span>
+</div>
+<button aria-label="More Options" class="p-2 -mr-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center text-surface-white/70 hover:text-white">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</header>
+<!-- Main Canvas: Visualizer -->
+<main class="flex-grow flex flex-col items-center justify-center relative px-margin-page">
+<!-- Breathing Visualizer Container -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+<!-- Concentric SVG Paths -->
+<svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<!-- Outer 1.5px -->
+<circle class="anim-breathe-outer" cx="100" cy="100" fill="none" r="45" stroke="#C44B22" stroke-width="1.5"></circle>
+<!-- Middle 1px -->
+<circle class="anim-breathe-inner" cx="100" cy="100" fill="none" r="35" stroke="#C44B22" stroke-width="1"></circle>
+<!-- Inner 0.5px -->
+<circle class="anim-breathe-core" cx="100" cy="100" fill="none" r="25" stroke="#C44B22" stroke-width="0.5"></circle>
+</svg>
+<!-- Text Overlay Sync -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-headline-lg text-headline-lg text-surface-white tracking-widest text-fade opacity-100" id="breathText">Inhale</span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim mt-2 tracking-[0.2em] uppercase">4s</span>
+</div>
+</div>
+</main>
+<!-- Bottom Controls Area -->
+<footer class="w-full px-margin-page pb-12 pt-6 max-w-2xl mx-auto flex flex-col items-center gap-8 relative z-10">
+<!-- Sanskrit Glossary Pill -->
+<button class="px-5 py-2 rounded-full border border-primary-container/30 bg-primary-container/10 hover:bg-primary-container/20 transition-colors flex items-center gap-2 group">
+<span class="font-sanskrit-overlay text-sanskrit-overlay text-primary-fixed-dim group-hover:text-white transition-colors">प्राणायाम</span>
+<span class="font-label-md text-label-md text-surface-white/80 group-hover:text-white transition-colors">Glossary</span>
+</button>
+<!-- Player Controls -->
+<div class="w-full flex flex-col gap-6">
+<!-- Seek Bar -->
+<div class="flex items-center gap-4 w-full">
+<span class="font-label-sm text-label-sm text-surface-white/50 w-8 text-right">04:12</span>
+<div class="flex-grow relative flex items-center">
+<input aria-label="Seek progress" class="w-full z-10" max="100" min="0" type="range" value="35">
+<!-- Custom progress fill representation -->
+<div class="absolute left-0 h-[2px] bg-primary-container rounded-full pointer-events-none" style="width: 35%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-surface-white/50 w-8">12:00</span>
+</div>
+<!-- Transport Controls -->
+<div class="flex items-center justify-center gap-8">
+<button aria-label="Skip Backward 15s" class="p-3 rounded-full hover:bg-white/10 transition-colors text-surface-white/80 hover:text-white">
+<span class="material-symbols-outlined" style="font-size: 28px;">replay_10</span>
+</button>
+<button aria-label="Pause" class="w-16 h-16 rounded-full bg-primary-container hover:bg-primary flex items-center justify-center transition-transform active:scale-95 shadow-[0_0_20px_rgba(196,75,34,0.3)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 32px; color: white;">pause</span>
+</button>
+<button aria-label="Skip Forward 15s" class="p-3 rounded-full hover:bg-white/10 transition-colors text-surface-white/80 hover:text-white">
+<span class="material-symbols-outlined" style="font-size: 28px;">forward_10</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- JavaScript for Breathing Text Sync -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textElement = document.getElementById('breathText');
+            const phases = [
+                { text: 'Inhale', duration: 4000 },
+                { text: 'Hold', duration: 4000 },
+                { text: 'Exhale', duration: 4000 }
+            ];
+            let currentPhase = 0;
+
+            function updateBreathText() {
+                // Fade out
+                textElement.style.opacity = 0;
+                
+                setTimeout(() => {
+                    // Update text and fade in
+                    currentPhase = (currentPhase + 1) % phases.length;
+                    textElement.textContent = phases[currentPhase].text;
+                    textElement.style.opacity = 1;
+                }, 400); // Wait half of the transition time
+            }
+
+            // Start loop (12s total cycle, update every 4s)
+            // Initial call
+            setTimeout(() => {
+                setInterval(updateBreathText, 4000);
+                updateBreathText(); // trigger first change after initial inhale
+            }, 3600); // slightly offset to sync visually with CSS transform peak
+        });
+    </script>
+</body></html>

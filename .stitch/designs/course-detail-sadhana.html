@@ -1,0 +1,287 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sadhana - Course Detail</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Noto+Serif+Devanagari:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fff8f4",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-secondary-container": "#736248",
+                        "on-primary-fixed": "#3a0b00",
+                        "tertiary-container": "#0079b0",
+                        "inverse-surface": "#392f22",
+                        "secondary-fixed": "#f7dfbf",
+                        "inverse-on-surface": "#ffeedc",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#c44b22",
+                        "surface-container-low": "#fff1e4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "success-ashoka": "#1A6B3A",
+                        "surface-tint": "#a9380f",
+                        "surface-container-lowest": "#ffffff",
+                        "destructive-red": "#991F1F",
+                        "secondary": "#6d5c43",
+                        "highlight-sandstone": "#F5E6C8",
+                        "on-tertiary-container": "#f5f9ff",
+                        "inverse-primary": "#ffb59e",
+                        "background": "#fff8f4",
+                        "primary-fixed-dim": "#ffb59e",
+                        "secondary-container": "#f7dfbf",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "outline-variant": "#e0c0b6",
+                        "on-surface-variant": "#58423b",
+                        "on-error": "#ffffff",
+                        "surface-container": "#fdebd8",
+                        "on-primary-container": "#fff7f5",
+                        "on-background": "#231a0f",
+                        "surface-container-highest": "#f1e0cd",
+                        "primary": "#a3330a",
+                        "surface-container-high": "#f7e5d2",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "surface-white": "#FFFFFF",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-dim": "#e8d7c5",
+                        "on-secondary-fixed": "#251906",
+                        "surface-variant": "#f1e0cd",
+                        "surface-bright": "#fff8f4",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "tertiary-fixed": "#cae6ff",
+                        "tertiary": "#005f8c",
+                        "background-bone": "#FDFAF5",
+                        "on-surface": "#231a0f",
+                        "outline": "#8c7169",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond", "serif"],
+                        "display-lg": ["EB Garamond", "serif"],
+                        "label-md": ["DM Sans", "sans-serif"],
+                        "headline-md": ["EB Garamond", "serif"],
+                        "body-md": ["DM Sans", "sans-serif"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari", "serif"],
+                        "label-sm": ["DM Sans", "sans-serif"],
+                        "body-lg": ["DM Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "sanskrit-overlay": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles matching brand identity */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Hide scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen pb-[100px]">
+<!-- Mandatory Mandala Thread Anchor -->
+<svg class="fixed top-0 right-0 w-[150px] h-[150px] pointer-events-none z-0 opacity-40 mix-blend-multiply" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M100 0 A100 100 0 0 0 0 100" fill="none" stroke="#C44B22" stroke-width="0.5"></path>
+<path d="M100 20 A80 80 0 0 0 20 100" fill="none" stroke="#C44B22" stroke-dasharray="2 4" stroke-width="0.5"></path>
+<path d="M100 40 A60 60 0 0 0 40 100" fill="none" stroke="#C44B22" stroke-width="0.5"></path>
+</svg>
+<!-- Floating Back Button -->
+<button aria-label="Go back" class="fixed top-6 left-6 z-50 w-12 h-12 bg-surface-white rounded-full flex items-center justify-center border border-border-subtle shadow-[0_2px_8px_rgba(42,29,10,0.04)] active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-surface">chevron_left</span>
+</button>
+<!-- Hero Area -->
+<header class="h-[240px] bg-highlight-sandstone relative overflow-hidden flex items-center justify-center z-10 w-full border-b border-border-subtle" id="hero-container">
+<!-- Optional subtle organic noise texture overlay could go here -->
+<div class="transition-transform duration-75 ease-out" id="hero-icon-container">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 64px; font-variation-settings: 'FILL' 1, 'wght' 200;">air</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-3xl mx-auto z-20 relative bg-background rounded-t-[24px] -mt-6 pt-6 px-margin-page shadow-[0_-4px_20px_rgba(42,29,10,0.03)] border-t border-border-subtle">
+<!-- Metadata Section -->
+<section class="flex flex-col gap-stack-md pt-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Roots of Pranayama</h1>
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-border-subtle object-cover bg-surface-variant" data-alt="A portrait of an experienced, serene yoga instructor in traditional light-colored clothing. The setting is a minimalist, earth-toned studio flooded with soft, natural white light. The aesthetic is clean, grounding, and editorial, matching a premium wellness brand with organic textures and a calm mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_7gevYX4494t40AF-j9TtqTlakeUrDqCWOojwNVkDi3XojhrvINqqTp3krO1PjlfWcfdlO18tbKoC322zSA6vetJxLDvrlM2Fzw-cfho8FTZIb9oV10z5VG28FYABFTBD_06XVds6bWcHhj6nQvT0ZrxsLT_aQ8MXGknt2JzKZSE14sZdPgeTa5comz-OAVI5qc8itbBTASamXQXygcK4-dyfGIzSOYtZc0ThaBufY1Mo5j0mYRyXxarBU0ZaFxg5evBiZG7FlA">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Swami Vidyadhishananda</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lead Instructor</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-1">
+<div class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-white flex items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Intermediate</span>
+</div>
+<div class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-white flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 hours</span>
+</div>
+<div class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-white flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">auto_stories</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">8 Sessions</span>
+</div>
+</div>
+</section>
+<!-- Editorial Divider -->
+<div class="w-full h-[1px] bg-border-subtle my-section-gap"></div>
+<!-- Syllabus Section -->
+<section class="pb-section-gap">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.1em] uppercase mb-stack-lg">Course Sessions</h2>
+<div class="flex flex-col">
+<!-- Session 1: Completed -->
+<div class="flex items-center gap-4 py-4 group cursor-pointer hover:bg-surface-white/50 transition-colors -mx-4 px-4 rounded-lg">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">01</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">The Breath of Life</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">24 min • Philosophy</p>
+</div>
+<span class="material-symbols-outlined text-success-ashoka" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 2: Current/Next -->
+<div class="flex items-center gap-4 py-4 group cursor-pointer hover:bg-surface-white transition-colors -mx-4 px-4 rounded-lg bg-surface-white shadow-[0_2px_10px_rgba(42,29,10,0.02)] border border-border-subtle relative z-10 -my-[1px]">
+<span class="font-label-md text-label-md text-primary-container w-6 text-center">02</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-primary-container font-medium">Nadi Shodhana Foundation</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">30 min • Practice</p>
+</div>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12 relative z-0"></div>
+<!-- Session 3: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">03</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Kapalabhati Fire</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">15 min • Practice</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 4: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">04</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Retention &amp; Bandhas</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">45 min • Advanced Practice</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 5: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">05</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Ujjayi: The Victorious Breath</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">20 min • Practice</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 6: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">06</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Bhastrika Bellows</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">25 min • Practice</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 7: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">07</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Integrating the Vayus</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">35 min • Philosophy &amp; Practice</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="w-[calc(100%-3rem)] h-[1px] bg-border-subtle ml-12"></div>
+<!-- Session 8: Locked -->
+<div class="flex items-center gap-4 py-4 opacity-60">
+<span class="font-label-md text-label-md text-outline-variant w-6 text-center">08</span>
+<div class="flex-1">
+<h3 class="font-body-md text-body-md text-on-surface">Pratyahara Transition</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">40 min • Mastery</p>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-white/95 backdrop-blur-sm border-t border-border-subtle px-margin-page py-4 z-50 flex justify-center pb-8 md:pb-4">
+<button class="w-full max-w-sm h-12 bg-primary-container text-on-primary font-label-md text-label-md rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform duration-200 hover:bg-primary">
+            Begin Course
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<script>
+        // Parallax effect for the hero icon
+        document.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroIcon = document.getElementById('hero-icon-container');
+            
+            // Only apply effect if we haven't scrolled past the hero area
+            if (scrollY < 240 && heroIcon) {
+                // Scale up to 1.05 based on scroll position
+                const scale = 1 + (scrollY / 240) * 0.05;
+                const translateY = scrollY * 0.3; // Slight parallax down
+                
+                heroIcon.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+            }
+        }, { passive: true });
+    </script>
+</body></html>

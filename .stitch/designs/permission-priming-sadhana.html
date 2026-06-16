@@ -1,0 +1,217 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Permission Priming - Earth Ritual</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=EB+Garamond:wght@600&amp;family=Noto+Serif+Devanagari:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-family: 'Material Symbols Outlined';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#736248",
+                        "on-background": "#231a0f",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "inverse-surface": "#392f22",
+                        "inverse-primary": "#ffb59e",
+                        "error-container": "#ffdad6",
+                        "surface-white": "#FFFFFF",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#f1e0cd",
+                        "surface-container-low": "#fff1e4",
+                        "tertiary": "#005f8c",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-surface": "#231a0f",
+                        "surface": "#fff8f4",
+                        "on-primary-container": "#fff7f5",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "primary-container": "#c44b22",
+                        "secondary": "#6d5c43",
+                        "surface-dim": "#e8d7c5",
+                        "primary-fixed": "#ffdbd0",
+                        "background-bone": "#FDFAF5",
+                        "secondary-container": "#f7dfbf",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#f7dfbf",
+                        "on-primary-fixed": "#3a0b00",
+                        "surface-container-high": "#f7e5d2",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "highlight-sandstone": "#F5E6C8",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "tertiary-fixed": "#cae6ff",
+                        "surface-container-highest": "#f1e0cd",
+                        "surface-bright": "#fff8f4",
+                        "success-ashoka": "#1A6B3A",
+                        "outline": "#8c7169",
+                        "on-tertiary-fixed": "#001e30",
+                        "destructive-red": "#991F1F",
+                        "surface-container": "#fdebd8",
+                        "on-secondary-fixed": "#251906",
+                        "primary": "#a3330a",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#a9380f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#0079b0",
+                        "background": "#fff8f4",
+                        "primary-fixed-dim": "#ffb59e",
+                        "on-tertiary-container": "#f5f9ff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#e0c0b6",
+                        "inverse-on-surface": "#ffeedc",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "on-surface-variant": "#58423b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "headline-md": ["EB Garamond"],
+                        "label-sm": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    },
+                    "animation": {
+                        'breathe': 'breathe 2s infinite ease-in-out',
+                        'button-press': 'button-press 0.15s ease-out forwards',
+                    },
+                    "keyframes": {
+                        'breathe': {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.04)' },
+                        },
+                        'button-press': {
+                            '100%': { transform: 'scale(0.97)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-bone text-on-surface font-body-md min-h-screen flex flex-col items-center justify-center relative overflow-hidden antialiased selection:bg-highlight-sandstone selection:text-primary">
+<!-- Mandala Thread SVG Arc (Top Right) -->
+<svg aria-hidden="true" class="absolute top-0 right-0 w-64 h-64 pointer-events-none" fill="none" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+<path d="M256 0C256 141.385 141.385 256 0 256" stroke="#C44B22" stroke-dasharray="2 4" stroke-width="0.5"></path>
+<path d="M256 32C256 155.712 155.712 256 32 256" stroke="#C44B22" stroke-dasharray="1 3" stroke-width="0.25"></path>
+</svg>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-md px-margin-page flex flex-col items-center text-center z-10 space-y-section-gap">
+<!-- Center Graphic -->
+<div aria-hidden="true" class="w-[200px] h-[160px] relative flex flex-wrap content-start gap-[4px] mx-auto">
+<!-- Row 1 -->
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<!-- Row 2 -->
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<!-- Row 3 -->
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<div class="w-3 h-3 bg-highlight-sandstone border border-primary-container"></div>
+<!-- Today (Index 18) -->
+<div class="w-3 h-3 bg-surface-white border border-border-subtle relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-primary-container absolute animate-breathe" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<!-- Future Days -->
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<!-- Row 4 -->
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<!-- Row 5 -->
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+<div class="w-3 h-3 bg-surface-white border border-border-subtle"></div>
+</div>
+<!-- Typography -->
+<div class="space-y-stack-md px-4">
+<h1 class="font-headline-md text-headline-md text-on-surface">Build Your Daily Ritual</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[320px] mx-auto">
+                We'll send a single quiet reminder after your morning coffee to help you anchor your Sadhana. No spam, ever.
+            </p>
+</div>
+<!-- Actions -->
+<div class="w-full flex flex-col items-center gap-stack-lg pt-stack-md">
+<button class="w-full max-w-[280px] h-12 bg-primary-container text-surface-white font-label-md text-label-md rounded-full flex items-center justify-center transition-all duration-200 hover:bg-surface-tint focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-background-bone active:animate-button-press">
+                Enable reminders
+            </button>
+<a class="font-label-md text-[13px] text-on-surface-variant hover:text-on-surface transition-colors duration-200 underline decoration-1 underline-offset-4 decoration-border-subtle hover:decoration-on-surface-variant" href="#">
+                Skip for now
+            </a>
+</div>
+</main>
+</body></html>

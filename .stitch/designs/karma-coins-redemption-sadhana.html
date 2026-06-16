@@ -1,0 +1,456 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Karma Coins Redemption</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:wght@400;500;600;700&amp;family=Noto+Serif+Devanagari:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#0079b0",
+                        "error-container": "#ffdad6",
+                        "primary": "#a3330a",
+                        "surface-container-highest": "#f1e0cd",
+                        "error": "#ba1a1a",
+                        "surface-white": "#FFFFFF",
+                        "on-surface-variant": "#58423b",
+                        "on-tertiary-fixed": "#001e30",
+                        "success-ashoka": "#1A6B3A",
+                        "tertiary": "#005f8c",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "surface-container": "#fdebd8",
+                        "surface-variant": "#f1e0cd",
+                        "inverse-primary": "#ffb59e",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#231a0f",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#a9380f",
+                        "surface": "#fff8f4",
+                        "surface-container-low": "#fff1e4",
+                        "surface-bright": "#fff8f4",
+                        "on-primary-fixed": "#3a0b00",
+                        "inverse-on-surface": "#ffeedc",
+                        "tertiary-fixed": "#cae6ff",
+                        "outline": "#8c7169",
+                        "surface-container-lowest": "#ffffff",
+                        "destructive-red": "#991F1F",
+                        "outline-variant": "#e0c0b6",
+                        "background-bone": "#FDFAF5",
+                        "surface-container-high": "#f7e5d2",
+                        "primary-container": "#c44b22",
+                        "primary-fixed": "#ffdbd0",
+                        "primary-fixed-dim": "#ffb59e",
+                        "secondary-container": "#f7dfbf",
+                        "on-tertiary-container": "#f5f9ff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#736248",
+                        "inverse-surface": "#392f22",
+                        "surface-dim": "#e8d7c5",
+                        "on-surface": "#231a0f",
+                        "secondary-fixed": "#f7dfbf",
+                        "on-secondary-fixed": "#251906",
+                        "highlight-sandstone": "#F5E6C8",
+                        "background": "#fff8f4",
+                        "secondary": "#6d5c43",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "on-primary-container": "#fff7f5"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px",
+                        "margin-page": "24px",
+                        "section-gap": "48px"
+                    },
+                    fontFamily: {
+                        "body-md": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "headline-lg": ["EB Garamond"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .mandala-thread {
+            position: fixed;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .redeem-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 112px; /* 56px radius = 112px diameter */
+            height: 112px;
+            background-color: rgba(26, 107, 58, 0.8);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .redeem-stamp.active {
+            animation: stamp-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes stamp-in {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .tile-inert {
+            opacity: 0.6;
+            pointer-events: none;
+            filter: grayscale(0.5);
+        }
+
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .bottom-sheet.open {
+            transform: translateY(0);
+        }
+
+        .overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Material Icons Setup */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-bone text-on-surface antialiased min-h-screen relative pb-24 md:pb-0">
+<!-- Mandala Thread -->
+<div class="mandala-thread"></div>
+<!-- Top Navigation (Mobile Header Replacement for this specific screen context as per requirements) -->
+<header class="w-full top-0 sticky bg-background-bone/90 backdrop-blur-sm z-40 border-b border-border-subtle px-margin-page py-4 flex justify-between items-center max-w-7xl mx-auto">
+<h1 class="font-headline-md text-headline-md text-on-background">Redeem</h1>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined icon-fill text-primary-container text-lg">monetization_on</span>
+<span class="font-label-md text-label-md text-primary-container font-bold" id="coin-balance">120 coins</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-margin-page py-stack-lg relative z-10">
+<!-- Featured Row -->
+<div class="mb-stack-lg">
+<h2 class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-stack-sm">Featured Cause</h2>
+<div class="redeem-tile relative w-full bg-highlight-sandstone border border-primary-container rounded-xl p-4 overflow-hidden active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="100" data-reward="Script Preservation">
+<!-- Left accent bar -->
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary-container"></div>
+<div class="flex justify-between items-start mb-4 pl-2">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container text-2xl">history_edu</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-background">Indian Heritage Script Preservation</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-1">100 coins</p>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-sm text-on-surface-variant mb-4 pl-2">Contribute to the digitization of ancient yogic texts for future generations.</p>
+<div class="flex justify-end">
+<button class="redeem-btn px-6 py-2 rounded-full border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-surface-white transition-colors">
+                        Redeem
+                    </button>
+</div>
+<!-- Stamp Overlay -->
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+</div>
+<!-- Redemption Grid -->
+<h2 class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-stack-sm">Available Rewards</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter-grid">
+<!-- Tile 1 -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="50" data-reward="Premium Yoga Mat Discount">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">sell</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">20% Off Premium Mats</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">50 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+<!-- Tile 2 -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="30" data-reward="1 Month Premium Access">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">workspace_premium</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">1 Mo. Premium Sadhana</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">30 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+<!-- Tile 3 -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="20" data-reward="Tree Planting Donation">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">eco</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">Plant a Tree in India</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">20 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+<!-- Tile 4 -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="80" data-reward="Live Guru Session">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">record_voice_over</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">Live Q&amp;A with Guru</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">80 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+<!-- Tile 5 -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="15" data-reward="Ayurvedic Recipe Book">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">menu_book</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">Digital Recipe Book</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">15 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+<!-- Tile 6 (Insufficient funds example, visually identical initially) -->
+<div class="redeem-tile relative bg-surface-white border border-border-subtle rounded-xl p-4 min-h-[120px] flex flex-col justify-between active:scale-95 transition-transform duration-150 cursor-pointer" data-cost="500" data-reward="Retreat Ticket">
+<div class="mb-3">
+<span class="material-symbols-outlined text-primary-container text-2xl mb-2">flight_takeoff</span>
+<h3 class="font-label-md text-label-md text-on-background leading-tight">Yoga Retreat Ticket</h3>
+<p class="font-label-sm text-[11px] text-secondary mt-1">500 coins</p>
+</div>
+<button class="redeem-btn w-full py-1.5 rounded-full border border-primary-container text-primary-container font-label-md text-[13px] hover:bg-primary-container hover:text-surface-white transition-colors">
+                    Redeem
+                </button>
+<div class="redeem-stamp">
+<span class="material-symbols-outlined text-surface-white mb-1">check</span>
+<span class="font-label-sm text-[11px] text-surface-white font-medium">Redeemed</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile only) -->
+<nav class="md:hidden bg-surface-container-low dark:bg-surface-container-lowest fixed bottom-0 w-full z-30 rounded-t-xl border-t border-border-subtle flex justify-around items-center px-4 pb-6 pt-3">
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">auto_stories</span>
+<span class="font-label-sm text-[10px]">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-5 py-1 hover:text-primary transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined mb-1">self_improvement</span>
+<span class="font-label-sm text-[10px]">Practice</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">spa</span>
+<span class="font-label-sm text-[10px]">Mandala</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-sm text-[10px]">Journal</span>
+</div>
+</nav>
+<!-- Bottom Sheet Overlay -->
+<div class="overlay fixed inset-0 bg-on-background/40 z-50" id="bottom-sheet-overlay">
+<div class="absolute inset-0" onclick="closeBottomSheet()"></div>
+<div class="bottom-sheet absolute bottom-0 left-0 w-full bg-surface-white rounded-t-2xl p-6 shadow-xl pb-10" id="bottom-sheet">
+<!-- Handle -->
+<div class="w-12 h-1 bg-border-subtle rounded-full mx-auto mb-6"></div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Confirm Redemption</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4" id="sheet-message">Confirm redemption — 50 coins for Premium Yoga Mat Discount</p>
+<div class="bg-surface-container rounded-lg p-4 mb-6 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Your Balance</span>
+<span class="font-label-md text-label-md font-bold text-primary-container" id="sheet-balance">120 → 70 coins</span>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary-container text-surface-white font-label-md text-label-md py-3 rounded-full active:scale-[0.98] transition-transform" id="confirm-redeem-btn">
+                    Confirm
+                </button>
+<button class="w-full text-secondary font-label-md text-label-md py-3 hover:text-on-background transition-colors" onclick="closeBottomSheet()">
+                    Cancel
+                </button>
+</div>
+</div>
+</div>
+<script>
+        let currentBalance = 120;
+        let selectedTile = null;
+        let selectedCost = 0;
+        let selectedReward = "";
+
+        const overlay = document.getElementById('bottom-sheet-overlay');
+        const bottomSheet = document.getElementById('bottom-sheet');
+        const sheetMessage = document.getElementById('sheet-message');
+        const sheetBalance = document.getElementById('sheet-balance');
+        const confirmBtn = document.getElementById('confirm-redeem-btn');
+        const balanceDisplay = document.getElementById('coin-balance');
+
+        // Attach click to tiles
+        document.querySelectorAll('.redeem-tile').forEach(tile => {
+            tile.addEventListener('click', function(e) {
+                if(this.classList.contains('tile-inert')) return; // Already redeemed
+                
+                selectedTile = this;
+                selectedCost = parseInt(this.getAttribute('data-cost'));
+                selectedReward = this.getAttribute('data-reward');
+                
+                if (currentBalance >= selectedCost) {
+                    openBottomSheet();
+                } else {
+                    // Simple inline feedback for insufficient funds
+                    const originalText = this.querySelector('h3').innerText;
+                    const h3 = this.querySelector('h3');
+                    h3.innerText = "Not enough coins";
+                    h3.classList.add('text-destructive-red');
+                    setTimeout(() => {
+                        h3.innerText = originalText;
+                        h3.classList.remove('text-destructive-red');
+                    }, 2000);
+                }
+            });
+        });
+
+        function openBottomSheet() {
+            const newBalance = currentBalance - selectedCost;
+            sheetMessage.innerText = `Confirm redemption — ${selectedCost} coins for ${selectedReward}`;
+            sheetBalance.innerText = `${currentBalance} → ${newBalance} coins`;
+            
+            overlay.classList.add('open');
+            // Small delay to ensure display block is registered before transform
+            setTimeout(() => {
+                bottomSheet.classList.add('open');
+            }, 10);
+        }
+
+        function closeBottomSheet() {
+            bottomSheet.classList.remove('open');
+            setTimeout(() => {
+                overlay.classList.remove('open');
+            }, 300);
+            selectedTile = null;
+        }
+
+        confirmBtn.addEventListener('click', () => {
+            if (!selectedTile) return;
+
+            // Update state
+            const oldBalance = currentBalance;
+            currentBalance -= selectedCost;
+            
+            // Animate Balance in header
+            animateValue(balanceDisplay, oldBalance, currentBalance, 400);
+
+            // Animate Stamp
+            selectedTile.classList.add('tile-inert');
+            const stamp = selectedTile.querySelector('.redeem-stamp');
+            stamp.classList.add('active');
+            
+            // Update button text locally
+            const btn = selectedTile.querySelector('.redeem-btn');
+            if(btn) btn.style.display = 'none';
+
+            closeBottomSheet();
+        });
+
+        // Helper for number animation
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + " coins";
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body></html>

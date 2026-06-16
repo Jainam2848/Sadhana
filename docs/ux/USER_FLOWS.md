@@ -12,35 +12,27 @@
 These user flows trace key journeys through the **Sadhana** mobile experience. They specify decision nodes, loading states, and platform-specific behaviors (such as iOS haptics or Android system back gestures).
 
 ### Flow A: First-Time User Onboarding & Paywall Gating
-This journey shows the progression from initial install to the core "value moment" (completing the first short Sadhana routine). It handles the onboarding personalization questionnaire, GDPR checks, notification priming, the soft-gated paywall, and routes users to either a custom Personalized Plan (Premium) or a static Global Plan (Free).
+This journey shows the progression from initial install to the core "value moment" (completing the first short Sadhana routine). It handles the onboarding personalization questionnaire, the interactive breathing space demo, GDPR checks, notification priming, the soft-gated paywall, and routes users dynamically. Account creation is required only if starting a trial or purchase; otherwise, users bypass registration to try the free tier immediately as guests.
 
 ```mermaid
 flowchart TD
-    Start([App Installed & Opened]) --> Welcome[Welcome Slide 1: Brand Intro\nEarth Premium Styling]
-    Welcome --> Welcome2[Welcome Slide 2: The Sadhana Philosophy\nAsana + Pranayama + Dhyana]
-    Welcome2 --> Personalize[Personalization Questionnaire:\nSelect Focus, Level, Pacing]
-    Personalize --> GDPRCheck{User in EU?}
+    Start([App Installed & Opened]) --> Welcome[1. Welcome Screen\nEarth Ritual Visuals]
+    Welcome --> Personalize[2. Personalization Questionnaire\nGoals, Experience & Habit Anchor]
+    Personalize --> OnboardingDemo[3. Onboarding Demo / Breathing Space\n30s concentric circles, glossary, haptic]
+    OnboardingDemo --> GDPRCheck{User in EU?}
     
-    GDPRCheck -- Yes --> GDPRPrompt[GDPR Tracking Consent Dialog\nStrict Opt-In Option] --> NotifyPrime
+    GDPRCheck -- Yes --> GDPRPrompt[4. GDPR Consent Screen\nAnalytics Toggles] --> NotifyPrime
     GDPRCheck -- No --> NotifyPrime
     
-    NotifyPrime[Permission Priming Modal:\nExplain Benefit of Daily Streak] --> NotifyOS{User Accepts Benefit?}
+    NotifyPrime[5. Permission Priming Screen\nFramed with chosen Habit Anchor] --> NotifyOS{User Accepts?}
     
     NotifyOS -- Tap Yes --> NativeNotify[Trigger Native OS Notification Prompt] --> OnboardingPaywall
     NotifyOS -- Tap Skip --> OnboardingPaywall
     
-    OnboardingPaywall[Soft-Gated Onboarding Paywall:\nPrompts Subscription / 7-Day Trial] --> PaywallChoice{User Subscribes?}
+    OnboardingPaywall[6. Onboarding Paywall Screen\nSubscription / 7-Day Trial] --> PaywallChoice{User Subscribes?}
     
-    PaywallChoice -- Yes --> Subscribe[Process Purchase & Set premium = true\nVerify Receipt Callback] --> AuthChoicePremium
-    PaywallChoice -- No / Skip --> SetFree[Set premium = false] --> AuthChoiceFree
-    
-    AuthChoicePremium{Auth Option Selected}
-    AuthChoicePremium -- Email Sign Up --> AuthRegP[Enter Details & Save JWT] --> DashboardPremium[Dashboard Loaded:\nPersonalized Daily Sadhana Active]
-    AuthChoicePremium -- Guest / Skip --> GuestP[Initialize Premium Guest Session] --> DashboardPremium
-    
-    AuthChoiceFree{Auth Option Selected}
-    AuthChoiceFree -- Email Sign Up --> AuthRegF[Enter Details & Save JWT] --> DashboardFree[Dashboard Loaded:\nLocked Custom Plan, Static Global Daily Sadhana]
-    AuthChoiceFree -- Guest / Skip --> GuestF[Initialize Free Guest Session] --> DashboardFree
+    PaywallChoice -- Yes --> AuthPrompt[7. Auth / Register Screen\nRequire signup to secure trial/purchase] --> Subscribe[Process Purchase & Set premium = true] --> DashboardPremium[8. Home Dashboard\nPersonalized Daily Sadhana Active]
+    PaywallChoice -- No / Skip --> SetFree[Set premium = false\nDeferred Guest Session] --> DashboardFree[8. Home Dashboard\nLocked Custom Plan, Static Global Daily Sadhana]
     
     DashboardPremium --> PlayCustom[Play Personalized Routine\nAsana + Pranayama + Dhyana custom plan] --> ValueMoment
     DashboardFree --> PlayGlobal[Play Static Global Routine\nFixed 12-Min Short Practice] --> ValueMoment
@@ -50,10 +42,11 @@ flowchart TD
     classDef default fill:#FDFEFE,stroke:#2C3E50,stroke-width:1px;
     classDef action fill:#D35400,stroke:#2C3E50,stroke-width:2px,color:#FDFEFE;
     classDef decision fill:#ECFDF5,stroke:#1E8449,stroke-width:2px,color:#064E3B;
-    class Welcome,Welcome2,Personalize,GDPRPrompt,NotifyPrime,OnboardingPaywall,AuthRegP,AuthRegF,DashboardPremium,DashboardFree,PlayCustom,PlayGlobal default;
+    class Welcome,Personalize,OnboardingDemo,GDPRPrompt,NotifyPrime,OnboardingPaywall,AuthPrompt,DashboardPremium,DashboardFree,PlayCustom,PlayGlobal default;
     class Start,ValueMoment,Subscribe,SetFree action;
-    class GDPRCheck,NotifyOS,PaywallChoice,AuthChoicePremium,AuthChoiceFree decision;
+    class GDPRCheck,NotifyOS,PaywallChoice decision;
 ```
+
 
 ---
 
@@ -260,12 +253,19 @@ This is a numbered inventory of every screen in the **Sadhana** MVP. It specifie
     *   *Key Components:* Optional analytical tracking toggle, "Export Account Data" button, "Delete Account" button (navigates to confirmation).
 18. **Account Deletion Confirmation Screen**
     *   *Purpose:* Verify permanent account deletion.
+    *   *Key Components:* Account Details, Preferences, GDPR & Privacy settings items list.
+19. **Preferences Screen**
+    *   *Purpose:* Set user preferences and accessibility features.
+    *   *Parent:* Settings Screen.
+    *   *Key Components:* Text sizing slider, reminder time picker, evening reminder switch.
+20. **GDPR & Privacy Screen**
+    *   *Purpose:* Manage tracking toggles and export/deletion prompts.
+    *   *Parent:* Settings Screen.
+    *   *Key Components:* Analytics consent toggles, "Request Data Export" button, "Delete Account" button.
+21. **Account Deletion Confirmation Screen**
+    *   *Purpose:* Strict deletion verification modal.
     *   *Parent:* GDPR & Privacy Screen.
-    *   *Key Components:* Bold warning text, "Confirm Deletion" button, "Cancel" button.
-19. **Paywall Screen (Subscription Gating Screen)**
-    *   *Purpose:* Present features of Premium tier and handle subscriptions.
-    *   *Parent:* Profile Dashboard Screen (or triggered via locked content).
-    *   *Key Components:* Clear feature benefit comparison table, plan pricing cards (monthly vs annual), "Start Free Trial" button, "Restore Purchase" text link.
+    *   *Key Components:* Red warning banner, "DELETE" confirmation text input, "Permanently Delete" CTA.
 
 ---
 
@@ -281,10 +281,16 @@ This map shows the layout of Sadhana's screens, tracking tab transitions, modal 
     %% Onboarding Modal Stack
     OnboardingStack -- No --> Welcome[1. Welcome Screen]
     Welcome --> Personalize[2. Personalization Screen]
-    Personalize --> GDPR[3. GDPR Consent Screen]
-    GDPR --> Priming[4. Permission Priming Screen]
-    Priming --> Auth[5. Auth & Register Screen]
-    Auth --> |Success / Skip| MainTabs[Bottom Tab Navigator]
+    Personalize --> Demo[3. Onboarding Demo / Breathing Space]
+    Demo --> GDPR[4. GDPR Consent Screen]
+    GDPR --> Priming[5. Permission Priming Screen]
+    Priming --> Paywall[6. Onboarding Paywall Screen]
+    
+    Paywall --> |Subscribe / Trial| Auth[7. Auth & Register Screen]
+    Paywall --> |Skip / Free| GuestRoute[Initialize Guest Session]
+    
+    Auth --> MainTabs[Bottom Tab Navigator]
+    GuestRoute --> MainTabs
     
     %% Root Tab Controller
     OnboardingStack -- Yes --> MainTabs
@@ -295,30 +301,30 @@ This map shows the layout of Sadhana's screens, tracking tab transitions, modal 
     MainTabs --> TabProfile[Tab 4: Profile Stack]
     
     %% Home Tab Stack
-    TabHome --> Dashboard[6. Sadhana Dashboard]
-    Dashboard --> Config[7. Routine Config Screen]
-    Config --> Player[8. Active Routine Player]
-    Player --> Completed[9. Session Completed Screen]
+    TabHome --> Dashboard[8. Sadhana Dashboard]
+    Dashboard --> Config[9. Routine Config Screen]
+    Config --> Player[10. Active Routine Player]
+    Player --> Completed[11. Session Completed Screen]
     Completed --> Dashboard
     
     %% Library Tab Stack
-    TabLibrary --> Browser[10. Library Browser]
-    Browser --> Detail[11. Course Detail Screen]
-    Detail --> PlayerSingle[8. Active Player Screen]
+    TabLibrary --> Browser[12. Library Browser]
+    Browser --> Detail[13. Course Detail Screen]
+    Detail --> PlayerSingle[14. Single Media Player Screen]
     
     %% Rewards Tab Stack
-    TabRewards --> RewardsDash[12. Rewards Dashboard]
-    RewardsDash --> Redemptions[13. Karma Coin Redemption]
+    TabRewards --> RewardsDash[15. Rewards Dashboard]
+    RewardsDash --> Redemptions[16. Karma Coin Redemption]
     
     %% Profile Tab Stack
-    TabProfile --> Profile[14. Profile Screen]
-    Profile --> Paywall[19. Paywall Screen]
-    Profile --> Settings[15. Settings Screen]
+    TabProfile --> Profile[17. Profile Screen]
+    Profile -.-> |Upgrade Link| Paywall
+    Profile --> Settings[18. Settings Screen]
     
     %% Settings Stack
-    Settings --> Prefs[16. Preferences Screen]
-    Settings --> Privacy[17. GDPR & Privacy Screen]
-    Privacy --> Deletion[18. Account Deletion Screen]
+    Settings --> Prefs[19. Preferences Screen]
+    Settings --> Privacy[20. GDPR & Privacy Screen]
+    Privacy --> Deletion[21. Account Deletion Screen]
     Deletion --> |Confirm API Success| Welcome
     
     %% Gated triggers
@@ -328,7 +334,7 @@ This map shows the layout of Sadhana's screens, tracking tab transitions, modal 
     classDef default fill:#FDFEFE,stroke:#2C3E50,stroke-width:1px;
     classDef tab fill:#ECFDF5,stroke:#1E8449,stroke-width:2px,color:#064E3B;
     classDef modal fill:#FDF5E6,stroke:#D35400,stroke-width:1px;
-    class Welcome,Personalize,GDPR,Priming,Auth,Paywall,Deletion modal;
+    class Welcome,Personalize,Demo,GDPR,Priming,Auth,Paywall,Deletion modal;
     class Dashboard,Browser,RewardsDash,Profile default;
     class TabHome,TabLibrary,TabRewards,TabProfile tab;
 ```

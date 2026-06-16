@@ -1,0 +1,341 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sadhana - Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fff8f4",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#001e30",
+                        "on-secondary-container": "#736248",
+                        "on-primary-fixed": "#3a0b00",
+                        "tertiary-container": "#0079b0",
+                        "inverse-surface": "#392f22",
+                        "secondary-fixed": "#f7dfbf",
+                        "inverse-on-surface": "#ffeedc",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#c44b22",
+                        "surface-container-low": "#fff1e4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004b70",
+                        "tertiary-fixed-dim": "#8ccdff",
+                        "success-ashoka": "#1A6B3A",
+                        "surface-tint": "#a9380f",
+                        "surface-container-lowest": "#ffffff",
+                        "destructive-red": "#991F1F",
+                        "secondary": "#6d5c43",
+                        "highlight-sandstone": "#F5E6C8",
+                        "on-tertiary-container": "#f5f9ff",
+                        "inverse-primary": "#ffb59e",
+                        "background": "#fff8f4",
+                        "primary-fixed-dim": "#ffb59e",
+                        "secondary-container": "#f7dfbf",
+                        "on-secondary-fixed-variant": "#54442d",
+                        "outline-variant": "#e0c0b6",
+                        "on-surface-variant": "#58423b",
+                        "on-error": "#ffffff",
+                        "surface-container": "#fdebd8",
+                        "on-primary-container": "#fff7f5",
+                        "on-background": "#231a0f",
+                        "surface-container-highest": "#f1e0cd",
+                        "primary": "#a3330a",
+                        "surface-container-high": "#f7e5d2",
+                        "border-subtle": "rgba(42, 29, 10, 0.08)",
+                        "surface-white": "#FFFFFF",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-dim": "#e8d7c5",
+                        "on-secondary-fixed": "#251906",
+                        "surface-variant": "#f1e0cd",
+                        "surface-bright": "#fff8f4",
+                        "secondary-fixed-dim": "#dac3a4",
+                        "tertiary-fixed": "#cae6ff",
+                        "tertiary": "#005f8c",
+                        "background-bone": "#FDFAF5",
+                        "on-surface": "#231a0f",
+                        "outline": "#8c7169",
+                        "on-primary-fixed-variant": "#852400",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "48px",
+                        "margin-page": "24px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "label-md": ["DM Sans"],
+                        "headline-md": ["EB Garamond"],
+                        "body-md": ["DM Sans"],
+                        "sanskrit-overlay": ["Noto Serif Devanagari"],
+                        "label-sm": ["DM Sans"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "sanskrit-overlay": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Noto+Serif+Devanagari:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'DM Sans', sans-serif; background-color: #FDFAF5; }
+        .font-eb-garamond { font-family: 'EB Garamond', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Mandala Thread */
+        .mandala-thread {
+            position: fixed;
+            top: -20px;
+            right: -20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0.5px solid #C44B22;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
+        }
+        .shake-animation { animation: shake 0.4s ease-in-out; }
+
+        /* Search Bar Slide */
+        .search-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+        }
+        .search-container.active {
+            max-height: 60px;
+            opacity: 1;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-background-bone text-on-background pb-24 min-h-screen relative overflow-x-hidden">
+<!-- Mandala Thread -->
+<div class="mandala-thread"></div>
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-border-subtle w-full top-0 sticky z-40 transition-colors flex justify-between items-center px-margin-page py-4 max-w-7xl mx-auto">
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-low transition-colors active:opacity-80 p-2 -ml-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Library</h1>
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-low transition-colors active:opacity-80 p-2 -mr-2 rounded-full" id="searchToggle">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="px-margin-page py-stack-md max-w-7xl mx-auto">
+<!-- Search Bar -->
+<div class="search-container" id="searchBar">
+<div class="relative w-full h-[44px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant z-10" data-icon="search">search</span>
+<input class="w-full h-full pl-10 pr-4 rounded-lg border border-outline bg-surface-white text-body-md font-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" placeholder="Search postures..." type="text">
+</div>
+</div>
+<!-- Category Chips -->
+<div class="flex overflow-x-auto hide-scrollbar gap-stack-sm pb-stack-sm mb-stack-lg -mx-margin-page px-margin-page snap-x">
+<button class="snap-start shrink-0 px-4 py-2 rounded-full bg-highlight-sandstone text-primary-container border border-primary-container font-label-md text-label-md whitespace-nowrap transition-colors">All</button>
+<button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-white border border-border-subtle text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Asana</button>
+<button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-white border border-border-subtle text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Pranayama</button>
+<button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-white border border-border-subtle text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Dhyana</button>
+<button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-white border border-border-subtle text-on-surface-variant font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Philosophy</button>
+</div>
+<!-- Featured Start Here -->
+<section class="mb-section-gap">
+<h2 class="font-headline-md text-headline-md text-on-background mb-stack-md">Start Here</h2>
+<div class="flex overflow-x-auto hide-scrollbar gap-gutter-grid pb-2 -mx-margin-page px-margin-page snap-x">
+<!-- Card 1 -->
+<div class="snap-start shrink-0 w-[160px] h-[200px] bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="h-1/2 bg-surface-container flex items-center justify-center relative">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="self_improvement">self_improvement</span>
+</div>
+<div class="p-3 h-1/2 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background line-clamp-2">Foundations of Breath</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">4 Sessions</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="snap-start shrink-0 w-[160px] h-[200px] bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="h-1/2 bg-secondary-fixed flex items-center justify-center relative">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="spa">spa</span>
+</div>
+<div class="p-3 h-1/2 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background line-clamp-2">Morning Ritual</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">12 mins • Daily</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="snap-start shrink-0 w-[160px] h-[200px] bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="h-1/2 bg-tertiary-fixed flex items-center justify-center relative">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="auto_stories">auto_stories</span>
+</div>
+<div class="p-3 h-1/2 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background line-clamp-2">Yoga Sutras Primer</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Philosophy</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Grid -->
+<section>
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Tile 1 -->
+<div class="bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col aspect-square relative group hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<img alt="Woman performing yoga pose in a serene, naturally lit studio setting with warm wooden floors." class="w-full h-2/3 object-cover border-b border-border-subtle" data-alt="A serene indoor scene featuring a person performing a grounded yoga pose. The room is flooded with soft, high-key natural light, highlighting the warm tones of the wooden floor and minimalist decor. The color palette emphasizes soft beiges, warm terracotta accents, and pristine whites, embodying a premium editorial aesthetic. The mood is calm, focused, and tactile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrX1UZHHsVwx4PPUdRJAakK0Yv-HtubHU87cUQ6A2ZPcTII5xSFH-BHZ3oJw-1z7Z5uFWQJdD9oq4d5vzrBMhyqztoE-C092knPTlwtj5PawjR2bXFomjnbh2jp8U3lM0hBiVzBwK3MiYNeivtvED6NtlGeVT2aPlm4CXW-1rl84J8wYRaE9VRFoEq77WWjp3w6s_8CCl_W3SNRWhzlI8ocF5USrcwCkc-9h56ATreew3KrKjsHg_n1cxFQS4zeXFnAVPcJ_gw-A">
+<div class="p-3 flex-1 flex flex-col justify-center">
+<h4 class="font-label-md text-label-md text-on-background truncate">Sun Salutation A</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Vinyasa</p>
+</div>
+</div>
+<!-- Tile 2 (Locked) -->
+<div class="locked-tile bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col aspect-square relative group cursor-pointer">
+<div class="absolute inset-0 bg-inverse-surface/10 z-10 flex items-center justify-center backdrop-blur-[1px]">
+<span class="material-symbols-outlined text-inverse-surface bg-surface-white/80 rounded-full p-2" data-icon="lock">lock</span>
+</div>
+<img alt="Close up of a person hands in a mudra position during meditation." class="w-full h-2/3 object-cover border-b border-border-subtle opacity-70" data-alt="A close-up shot of hands gently resting in a traditional mudra pose during meditation. The lighting is soft and diffused, creating subtle shadows that emphasize the texture of the skin and the fabric of the clothing. The background is a soft, out-of-focus beige, adhering to an earthy, minimalist visual style. The overall feel is deeply grounded and introspective." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpIuE1rtsd1TJDpWjIoOF2-LusQ3Nsotu5ZbJT_qL8f5wojzRjJrvJ_dWyCVsQqJt01zc47bu3gQ1dXT5qx80ACrryr1fdqP9y8_pojCcEWVfd2SFm8rIRtWHv065c-wtiTbN6agCcPEyLbcCMBh69p0YTCwch3upTjlspBh1z_3StwvrVkS0Ki-J1y40NY9G-93BU0Yx_2QeRCMzU0dZQmpu8PBxCjN4xW0PZkE4XAOKr14lghTHroJuJZ7fly7UyeOtt8JAYqw">
+<div class="p-3 flex-1 flex flex-col justify-center opacity-70">
+<h4 class="font-label-md text-label-md text-on-background truncate">Advanced Pranayama</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Breathwork</p>
+</div>
+</div>
+<!-- Tile 3 -->
+<div class="bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col aspect-square relative group hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<img alt="Person doing yoga outdoors on a mat with green foliage." class="w-full h-2/3 object-cover border-b border-border-subtle" data-alt="An outdoor scene of an individual practicing yoga on a natural fiber mat, surrounded by subtle, organic green foliage. The bright, even lighting conveys a crisp, clean morning atmosphere. The color scheme blends earthy warm tones with fresh, muted greens and crisp whites. The aesthetic is tactile, organic, and grounded." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcXxa9NyJ4eLgtzCNbL1Nt6bVh5wIheg_HGMUDNSWMko030O7UuBwdSEQKG0Ju69mm3-cYY8YfEi6u4Sjhm-ur-yqAo8tA-xiaP-WEZMHBpJNUPu0T7RdH-3eH9_vVDYC1dK7bJb9o8XWTLbZ3W-YzJ__P5f70UkkCqpNFx5lLC-tv8-RoKHNacpYGwRJuyhHsd6-fTfk7HLf3yEoHaA86eDflw5XCtwAwI5afZioHZhehdGmnGbgBCEeStD47iU1klMPpfLGsjA">
+<div class="p-3 flex-1 flex flex-col justify-center">
+<h4 class="font-label-md text-label-md text-on-background truncate">Grounding Flow</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Hatha</p>
+</div>
+</div>
+<!-- Tile 4 (Locked) -->
+<div class="locked-tile bg-surface-white rounded-xl border border-border-subtle overflow-hidden flex flex-col aspect-square relative group cursor-pointer">
+<div class="absolute inset-0 bg-inverse-surface/10 z-10 flex items-center justify-center backdrop-blur-[1px]">
+<span class="material-symbols-outlined text-inverse-surface bg-surface-white/80 rounded-full p-2" data-icon="lock">lock</span>
+</div>
+<img alt="Abstract arrangement of textured stones and sand." class="w-full h-2/3 object-cover border-b border-border-subtle opacity-70" data-alt="A minimalist, highly textured arrangement of smooth stones resting on raked sand. The composition is editorial and sparse, utilizing generous negative space to evoke stillness. The lighting is soft and warm, highlighting the tactile qualities of the natural materials in shades of bone, taupe, and terracotta. The aesthetic is zen-like and refined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFZwLdKncEEMdfZXFeU6cRk2YdXTObK2Iw4fr_Dp_LJEBRERMdGbZwGgBBm0IvL2_DCGSGgkhy0T6edoLOG_UdsMOM_OR7j9ids4xox6jXiqcda9i89TIzbpLRKk01lG5i6nSoVaOGPjoMZtJVlPcrI_Ot65AUkjbtIPjjo9ilLgG0LuvmkuSntOgyjvcQyqzMiuwmgYZdTR09p-sOTht6H6_CCe-O01iTXSwtUG7tus2hiKv5zHBijRAo7DCJtWcnmq-hwp2kVA">
+<div class="p-3 flex-1 flex flex-col justify-center opacity-70">
+<h4 class="font-label-md text-label-md text-on-background truncate">Yoga Nidra</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Meditation</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Tooltip (Hidden by default) -->
+<div class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-lg font-label-md text-label-md opacity-0 transition-opacity duration-300 pointer-events-none z-50" id="lockTooltip">
+        Unlock on Creator plan
+    </div>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-border-subtle fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 md:hidden">
+<!-- Library (Active) -->
+<button class="flex flex-col items-center justify-center group active:scale-95 transition-transform duration-150">
+<div class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-5 py-1 mb-1">
+<span class="material-symbols-outlined font-headline-md text-headline-md" data-icon="auto_stories">auto_stories</span>
+</div>
+<span class="font-label-md text-label-md text-on-background font-bold">Library</span>
+</button>
+<!-- Practice (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all active:scale-95 duration-150 group">
+<div class="px-5 py-1 mb-1 group-hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined font-headline-md text-headline-md" data-icon="self_improvement">self_improvement</span>
+</div>
+<span class="font-label-md text-label-md">Practice</span>
+</button>
+<!-- Mandala (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all active:scale-95 duration-150 group">
+<div class="px-5 py-1 mb-1 group-hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined font-headline-md text-headline-md" data-icon="spa">spa</span>
+</div>
+<span class="font-label-md text-label-md">Mandala</span>
+</button>
+<!-- Journal (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-all active:scale-95 duration-150 group">
+<div class="px-5 py-1 mb-1 group-hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined font-headline-md text-headline-md" data-icon="menu_book">menu_book</span>
+</div>
+<span class="font-label-md text-label-md">Journal</span>
+</button>
+</nav>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Search Toggle Logic
+            const searchToggleBtn = document.getElementById('searchToggle');
+            const searchBar = document.getElementById('searchBar');
+            const searchInput = searchBar.querySelector('input');
+
+            searchToggleBtn.addEventListener('click', () => {
+                searchBar.classList.toggle('active');
+                if (searchBar.classList.contains('active')) {
+                    setTimeout(() => searchInput.focus(), 300);
+                }
+            });
+
+            // Locked Tiles Interaction
+            const lockedTiles = document.querySelectorAll('.locked-tile');
+            const tooltip = document.getElementById('lockTooltip');
+            let tooltipTimeout;
+
+            lockedTiles.forEach(tile => {
+                tile.addEventListener('click', (e) => {
+                    // Prevent default action if it was a link
+                    e.preventDefault();
+                    
+                    // Add shake class
+                    tile.classList.remove('shake-animation');
+                    void tile.offsetWidth; // Trigger reflow
+                    tile.classList.add('shake-animation');
+
+                    // Show tooltip
+                    tooltip.style.opacity = '1';
+                    
+                    // Hide tooltip after a delay
+                    clearTimeout(tooltipTimeout);
+                    tooltipTimeout = setTimeout(() => {
+                        tooltip.style.opacity = '0';
+                    }, 2500);
+                });
+            });
+        });
+    </script>
+</body></html>

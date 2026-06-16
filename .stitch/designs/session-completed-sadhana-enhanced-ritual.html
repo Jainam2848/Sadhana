@@ -1,0 +1,534 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Session Completed - Sadhana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&amp;family=EB+Garamond:wght@400;600&amp;family=DM+Sans:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@500&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#f5f9ff",
+                      "surface-dim": "#e8d7c5",
+                      "secondary-fixed": "#f7dfbf",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#392f22",
+                      "surface-variant": "#f1e0cd",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#fff8f4",
+                      "primary-fixed": "#ffdbd0",
+                      "tertiary-fixed-dim": "#8ccdff",
+                      "secondary": "#6d5c43",
+                      "on-secondary-container": "#736248",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#852400",
+                      "background-bone": "#FDFAF5",
+                      "on-primary-container": "#fff7f5",
+                      "tertiary-container": "#0079b0",
+                      "on-background": "#231a0f",
+                      "highlight-sandstone": "#F5E6C8",
+                      "on-secondary": "#ffffff",
+                      "primary-container": "#c44b22",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#001e30",
+                      "surface-container-highest": "#f1e0cd",
+                      "outline": "#8c7169",
+                      "tertiary-fixed": "#cae6ff",
+                      "surface-tint": "#a9380f",
+                      "secondary-container": "#f7dfbf",
+                      "on-secondary-fixed": "#251906",
+                      "on-surface-variant": "#58423b",
+                      "background": "#fff8f4",
+                      "secondary-fixed-dim": "#dac3a4",
+                      "surface-white": "#FFFFFF",
+                      "surface-container": "#fdebd8",
+                      "error-container": "#ffdad6",
+                      "border-subtle": "rgba(42, 29, 10, 0.08)",
+                      "inverse-on-surface": "#ffeedc",
+                      "on-tertiary-fixed-variant": "#004b70",
+                      "on-secondary-fixed-variant": "#54442d",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#fff1e4",
+                      "primary-fixed-dim": "#ffb59e",
+                      "inverse-primary": "#ffb59e",
+                      "surface-container-high": "#f7e5d2",
+                      "tertiary": "#005f8c",
+                      "primary": "#a3330a",
+                      "on-primary-fixed": "#3a0b00",
+                      "on-surface": "#231a0f",
+                      "outline-variant": "#e0c0b6",
+                      "surface": "#fff8f4",
+                      "destructive-red": "#991F1F",
+                      "success-ashoka": "#1A6B3A",
+                      "text-cormorant": "#1C1409",
+                      "text-dmsans": "#6B5A41"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "48px",
+                      "margin-page": "24px",
+                      "stack-md": "16px",
+                      "gutter-grid": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "sanskrit-overlay": [
+                              "Noto Serif Devanagari"
+                      ],
+                      "display-lg": [
+                              "EB Garamond"
+                      ],
+                      "label-sm": [
+                              "DM Sans"
+                      ],
+                      "label-md": [
+                              "DM Sans"
+                      ],
+                      "headline-md": [
+                              "EB Garamond"
+                      ],
+                      "body-lg": [
+                              "DM Sans"
+                      ],
+                      "headline-lg": [
+                              "EB Garamond"
+                      ],
+                      "body-md": [
+                              "DM Sans"
+                      ],
+                      "cormorant": [
+                              "Cormorant Garamond"
+                      ]
+              },
+              "fontSize": {
+                      "sanskrit-overlay": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "custom-h": [
+                              "28px",
+                              {
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "custom-p": [
+                              "15px",
+                              {
+                                      "lineHeight": "1.5"
+                              }
+                      ]
+              }
+            },
+          }
+      }
+</script>
+<style>
+        /* Mandala Thread Animation */
+        @keyframes drawArc {
+            to { stroke-dashoffset: 0; }
+        }
+        .mandala-arc {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .mandala-arc {
+                animation: drawArc 2s ease-out forwards;
+            }
+        }
+
+        /* Lotus Animation */
+        @keyframes drawPetal {
+            to { stroke-dashoffset: 0; fill-opacity: 1; }
+        }
+        @keyframes fadeCheck {
+            to { opacity: 1; }
+        }
+        @keyframes scaleUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .lotus-petal {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            fill-opacity: 0;
+            stroke: #1A6B3A;
+            stroke-width: 2;
+            fill: rgba(26, 107, 58, 0.1);
+        }
+        .lotus-check {
+            opacity: 0;
+            stroke: #1A6B3A;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        
+        @media (prefers-reduced-motion: no-preference) {
+            .success-container {
+                animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            }
+            .lotus-petal:nth-child(1) { animation: drawPetal 0.8s ease-out 0.2s forwards; }
+            .lotus-petal:nth-child(2) { animation: drawPetal 0.8s ease-out 0.4s forwards; }
+            .lotus-petal:nth-child(3) { animation: drawPetal 0.8s ease-out 0.6s forwards; }
+            .lotus-petal:nth-child(4) { animation: drawPetal 0.8s ease-out 0.4s forwards; }
+            .lotus-petal:nth-child(5) { animation: drawPetal 0.8s ease-out 0.6s forwards; }
+            .lotus-check { animation: fadeCheck 0.5s ease-out 1.2s forwards; }
+        }
+
+        /* Ad Overlay Fade */
+        .ad-overlay.hidden-ad {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Timer SVG Animation */
+        .timer-circle {
+            transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+        }
+        
+        /* Pulse Animation */
+        @keyframes warmPulse {
+            0% { box-shadow: 0 0 0 0 rgba(26, 107, 58, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(26, 107, 58, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(26, 107, 58, 0); }
+        }
+        .btn-pulse {
+            animation: warmPulse 2s infinite;
+        }
+        
+        @keyframes flamePulse {
+            0% { opacity: 0.8; filter: drop-shadow(0 0 2px rgba(196, 75, 34, 0.4)); transform: scale(0.95); }
+            50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(196, 75, 34, 0.8)); transform: scale(1.05); }
+            100% { opacity: 0.8; filter: drop-shadow(0 0 2px rgba(196, 75, 34, 0.4)); transform: scale(0.95); }
+        }
+        .flame-glow {
+            animation: flamePulse 3s infinite ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#FDFAF5] text-on-background min-h-screen relative overflow-hidden font-body-md selection:bg-highlight-sandstone selection:text-on-background">
+<!-- Radial Glow Background -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(245,230,200,0.4)_0%,rgba(253,250,245,0)_70%)] pointer-events-none z-0"></div>
+<!-- The Mandala Thread (Top Right) -->
+<svg class="absolute top-0 right-0 w-64 h-64 pointer-events-none opacity-40 z-0" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path class="mandala-arc" d="M 100 0 A 100 100 0 0 0 0 100" stroke="#C44B22" stroke-width="0.5"></path>
+<path class="mandala-arc" d="M 100 10 A 90 90 0 0 0 10 100" stroke="#C44B22" stroke-width="0.2" style="animation-delay: 0.2s;"></path>
+<path class="mandala-arc" d="M 100 20 A 80 80 0 0 0 20 100" stroke="#C44B22" stroke-width="0.2" style="animation-delay: 0.4s;"></path>
+</svg>
+<!-- Confetti Canvas -->
+<canvas class="absolute inset-0 w-full h-full pointer-events-none z-10" id="confetti-canvas"></canvas>
+<main class="relative z-20 flex flex-col items-center justify-center min-h-screen px-margin-page max-w-md mx-auto">
+<!-- Celebration Header -->
+<div class="flex flex-col items-center text-center space-y-stack-md mb-section-gap w-full mt-auto">
+<!-- Custom Blooming Lotus SVG -->
+<div class="success-container w-[72px] h-[72px] mb-stack-sm relative opacity-0 transform scale-80 flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-sm" viewBox="0 0 100 100">
+<!-- Center Petal -->
+<path class="lotus-petal" d="M 50 20 C 65 40 65 60 50 80 C 35 60 35 40 50 20 Z"></path>
+<!-- Inner Right Petal -->
+<path class="lotus-petal" d="M 50 80 C 70 70 80 50 70 30 C 60 40 55 60 50 80 Z"></path>
+<!-- Outer Right Petal -->
+<path class="lotus-petal" d="M 50 80 C 80 75 95 60 90 45 C 75 50 65 65 50 80 Z"></path>
+<!-- Inner Left Petal -->
+<path class="lotus-petal" d="M 50 80 C 30 70 20 50 30 30 C 40 40 45 60 50 80 Z"></path>
+<!-- Outer Left Petal -->
+<path class="lotus-petal" d="M 50 80 C 20 75 5 60 10 45 C 25 50 35 65 50 80 Z"></path>
+<!-- Fine-line Checkmark in the center -->
+<path class="lotus-check" d="M 40 55 L 48 63 L 62 45"></path>
+</svg>
+</div>
+<h1 class="font-cormorant text-custom-h text-text-cormorant">Sadhana complete</h1>
+<p class="font-body-md text-custom-p text-text-dmsans max-w-[280px]">You showed up for yourself today.</p>
+</div>
+<!-- Stats Card (Glassmorphism) -->
+<div class="w-full bg-[rgba(255,255,255,0.45)] backdrop-blur-[12px] rounded-[12px] border border-surface-white/50 p-stack-lg mb-section-gap flex justify-between items-center relative overflow-hidden shadow-sm">
+<div class="flex flex-col items-center flex-1 z-10">
+<span class="font-label-sm text-label-sm text-text-dmsans uppercase tracking-wider mb-stack-sm">Duration</span>
+<div class="flex items-baseline space-x-1">
+<span class="font-headline-lg text-headline-lg text-text-cormorant" id="duration-counter">0</span>
+<span class="font-body-md text-body-md text-text-dmsans">min</span>
+</div>
+</div>
+<!-- Separator Line -->
+<div class="h-12 w-[1px] bg-border-subtle z-10"></div>
+<div class="flex flex-col items-center flex-1 z-10">
+<span class="font-label-sm text-label-sm text-text-dmsans uppercase tracking-wider mb-stack-sm flex items-center">
+                    Streak
+                    <span class="material-symbols-outlined text-[#C44B22] text-[16px] ml-1 flame-glow" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</span>
+<div class="flex items-baseline space-x-1">
+<span class="font-headline-lg text-headline-lg text-[#C44B22]" id="streak-counter">0</span>
+<span class="font-body-md text-body-md text-text-dmsans">days</span>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<div class="w-full mt-auto mb-stack-md">
+<button class="w-full h-12 bg-[#1A6B3A] text-surface-white font-label-md text-label-md rounded-full hover:opacity-90 active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-sm btn-pulse">
+<span>Claim Your Reward</span>
+<span class="material-symbols-outlined text-[18px]">redeem</span>
+</button>
+<button class="w-full h-12 mt-stack-md border border-border-subtle text-text-dmsans font-label-md text-label-md rounded-full hover:bg-surface-container-low active:scale-95 transition-all">
+                Return Home
+            </button>
+</div>
+<div class="mb-margin-page text-center">
+<p class="font-body-md text-[13px] text-text-dmsans">Next session in: 16 hours 40 min</p>
+</div>
+</main>
+<!-- Full Screen Interstitial Ad Overlay -->
+<div class="ad-overlay fixed inset-0 z-50 bg-[#0D0A06] flex flex-col items-center justify-center text-surface-white" id="ad-overlay">
+<!-- Header & Timer -->
+<div class="absolute top-margin-page w-full px-margin-page flex justify-between items-center z-20">
+<span class="font-label-sm text-surface-white/70 uppercase tracking-wider text-[11px]">Sponsor Advertisement</span>
+<div class="w-[44px] h-[44px] relative flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 44 44">
+<circle cx="22" cy="22" fill="none" r="20" stroke="rgba(255,255,255,0.1)" stroke-width="3"></circle>
+<circle class="timer-circle" cx="22" cy="22" fill="none" id="ad-timer-circle" r="20" stroke="#C44B22" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute font-body-md text-[15px]" id="ad-timer-text">10</span>
+</div>
+</div>
+<!-- Skip Button (Hidden initially) -->
+<button class="absolute top-margin-page right-margin-page font-body-md text-[13px] text-surface-white/60 hover:text-surface-white transition-colors opacity-0 pointer-events-none flex items-center space-x-1 px-3 py-1.5 rounded-full backdrop-blur-sm z-30 bg-black/20" id="ad-skip-btn" style="margin-top: 50px;">
+<span>Skip ✕</span>
+</button>
+<!-- Ad Content Placeholder -->
+<div class="w-full h-[80%] max-w-sm px-margin-page text-center flex flex-col justify-center relative">
+<div class="w-full h-full bg-surface-white/5 rounded-xl border border-surface-white/10 relative overflow-hidden flex flex-col backdrop-blur-sm shadow-2xl" data-alt="A highly stylized, cinematic advertisement for a premium meditation cushion. The product sits in a serene, dark studio environment illuminated by a single warm spotlight, creating dramatic chiaroscuro lighting. The aesthetic is modern, minimalist, and deeply focused, complementing the Earth Ritual theme with deep umber shadows and rich, tactile textures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQcF9-wFdE-KJE2oHF_ZwmEY5JjS2OhEabTfLMfAVGL2PTU4dUxSe90tmuMPIdaXjDJ6ir7UokgSqhSZtLQ9hWyMJDacfVlXZh_sd1MTKzK7oD2q4E6DXWw7UqmjkLuBxx6buq144D4hKkRSfcvDDfrOyPAodYMYqhdfHsoCFFJxXO2Z-96t1H0Nn1EFliG2QLq4qEqccCdI0-Xw4vQKRwcjN-cJ11CoNUXXpCUHZO3AweozaQDJ8EVU8md3xoul94jTo-rJMD6Q'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-t from-[#0D0A06] via-[#0D0A06]/40 to-transparent"></div>
+<div class="absolute bottom-stack-lg left-0 w-full px-stack-lg text-left z-10">
+<h2 class="font-headline-md text-headline-md text-surface-white mb-stack-sm drop-shadow-md">Elevate Your Practice</h2>
+<p class="font-body-md text-body-md text-surface-white/80 mb-stack-md drop-shadow-md">Premium organic cotton meditation cushions.</p>
+<button class="w-full h-12 bg-[#FDFAF5] text-[#0D0A06] font-label-md text-label-md rounded-full hover:bg-surface-container-highest transition-colors font-medium">
+                    Learn More
+                </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // --- Number Counter Animation ---
+            function animateValue(obj, start, end, duration) {
+                if (prefersReducedMotion) {
+                    obj.innerHTML = end;
+                    return;
+                }
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    // Ease out expo
+                    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    obj.innerHTML = Math.floor(easeProgress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            setTimeout(() => {
+                const durationEl = document.getElementById('duration-counter');
+                const streakEl = document.getElementById('streak-counter');
+                if(durationEl) animateValue(durationEl, 0, 12, 1000);
+                if(streakEl) animateValue(streakEl, 0, 12, 1000);
+            }, 500);
+
+
+            // --- Confetti Animation ---
+            if (!prefersReducedMotion) {
+                const canvas = document.getElementById('confetti-canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const colors = ['#C44B22', '#F5E6C8', '#1A6B3A'];
+                const particles = [];
+                let animationId;
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = -20 - Math.random() * 100;
+                        this.vx = (Math.random() - 0.5) * 2;
+                        this.vy = Math.random() * 3 + 2;
+                        this.size = Math.random() * 6 + 4;
+                        this.color = colors[Math.floor(Math.random() * colors.length)];
+                        this.rotation = Math.random() * 360;
+                        this.rotationSpeed = (Math.random() - 0.5) * 5;
+                        this.swaySpeed = Math.random() * 0.05 + 0.02;
+                        this.swayOffset = Math.random() * Math.PI * 2;
+                        this.life = 1.0;
+                        this.scaleY = 1.0;
+                        this.spinSpeed = Math.random() * 0.1 + 0.05;
+                    }
+                    update() {
+                        this.x += this.vx + Math.sin(Date.now() * this.swaySpeed + this.swayOffset) * 1.5;
+                        this.y += this.vy;
+                        this.rotation += this.rotationSpeed;
+                        this.scaleY = Math.cos(Date.now() * this.spinSpeed + this.swayOffset); // 3D spin effect
+                        
+                        if (this.y > canvas.height + 20) {
+                            this.y = -20;
+                            this.x = Math.random() * canvas.width;
+                        }
+                    }
+                    draw() {
+                        ctx.save();
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(this.rotation * Math.PI / 180);
+                        ctx.scale(1, Math.abs(this.scaleY));
+                        ctx.fillStyle = this.color;
+                        
+                        // Organic petal/teardrop shape
+                        ctx.beginPath();
+                        ctx.moveTo(0, -this.size);
+                        ctx.bezierCurveTo(this.size, -this.size, this.size, this.size, 0, this.size * 1.5);
+                        ctx.bezierCurveTo(-this.size, this.size, -this.size, -this.size, 0, -this.size);
+                        ctx.fill();
+                        
+                        ctx.restore();
+                    }
+                }
+
+                // Continuous falling confetti
+                for (let i = 0; i < 75; i++) {
+                    particles.push(new Particle());
+                    particles[i].y = Math.random() * canvas.height; // initial scatter
+                }
+                
+                function render() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                    }
+                    animationId = requestAnimationFrame(render);
+                }
+                render();
+                
+                // Stop after 6 seconds to save battery
+                setTimeout(() => {
+                    cancelAnimationFrame(animationId);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }, 6000);
+            }
+
+            // --- Ad Overlay Logic ---
+            const adDuration = 10; // seconds
+            let timeLeft = adDuration;
+            const timerText = document.getElementById('ad-timer-text');
+            const timerCircle = document.getElementById('ad-timer-circle');
+            const skipBtn = document.getElementById('ad-skip-btn');
+            const adOverlay = document.getElementById('ad-overlay');
+            
+            const circumference = 2 * Math.PI * 20; // r=20
+            
+            const adInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                
+                // Update text every second
+                timerText.textContent = Math.ceil(Math.max(0, timeLeft));
+                
+                // Update circle stroke
+                const progress = timeLeft / adDuration;
+                timerCircle.style.strokeDashoffset = circumference * (1 - progress);
+
+                // Show skip button after 10s
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    timerText.textContent = 0;
+                    timerCircle.style.strokeDashoffset = circumference;
+                    timerCircle.style.stroke = 'rgba(255,255,255,0.3)'; // Dim when done
+                    skipBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    skipBtn.classList.add('opacity-100', 'pointer-events-auto');
+                }
+            }, 100);
+
+            skipBtn.addEventListener('click', () => {
+                adOverlay.classList.add('hidden-ad');
+                // Clean up DOM after fade
+                setTimeout(() => {
+                    adOverlay.remove();
+                }, 500);
+            });
+        });
+    </script>
+</body></html>

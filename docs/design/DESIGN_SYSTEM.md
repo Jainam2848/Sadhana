@@ -1,7 +1,7 @@
 # Design System — Sadhana
 
 > **Phase:** 3 (Design System & UI Generation)
-> **Aesthetic Theme:** Editorial Organic (*Earth Premium*)
+> **Aesthetic Theme:** Earth Ritual
 > **Status:** Approved
 > **Last Updated:** 2026-06-15
 
@@ -9,109 +9,83 @@
 
 ## 1. Visual Theme & Atmosphere
 
-The **Sadhana** visual experience is built around the concept of **Editorial Organic (Earth Premium)**. It combines the warm, grounding textures of traditional Indian heritage with the crisp, clean containment of modern publishing. It feels authentic, intentional, and premium.
+The **Sadhana** visual experience is built around the concept of **Earth Ritual**. It combines the warm, grounding textures of traditional Indian heritage with the clean, structured layout of modern heritage publishing. It feels authentic, intentional, and highly premium.
 
 ### Design Principles:
-1.  **Tactile Grounding:** Use organic tones (terracotta, cream, olive) to evoke a physical yoga space.
-2.  **Structural Restraint:** Lean heavily on negative space (asymmetry, wide margins) and editorial borders instead of heavy color fills.
-3.  **Classical Typography:** Sanskrit text and primary headings are set in an elegant serif to honor heritage, while settings and forms use a clean, modern sans-serif.
-4.  **Quiet Micro-Interactions:** Subtle, fluid entrance fades and haptic feedback reinforce a calm mental state. Avoid flashing colors, bouncy motions, or decorative animations.
+1.  **Tactile Grounding:** Uses the warm bone background (`#FDFAF5`) and sandstone accents (`#F5E6C8`) to evoke a physical yoga space.
+2.  **Editorial Restraint:** Employs thin, hairline borders (`1px solid rgba(42,29,10,0.08)`) and negative space instead of heavy color card fills or complex gradients.
+3.  **Classical Typography:** Serif headings (`Cormorant Garamond`) honor classical heritage, while functional UI labels use a modern sans-serif (`DM Sans`).
+4.  **Quiet Micro-Interactions:** Uses a strict three-tier motion hierarchy to preserve user focus and maintain a meditative atmosphere.
 
 ---
 
 ## 2. Color Palette & Roles
 
-Sadhana employs CSS variables representing the *Earth Premium* palette. All components must reference these semantic tokens.
+Every component in Sadhana inherits these visual identity tokens:
 
-### 2.1 Color Tokens
-
-| Token Name | Light Hex | Dark Hex | Functional Role |
-| :--- | :--- | :--- | :--- |
-| `--color-bg` | `#FDFEFE` | `#1A252C` | Base screen background (Cream / Slate Charcoal) |
-| `--color-text-primary` | `#2C3E50` | `#FDFEFE` | Primary titles, body copy, and heavy typography |
-| `--color-text-secondary` | `#5D6D7E` | `#95A5A6` | Captions, secondary info, labels, and borders |
-| `--color-primary` | `#D35400` | `#E67E22` | Terracotta: Core CTA, focus rings, and active states |
-| `--color-secondary` | `#1E8449` | `#2ECC71` | Olive Green: Success, streaks, and unlocked progress |
-| `--color-surface` | `#FFFFFF` | `#24333C` | Cards, buttons, and bottom-sheet containers |
-| `--color-surface-hover` | `#ECFDF5` | `#1E3F35` | Interactive hover/tapped states for list items |
-| `--color-error` | `#C0392B` | `#E74C3C` | Destructive alerts, delete buttons, and validation errors |
-| `--color-gold` | `#F39C12` | `#F1C40F` | VIP/Premium highlights, Best Value paywall indicators |
+| Token Name | Hex Code / Value | Functional Role |
+| :--- | :--- | :--- |
+| **Background** | `#FDFAF5` | Warm bone base canvas background |
+| **Surface** | `#FFFFFF` | Cards, bottom sheets, and modal bases |
+| **Surface Border** | `1px solid rgba(42,29,10,0.08)` | Subtle card dividers and containment borders |
+| **Primary Text** | `#1C1409` | Near-black warm: headings, body copy, and navigation titles |
+| **Secondary Text** | `#6B5A41` | Warm umber: captions, subheadings, labels, and disabled icons |
+| **Accent — Terracotta** | `#C44B22` | Darker terracotta: Core CTA buttons, active states, progress indicators |
+| **Growth — Ashoka Green**| `#1A6B3A` | Dark forest green: Success tags, streak calendar nodes, unlocks |
+| **Warm Highlight** | `#F5E6C8` | Sandstone: Active selections, highlighted tags, focus backgrounds |
+| **Danger / Destructive** | `#991F1F` | Deep red: Account deletion warning borders, destructive CTAs |
 
 ---
 
 ## 3. Typography Scale
 
-*   **Expressive Serif:** `Lora` (font-family: `'Lora', serif`). Evocative, grounding, traditional.
-*   **Restrained Sans-Serif:** `Raleway` (font-family: `'Raleway', sans-serif`). Accessible, clean, modern.
+*   **Display Headings:** `Cormorant Garamond` (serif, weight 600, letter-spacing -0.02em).
+*   **Body & UI Copy:** `DM Sans` (sans-serif, weight 400/500).
+*   **Sanskrit Terms:** `Noto Serif Devanagari` (Devanagari font-family, weight 500) — *restricted to Sanskrit tooltip overlays only.*
 
 ### Typography Hierarchy
 
 | Style Role | Font | Size (px) | Weight | Letter Spacing | Line Height |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hero Title** | Lora | `32px` | `700` | `-0.02em` | `1.2` |
-| **Header 1** | Lora | `26px` | `600` | `-0.01em` | `1.3` |
-| **Header 2** | Lora | `20px` | `600` | `0` | `1.4` |
-| **Body Large** | Raleway | `16px` | `500` | `0` | `1.5` |
-| **Body Regular** | Raleway | `14px` | `400` | `0` | `1.5` |
-| **Caption/Label** | Raleway | `12px` | `600` | `0.05em` | `1.4` |
-| **Button Text** | Raleway | `15px` | `700` | `0.02em` | `1` |
+| **Display** | Cormorant Garamond | `32px` | `600` | `-0.02em` | `1.1` |
+| **Heading** | Cormorant Garamond | `24px` | `600` | `-0.01em` | `1.2` |
+| **Subheading** | Cormorant Garamond | `18px` | `600` | `0` | `1.3` |
+| **Body Large** | DM Sans | `15px` | `400/500` | `0` | `1.5` |
+| **Caption/Details** | DM Sans | `13px` | `400` | `0` | `1.4` |
+| **Micro Label** | DM Sans | `11px` | `500` | `0.08em` | `1.2` |
 
-*Note: In code implementations, these must scale dynamically according to system-level accessibility settings (iOS Dynamic Type / Android Font Scaling).*
-
----
-
-## 4. Spacing & Geometry
-
-Sadhana follows a strict **4px-base grid** for consistent spatial rhythms.
-
-### 4.1 Spacing Scale
-*   `space-xs` (4px): Inner elements, tight label spacing.
-*   `space-sm` (8px): Card internal padding, button gaps.
-*   `space-md` (12px): Form spacing, component gaps.
-*   `space-lg` (16px): Standard mobile screen margins (sides).
-*   `space-xl` (24px): Prominent vertical section spacing.
-*   `space-2xl` (32px): Hero section gaps, outer borders.
-
-### 4.2 Border Radius
-*   `radius-sm` (8px): Form input fields, small badges, and tags.
-*   `radius-md` (12px): Dashboard cards, navigation elements.
-*   `radius-lg` (16px): Hero panels, bottom sheets, and modals.
-*   `radius-pill` (9999px): Primary buttons, streak icons, and pill badges.
-
-### 4.3 Depth & Elevation (Shadows)
-*   `shadow-none` (0): Base style for editorial, flat interfaces.
-*   `shadow-subtle` (Light: `0 4px 12px rgba(44,62,80,0.04)` / Dark: `none`): Default card depth.
-*   `shadow-prominent` (Light: `0 8px 24px rgba(44,62,80,0.08)` / Dark: `none`): Paywall containers and modals.
+*Note: In production components, these scale dynamically with system font-size accessibility standards.*
 
 ---
 
-## 5. Component Specifications
+## 4. Spacing & Layout Grammar
 
-### 5.1 Primary CTA Button
-*   **Shape:** Height `48px`, `radius-pill`, center-aligned text.
-*   **Default State:** Background `--color-primary` (Terracotta), text `--color-bg` (Cream).
-*   **Tapped/Hover State:** Shift opacity to `0.9` (haptic vibration triggered).
-*   **Disabled State:** Background `--color-text-secondary` with `0.4` opacity, white text.
+Sadhana uses a **4px-base spacing grid** and safe-area-aware layouts:
 
-### 5.2 Card Containers
-*   **Shape:** `radius-md`, border `1px solid rgba(93,109,126,0.15)`.
-*   **Color:** Background `--color-surface`, text `--color-text-primary`.
-*   **Interactivity:** Hover triggers background transition to `--color-surface-hover` and border color shift to `--color-secondary` (Olive).
-
-### 5.3 Text Inputs
-*   **Shape:** Height `52px`, `radius-sm`, padding-horizontal `space-lg`.
-*   **Border:** `1px solid var(--color-text-secondary)`.
-*   **Focus State:** Border `2px solid var(--color-primary)` (Terracotta), text `--color-text-primary`.
-*   **Error State:** Border `2px solid var(--color-error)` (Crimson), text error label displays at `12px` below.
-
-### 5.4 Tooltips & Bottom Sheets
-*   **Overlay Style:** Semi-transparent background mask (`rgba(44,62,80,0.4)`).
-*   **Bottom Sheet:** Slide-up panel from screen bottom. Rounded top corners (`radius-lg`), padding `24px`. Background `--color-bg`, heading in Lora (Serif), definitions in Raleway (Sans-Serif).
+*   **Mobile Canvas Size:** `390px` width (standard iPhone 15 Pro viewport).
+*   **Touch Targets:** Minimum height of `48px` on all interactive buttons and tap items.
+*   **Border Radius Scale:**
+    *   `8px`: Chips, small tags, and badges.
+    *   `12px`: Dashboard cards and course grid tiles.
+    *   `20px`: Modal bottom sheets and slide-up dialogs.
+    *   `28px`: Primary CTA buttons.
+*   **Tab Bar:** Sticky bottom navigation, `56px` height, 5 tabs.
 
 ---
 
-## 6. Haptic Feedback Patterns
+## 5. Motion Hierarchy (Three Tiers Only)
 
-*   **Success (Routine Finish, Streak Unlocked):** Double light pulse (iOS `UINotificationFeedbackTypeSuccess` / Android `HapticFeedbackConstants.CONFIRM`).
-*   **Selection Change (Tapping cards/tabs):** Single light tap (iOS `UISelectionFeedbackGenerator` / Android `HapticFeedbackConstants.KEYBOARD_TAP`).
-*   **Error (Failed transaction, form validation):** Triple rapid warning pulse (iOS `UINotificationFeedbackTypeError` / Android `HapticFeedbackConstants.REJECT`).
+To prevent visual clutter, motion is strictly structured into three categories:
+
+1.  **Tier 1 — Screen Transitions (280ms ease-out):** Screen pushes, modal entries (slide-up translation from `translateY(100%)` to `0`).
+2.  **Tier 2 — Component Feedback (150ms ease-out):** Button presses (scale `0.97`), card taps, category chip selections, toggle slides.
+3.  **Tier 3 — Ambient / Atmospheric (2000ms–4000ms ease-in-out infinite):** Used selectively for the streak flame glow and breathing visualizers. *Must be disabled under `prefers-reduced-motion: reduce` settings.*
+
+---
+
+## 6. Signature Visual Element: The Mandala Thread
+
+Every screen must include exactly one instance of the **Mandala thread**:
+*   An extremely thin SVG circular arc (`stroke-width: 0.5px`, `opacity: 0.08`, color: `#C44B22`).
+*   Positioned at the top-right corner of the screen background, partially cropped by the viewport edge.
+*   It is strictly decorative and never interactive.

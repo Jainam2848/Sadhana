@@ -105,6 +105,168 @@ docs/ux/USER_FLOWS.md
 ### Status at End of Session
 - Phase 2, Prompt 2.2 complete. Updated PRD, USER_FLOWS.md, and findings.md to enforce Premium-only personalization plan gating (soft-gated paywall immediately after onboarding quiz; free users default to a static Global Daily Sadhana). Ready to transition to Prompt 2.3.
 
+---
+
+## Session 4 — 2026-06-16
+
+**Phase:** 3 (Design System & UI Generation - Prompt 3.2)
+**Duration:** ~15 min
+**Agent:** Current orchestrator session
+
+### Work Done
+- Discovered StitchMCP tools and retrieved project details for project ID `669110078172882916`.
+- Saved project metadata and screen details to `.stitch/metadata.json` and `.stitch/screens.json`.
+- Updated sitemap `.stitch/SITE.md` with the Project ID and mapped sitemap checklist items to their respective Screen IDs from Stitch.
+- Wrote a custom Python script `download_designs.py` to pull down all 25 designed screen HTML pages and high-resolution PNG mockups (appending `=w1000` to Google Photos image URLs) to `.stitch/designs/`.
+- Verified layout integrity for the downloaded screens, checking style guides, typography, and constraints.
+- Updated `task_plan.md`, `findings.md`, and `progress.md`.
+
+### Files Created/Modified
+```
+.stitch/metadata.json
+.stitch/screens.json
+.stitch/download_designs.py
+.stitch/SITE.md
+.stitch/DESIGN.md
+task_plan.md
+findings.md
+progress.md
+```
+
+### Errors Encountered
+
+| Error | Phase | Attempt | Resolution |
+|-------|-------|---------|------------|
+| HTTP Error 400: Bad Request during asset download | 3 | Downloaded URLs were truncated in initial JSON write | Copied raw `list_screens` output from `output.txt` directly to `screens.json` to preserve full parameters |
+
+### Status at End of Session
+- Phase 3, Prompt 3.2 complete. All screens pulled down, verified, sitemap checked off, and design files updated. Ready to proceed to Phase 4 (Architecture & Backend).
+
+---
+
+## Session 5 — 2026-06-16
+
+**Phase:** 3 (Design System & UI Generation - Prompt 3.3)
+**Duration:** ~15 min
+**Agent:** Current orchestrator session
+
+### Work Done
+- Generated high-fidelity app icons (iOS App Icon, Play Store Icon, Android Adaptive Icon background/foreground) and splash screen assets (iOS Light/Dark splash, Android standard splash, Android 12+ splash icon) using the `generate_image` tool.
+- Developed and ran `process_assets.py` to resize assets to their final platform resolutions, and key out white backgrounds to create smooth, transparent-background adaptive icons.
+- Saved all 8 final processed assets to `assets/images/`.
+- Updated `progress.md`.
+
+### Files Created/Modified
+```
+assets/images/android_background.png
+assets/images/android_foreground.png
+assets/images/ios_app_icon.png
+assets/images/play_store_icon.png
+assets/images/splash_android_12_icon.png
+assets/images/splash_android_standard.png
+assets/images/splash_ios_dark.png
+assets/images/splash_ios_light.png
+.stitch/process_assets.py
+progress.md
+```
+
+### Errors Encountered
+*None this session.*
+
+### Status at End of Session
+- Phase 3, Prompt 3.3 complete. All assets generated, processed, and saved. Awaiting user approval to proceed to Phase 4.
+
+---
+
+## Session 6 — 2026-06-16
+
+**Phase:** 4 (Architecture & Backend - Prompt 4.1)
+**Duration:** ~25 min
+**Agent:** Current orchestrator session
+
+### Work Done
+- Read and loaded instructions for `backend-architect`, `database-design`, `api-patterns`, and `documentation-templates` skills.
+- Created `docs/architecture/ADR/ADR-001-tech-stack-selection.md` documenting selection of Supabase.
+- Created `docs/architecture/ADR/ADR-002-auth-strategy.md` mapping email/password + social OAuth (Apple & Google Sign-In) and SecureStore caching.
+- Created `docs/architecture/ADR/ADR-003-state-management.md` defining Zustand client state and TanStack React Query offline persistence structures.
+- Created `docs/architecture/DATABASE_SCHEMA.md` specifying a complete SQL relational design, custom indexes, RLS policies, and database automation triggers.
+- Created `docs/architecture/API_SPEC.md` defining all MVP REST endpoints, global JSON error structures, token validation routes, and custom SQL functions (RPCs).
+- Created `docs/architecture/ARCHITECTURE.md` visualizing system layering and detailing data flows for offline sync mutations.
+- Updated `findings.md` and `progress.md` with key architectural decisions and logs.
+
+### Files Created/Modified
+```
+docs/architecture/ADR/ADR-001-tech-stack-selection.md
+docs/architecture/ADR/ADR-002-auth-strategy.md
+docs/architecture/ADR/ADR-003-state-management.md
+docs/architecture/DATABASE_SCHEMA.md
+docs/architecture/API_SPEC.md
+docs/architecture/ARCHITECTURE.md
+findings.md
+progress.md
+```
+
+### Errors Encountered
+*None this session.*
+
+### Status at End of Session
+- Phase 4, Prompt 4.1 complete. All ADRs and architecture specifications generated and saved to the workspace. Stopped for user review before building.
+
+---
+
+## Session 7 — 2026-06-16
+
+**Phase:** 4 (Architecture & Backend - Prompt 4.2)
+**Duration:** ~10 min
+**Agent:** Current orchestrator session
+
+### Work Done
+- Created Supabase Backend Implementation Plan at `docs/plans/2026-06-16-supabase-backend.md`.
+- **Task 1 (Initialize backend project):** Run `supabase init` locally and configure TypeScript/Jest testing environment (`tests/package.json`, `tests/tsconfig.json`, `tests/jest.config.js`). Created test `tests/init.test.ts` to assert config existence. Verified test PASS and committed.
+- **Task 2 (Set up database schema and migrations):** Created migration `supabase/migrations/20260616000000_init_schema.sql` defining 8 relational tables, primary/foreign keys, and indexes. Created test `tests/schema.test.ts` checking tables' existence. Applied migrations to remote Supabase instance (`iwwziupfwytlbdlehgoh`) using `apply_migration` MCP tool. Verified test PASS and committed.
+- **Task 3 (Implement auth):** Created migration `supabase/migrations/20260616000100_auth_triggers.sql` containing the PL/pgSQL function and trigger to automatically provision user profiles and user streaks on signup. Created test `tests/auth.test.ts` to verify the trigger. Successfully executed a database-level PL/pgSQL verification script via `execute_sql` to confirm trigger execution and profile creation. Committed changes.
+- **Task 4 (Build CRUD endpoints for primary entity):** Created test `tests/routines.test.ts` to assert public read access and block guest write modifications. Created migration `supabase/migrations/20260616000200_rls_policies.sql` enabling Row-Level Security on all tables and adding explicit read/write access policies (public select for routines, scoped auth access for profile/log tables). Verified test PASS and committed.
+- **Task 5 (Build CRUD endpoints for secondary entity):** Created test `tests/streaks.test.ts` representing user streak validation. Created migration `supabase/migrations/20260616000300_streak_triggers.sql` defining PL/pgSQL function and database trigger `on_session_completed` on the `session_logs` table. Verified trigger execution via a SQL test suite using `execute_sql` MCP tool. Committed changes.
+- **Task 6 (Implement file upload):** Created test `tests/storage.test.ts` to assert that the `media` storage bucket exists, is public, and blocks unauthorized uploads. Created migration `supabase/migrations/20260616000400_storage_setup.sql` configuring the bucket and RLS policies on `storage.buckets` and `storage.objects`. Applied migrations to remote Supabase instance. Verified test PASS and committed.
+- **Task 7 (Write integration tests for all endpoints):** Created test `tests/integration.test.ts` to assert that custom RPC endpoints enforce security. Created migration `supabase/migrations/20260616000500_custom_rpcs.sql` defining `increment_ad_views`, `redeem_karma_coins`, and `delete_user_account` functions. Developed and executed a full transactional E2E SQL test suite on the remote database to verify all triggers and RPC flows (onboarding, streak triggers, ad view milestones, coin updates, and GDPR cascade deletions). Verified tests PASS and committed.
+- **Task 8 (Deploy to staging):** Deployed all migrations (schemas, triggers, RLS, custom RPCs) and storage bucket configurations to the live healthy remote Supabase instance `Sadhana` (ref: `iwwziupfwytlbdlehgoh`). Created `.env.staging.example` template with API keys for client application integrations. Committed changes.
+
+### Files Created/Modified
+```
+.env.staging.example
+docs/plans/2026-06-16-supabase-backend.md
+supabase/config.toml
+supabase/.gitignore
+supabase/migrations/20260616000000_init_schema.sql
+supabase/migrations/20260616000100_auth_triggers.sql
+supabase/migrations/20260616000200_rls_policies.sql
+supabase/migrations/20260616000300_streak_triggers.sql
+supabase/migrations/20260616000400_storage_setup.sql
+supabase/migrations/20260616000500_custom_rpcs.sql
+tests/package.json
+tests/tsconfig.json
+tests/jest.config.js
+tests/init.test.ts
+tests/config.ts
+tests/schema.test.ts
+tests/auth.test.ts
+tests/routines.test.ts
+tests/streaks.test.ts
+tests/storage.test.ts
+tests/integration.test.ts
+progress.md
+```
+
+### Errors Encountered
+| Error | Phase | Attempt | Resolution |
+|-------|-------|---------|------------|
+| npm enoent Could not read package.json | 4 | npm install ran in desktop root because shell default location was parent D:\Desktop | Chained Set-Location / cd in powershell run command to Fitness project subfolder |
+| AuthApiError: email rate limit exceeded | 4 | auth.signUp() in auth.test.ts rate-limited on subsequent runs | Tested trigger integration directly at database level using a PL/pgSQL test block via execute_sql |
+| StorageApiError: Bucket not found | 4 | supabase.storage.getBucket('media') rate-limited or blocked by RLS | Added SELECT policy on storage.buckets table for public read-access |
+| column reference "user_id" is ambiguous | 4 | PL/pgSQL variable user_id collided with public.rewards_milestones table column user_id | Renamed function variables in custom_rpcs.sql to auth_user_id |
+
+### Status at End of Session
+- Phase 4.2 complete. All backend schemas, triggers, storage rules, and custom APIs fully implemented, tested, and deployed to staging. Ready to proceed to Phase 5: Frontend Build & Integration.
 
 ---
 
@@ -112,5 +274,7 @@ docs/ux/USER_FLOWS.md
 
 | Error | Phase | Attempt | Resolution |
 |-------|-------|---------|------------|
-| *None yet* | — | — | — |
+| HTTP Error 400: Bad Request during asset download | 3 | Downloaded URLs were truncated in initial JSON write | Copied raw `list_screens` output from `output.txt` directly to `screens.json` to preserve full parameters |
+
+
 

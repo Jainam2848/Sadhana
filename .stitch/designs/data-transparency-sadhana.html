@@ -1,0 +1,316 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sadhana - GDPR Consent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=EB+Garamond:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#a9380f",
+                      "background": "#fff8f4",
+                      "secondary-fixed-dim": "#dac3a4",
+                      "on-tertiary-fixed-variant": "#004b70",
+                      "on-tertiary-container": "#f5f9ff",
+                      "on-secondary-fixed": "#251906",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#fff8f4",
+                      "on-primary-fixed": "#3a0b00",
+                      "on-background": "#231a0f",
+                      "inverse-surface": "#392f22",
+                      "surface-container": "#fdebd8",
+                      "primary-container": "#c44b22",
+                      "tertiary-fixed-dim": "#8ccdff",
+                      "on-surface-variant": "#58423b",
+                      "on-primary-fixed-variant": "#852400",
+                      "secondary": "#6d5c43",
+                      "secondary-fixed": "#f7dfbf",
+                      "secondary-container": "#f7dfbf",
+                      "border-subtle": "rgba(42, 29, 10, 0.08)",
+                      "surface-container-high": "#f7e5d2",
+                      "inverse-on-surface": "#ffeedc",
+                      "surface-dim": "#e8d7c5",
+                      "surface": "#fff8f4",
+                      "primary": "#a3330a",
+                      "primary-fixed": "#ffdbd0",
+                      "tertiary-fixed": "#cae6ff",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#001e30",
+                      "surface-variant": "#f1e0cd",
+                      "outline-variant": "#e0c0b6",
+                      "on-primary-container": "#fff7f5",
+                      "highlight-sandstone": "#F5E6C8",
+                      "on-secondary-container": "#736248",
+                      "inverse-primary": "#ffb59e",
+                      "on-secondary": "#ffffff",
+                      "background-bone": "#FDFAF5",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#fff1e4",
+                      "primary-fixed-dim": "#ffb59e",
+                      "on-secondary-fixed-variant": "#54442d",
+                      "on-surface": "#231a0f",
+                      "on-error-container": "#93000a",
+                      "destructive-red": "#991F1F",
+                      "success-ashoka": "#1A6B3A",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#8c7169",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#f1e0cd",
+                      "tertiary-container": "#0079b0",
+                      "tertiary": "#005f8c",
+                      "surface-white": "#FFFFFF"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "gutter-grid": "16px",
+                      "section-gap": "48px",
+                      "margin-page": "24px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "DM Sans"
+                      ],
+                      "headline-md": [
+                              "EB Garamond"
+                      ],
+                      "sanskrit-overlay": [
+                              "Noto Serif Devanagari"
+                      ],
+                      "headline-lg": [
+                              "EB Garamond"
+                      ],
+                      "display-lg": [
+                              "EB Garamond"
+                      ],
+                      "label-sm": [
+                              "DM Sans"
+                      ],
+                      "label-md": [
+                              "DM Sans"
+                      ],
+                      "body-md": [
+                              "DM Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "sanskrit-overlay": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .mandala-thread {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 128px;
+            height: 128px;
+            border-right: 0.5px solid #C44B22;
+            border-top: 0.5px solid #C44B22;
+            border-top-right-radius: 100%;
+            pointer-events: none;
+        }
+
+        .slide-up-enter {
+            transform: translateY(100%);
+        }
+        .slide-up-enter-active {
+            transform: translateY(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-enter {
+            opacity: 0;
+        }
+        .fade-enter-active {
+            opacity: 1;
+            transition: opacity 0.4s ease-out;
+        }
+        
+        /* Custom toggle styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: transparent;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #1A6B3A;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen relative overflow-hidden font-body-md text-body-md text-on-background selection:bg-surface-tint selection:text-white">
+<!-- Background Content Mockup (Blurred) -->
+<div class="absolute inset-0 z-0">
+<div class="mandala-thread"></div>
+<div class="p-margin-page">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-stack-lg">Sadhana</h1>
+<div class="space-y-stack-md">
+<div class="h-32 bg-surface-white rounded-lg border border-border-subtle p-stack-md">
+<div class="w-1/3 h-4 bg-surface-container rounded mb-stack-sm"></div>
+<div class="w-2/3 h-4 bg-surface-container rounded"></div>
+</div>
+<div class="h-48 bg-surface-white rounded-lg border border-border-subtle p-stack-md">
+<div class="w-1/2 h-4 bg-surface-container rounded mb-stack-sm"></div>
+<div class="w-3/4 h-4 bg-surface-container rounded mb-stack-sm"></div>
+<div class="w-2/3 h-4 bg-surface-container rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-40 bg-[rgba(28,20,9,0.3)] backdrop-blur-[8px] fade-enter flex flex-col justify-end" id="modalOverlay">
+<!-- Bottom Sheet -->
+<div class="bg-background-bone w-full rounded-t-3xl pt-stack-md pb-safe px-margin-page slide-up-enter shadow-[0_-4px_24px_rgba(42,29,10,0.04)] h-[663px] flex flex-col max-w-md mx-auto relative" id="bottomSheet">
+<!-- Drag Handle -->
+<div class="w-12 h-1 bg-border-subtle rounded-full mx-auto mb-stack-lg"></div>
+<div class="flex-1 overflow-y-auto">
+<h2 class="font-headline-md text-headline-md text-on-background mb-stack-md">How we handle your data</h2>
+<div class="space-y-stack-md text-on-surface-variant font-body-md text-body-md mb-stack-lg pr-4">
+<p>We use session data to understand your practice patterns and build a personalized routine that adapts to your evolving needs.</p>
+<p>We never sell your data to third parties. Your personal reflections, progress, and rituals are kept secure and entirely private.</p>
+</div>
+<hr class="border-t border-border-subtle mb-stack-lg">
+<!-- Toggles -->
+<div class="space-y-stack-lg mb-stack-lg">
+<!-- Essential (Required) -->
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-background block">Essential (required)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Core app functionality</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in opacity-80 cursor-not-allowed">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-container-high appearance-none cursor-not-allowed z-10 transition-transform duration-300 right-0" disabled="" id="essential-toggle" name="toggle" style="border-color: transparent;" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-success-ashoka cursor-not-allowed" for="essential-toggle"></label>
+</div>
+</div>
+<!-- Performance Analytics -->
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-background block">Performance analytics</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Help us improve Sadhana</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-container-high appearance-none cursor-pointer z-10 transition-transform duration-300 left-0 checked:left-auto checked:right-0" id="analytics-toggle" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-300" for="analytics-toggle"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-auto pt-stack-md bg-background-bone">
+<button class="w-full bg-primary-container text-white font-label-md text-label-md py-4 rounded-full mb-stack-md hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-bone">
+                    Agree to All
+                </button>
+<button class="w-full text-center font-label-md text-label-md text-on-surface-variant hover:text-on-background transition-colors mb-stack-sm">
+                    Manage my options
+                </button>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const overlay = document.getElementById('modalOverlay');
+            const sheet = document.getElementById('bottomSheet');
+            
+            // Trigger entry animations
+            requestAnimationFrame(() => {
+                overlay.classList.add('fade-enter-active');
+                overlay.classList.remove('fade-enter');
+                
+                sheet.classList.add('slide-up-enter-active');
+                sheet.classList.remove('slide-up-enter');
+            });
+
+            // Handle custom toggle visual logic for the interactive toggle
+            const analyticsToggle = document.getElementById('analytics-toggle');
+            analyticsToggle.addEventListener('change', (e) => {
+                 const label = e.target.nextElementSibling;
+                 if(e.target.checked) {
+                     label.classList.remove('bg-surface-container-high');
+                     label.classList.add('bg-success-ashoka');
+                     e.target.style.borderColor = 'transparent';
+                 } else {
+                     label.classList.remove('bg-success-ashoka');
+                     label.classList.add('bg-surface-container-high');
+                     e.target.style.borderColor = ''; // reset to default CSS
+                 }
+            });
+        });
+    </script>
+</body></html>

@@ -21,54 +21,59 @@ Traditional onboarding flows fail because they treat first-use as a technical se
 
 ---
 
-## 2. Screen-by-Screen Breakdown (Onboarding Sequence)
-
-To maximize retention and trial starts, the sequence is limited to **five screens** before the first session starts.
+## 2. Screen-by-Screen Breakdown (Onboarding Sequence)To maximize retention and trial starts, the sequence is structured as a progressive **seven-screen journey** before the first full session.
 
 ```
-[Screen 1: Welcome] ──> [Screen 2: Personalization] ──> [Screen 3: Priming] ──> [Screen 4: Paywall] ──> [Screen 5: Auth] ──> [Value Moment]
+[Screen 1: Welcome] ──> [Screen 2: Personalization & Habit Anchoring] ──> [Screen 3: Breathing Space Demo] ──> [Screen 4: GDPR Consent] ──> [Screen 5: Permission Priming & Intentions] ──> [Screen 6: Onboarding Paywall] ──> [Screen 7: Auth (Gated/Deferred)] ──> [Value Moment]
 ```
 
 ### Screen 1: Welcome & Brand Sanctity
-*   **Aesthetic:** Immersive *Earth Premium* background (cream `#FDFEFE` base, soft terracotta `#D35400` branding icon), high-contrast readable text (Lora font for heading, Raleway for body). No generic illustrations; clean, premium photography of authentic practices.
+*   **Aesthetic:** Immersive *Earth Premium* background (cream `#FDFAF5` base, terracotta `#C44B22` logo), high-contrast readable text (Cormorant Garamond font for heading, DM Sans for body). No generic illustrations; clean, premium typography and testimonials.
 *   **Copy:** *"Your Daily Mind-Body Sanctuary. Authentic yoga, breathwork, and meditation, integrated into simple daily rituals."*
-*   **Social Proof Integration:** A subtle rolling testimonial element at the bottom: *"Over 10,000 seekers practicing daily. 'Sadhana changed how I start my mornings.' — Sarah J., Startup Founder."*
-*   **Primary CTA:** Prominent, touch-friendly primary button: **"Begin Your Journey"** (min height 44pt/48dp, trigger light haptic on tap).
-*   **Secondary CTA:** *"I already have an account" -> login link.*
+*   **Social Proof Integration:** A rolling testimonial element at the bottom: *"Over 10,000 seekers practicing daily. 'Sadhana changed how I start my mornings.' — Sarah J."*
+*   **Primary CTA:** Prominent, touch-friendly primary button: **"Begin Your Journey"** (min height 48px, trigger light haptic on tap).
+*   **Secondary CTA:** *"Already practicing? Log in"* (redirects to authentication immediately for returning users).
 
-### Screen 2: Personalization Questionnaire
+### Screen 2: Personalization & Habit Anchoring
 *   **Aesthetic:** Clear progress bar at the top (Sage green `#1E8449` fill) to show users progress and reduce exit friction.
 *   **Interaction:** Large, finger-friendly button blocks (min 48dp height) with visible selected states. Single-choice or multi-select cards.
 *   **Questions Asked:**
     1.  *What is your primary wellness goal today?* (Options: Relieve Stress & Anxiety, Improve Joint Mobility, Master Breathwork/Pranayama, Connect with Yoga Philosophy).
     2.  *What is your experience level?* (Options: Beginner - "Learn the basics", Intermediate - "Grow my practice", Advanced - "Deepen my connection").
-    3.  *How tight does your body feel today?* (Options: Very stiff/Desk neck, Moderate tightness, Flexible/No pain).
+    3.  *Habit Anchor Choice:* **"When will you practice daily?"** (Options: "After waking up", "After brushing my teeth", "After my morning coffee/tea", "Before going to sleep").
 *   **Copy Tone:** Respectful and encouraging. Avoid clinical or overly athletic terms.
 
-### Screen 3: Permission Priming (Notifications & GDPR)
-*   **Timing:** Triggered immediately after the quiz is completed.
-*   **Aesthetic:** Animated calendar mockup showing a 5-day streak of burning orange flame icons.
-*   **Psychological Framing:**
-    *   *Copy:* *"Daily consistency builds mental resilience. We send one gentle reminder at your preferred time to help you maintain your daily Sadhana streak. No marketing spam, ever."*
-*   **GDPR (EU Users Only):** Before showing notification triggers, display an explicit privacy toggle: *"I consent to optional anonymous data analytics to improve audio streaming performance."*
-*   **Primary CTA:** **"Set My Reminder Time"** (Triggers native iOS/Android notification alert permissions).
-*   **Secondary CTA:** *"Skip for now" (allows proceeding without notification permissions).*
+### Screen 3: The "Aha Moment" (Breathing Space Demo)
+*   **Concept:** Bring immediate value *before* pitching paywalls or requiring registrations. Rather than explaining the app, we let them experience its sensory design instantly.
+*   **Interaction:** A short, interactive, 30-second guided breathing cycle.
+*   **Mechanics:** concentric SVG circle guide expands and contracts (inhale/exhale), synchronized with a soft ambient background audio wave. Sanskrit subtitles (*Pranayama*) slide up, showing a tooltip detailing neuroscientific benefits (vagus nerve stimulation) on tap.
+*   **Benefit:** Delivers a somatic "micro-win" (calming the nervous system) in seconds, showing the tactile and premium quality of the app.
 
-### Screen 4: Soft-Gated Onboarding Paywall
-*   **Timing:** Triggered immediately after notification setup. A clean, custom loading animation is shown for 1.5 seconds: *"Assembling your customized Sadhana sequence..."* to leverage the labor-investment effect.
-*   **Aesthetic:** Elegant layout with Lora serif headings. A clean, two-column checklist contrasting Free vs. Premium.
-*   **Subscription Offerings:** Clear monthly ($14.99) and annual ($89.99 - 50% savings) options. A prominent **"Start 7-Day Free Trial"** primary button.
-*   **Personalization Lock Logic:**
-    *   *Premium Unlock:* Displays their custom plan name based on Screen 2 (e.g., *"Sarah's 12-Min Morning Focus Sadhana - Unlocked"*).
-    *   *Free Option:* Below or in the top corner, a clear **"Skip / Try Free Version"** text link is visible.
-*   **Gating Warning:** Selecting "Skip" shows a polite toast: *"Your personalized plan will be locked. You will receive the static Global Daily Sadhana instead."*
+### Screen 4: GDPR Consent Screen
+*   **Concept:** Explicit analytical opt-in for EU regulatory compliance, presented as a trust-building feature rather than a legal barrier.
+*   **Components:** Descriptive consent terms, permanent Essential toggle, and interactive Performance Analytics toggle (defaulted to off).
 
-### Screen 5: Authentication & Session Launch
-*   **Aesthetic:** Clean input fields with clear labels, proper keyboard type configuration (autofill enabled), and error validations shown inline.
-*   **Copy:** *"Create your sanctuary account to save your daily streak and progress calendar."*
-*   ** CTAs:**
-    *   "Sign Up with Email" primary button.
-    *   "Skip & Explore as Guest" link in the top corner. (Ensures that users who want to try the app immediately do not get blocked by form fields).
+### Screen 5: Permission Priming & Intentions
+*   **Timing:** Triggered immediately after GDPR check.
+*   **Psychological Framing (Implementation Intentions):**
+    *   *Copy:* *"Consistency builds the habit. We will send a quiet reminder at your chosen time to anchor your Sadhana [Chosen Routine Anchor, e.g. after brushing your teeth]."*
+*   **Primary CTA:** **"Enable Reminders"** (Triggers native iOS/Android notification alert permissions).
+*   **Secondary CTA:** *"Skip for now" (allows proceeding without notifications).*
+
+### Screen 6: Soft-Gated Onboarding Paywall
+*   **Timing:** Triggered immediately after notification setup. A clean, custom loading animation is shown for 1.5 seconds: *"Assembling your customized Sadhana sequence..."* to leverage the labor-investment (IKEA) effect.
+*   **Aesthetic:** Elegant layout with Cormorant Garamond headings and comparison matrices.
+*   **Subscription Offerings:** Clear monthly ($14.99) and annual ($89.99) options. A prominent **"Start 7-Day Free Trial"** primary button.
+*   **Autonomy Preservation:** A clear **"Skip / Try Free Version"** text link fades in after a 1.8-second delay.
+*   **Branching Logic:**
+    *   *If User Subscribes:* Routes to Screen 7 (Registration) to capture credentials and bind their purchase transaction.
+    *   *If User Skips:* Bypasses account registration entirely, immediately initializing a Free Guest Session and routing to the Home Dashboard (reducing registration friction for non-converters).
+
+### Screen 7: Authentication & Registration (Gated / Post-Paywall)
+*   **Timing:** Gated only for users starting a trial/purchase to secure their subscription. Optional for guest users (accessible later via settings).
+*   **Aesthetic:** Clean input fields with floating labels, autofill configuration, and inline verification errors.
+*   **Copy:** *"Create your sanctuary account to secure your premium trial benefits."*
+*   **CTAs:** "Create Account" (Email/Apple/Google) and "Skip Registration" (returns to guest mode).
 
 ---
 
@@ -92,10 +97,12 @@ Applying the `marketing-psychology` scoring system to our onboarding components 
 | Mental Model / Principle | Target Behavior | Leverage (1-5) | Context Fit (1-5) | Speed to Signal (1-5) | Ethics (1-5) | Cost (1-5) | PLFS Score | Action |
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|
 | **Labor Illusion (Quiz Loading)** | Increase paywall conversion | 5 | 5 | 5 | 5 | 1 | **+19 (Cap 15)** | Implement immediately |
-| **Autonomy Preservation (Skip Paths)** | Reduce onboarding uninstall rates | 4 | 5 | 5 | 5 | 1 | **+18 (Cap 15)** | Implement immediately |
-| **Sunk Cost (Quiz Questions)** | Increase trial starts | 4 | 5 | 4 | 4 | 2 | **+15** | Implement immediately |
-| **Reciprocity (First Session Free)** | Build trust for post-trial conversions | 5 | 5 | 3 | 5 | 2 | **+16 (Cap 15)** | Implement immediately |
-| **Default Effect (Annual Option Selected)**| Increase average order value (AOV) | 4 | 4 | 5 | 4 | 1 | **+16 (Cap 15)** | Highlight annual tier |
+| **Immediate Aha Moment (Demo)** | Instant activation & premium feel | 5 | 5 | 5 | 5 | 2 | **+18 (Cap 15)** | Implement Screen 3 |
+| **Habit Stacking (Anchoring)** | Increase long-term user retention | 4 | 5 | 4 | 5 | 1 | **+17 (Cap 15)** | Include in quiz |
+| **Autonomy (Deferred Registration)**| Reduce upfront sign-up drop-offs | 5 | 5 | 5 | 5 | 1 | **+19 (Cap 15)** | Skip signup forms for guests |
+| **Sunk Cost (Quiz Questions)** | Increase trial starts | 4 | 5 | 4 | 4 | 2 | **+15** | Implement quiz |
+| **Reciprocity (First Session Free)** | Build trust for post-trial conversions | 5 | 5 | 3 | 5 | 2 | **+16 (Cap 15)** | Enable global routines |
+| **Default Effect (Annual selected)**| Increase average order value (AOV) | 4 | 4 | 5 | 4 | 1 | **+16 (Cap 15)** | Highlight annual tier |
 
 ---
 
@@ -106,18 +113,22 @@ To audit and optimize the onboarding flow, the application tracks the following 
 ### Funnel Steps (Logged to Amplitude/Mixpanel):
 1.  `onboarding_start` (User opens Screen 1)
 2.  `quiz_question_answered` (Tracked per question with selected options)
-3.  `quiz_completed` (User finishes Screen 2)
-4.  `permission_priming_viewed` (User sees notification explanation)
-5.  `permission_priming_accepted` (User taps "Allow")
-6.  `paywall_viewed` (User sees Screen 4 Onboarding Paywall)
-7.  `subscription_trial_started` (User starts Apple/Google premium trial)
-8.  `registration_completed` (User creates account or skips as guest)
-9.  `first_session_started` (User taps Play on first Sadhana)
-10. `first_session_completed` (User completes the 12-min session - **Value Moment Achieved**)
+3.  `habit_anchor_selected` (Anchor event selected in Screen 2)
+4.  `quiz_completed` (User finishes Screen 2)
+5.  `onboarding_demo_viewed` (User enters interactive Breathing Demo)
+6.  `onboarding_demo_completed` (User completes the 30s demo session)
+7.  `permission_priming_viewed` (User sees notification explanation in Screen 5)
+8.  `permission_priming_accepted` (User taps "Allow")
+9.  `paywall_viewed` (User sees Screen 6 Paywall)
+10. `subscription_trial_started` (User starts Apple/Google premium trial)
+11. `registration_completed` (User creates account)
+12. `guest_session_initialized` (User bypasses paywall and registration)
+13. `first_session_started` (User taps Play on first Sadhana)
+14. `first_session_completed` (User completes the 12-min session - **Value Moment Achieved**)
 
 ### Core Retention Metrics:
-*   **Onboarding Completion Rate:** Target **>70%** (`registration_completed` / `onboarding_start`).
-*   **Onboarding Paywall Conversion Rate:** Target **>15%** (`subscription_trial_started` / `paywall_viewed`).
-*   **D1 Retention:** Target **>25%** (Users who complete onboarding returning on Day 1).
-*   **Trial-to-Paid Conversion Rate:** Target **>35%** (Users whose 7-day trial rolls into active subscriptions).
-*   **Ad-Churn Rate:** Target **<12%** (Free users who drop off immediately upon seeing the post-session ad).
+*   **Onboarding Completion Rate:** Target **>78%** (`registration_completed` or `guest_session_initialized` / `onboarding_start`).
+*   **Onboarding Paywall Conversion Rate:** Target **>18%** (`subscription_trial_started` / `paywall_viewed`).
+*   **D1 Retention:** Target **>32%** (Users who complete onboarding returning on Day 1, boosted by habit anchoring).
+*   **Trial-to-Paid Conversion Rate:** Target **>40%** (Users whose 7-day trial rolls into active subscriptions).
+*   **Ad-Churn Rate:** Target **<10%** (Free users who drop off immediately upon seeing the post-session ad).eeing the post-session ad).
