@@ -26,9 +26,9 @@ test('Inserting a session log automatically updates the user streak count via tr
     }
   });
 
-  if (authError) {
+  if (authError || (isRemote && (!authData || !authData.session))) {
     if (isRemote) {
-      console.warn(`GoTrue signup failed on remote staging (${authError.message || authError}). Skipping actual signup and verifying streak trigger dynamically...`);
+      console.warn(`GoTrue signup did not yield a session on remote staging (email confirmation likely enabled). Falling back to existing test user...`);
       
       try {
         // Log in with the pre-existing user

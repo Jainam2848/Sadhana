@@ -82,6 +82,12 @@
 *   **Premium Users:** Questionnaire outputs dynamically generate a tailored daily routine combining Asana, Pranayama, and Dhyana segments (Personalized Sadhana Plan).
 *   **Free Users:** Gated from personalized plans. Bypasses custom routine generation and defaults to a static, non-personalized "Global Daily Sadhana of the Day".
 
+### Frontend Build & Integration Discoveries
+*   **Metro & NativeWind v5 + Tailwind CSS v4:** Universal Tailwind styling in Expo is achieved using NativeWind v5 which leverages PostCSS `@tailwindcss/postcss`. Metro config must set `inlineVariables: false` to prevent breaking CSS variable evaluations.
+*   **React Native CSS Element Wrappers:** Native components do not natively support classNames. Reusable wrappers mapping `className` attributes using `react-native-css`'s `useCssElement` utility were established inside `src/tw/` (e.g., `<View>`, `<Text>`, `<Image>`).
+*   **TypeScript Union Complexity Overflow:** Passing complex React Native interfaces (like `RouterLink` and `RNScrollView`) through `useCssElement` wraps their prop types in strict typescript mode, overflow-rating the union limit. Resolved by casting target elements and parameters as `any` in `useCssElement` wrappers to skip compiler depth errors.
+
+
 
 ---
 

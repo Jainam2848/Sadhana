@@ -1,0 +1,204 @@
+import React, { useState } from 'react';
+import { useLocalSearchParams } from 'expo-router';
+import { View, Text, Pressable, TextInput } from '@/tw';
+import { useAuthStore } from '@/stores/authStore';
+import { useTheme } from '@/hooks/useTheme';
+import { MandalaThread } from '@/components/ui/MandalaThread';
+import { Display, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { supabase } from '@/lib/supabase';
+import * as Haptics from 'expo-haptics';
+import { ActivityIndicator, Alert } from 'react-native';
+
+export default function RegisterScreen() {
+  const { colors } = useTheme();
+  const { tier } = useLocalSearchParams<{ tier: string }>();
+  const setSession = useAuthStore((state) => state.setSession);
+
+  const [isSignUp, setIsSignUp] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleAuthAction = async () => {
+    if (!email || !password) {
+      Alert.alert('Required Fields', 'Please fill in both email and password.');
+      return;
+    }
+
+    if (isSignUp && !username) {
+      Alert.alert('Required Field', 'Please enter a username.');
+      return;
+    }
+
+    setLoading(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+    try {
+      if (isSignUp) {
+        // 1. Sign Up via GoTrue
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: {
+            data: {
+              username: username.trim(),
+            },
+          },
+        });
+
+        if (signUpError) throw signUpError;
+        if (!signUpData.user) throw new Error('User creation failed.');
+
+        const userId = signUpData.user.id;
+        const isPremiumRequested = tier === 'premium';
+
+        // 2. If Premium was selected on the paywall, update the database profile row
+        if (isPremiumRequested) {
+          const { error: profileUpdateError } = await supabase
+            .from('profiles')
+            .update({ premium: true })
+            .eq('id', userId);
+          
+          if (profileUpdateError) {
+            console.warn('Failed to update premium profile status', profileUpdateError);
+          }
+        }
+
+        // 3. Save session in Zustand and SecureStore
+        const mockUser = {
+          id: userId,
+          email: email.trim(),
+          name: username.trim(),
+          premium: isPremiumRequested,
+          onboardingCompleted: true,
+        };
+        await setSession(mockUser, signUpData.session?.access_token || 'temp-token');
+
+      } else {
+        // Sign In via GoTrue
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
+
+        if (signInError) throw signInError;
+        if (!signInData.user) throw new Error('User sign in failed.');
+
+        // Fetch user profile stats
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', signInData.user.id)
+          .single();
+
+        if (profileError) {
+          console.warn('Failed to fetch user profile, creating mock layout', profileError);
+        }
+
+        const loggedInUser = {
+          id: signInData.user.id,
+          email: signInData.user.email || email.trim(),
+          name: profile?.username || signInData.user.user_metadata?.username || 'Sadhaka',
+          premium: profile?.premium || false,
+          onboardingCompleted: true,
+        };
+        await setSession(loggedInUser, signInData.session?.access_token || 'temp-token');
+      }
+
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch (err: any) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert('Authentication Error', err.message || 'An error occurred during authentication.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <View className="flex-1 bg-background justify-center px-6 relative">
+      <MandalaThread />
+
+      <View className="w-full max-w-md mx-auto">
+        {/* Title Block */}
+        <Display className="text-center mb-2">Sadhana</Display>
+        <Subheading className="text-secondary-text text-center mb-8 font-serif">
+          {isSignUp
+            ? `Create your daily sanctuary account${tier === 'premium' ? ' (Premium Trial)' : ''}`
+            : 'Welcome back to your sanctuary'}
+        </Subheading>
+
+        {/* Inputs */}
+        <View className="gap-4 mb-8">
+          {isSignUp && (
+            <View>
+              <Text className="text-secondary-text font-sans text-xs mb-2 uppercase tracking-widest">
+                Username
+              </Text>
+              <TextInput
+                className="w-full bg-surface border border-surface-border py-3 px-4 rounded-xl text-primary-text font-sans"
+                placeholder="Sarah E."
+                placeholderTextColor="#A69580"
+                value={username}
+                onChangeText={setUsername}
+                autoCapitalize="words"
+              />
+            </View>
+          )}
+
+          <View>
+            <Text className="text-secondary-text font-sans text-xs mb-2 uppercase tracking-widest">
+              Email Address
+            </Text>
+            <TextInput
+              className="w-full bg-surface border border-surface-border py-3 px-4 rounded-xl text-primary-text font-sans"
+              placeholder="you@domain.com"
+              placeholderTextColor="#A69580"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+            />
+          </View>
+
+          <View>
+            <Text className="text-secondary-text font-sans text-xs mb-2 uppercase tracking-widest">
+              Password
+            </Text>
+            <TextInput
+              className="w-full bg-surface border border-surface-border py-3 px-4 rounded-xl text-primary-text font-sans"
+              placeholder="••••••••"
+              placeholderTextColor="#A69580"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              autoCapitalize="none"
+            />
+          </View>
+        </View>
+
+        {/* Submit Button */}
+        <Pressable
+          className="w-full bg-accent-terracotta py-4 rounded-xl items-center mb-6 active:opacity-90 flex-row justify-center gap-2"
+          disabled={loading}
+          onPress={handleAuthAction}
+        >
+          {loading && <ActivityIndicator size="small" color="#FFFFFF" />}
+          <Text className="text-white font-sans font-bold text-base">
+            {isSignUp ? 'Create Account' : 'Sign In'}
+          </Text>
+        </Pressable>
+
+        {/* Toggle Account Action */}
+        <Pressable
+          className="py-2 items-center active:opacity-80"
+          onPress={() => setIsSignUp(!isSignUp)}
+        >
+          <Text className="text-secondary-text font-sans text-sm underline underline-offset-4 decoration-surface-border">
+            {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}

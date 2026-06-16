@@ -1,0 +1,50 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+/* Platform-specific font families */
+@media android {
+  :root {
+    --font-mono: monospace;
+    --font-serif: normal;
+    --font-sans: normal;
+  }
+}
+
+@media ios {
+  :root {
+    --font-mono: ui-monospace;
+    --font-serif: ui-serif;
+    --font-sans: system-ui;
+  }
+}
+
+@layer theme {
+  @theme {
+    /* Custom theme variables based on DESIGN_SYSTEM.md */
+    --color-background: #FDFAF5;
+    --color-surface: #FFFFFF;
+    --color-surface-border: rgba(42, 29, 10, 0.08);
+    --color-primary-text: #1C1409;
+    --color-secondary-text: #6B5A41;
+    --color-accent-terracotta: #C44B22;
+    --color-growth-green: #1A6B3A;
+    --color-warm-highlight: #F5E6C8;
+    --color-destructive: #991F1F;
+
+    /* Custom typography */
+    --font-serif: "Cormorant Garamond", serif;
+    --font-sans: "DM Sans", sans-serif;
+    --font-devanagari: "Noto Serif Devanagari", serif;
+
+    /* Spacing & border-radius scale */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    /* Animation speeds */
+    --animate-screen-transition: screen-transition 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    --animate-component-feedback: component-feedback 150ms ease-out;
+  }
+}

@@ -301,6 +301,84 @@ progress.md
 
 ---
 
+## Session 9 — 2026-06-16
+
+**Phase:** 5 (Frontend Build & Integration - Prompt 5.1)
+**Duration:** ~35 min
+**Agent:** Current orchestrator session
+
+### Work Done
+- **Expo Project Initialization:** Created a temporary Expo app (`temp-app`) with a blank typescript template. Merged generated configuration files (`package.json`, `tsconfig.json`, `app.json`) and base directories to the workspace root. Adjusted root `.gitignore`.
+- **Path Aliases & Strict Types:** Configured `tsconfig.json` with strict mode enabled and `@/*` mapping to `./src/*`.
+- **NativeWind & Tailwind CSS v4 Integration:** Installed `tailwindcss@^4`, `nativewind@5.0.0-preview.2`, `react-native-css`, `tailwind-merge`, and `clsx` dependencies. Configured resolutions for `lightningcss: 1.30.1` in `package.json`.
+- **Metro & PostCSS Configuration:** Formulated `metro.config.js` with `withNativewind` and `inlineVariables: false`. Created `postcss.config.mjs` running `@tailwindcss/postcss`.
+- **Global CSS & CSS Component Wrappers:** Created `src/global.css` importing Tailwind CSS v4 stylesheets. Implemented React Native CSS wrapper elements in `src/tw/index.tsx`, `src/tw/image.tsx`, and `src/tw/animated.tsx` using `react-native-css` hooks.
+- **Theme Provider:** Created `src/providers/ThemeProvider.tsx` and `src/hooks/useTheme.ts` hook. Translated the design system colors, spacing, and border-radius tokens into React context and dark/light mode configurations.
+- **Expo Router Navigation:** Formulated `docs/architecture/ADR/ADR-004-navigation-pattern.md` justifying Expo Router. Set up `app/_layout.tsx`, onboarding group stack `app/(auth)/_layout.tsx` (Welcome, Personalize, GDPR, Priming, Register), and core tabs group `app/(tabs)/_layout.tsx` (Home, Library, Rewards, Profile).
+- **Zustand & React Query State:** Formulated `src/providers/QueryProvider.tsx` with async query cache persistence and NetInfo syncing. Created Zustand `src/stores/authStore.ts` with custom SecureStore integration, and `src/stores/settingsStore.ts` with AsyncStorage persistence.
+- **Reusable Base Components:** Created atomic components in `src/components/ui/`:
+  - `Button`: handles variant styles (Primary, Secondary, Ghost), loading spinners, Reanimated spring scales, and haptic vibration triggers.
+  - `Card`: containment wrapper with fine borders.
+  - `Input`: credentials text inputs featuring focus highlights, password toggles, and validation error messages.
+  - `Typography`: wraps text nodes to implement Display, Heading, Subheading, Body, Caption, and Micro size scales that dynamically adapt to the user's `fontSizeScale` settings.
+  - `SafeAreaWrapper`: safety viewport padding container.
+  - `LoadingSpinner` & `SkeletonLoader`: rotates or pulses opacity using Reanimated loop sequences.
+- **Validation:** Executed a local strict TypeScript compilation check using the workspace-local `tsc` binary. Confirmed complete build cleanliness with no errors.
+
+### Files Created/Modified
+```
+.gitignore
+package.json
+tsconfig.json
+metro.config.js
+postcss.config.mjs
+app/_layout.tsx
+app/index.tsx
+app/(auth)/_layout.tsx
+app/(auth)/welcome.tsx
+app/(auth)/personalize.tsx
+app/(auth)/gdpr.tsx
+app/(auth)/priming.tsx
+app/(auth)/register.tsx
+app/(tabs)/_layout.tsx
+app/(tabs)/home.tsx
+app/(tabs)/library.tsx
+app/(tabs)/rewards.tsx
+app/(tabs)/profile.tsx
+docs/architecture/ADR/ADR-004-navigation-pattern.md
+src/global.css
+src/tw/index.tsx
+src/tw/image.tsx
+src/tw/animated.tsx
+src/providers/ThemeProvider.tsx
+src/providers/QueryProvider.tsx
+src/providers/AuthProvider.tsx
+src/hooks/useTheme.ts
+src/stores/authStore.ts
+src/stores/settingsStore.ts
+src/components/ui/Button.tsx
+src/components/ui/Card.tsx
+src/components/ui/Input.tsx
+src/components/ui/Typography.tsx
+src/components/ui/SafeAreaWrapper.tsx
+src/components/ui/LoadingSpinner.tsx
+task_plan.md
+progress.md
+```
+
+### Errors Encountered
+
+| Error | Phase | Attempt | Resolution |
+|-------|-------|---------|------------|
+| create-expo-app created directory outside workspace | 5 | Ran npx create-expo-app temp-app | Moved temp-app directory to workspace folder using Powershell move |
+| npm peer dependency eresolve conflict | 5 | Ran npm install react-native-css | Added --legacy-peer-deps to install flags to override outdated peer pins |
+| npx tsc system stub conflict | 5 | Ran npx tsc check | Executed compilation directly using local node_modules\.bin\tsc binary |
+
+### Status at End of Session
+- Phase 5, Prompt 5.1 complete. Expo boilerplate, Tailwind styling wrappers, theme context, navigation stacks, Zustand stores, and base UI components are fully implemented and verified via strict TypeScript build check. Ready to transition to Prompt 5.2 (Build Screens from Stitch Designs).
+
+---
+
 ## Errors Encountered (Running Total)
 
 | Error | Phase | Attempt | Resolution |
@@ -308,6 +386,10 @@ progress.md
 | HTTP Error 400: Bad Request during asset download | 3 | Downloaded URLs were truncated in initial JSON write | Copied raw `list_screens` output from `output.txt` directly to `screens.json` to preserve full parameters |
 | Git committed tests/node_modules | 4 | Ran `git commit` after adding the test suite | Reset commit, wrote `.gitignore`, staged files cleanly, and re-committed |
 | RLS blocks profile select in auth test fallback | 4 | Anon client queried profiles table directly | Updated fallback to authenticate (log in) with the test user first so that RLS allows reading their own profile |
+| create-expo-app created directory outside workspace | 5 | Ran npx create-expo-app temp-app | Moved temp-app directory to workspace folder using Powershell move |
+| npm peer dependency eresolve conflict | 5 | Ran npm install react-native-css | Added --legacy-peer-deps to install flags to override outdated peer pins |
+| npx tsc system stub conflict | 5 | Ran npx tsc check | Executed compilation directly using local node_modules\.bin\tsc binary |
+
 
 
 

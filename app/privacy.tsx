@@ -1,0 +1,145 @@
+import React, { useState } from 'react';
+import { View, Text, Pressable, ScrollView } from '@/tw';
+import { useTheme } from '@/hooks/useTheme';
+import { useRouter } from 'expo-router';
+import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { MandalaThread } from '@/components/ui/MandalaThread';
+import { ChevronLeft, ChevronRight, Download, Trash2, ShieldCheck } from 'lucide-react-native';
+import { Switch, Alert } from 'react-native';
+import * as Haptics from 'expo-haptics';
+
+export default function PrivacyScreen() {
+  const { colors } = useTheme();
+  const router = useRouter();
+
+  const [analyticsConsent, setAnalyticsConsent] = useState(true);
+  const [personalizationConsent, setPersonalizationConsent] = useState(true);
+
+  const handleDownloadData = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    Alert.alert(
+      'Export Requested',
+      'We are compiling your Sadhana activity logs and profile data. You will receive a secure download link at your registered email address within 24–48 hours.',
+      [{ text: 'Understood' }]
+    );
+  };
+
+  const handleDeleteAccountNav = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    router.push('/deletion');
+  };
+
+  return (
+    <View className="flex-1 bg-background relative justify-between">
+      <MandalaThread />
+
+      {/* Header bar */}
+      <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
+        <Pressable
+          className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
+          onPress={() => router.back()}
+        >
+          <ChevronLeft size={20} color={colors.primaryText} />
+        </Pressable>
+        <Heading className="text-on-background text-center flex-1 font-serif">
+          Your Data
+        </Heading>
+        <View className="w-10" />
+      </View>
+
+      <ScrollView className="flex-1 px-6 pt-6" contentContainerStyle={{ paddingBottom: 100 }}>
+        {/* Intro Info */}
+        <View className="mb-6">
+          <Body className="text-secondary-text font-sans text-[15px] leading-relaxed">
+            Sadhana never sells your user data. We respect your privacy as a sacred trust, focusing entirely on providing you a secure space for your practice.
+          </Body>
+        </View>
+
+        {/* Toggles Card */}
+        <View className="bg-surface rounded-xl border border-surface-border overflow-hidden mb-8">
+          {/* Essential Cookies */}
+          <View className="flex-row justify-between items-center p-4 border-b border-surface-border/50">
+            <View className="flex-1 pr-4">
+              <Text className="font-sans font-bold text-sm text-primary-text">Essential Cookies</Text>
+              <Caption className="text-secondary-text mt-0.5">Required for secure authentication and token storage.</Caption>
+            </View>
+            <Switch
+              value={true}
+              disabled={true}
+              trackColor={{ false: colors.border, true: colors.border }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          {/* Analytics Consent */}
+          <View className="flex-row justify-between items-center p-4 border-b border-surface-border/50">
+            <View className="flex-1 pr-4">
+              <Text className="font-sans font-bold text-sm text-primary-text">Analytics & Improvement</Text>
+              <Caption className="text-secondary-text mt-0.5">Help us optimize video playback streams and offline caching.</Caption>
+            </View>
+            <Switch
+              value={analyticsConsent}
+              onValueChange={(val) => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setAnalyticsConsent(val);
+              }}
+              trackColor={{ false: colors.border, true: colors.growth }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          {/* Personalization Consent */}
+          <View className="flex-row justify-between items-center p-4">
+            <View className="flex-1 pr-4">
+              <Text className="font-sans font-bold text-sm text-primary-text">Personalisation Data</Text>
+              <Caption className="text-secondary-text mt-0.5">Analyze your goals to compile the daily custom schedule.</Caption>
+            </View>
+            <Switch
+              value={personalizationConsent}
+              onValueChange={(val) => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setPersonalizationConsent(val);
+              }}
+              trackColor={{ false: colors.border, true: colors.growth }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+        </View>
+
+        {/* Action Buttons */}
+        <View className="gap-3">
+          {/* Export Data */}
+          <Pressable
+            className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-surface-border/10"
+            onPress={handleDownloadData}
+          >
+            <View className="flex-row items-center gap-3">
+              <Download size={18} color={colors.growth} />
+              <Text className="font-sans font-bold text-sm text-growth-green">Download My Data</Text>
+            </View>
+            <ChevronRight size={16} color={colors.growth} />
+          </Pressable>
+
+          {/* Delete Account */}
+          <Pressable
+            className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-destructive-red/10"
+            onPress={handleDeleteAccountNav}
+          >
+            <View className="flex-row items-center gap-3">
+              <Trash2 size={18} color="#991F1F" />
+              <Text className="font-sans font-bold text-sm text-destructive-red">Delete My Account</Text>
+            </View>
+            <ChevronRight size={16} color="#991F1F" />
+          </Pressable>
+        </View>
+      </ScrollView>
+
+      {/* GDPR note in footer */}
+      <View className="p-6 items-center">
+        <Caption className="text-center text-xs text-secondary-text max-w-[280px]">
+          Data export requests are processed in compliance with GDPR Art. 15. All requests will be delivered to your registered email.
+        </Caption>
+      </View>
+    </View>
+  );
+}
