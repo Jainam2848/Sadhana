@@ -232,7 +232,7 @@ async function runInteractiveAdd() {
     if (!media_url.trim()) {
       media_url = category === 'dhyana' 
         ? 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-        : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4';
+        : 'https://vjs.zencdn.net/v/oceans.mp4';
     }
 
     // Generate new entry

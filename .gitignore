@@ -45,3 +45,7 @@ expo-env.d.ts
 # typescript
 *.tsbuildinfo
 
+# Large datasets/zip files
+Pranayama Dataset (Images and Videos).zip
+
+

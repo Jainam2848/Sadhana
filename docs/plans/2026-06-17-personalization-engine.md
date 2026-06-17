@@ -28,7 +28,7 @@ Create a new migration to:
 #### [MODIFY] [seed_data.json](file:///d:/Desktop/Fitness/supabase/seed_data.json)
 - Expand routines list to 18 items (Asana, Pranayama, Dhyana) covering beginner, intermediate, and advanced levels, all target tightness areas, and all goals.
 - Replace video/audio links with public CDN URLs for interactive testing in staging:
-  - Video loops: `https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4`
+  - Video loops: `https://vjs.zencdn.net/v/oceans.mp4`
   - Audio guides: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`
 
 ### Frontend Connections
