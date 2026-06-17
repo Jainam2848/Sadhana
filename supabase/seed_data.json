@@ -10,8 +10,14 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "beginner",
-      "tightness": ["hips", "hamstrings"],
-      "goals": ["mobility", "strength"],
+      "tightness": [
+        "hips",
+        "hamstrings"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
       "sanskrit_terms": {
         "Surya Namaskar": "Sun Salutations",
         "Pranamasana": "Prayer Pose",
@@ -30,8 +36,14 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "beginner",
-      "tightness": ["lower_back", "shoulders"],
-      "goals": ["stress", "mobility"],
+      "tightness": [
+        "lower_back",
+        "shoulders"
+      ],
+      "goals": [
+        "stress",
+        "mobility"
+      ],
       "sanskrit_terms": {
         "Marjariasana": "Cat Pose",
         "Bitilasana": "Cow Pose",
@@ -49,8 +61,13 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "beginner",
-      "tightness": ["shoulders", "hips"],
-      "goals": ["mobility"],
+      "tightness": [
+        "shoulders",
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
       "sanskrit_terms": {
         "Sukshma Vyayama": "Subtle exercise",
         "Tadasana": "Mountain Pose",
@@ -67,8 +84,14 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1510894347713-fc3ed6ecda6e?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "intermediate",
-      "tightness": ["hips", "hamstrings"],
-      "goals": ["strength", "focus"],
+      "tightness": [
+        "hips",
+        "hamstrings"
+      ],
+      "goals": [
+        "strength",
+        "focus"
+      ],
       "sanskrit_terms": {
         "Virabhadrasana": "Warrior Pose",
         "Trikonasana": "Triangle Pose",
@@ -85,8 +108,14 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "intermediate",
-      "tightness": ["hips", "lower_back"],
-      "goals": ["mobility", "stress"],
+      "tightness": [
+        "hips",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress"
+      ],
       "sanskrit_terms": {
         "Eka Pada Rajakapotasana": "Pigeon Pose",
         "Anjaneyasana": "Low Lunge"
@@ -102,8 +131,13 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "beginner",
-      "tightness": ["shoulders"],
-      "goals": ["mobility", "stress"],
+      "tightness": [
+        "shoulders"
+      ],
+      "goals": [
+        "mobility",
+        "stress"
+      ],
       "sanskrit_terms": {
         "Garudasana": "Eagle Arms",
         "Balasana": "Child's Pose"
@@ -119,8 +153,12 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "beginner",
-      "tightness": ["hamstrings"],
-      "goals": ["mobility"],
+      "tightness": [
+        "hamstrings"
+      ],
+      "goals": [
+        "mobility"
+      ],
       "sanskrit_terms": {
         "Uttanasana": "Standing Forward Fold",
         "Adho Mukha Svanasana": "Downward Dog"
@@ -136,8 +174,15 @@
       "thumbnail_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600",
       "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
       "experience_level": "advanced",
-      "tightness": ["hips", "hamstrings", "shoulders"],
-      "goals": ["strength", "focus"],
+      "tightness": [
+        "hips",
+        "hamstrings",
+        "shoulders"
+      ],
+      "goals": [
+        "strength",
+        "focus"
+      ],
       "sanskrit_terms": {
         "Bakasana": "Crow Pose",
         "Urdhva Dhanurasana": "Upward Bow Pose"
@@ -154,7 +199,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["stress", "focus"],
+      "goals": [
+        "stress",
+        "focus"
+      ],
       "sanskrit_terms": {
         "Nadi Shodhana": "Channel Purification",
         "Prana": "Vital Energy",
@@ -173,7 +221,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "intermediate",
       "tightness": [],
-      "goals": ["energy", "focus"],
+      "goals": [
+        "energy",
+        "focus"
+      ],
       "sanskrit_terms": {
         "Kapalabhati": "Skull Shining Breath",
         "Rechaka": "Exhalation",
@@ -191,7 +242,9 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["stress"],
+      "goals": [
+        "stress"
+      ],
       "sanskrit_terms": {
         "Sheetali": "Cooling Breath",
         "Kumbhaka": "Breath Retention"
@@ -208,7 +261,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["focus", "stress"],
+      "goals": [
+        "focus",
+        "stress"
+      ],
       "sanskrit_terms": {
         "Sama Vritti": "Equal Ratio",
         "Pranayama": "Breath Control"
@@ -225,7 +281,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["stress", "sleep"],
+      "goals": [
+        "stress",
+        "sleep"
+      ],
       "sanskrit_terms": {
         "Bhramari": "Humming Bee",
         "NADA": "Inner Sound vibration"
@@ -242,7 +301,9 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["focus"],
+      "goals": [
+        "focus"
+      ],
       "sanskrit_terms": {
         "Trataka": "To Look or Gaze",
         "Dharana": "Concentration"
@@ -259,7 +320,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["stress", "sleep"],
+      "goals": [
+        "stress",
+        "sleep"
+      ],
       "sanskrit_terms": {
         "Yoga Nidra": "Yogic Sleep",
         "Pratyahara": "Sensory Withdrawal",
@@ -277,7 +341,10 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "intermediate",
       "tightness": [],
-      "goals": ["focus", "stress"],
+      "goals": [
+        "focus",
+        "stress"
+      ],
       "sanskrit_terms": {
         "Beeja Mantra": "Seed Sound",
         "Sushumna": "Central Energy Channel",
@@ -295,7 +362,9 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["focus"],
+      "goals": [
+        "focus"
+      ],
       "sanskrit_terms": {
         "Anapana": "Mindfulness of Breathing",
         "Vipassana": "Insight"
@@ -312,10 +381,3468 @@
       "media_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "experience_level": "beginner",
       "tightness": [],
-      "goals": ["stress"],
+      "goals": [
+        "stress"
+      ],
       "sanskrit_terms": {
         "Metta": "Loving-Kindness",
         "Bhavana": "Cultivation/Development"
+      }
+    },
+    {
+      "id": "7e5528dd-8f89-43ca-a094-93ba21802436",
+      "title": "Big Toe Pose",
+      "description": "A classical beginner yoga pose: Big Toe Pose (Padangusthasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ForwardBendBigToe.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Padangusthasana": "Big Toe Pose"
+      }
+    },
+    {
+      "id": "bf439449-e0aa-4c58-aa80-5073cacd8191",
+      "title": "Gorilla Pose",
+      "description": "A classical beginner yoga pose: Gorilla Pose (Padahastasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Gorilla.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Padahastasana": "Gorilla Pose"
+      }
+    },
+    {
+      "id": "5d7d889d-6e74-4def-a208-2c4412ae67c3",
+      "title": "Bird of Paradise Pose",
+      "description": "A classical advanced yoga pose: Bird of Paradise Pose (Svarga Dvijasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ChairTwistBindUp_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Svarga Dvijasana": "Bird of Paradise Pose"
+      }
+    },
+    {
+      "id": "a8838650-1989-42a0-a4cc-fb768537688e",
+      "title": "Revolved Bird of Paradise Pose",
+      "description": "A classical advanced yoga pose: Revolved Bird of Paradise Pose (Parivritta Svarga Dvijasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/BirdOfParadiseRevolved_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Svarga Dvijasana": "Revolved Bird of Paradise Pose"
+      }
+    },
+    {
+      "id": "3fe884b7-9f8d-43bd-ac23-dfa00b18564e",
+      "title": "Upward Salute",
+      "description": "A classical beginner yoga pose: Upward Salute (Urdhva Hastasana). Focuses on alignment, stability, and mindfulness. Category: Standing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MountainSalute.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Urdhva Hastasana": "Upward Salute"
+      }
+    },
+    {
+      "id": "60f49835-3f52-4f1e-a4bb-0d250589ab12",
+      "title": "Chair Pose",
+      "description": "A classical beginner yoga pose: Chair Pose (Utkatasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Chair.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utkatasana": "Chair Pose"
+      }
+    },
+    {
+      "id": "62fb828e-5265-43f7-a0ff-82e15b278f68",
+      "title": "High Lunge Pose",
+      "description": "A classical beginner yoga pose: High Lunge Pose (Ashta Chandrasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LungeCrescent_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Ashta Chandrasana": "High Lunge Pose"
+      }
+    },
+    {
+      "id": "874db434-a5b4-4550-a3ce-c59470ebec2a",
+      "title": "Low Lunge Pose",
+      "description": "A classical beginner yoga pose: Low Lunge Pose (Anjaneyasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WarriorIKneeling_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Anjaneyasana": "Low Lunge Pose"
+      }
+    },
+    {
+      "id": "fedcecda-cc8e-427c-a754-2efa468f3c0c",
+      "title": "Eagle Pose",
+      "description": "A classical beginner yoga pose: Eagle Pose (Garudasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Eagle_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Garudasana": "Eagle Pose"
+      }
+    },
+    {
+      "id": "08d4a9e4-7bbb-45c0-a4d8-bc309e6ad44c",
+      "title": "Standing Foot Behind the Head Pose",
+      "description": "A classical advanced yoga pose: Standing Foot Behind the Head Pose (Durvasasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingFootBehindHead_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Durvasasana": "Standing Foot Behind the Head Pose"
+      }
+    },
+    {
+      "id": "e6e2e08d-f2b8-41bb-a7d3-5997039c2dd8",
+      "title": "Standing Foot to Head Pose",
+      "description": "A classical advanced yoga pose: Standing Foot to Head Pose (Trivikramasana A). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/TrivikramaI_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Trivikramasana A": "Standing Foot to Head Pose"
+      }
+    },
+    {
+      "id": "db6040de-3fc5-47b9-a7e1-2fa58cff88d6",
+      "title": "Standing Foot Behind the Head Forward Bend Pose",
+      "description": "A classical advanced yoga pose: Standing Foot Behind the Head Forward Bend Pose (Richikasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingForwardBendFootBehindHead_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Richikasana": "Standing Foot Behind the Head Forward Bend Pose"
+      }
+    },
+    {
+      "id": "7405449b-4e3b-4adb-a72a-c739e16c7704",
+      "title": "Half Standing Forward Bend Pose",
+      "description": "A classical beginner yoga pose: Half Standing Forward Bend Pose (Ardha Uttanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ForwardBendHalfWay.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ardha Uttanasana": "Half Standing Forward Bend Pose"
+      }
+    },
+    {
+      "id": "0d9d310d-419b-4330-a937-26865ab14d20",
+      "title": "Standing Forward Bend Pose",
+      "description": "A classical beginner yoga pose: Standing Forward Bend Pose (Uttanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ForwardBend.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Uttanasana": "Standing Forward Bend Pose"
+      }
+    },
+    {
+      "id": "b899937c-04b1-4110-a958-84ea6a0a7e04",
+      "title": "Standing Half Bound Lotus Forward Bend Pose",
+      "description": "A classical intermediate yoga pose: Standing Half Bound Lotus Forward Bend Pose (Ardha Baddha Padmottanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingForwardBendHalfLotus_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ardha Baddha Padmottanasana": "Standing Half Bound Lotus Forward Bend Pose"
+      }
+    },
+    {
+      "id": "b89d725a-1916-4595-a6b2-48ff664e157d",
+      "title": "Goddess Pose",
+      "description": "A classical beginner yoga pose: Goddess Pose (Utkata Konasana). Focuses on alignment, stability, and mindfulness. Category: Standing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Goddess_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utkata Konasana": "Goddess Pose"
+      }
+    },
+    {
+      "id": "7ecc7f4a-9ccf-4e16-a021-d1d6c6d735b3",
+      "title": "Half Moon Pose",
+      "description": "A classical beginner yoga pose: Half Moon Pose (Ardha Chandrasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HalfMoon_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Ardha Chandrasana": "Half Moon Pose"
+      }
+    },
+    {
+      "id": "2297ba42-ea69-4352-a807-4c5fc5ab1e3c",
+      "title": "Revolved Half Moon Pose",
+      "description": "A classical beginner yoga pose: Revolved Half Moon Pose (Parivritta Ardha Chandrasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HalfMoonRevolved_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Ardha Chandrasana": "Revolved Half Moon Pose"
+      }
+    },
+    {
+      "id": "ff793fdf-e19a-4a45-a87b-d7ea4ed9c2b5",
+      "title": "Extended Standing Hand to Big Toe Pose",
+      "description": "A classical intermediate yoga pose: Extended Standing Hand to Big Toe Pose (Utthita Hasta Padangushthasana B). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingHandToToeExtended_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utthita Hasta Padangushthasana B": "Extended Standing Hand to Big Toe Pose"
+      }
+    },
+    {
+      "id": "5ccc1dd0-1099-46e4-a1cd-0dda6582c5e4",
+      "title": "Revolved Standing Hand to Big Toe Pose",
+      "description": "A classical intermediate yoga pose: Revolved Standing Hand to Big Toe Pose (Parivritta Hasta Padangushthasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingHandToToeRevolved_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Hasta Padangushthasana": "Revolved Standing Hand to Big Toe Pose"
+      }
+    },
+    {
+      "id": "045426a8-ab0f-4c97-a556-14a1e853d47f",
+      "title": "Standing Hand to Big Toe Pose",
+      "description": "A classical intermediate yoga pose: Standing Hand to Big Toe Pose (Utthita Hasta Padangushthasana A). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StandingHandToToeFull_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utthita Hasta Padangushthasana A": "Standing Hand to Big Toe Pose"
+      }
+    },
+    {
+      "id": "77efd836-c55c-4d10-aa31-1ecd6b41d40d",
+      "title": "Mountain Pose",
+      "description": "A classical beginner yoga pose: Mountain Pose (Tadasana). Focuses on alignment, stability, and mindfulness. Category: Standing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MountainArmsSide.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Tadasana": "Mountain Pose"
+      }
+    },
+    {
+      "id": "e105006b-38dd-48e2-afab-6f280e0abb2e",
+      "title": "Pyramid Pose",
+      "description": "A classical beginner yoga pose: Pyramid Pose (Parshvottanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PyramidPrayer_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Parshvottanasana": "Pyramid Pose"
+      }
+    },
+    {
+      "id": "e988ea8b-ec1f-4818-a0ed-e31c6e8d80bc",
+      "title": "Extended Side Angle Pose",
+      "description": "A classical beginner yoga pose: Extended Side Angle Pose (Utthita Parshvakonasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Lateral Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WarriorIIForwardArmForward_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utthita Parshvakonasana": "Extended Side Angle Pose"
+      }
+    },
+    {
+      "id": "2973d814-2741-4b98-a12f-66ee24724af4",
+      "title": "Standing Splits Pose",
+      "description": "A classical intermediate yoga pose: Standing Splits Pose (Urdhva Prasarita Eka Padasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SplitsStanding_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Urdhva Prasarita Eka Padasana": "Standing Splits Pose"
+      }
+    },
+    {
+      "id": "2a04a95a-a05d-497d-ab40-800e7400bd04",
+      "title": "Dancer  Pose",
+      "description": "A classical intermediate yoga pose: Dancer  Pose (Dandayamana Dhanurasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LordOfTheDance_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Dandayamana Dhanurasana": "Dancer  Pose"
+      }
+    },
+    {
+      "id": "02fe9380-52bc-4fef-a6be-772f086cd74a",
+      "title": "Tree Pose",
+      "description": "A classical beginner yoga pose: Tree Pose (Vrikshasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/TreePrayer_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Vrikshasana": "Tree Pose"
+      }
+    },
+    {
+      "id": "fbf501a3-5ea2-40c9-a988-4f7d0ba0899d",
+      "title": "Triangle Pose",
+      "description": "A classical beginner yoga pose: Triangle Pose (Utthita Trikonasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Lateral Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/TriangleForward_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utthita Trikonasana": "Triangle Pose"
+      }
+    },
+    {
+      "id": "15508e37-cadc-41b5-a909-2bb4ab418519",
+      "title": "Revolved Triangle Pose",
+      "description": "A classical beginner yoga pose: Revolved Triangle Pose (Parivritta Trikonasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Twist.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/TriangleRevolved_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Trikonasana": "Revolved Triangle Pose"
+      }
+    },
+    {
+      "id": "bc359322-2512-49d6-aa1f-245865f95700",
+      "title": "Warrior I Pose",
+      "description": "A classical beginner yoga pose: Warrior I Pose (Virabhadrasana A). Focuses on alignment, stability, and mindfulness. Category: Standing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WarriorI_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Virabhadrasana A": "Warrior I Pose"
+      }
+    },
+    {
+      "id": "5e80ea99-6ab4-471a-a345-01fa7279eb48",
+      "title": "Warrior II Pose",
+      "description": "A classical beginner yoga pose: Warrior II Pose (Virabhadrasana B). Focuses on alignment, stability, and mindfulness. Category: Standing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WarriorII_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Virabhadrasana B": "Warrior II Pose"
+      }
+    },
+    {
+      "id": "446094b9-861b-4bcb-aebf-e9b8d721a2b6",
+      "title": "Warrior III Pose",
+      "description": "A classical beginner yoga pose: Warrior III Pose (Virabhadrasana C). Focuses on alignment, stability, and mindfulness. Category: Standing, Balancing.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WarriorIII_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Virabhadrasana C": "Warrior III Pose"
+      }
+    },
+    {
+      "id": "f17d8d24-1760-4d5f-aa45-86b040adfe4c",
+      "title": "Wide Legged Forward Bend I Pose",
+      "description": "A classical beginner yoga pose: Wide Legged Forward Bend I Pose (Prasarita Padottanasana A). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendI_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Prasarita Padottanasana A": "Wide Legged Forward Bend I Pose"
+      }
+    },
+    {
+      "id": "e689d432-107d-48c0-afe4-63fe36e5f518",
+      "title": "Wide Legged Forward Bend II Pose",
+      "description": "A classical beginner yoga pose: Wide Legged Forward Bend II Pose (Prasarita Padottanasana B). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendII_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Prasarita Padottanasana B": "Wide Legged Forward Bend II Pose"
+      }
+    },
+    {
+      "id": "ac8e23e4-de9e-4758-a681-51e4f49baccc",
+      "title": "Wide Legged Forward Bend III Pose",
+      "description": "A classical beginner yoga pose: Wide Legged Forward Bend III Pose (Prasarita Padottanasana C). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendIII_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Prasarita Padottanasana C": "Wide Legged Forward Bend III Pose"
+      }
+    },
+    {
+      "id": "6b965290-838d-4ac8-a1db-8524dfef9bfa",
+      "title": "Wide Legged Forward Bend IV Pose",
+      "description": "A classical beginner yoga pose: Wide Legged Forward Bend IV Pose (Prasarita Padottanasana D). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendIV_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Prasarita Padottanasana D": "Wide Legged Forward Bend IV Pose"
+      }
+    },
+    {
+      "id": "05f16cb5-d561-4cdf-ab56-b49296e898ec",
+      "title": "Revolved Wide Legged Forward Bend",
+      "description": "A classical intermediate yoga pose: Revolved Wide Legged Forward Bend (Parivritta Prasarita Padottanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendRevolved_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Prasarita Padottanasana": "Revolved Wide Legged Forward Bend"
+      }
+    },
+    {
+      "id": "f7c2db45-1719-4545-a0f9-4e5c51c711a6",
+      "title": "Side Wide Legged Forward Bend",
+      "description": "A classical intermediate yoga pose: Side Wide Legged Forward Bend (Parshva Prasarita Padottanasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WideLeggedForwardBendSide_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Parshva Prasarita Padottanasana": "Side Wide Legged Forward Bend"
+      }
+    },
+    {
+      "id": "e3612b58-5aa5-4201-a8e1-eaa98170a01e",
+      "title": "Archer's Pose",
+      "description": "A classical intermediate yoga pose: Archer's Pose (Akarna Dhanurasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Archer_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Akarna Dhanurasana": "Archer's Pose"
+      }
+    },
+    {
+      "id": "509db064-4eb9-4872-a934-253f5cac4327",
+      "title": "Boat Pose",
+      "description": "A classical beginner yoga pose: Boat Pose (Navasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/BoatFull.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Navasana": "Boat Pose"
+      }
+    },
+    {
+      "id": "1221f7e5-e76c-4119-a4d7-7b32bfa2e940",
+      "title": "Bound Angle Pose",
+      "description": "A classical beginner yoga pose: Bound Angle Pose (Baddha Konasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/BoundAngle.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Baddha Konasana": "Bound Angle Pose"
+      }
+    },
+    {
+      "id": "e4a8e099-38f6-4a40-a972-c61ca8c4e97a",
+      "title": "Both Feet Behind the Head I Pose",
+      "description": "A classical advanced yoga pose: Both Feet Behind the Head I Pose (Dvi Pada Shirshasana A). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FootBehindHeadTwoLegged.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Dvi Pada Shirshasana A": "Both Feet Behind the Head I Pose"
+      }
+    },
+    {
+      "id": "42a0df15-afcc-4703-a5c2-70e533aedb93",
+      "title": "Cow Face Pose",
+      "description": "A classical beginner yoga pose: Cow Face Pose (Gomukhasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/KneePileBind_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Gomukhasana": "Cow Face Pose"
+      }
+    },
+    {
+      "id": "9d902da3-ae27-4810-aae4-df07f051eea2",
+      "title": "Easy Pose",
+      "description": "A classical beginner yoga pose: Easy Pose (Sukhasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Easy.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Sukhasana": "Easy Pose"
+      }
+    },
+    {
+      "id": "51e2437a-6430-43c2-a3e8-9d51a29cb2c0",
+      "title": "Fire Log Pose",
+      "description": "A classical beginner yoga pose: Fire Log Pose (Agnistambhasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FireLog_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Agnistambhasana": "Fire Log Pose"
+      }
+    },
+    {
+      "id": "331126b7-2768-4d0c-a50d-30c6e154bb98",
+      "title": "Embryo in Womb Pose",
+      "description": "A classical advanced yoga pose: Embryo in Womb Pose (Garbha Pindasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/EmbryoWomb.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Garbha Pindasana": "Embryo in Womb Pose"
+      }
+    },
+    {
+      "id": "11d86be7-f385-4aed-affe-0c10bd173b20",
+      "title": "Foot Behind the Head I Pose",
+      "description": "A classical advanced yoga pose: Foot Behind the Head I Pose (Eka Pada Shirshasana A). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FootBehindHead_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Eka Pada Shirshasana A": "Foot Behind the Head I Pose"
+      }
+    },
+    {
+      "id": "80816aa9-c0c8-4fae-aa38-7197c6a3dfee",
+      "title": "Foot Behind the Head II Pose",
+      "description": "A classical advanced yoga pose: Foot Behind the Head II Pose (Eka Pada Shirshasana B). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FootBehindHeadForward_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Eka Pada Shirshasana B": "Foot Behind the Head II Pose"
+      }
+    },
+    {
+      "id": "89d00eac-9343-4de7-aae1-5cb0adf36eeb",
+      "title": "Seated Forward Bend I Pose",
+      "description": "A classical beginner yoga pose: Seated Forward Bend I Pose (Paschimottanasana A). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBend.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Paschimottanasana A": "Seated Forward Bend I Pose"
+      }
+    },
+    {
+      "id": "eb7e2386-f7e2-4cd1-a3ea-ff228c9285d8",
+      "title": "Seated Forward Bend II Pose",
+      "description": "A classical beginner yoga pose: Seated Forward Bend II Pose (Paschimottanasana B). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBendII.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Paschimottanasana B": "Seated Forward Bend II Pose"
+      }
+    },
+    {
+      "id": "1ea92952-3784-4716-ae08-3ad6c00b4358",
+      "title": "Seated Forward Bend III Pose",
+      "description": "A classical beginner yoga pose: Seated Forward Bend III Pose (Paschimottanasana C). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBendIII.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Paschimottanasana C": "Seated Forward Bend III Pose"
+      }
+    },
+    {
+      "id": "93270f31-3623-4f72-aa6c-ab85ad88be0c",
+      "title": "Seated Forward Bend IV Pose",
+      "description": "A classical beginner yoga pose: Seated Forward Bend IV Pose (Paschimottanasana D). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBendIV.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Paschimottanasana D": "Seated Forward Bend IV Pose"
+      }
+    },
+    {
+      "id": "9c38815d-893a-4485-afeb-9ffbfc08ce2b",
+      "title": "Seated Half Bound Lotus Forward Bend Pose",
+      "description": "A classical beginner yoga pose: Seated Half Bound Lotus Forward Bend Pose (Ardha Baddha Padma Paschimottanasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBendHalfLotus_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ardha Baddha Padma Paschimottanasana": "Seated Half Bound Lotus Forward Bend Pose"
+      }
+    },
+    {
+      "id": "7c06c45c-c350-499b-a35e-609bcd82b691",
+      "title": "Seated Three Limbed Forward Bend Pose",
+      "description": "A classical beginner yoga pose: Seated Three Limbed Forward Bend Pose (Tiryan Mukha Eka Pada Paschimottanasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedForwardBendThreeLimbs_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Tiryan Mukha Eka Pada Paschimottanasana": "Seated Three Limbed Forward Bend Pose"
+      }
+    },
+    {
+      "id": "047a73ba-1cdc-46ba-a265-8f7f80247720",
+      "title": "Garland Pose",
+      "description": "A classical beginner yoga pose: Garland Pose (Malasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/GarlandSideways_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Malasana": "Garland Pose"
+      }
+    },
+    {
+      "id": "0fc8f2dc-a5c0-4d2c-ab90-37a0d0cbe0a0",
+      "title": "Seated Gate Pose",
+      "description": "A classical beginner yoga pose: Seated Gate Pose (Parighasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Lateral Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedGate_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips",
+        "spine"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Parighasana": "Seated Gate Pose"
+      }
+    },
+    {
+      "id": "03b150df-04fc-41c6-ab77-6d25310655bf",
+      "title": "Head to Knee I Pose",
+      "description": "A classical beginner yoga pose: Head to Knee I Pose (Janu Shirshasana A). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HeadToKnee_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Janu Shirshasana A": "Head to Knee I Pose"
+      }
+    },
+    {
+      "id": "e3ce82d4-865c-4902-aef2-a9718489f9ca",
+      "title": "Head to Knee II Pose",
+      "description": "A classical beginner yoga pose: Head to Knee II Pose (Janu Shirshasana B). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HeadToKneeII_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Janu Shirshasana B": "Head to Knee II Pose"
+      }
+    },
+    {
+      "id": "6c70f30b-e9c2-4553-a411-5842e11e016a",
+      "title": "Head to Knee III Pose",
+      "description": "A classical beginner yoga pose: Head to Knee III Pose (Janu Shirshasana C). Focuses on alignment, stability, and mindfulness. Category: Seated, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HeadToKneeIII_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Janu Shirshasana C": "Head to Knee III Pose"
+      }
+    },
+    {
+      "id": "72edd745-0885-4e79-a4cd-552766b893ff",
+      "title": "Hero Pose",
+      "description": "A classical beginner yoga pose: Hero Pose (Virasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Hero.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Virasana": "Hero Pose"
+      }
+    },
+    {
+      "id": "e5b81fce-becb-41d5-a8bb-98dd02404439",
+      "title": "Heron Pose",
+      "description": "A classical beginner yoga pose: Heron Pose (Kraunchasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Heron_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Kraunchasana": "Heron Pose"
+      }
+    },
+    {
+      "id": "c1b2447a-f753-4b55-af60-b4d47a311d12",
+      "title": "Noose Pose",
+      "description": "A classical beginner yoga pose: Noose Pose (Pashasana). Focuses on alignment, stability, and mindfulness. Category: Seated , Twist.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SeatedOnHeelsTwistBound_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Pashasana": "Noose Pose"
+      }
+    },
+    {
+      "id": "7c37dea0-ed49-42e0-a465-a8a436983ab8",
+      "title": "Half Pigeon Pose",
+      "description": "A classical beginner yoga pose: Half Pigeon Pose (Ardha Kapotasana). Focuses on alignment, stability, and mindfulness. Category: Seated , Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PigeonHalf_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Ardha Kapotasana": "Half Pigeon Pose"
+      }
+    },
+    {
+      "id": "c92ba38e-818b-4481-a2aa-d71bbb20c178",
+      "title": "Lotus Pose",
+      "description": "A classical intermediate yoga pose: Lotus Pose (Padmasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LotusFull.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Padmasana": "Lotus Pose"
+      }
+    },
+    {
+      "id": "319f9ba8-3337-44a8-af7a-bc3b79498e95",
+      "title": "Sage Marichi's I Pose",
+      "description": "A classical beginner yoga pose: Sage Marichi's I Pose (Marichyasana A). Focuses on alignment, stability, and mindfulness. Category: Seated , Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MarichiITraditional_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Marichyasana A": "Sage Marichi's I Pose"
+      }
+    },
+    {
+      "id": "a92b1408-fb0c-43a9-a432-2088d54a942a",
+      "title": "Sage Marichi's II Pose",
+      "description": "A classical beginner yoga pose: Sage Marichi's II Pose (Marichyasana B). Focuses on alignment, stability, and mindfulness. Category: Seated , Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MarichiIITraditional_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Marichyasana B": "Sage Marichi's II Pose"
+      }
+    },
+    {
+      "id": "57cb6694-8715-4aba-abd1-17e0fa697c36",
+      "title": "Sage Marichi's III Pose",
+      "description": "A classical beginner yoga pose: Sage Marichi's III Pose (Marichyasana C). Focuses on alignment, stability, and mindfulness. Category: Seated , Twist.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MarichiIIITraditional_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Marichyasana C": "Sage Marichi's III Pose"
+      }
+    },
+    {
+      "id": "b1a115d3-c62d-4263-ace6-51af40bd1f60",
+      "title": "Sage Marichi's IV Pose",
+      "description": "A classical beginner yoga pose: Sage Marichi's IV Pose (Marichyasana D). Focuses on alignment, stability, and mindfulness. Category: Seated , Twist.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/MarichiIVTraditional_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Marichyasana D": "Sage Marichi's IV Pose"
+      }
+    },
+    {
+      "id": "a660b3c2-bed2-498f-a540-cd3013a8a11a",
+      "title": "Side Lunge Pose",
+      "description": "A classical intermediate yoga pose: Side Lunge Pose (Skandasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SideLunge_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Skandasana": "Side Lunge Pose"
+      }
+    },
+    {
+      "id": "b985e292-92dc-4676-a3f7-e1ffd85acfeb",
+      "title": "Front Splits Pose",
+      "description": "A classical advanced yoga pose: Front Splits Pose (Hanumanasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SplitsFront_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Hanumanasana": "Front Splits Pose"
+      }
+    },
+    {
+      "id": "86df2705-54c4-42e1-a42a-1429670cb8db",
+      "title": "Half Splits Pose",
+      "description": "A classical intermediate yoga pose: Half Splits Pose (Ardha Hanumanasana). Focuses on alignment, stability, and mindfulness. Category: Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PyramidKneeling_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ardha Hanumanasana": "Half Splits Pose"
+      }
+    },
+    {
+      "id": "71431c1d-3ba5-4085-a324-c28eb5a7a53f",
+      "title": "Wide Splits Pose",
+      "description": "A classical advanced yoga pose: Wide Splits Pose (Samakonasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SplitsWide.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Samakonasana": "Wide Splits Pose"
+      }
+    },
+    {
+      "id": "2252edea-f655-4417-a997-bc5767e6cf12",
+      "title": "Staff Pose",
+      "description": "A classical beginner yoga pose: Staff Pose (Dandasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Staff.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Dandasana": "Staff Pose"
+      }
+    },
+    {
+      "id": "620f7cba-19de-42a1-a259-c1506d4762ca",
+      "title": "Thunderbolt Pose",
+      "description": "A classical beginner yoga pose: Thunderbolt Pose (Vajrasana). Focuses on alignment, stability, and mindfulness. Category: Seated.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Thunderbolt.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Vajrasana": "Thunderbolt Pose"
+      }
+    },
+    {
+      "id": "633e752f-1a13-40bb-a8b2-191d98babc5e",
+      "title": "Toe Stand Pose",
+      "description": "A classical intermediate yoga pose: Toe Stand Pose (Padangushthasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ToeStand_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Padangushthasana": "Toe Stand Pose"
+      }
+    },
+    {
+      "id": "ba2d640e-592e-40da-af10-6a7b0b40576b",
+      "title": "Banana Pose",
+      "description": "A classical beginner yoga pose: Banana Pose (Supta Nitambasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Banana_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Nitambasana": "Banana Pose"
+      }
+    },
+    {
+      "id": "48ae0e26-5e42-438f-ad9c-4b339fba7672",
+      "title": "Bridge Pose",
+      "description": "A classical intermediate yoga pose: Bridge Pose (Setu Bandha Sarvangasana). Focuses on alignment, stability, and mindfulness. Category: Supine, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Bridge.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Setu Bandha Sarvangasana": "Bridge Pose"
+      }
+    },
+    {
+      "id": "7738e990-555a-48d7-a62b-2c535c6eb754",
+      "title": "Corpse Pose",
+      "description": "A classical beginner yoga pose: Corpse Pose (Shavasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Corpse.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Shavasana": "Corpse Pose"
+      }
+    },
+    {
+      "id": "1efd5d8a-464e-41e3-a894-7c9015cd31f8",
+      "title": "Fish Pose",
+      "description": "A classical intermediate yoga pose: Fish Pose (Matsyasana). Focuses on alignment, stability, and mindfulness. Category: Supine, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FishPreparation.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Matsyasana": "Fish Pose"
+      }
+    },
+    {
+      "id": "e04a15de-6361-4050-a44a-2c6a0233d454",
+      "title": "Supine Foot to Head Pose",
+      "description": "A classical intermediate yoga pose: Supine Foot to Head Pose (Supta Trivikramasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineTrivikrama_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Trivikramasana": "Supine Foot to Head Pose"
+      }
+    },
+    {
+      "id": "3aef6c43-c23a-45c4-acb2-08c93f853686",
+      "title": "Extended Supine Hand to Big Toe Pose",
+      "description": "A classical intermediate yoga pose: Extended Supine Hand to Big Toe Pose (Supta Padangushthasana B). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineHandToToeExtended_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Padangushthasana B": "Extended Supine Hand to Big Toe Pose"
+      }
+    },
+    {
+      "id": "7145cd8c-9dc3-413d-a1c5-863c01419c38",
+      "title": "Supine Hand to Big Toe Pose",
+      "description": "A classical intermediate yoga pose: Supine Hand to Big Toe Pose (Supta Padangushthasana A). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineHandToToeFull_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Padangushthasana A": "Supine Hand to Big Toe Pose"
+      }
+    },
+    {
+      "id": "10387435-3c5e-4a0e-a255-c9cb8c2edc74",
+      "title": "Happy Baby Pose",
+      "description": "A classical beginner yoga pose: Happy Baby Pose (Ananda Balasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/BlissfulBaby.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ananda Balasana": "Happy Baby Pose"
+      }
+    },
+    {
+      "id": "6ec86c90-d24c-4bc3-a47c-aad614344fec",
+      "title": "Sleeping Yogi Pose",
+      "description": "A classical advanced yoga pose: Sleeping Yogi Pose (Yoga Nidrasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/YogicSleep.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Yoga Nidrasana": "Sleeping Yogi Pose"
+      }
+    },
+    {
+      "id": "5d42093f-3ca6-457c-a844-54840cf1fa8b",
+      "title": "Supine Spinal Twist Pose",
+      "description": "A classical beginner yoga pose: Supine Spinal Twist Pose (Supta Matsyendrasana). Focuses on alignment, stability, and mindfulness. Category: Supine, Twist.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineSpinalTwist_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Matsyendrasana": "Supine Spinal Twist Pose"
+      }
+    },
+    {
+      "id": "cccc4232-d441-4804-aca5-802bf5e144d8",
+      "title": "Supine Straddle Pose",
+      "description": "A classical intermediate yoga pose: Supine Straddle Pose (Supta Samakonasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineStraddle.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Samakonasana": "Supine Straddle Pose"
+      }
+    },
+    {
+      "id": "d0eb8c7a-c165-4f8a-aa31-59b09e12db27",
+      "title": "Waterfall Pose",
+      "description": "A classical beginner yoga pose: Waterfall Pose (Supta Dandasana). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CorpseDoubleLegRaise.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Supta Dandasana": "Waterfall Pose"
+      }
+    },
+    {
+      "id": "7b48bf64-e406-4387-a715-648f83aee15d",
+      "title": "Wind Removing Pose",
+      "description": "A classical beginner yoga pose: Wind Removing Pose (Pavanamuktasan). Focuses on alignment, stability, and mindfulness. Category: Supine.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Turtle.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Pavanamuktasan": "Wind Removing Pose"
+      }
+    },
+    {
+      "id": "99072cfd-de4a-42ea-a020-65b80721a5c9",
+      "title": "Bow Pose",
+      "description": "A classical intermediate yoga pose: Bow Pose (Dhanurasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Bow.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Dhanurasana": "Bow Pose"
+      }
+    },
+    {
+      "id": "819468df-1d71-4e68-ac60-3ea8cad7db26",
+      "title": "Half Bow Pose",
+      "description": "A classical intermediate yoga pose: Half Bow Pose (Ardha Dhanurasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ProneBowHalf_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Ardha Dhanurasana": "Half Bow Pose"
+      }
+    },
+    {
+      "id": "2419d2c9-dff8-43f0-a3ce-bf8b4b295805",
+      "title": "Child's Pose",
+      "description": "A classical beginner yoga pose: Child's Pose (Balasana). Focuses on alignment, stability, and mindfulness. Category: Prone .",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ChildTraditional.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Balasana": "Child's Pose"
+      }
+    },
+    {
+      "id": "82f54f96-99dd-486c-a894-43ae3bd24a7e",
+      "title": "Cobra Pose",
+      "description": "A classical intermediate yoga pose: Cobra Pose (Bhujangasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CobraFull.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Bhujangasana": "Cobra Pose"
+      }
+    },
+    {
+      "id": "9d9ef207-a358-4e01-ac9b-62ac68997eb6",
+      "title": "Reverse Corpse Pose",
+      "description": "A classical beginner yoga pose: Reverse Corpse Pose (Advasana). Focuses on alignment, stability, and mindfulness. Category: Prone.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CorpseFrontArmsForward.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Advasana": "Reverse Corpse Pose"
+      }
+    },
+    {
+      "id": "9d20beb6-493d-489b-aa4c-3e2a6409aaf0",
+      "title": "Puppy Pose",
+      "description": "A classical intermediate yoga pose: Puppy Pose (Uttana Shishosana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PuppyExtended.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Uttana Shishosana": "Puppy Pose"
+      }
+    },
+    {
+      "id": "585cd699-c7dd-4488-a448-3c0fd6772890",
+      "title": "Frog Pose",
+      "description": "A classical intermediate yoga pose: Frog Pose (Bhekasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FrogTraditional.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Bhekasana": "Frog Pose"
+      }
+    },
+    {
+      "id": "ac1c5038-eb6e-434b-aa13-56a2beddf6a2",
+      "title": "Locust I Pose",
+      "description": "A classical intermediate yoga pose: Locust I Pose (Shalabhasana A). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Locust.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Shalabhasana A": "Locust I Pose"
+      }
+    },
+    {
+      "id": "2933fc8d-c804-4e9c-a071-68456d38fdc5",
+      "title": "Locust II Pose",
+      "description": "A classical intermediate yoga pose: Locust II Pose (Shalabhasana B). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LocustII.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Shalabhasana B": "Locust II Pose"
+      }
+    },
+    {
+      "id": "36a96a09-3eb1-4e72-a310-101c4f2d1429",
+      "title": "Locust III Pose",
+      "description": "A classical intermediate yoga pose: Locust III Pose (Shalabhasana C). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LocustIII.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Shalabhasana C": "Locust III Pose"
+      }
+    },
+    {
+      "id": "23673fe1-5280-4357-af95-98b68c151891",
+      "title": "Sage Gheranda's Pose",
+      "description": "A classical advanced yoga pose: Sage Gheranda's Pose (Gherandasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/GherandaI_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Gherandasana": "Sage Gheranda's Pose"
+      }
+    },
+    {
+      "id": "a1401e66-36b1-4333-a4ab-2285f94d0084",
+      "title": "Snake Pose",
+      "description": "A classical beginner yoga pose: Snake Pose (Sarpasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Snake.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Sarpasana": "Snake Pose"
+      }
+    },
+    {
+      "id": "f9c4bcf3-6679-45b7-a959-6d59d91b2b79",
+      "title": "Sphinx Pose",
+      "description": "A classical beginner yoga pose: Sphinx Pose (Salamba Bhujangasana). Focuses on alignment, stability, and mindfulness. Category: Prone.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Sphinx.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Salamba Bhujangasana": "Sphinx Pose"
+      }
+    },
+    {
+      "id": "f56e7ed7-665b-4b12-a055-27c619457cd4",
+      "title": "Tortoise Pose",
+      "description": "A classical intermediate yoga pose: Tortoise Pose (Kurmasana). Focuses on alignment, stability, and mindfulness. Category: Prone, Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/SupineTortoise.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Kurmasana": "Tortoise Pose"
+      }
+    },
+    {
+      "id": "5b35ddf5-fa88-4561-aa02-e88e4d907cb1",
+      "title": "Table Pose",
+      "description": "A classical beginner yoga pose: Table Pose (https://pocketyoga.com/assets/images/full/BoxNeutral.png). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/BoxNeutral.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "https://pocketyoga.com/assets/images/full/BoxNeutral.png": "Table Pose"
+      }
+    },
+    {
+      "id": "84c22f22-9b5c-4a7f-a26d-8f79ed67c2aa",
+      "title": "Camel Pose",
+      "description": "A classical intermediate yoga pose: Camel Pose (Ushtrasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Camel.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Ushtrasana": "Camel Pose"
+      }
+    },
+    {
+      "id": "097b24bc-de85-481c-a0f6-99eabc363857",
+      "title": "Cat Pose",
+      "description": "A classical beginner yoga pose: Cat Pose (Marjariasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Cat.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Marjariasana": "Cat Pose"
+      }
+    },
+    {
+      "id": "1addb1b5-418c-4315-a4e1-22878e385160",
+      "title": "Cow Pose",
+      "description": "A classical beginner yoga pose: Cow Pose (Bitilasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Dog.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Bitilasana": "Cow Pose"
+      }
+    },
+    {
+      "id": "cb0e110b-8ee4-4f06-af42-ab3790dfa20d",
+      "title": "Dolphin Pose",
+      "description": "A classical intermediate yoga pose: Dolphin Pose (Ardha Pincha Mayurasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Dolphin.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Ardha Pincha Mayurasana": "Dolphin Pose"
+      }
+    },
+    {
+      "id": "d03b7949-ca70-4f9b-a8a4-4b7d8e83d502",
+      "title": "Downward-Facing Dog Pose",
+      "description": "A classical beginner yoga pose: Downward-Facing Dog Pose (Adho Mukha Shvanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/DownwardDog.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Adho Mukha Shvanasana": "Downward-Facing Dog Pose"
+      }
+    },
+    {
+      "id": "065d9ea0-9f47-41a3-a03b-762450c4eb39",
+      "title": "Eight Point Pose",
+      "description": "A classical intermediate yoga pose: Eight Point Pose (Ashtangasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/EightPoint.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Ashtangasana": "Eight Point Pose"
+      }
+    },
+    {
+      "id": "e659464a-3b16-4425-a3ac-b844e55607d4",
+      "title": "Humble Flamingo Pose",
+      "description": "A classical advanced yoga pose: Humble Flamingo Pose (Vineeta Rajahamsasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Forward Bend, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FlamingoHumble_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength",
+        "stress",
+        "sleep"
+      ],
+      "sanskrit_terms": {
+        "Vineeta Rajahamsasana": "Humble Flamingo Pose"
+      }
+    },
+    {
+      "id": "6a2ae838-0888-4274-afe9-91a5287c5efe",
+      "title": "Gate Pose",
+      "description": "A classical beginner yoga pose: Gate Pose (Parighasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Lateral Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Gate_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "spine"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Parighasana": "Gate Pose"
+      }
+    },
+    {
+      "id": "6439aa22-86b8-49de-a629-ed7afe2d9a69",
+      "title": "Horse Pose",
+      "description": "A classical intermediate yoga pose: Horse Pose (Vatayanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Horse_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Vatayanasana": "Horse Pose"
+      }
+    },
+    {
+      "id": "fe82e949-3794-48c6-a2eb-15281355eaea",
+      "title": "Lizard Pose",
+      "description": "A classical intermediate yoga pose: Lizard Pose (Uttana Pristhasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Lizard_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Uttana Pristhasana": "Lizard Pose"
+      }
+    },
+    {
+      "id": "0f4a2065-f1b3-4b5e-a49d-40e6666dfd06",
+      "title": "Lunge Pose",
+      "description": "A classical beginner yoga pose: Lunge Pose (Utthita Ashwa Sanchalanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Lunge_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Utthita Ashwa Sanchalanasana": "Lunge Pose"
+      }
+    },
+    {
+      "id": "76f3e4c4-35d4-4035-a460-be36dd8406d3",
+      "title": "Crooked Monkey Pose",
+      "description": "A classical intermediate yoga pose: Crooked Monkey Pose (Vakra Hanumanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Twist.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CrookedMonkey_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "spine",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Vakra Hanumanasana": "Crooked Monkey Pose"
+      }
+    },
+    {
+      "id": "4ed7e9d1-6ab2-4cba-aacb-8e48ca8a3ac1",
+      "title": "Pigeon Pose",
+      "description": "A classical advanced yoga pose: Pigeon Pose (Kapotasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Pigeon.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Kapotasana": "Pigeon Pose"
+      }
+    },
+    {
+      "id": "d03447bc-6455-4bd9-a110-376a5d105516",
+      "title": "One Legged King Pigeon Pose",
+      "description": "A classical advanced yoga pose: One Legged King Pigeon Pose (Eka Pada Raja Kapotasana). Focuses on alignment, stability, and mindfulness. Category: Seated, Back Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PigeonKing_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Eka Pada Raja Kapotasana": "One Legged King Pigeon Pose"
+      }
+    },
+    {
+      "id": "11d8c2e1-7a2d-4546-a45f-b63e7a140405",
+      "title": "Plank Pose",
+      "description": "A classical beginner yoga pose: Plank Pose (Phalakasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Plank.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Phalakasana": "Plank Pose"
+      }
+    },
+    {
+      "id": "0aba1ad8-d38e-44aa-a492-2315d927697d",
+      "title": "Upward Plank Pose",
+      "description": "A classical beginner yoga pose: Upward Plank Pose (Purvottanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PlankUpward.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Purvottanasana": "Upward Plank Pose"
+      }
+    },
+    {
+      "id": "f221e3ca-1d0a-49a6-acfc-5fcabef79686",
+      "title": "Four Limbed Staff Pose",
+      "description": "A classical beginner yoga pose: Four Limbed Staff Pose (Chaturanga Dandasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FourLimbedStaff.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Chaturanga Dandasana": "Four Limbed Staff Pose"
+      }
+    },
+    {
+      "id": "73a5a0c6-f01a-48cd-a05a-edf47e47ab0f",
+      "title": "Flying Warrior Pose",
+      "description": "A classical advanced yoga pose: Flying Warrior Pose (Vishvamitrasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/VisvamitraFull_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Vishvamitrasana": "Flying Warrior Pose"
+      }
+    },
+    {
+      "id": "14bb0f0c-ea5e-45a5-aba4-9d822ceb972d",
+      "title": "Side Plank Pose",
+      "description": "A classical intermediate yoga pose: Side Plank Pose (Vasishthasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Balancing.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PlankSide_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Vasishthasana": "Side Plank Pose"
+      }
+    },
+    {
+      "id": "17488d87-52d1-4f3d-a806-6b05bc1edcf8",
+      "title": "Extended Side Plank Pose",
+      "description": "A classical advanced yoga pose: Extended Side Plank Pose (Utthita Vasishthasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Balancing.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PlankSideExtended_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "focus",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Utthita Vasishthasana": "Extended Side Plank Pose"
+      }
+    },
+    {
+      "id": "71851f09-552c-448a-a44a-08f92d6de59a",
+      "title": "Inverted Staff Pose",
+      "description": "A classical intermediate yoga pose: Inverted Staff Pose (Dvi Pada Viparita Dandasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/StaffInverted.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Dvi Pada Viparita Dandasana": "Inverted Staff Pose"
+      }
+    },
+    {
+      "id": "75694cc6-9118-4afb-a84b-31ddbdbad3f7",
+      "title": "Little Thunderbolt Pose",
+      "description": "A classical intermediate yoga pose: Little Thunderbolt Pose (Laghu Vajrasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LittleThunderbolt.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Laghu Vajrasana": "Little Thunderbolt Pose"
+      }
+    },
+    {
+      "id": "dea68b88-1b4c-4d5a-a24a-586a43fbf08f",
+      "title": "Tiger Pose",
+      "description": "A classical beginner yoga pose: Tiger Pose (Vyaghrasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Tiger_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Vyaghrasana": "Tiger Pose"
+      }
+    },
+    {
+      "id": "c6933768-be52-44b1-aabe-cd601865b775",
+      "title": "Upward-Facing Dog Pose",
+      "description": "A classical beginner yoga pose: Upward-Facing Dog Pose (Urdhva Mukha Shvanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/UpwardDog.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Urdhva Mukha Shvanasana": "Upward-Facing Dog Pose"
+      }
+    },
+    {
+      "id": "bee248c3-c782-4ef1-aee6-806d26cf1edf",
+      "title": "Wheel Pose",
+      "description": "A classical intermediate yoga pose: Wheel Pose (Urdhva Dhanurasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Wheel.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Urdhva Dhanurasana": "Wheel Pose"
+      }
+    },
+    {
+      "id": "d43d4a2e-6448-4337-ac0e-9d80a6df623a",
+      "title": "Wild Thing Pose",
+      "description": "A classical beginner yoga pose: Wild Thing Pose (Chamatkarasana). Focuses on alignment, stability, and mindfulness. Category: Arm Leg Support, Back Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/WildThing_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Chamatkarasana": "Wild Thing Pose"
+      }
+    },
+    {
+      "id": "6dfcd605-a3a7-4d6e-a895-7efc62939082",
+      "title": "Both Feet Behind the Head II Pose",
+      "description": "A classical advanced yoga pose: Both Feet Behind the Head II Pose (Dvi Pada Shirshasana B). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FootBehindHeadTwoLeggedElevated.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Dvi Pada Shirshasana B": "Both Feet Behind the Head II Pose"
+      }
+    },
+    {
+      "id": "a538fe6f-b76d-4a7f-a2bd-a2cc9c35ddbb",
+      "title": "Chin Stand Pose",
+      "description": "A classical advanced yoga pose: Chin Stand Pose (Ganda Bherundasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion, Back Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ChinStand.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Ganda Bherundasana": "Chin Stand Pose"
+      }
+    },
+    {
+      "id": "ab8a2248-1f0e-4b47-a277-8a73958f246e",
+      "title": "Crane Pose",
+      "description": "A classical intermediate yoga pose: Crane Pose (Bakasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Crane.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Bakasana": "Crane Pose"
+      }
+    },
+    {
+      "id": "98dae741-7494-4cdf-ae1a-514f12957dd0",
+      "title": "Crow Pose",
+      "description": "A classical intermediate yoga pose: Crow Pose (Kakasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Crow.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Kakasana": "Crow Pose"
+      }
+    },
+    {
+      "id": "7f91d9db-3fef-4a1d-a75f-e06f27d33f61",
+      "title": "Deaf Man's Pose",
+      "description": "A classical intermediate yoga pose: Deaf Man's Pose (Karnapidasana). Focuses on alignment, stability, and mindfulness. Category: Inversion, Forward Bend.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/DeafMan.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Karnapidasana": "Deaf Man's Pose"
+      }
+    },
+    {
+      "id": "7e235b3b-7ba6-4fc4-a888-d48afa4cb6d0",
+      "title": "Eight Angle Pose",
+      "description": "A classical advanced yoga pose: Eight Angle Pose (Ashtavakrasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/EightAngle_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Ashtavakrasana": "Eight Angle Pose"
+      }
+    },
+    {
+      "id": "601e2db3-ccd9-4803-af06-a0dac39f62ef",
+      "title": "Elbow Balance Pose",
+      "description": "A classical advanced yoga pose: Elbow Balance Pose (Shayanasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/RelaxedStance.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Shayanasana": "Elbow Balance Pose"
+      }
+    },
+    {
+      "id": "1e445a1b-2304-47b6-afd0-6c3678ee726d",
+      "title": "Elephant Trunk Pose",
+      "description": "A classical intermediate yoga pose: Elephant Trunk Pose (Eka Hasta Bhujasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ElephantTrunk_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Eka Hasta Bhujasana": "Elephant Trunk Pose"
+      }
+    },
+    {
+      "id": "bd1511d7-bffe-421b-a931-9171aedb3ea2",
+      "title": "Firefly Pose",
+      "description": "A classical advanced yoga pose: Firefly Pose (Tittibhasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Firefly.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Tittibhasana": "Firefly Pose"
+      }
+    },
+    {
+      "id": "f2d64d8c-75fa-4a2d-a099-f7bfb1d3ba43",
+      "title": "Floating Stick Pose",
+      "description": "A classical intermediate yoga pose: Floating Stick Pose (Brahmacharyasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FloatingStick.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Brahmacharyasana": "Floating Stick Pose"
+      }
+    },
+    {
+      "id": "cdf92bf2-dedc-477d-af1e-753479ab06cd",
+      "title": "Flying Man Pose",
+      "description": "A classical intermediate yoga pose: Flying Man Pose (Eka Pada Koundinyasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/LungeHandsOnMatFlying_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Eka Pada Koundinyasana": "Flying Man Pose"
+      }
+    },
+    {
+      "id": "b72fb111-c4c4-44d4-a25a-391735dbdc83",
+      "title": "Revolved Flying Man Pose",
+      "description": "A classical intermediate yoga pose: Revolved Flying Man Pose (Parivritta Eka Pada Koundinyasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Twist.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FlyingManRevolved_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "spine",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Eka Pada Koundinyasana": "Revolved Flying Man Pose"
+      }
+    },
+    {
+      "id": "c0a1fbbf-8a5a-41d7-a4c5-8411bc6a71ee",
+      "title": "Two Legged Sage Koundinya's Pose",
+      "description": "A classical advanced yoga pose: Two Legged Sage Koundinya's Pose (Dvi Pada Koundinyasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CrowSideExtended_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Dvi Pada Koundinyasana": "Two Legged Sage Koundinya's Pose"
+      }
+    },
+    {
+      "id": "8c1919b7-6a2b-4ca8-a013-6fa2e60b563d",
+      "title": "Side Crow Pose",
+      "description": "A classical intermediate yoga pose: Side Crow Pose (Parshva Bakasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Twist.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/CrowSide_R.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "spine",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parshva Bakasana": "Side Crow Pose"
+      }
+    },
+    {
+      "id": "0948e1df-5df2-4b7b-a5f9-7df7fc2dbca7",
+      "title": "Forearm Balance Pose",
+      "description": "A classical advanced yoga pose: Forearm Balance Pose (Pincha Mayurasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FeatheredPeacock.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Pincha Mayurasana": "Forearm Balance Pose"
+      }
+    },
+    {
+      "id": "56dacf4a-7144-42db-a4ba-c29d44cb2d8c",
+      "title": "Dragonfly  Pose",
+      "description": "A classical advanced yoga pose: Dragonfly  Pose (Maksikanagasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Grasshopper_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Maksikanagasana": "Dragonfly  Pose"
+      }
+    },
+    {
+      "id": "69bb5a15-c111-4571-a0e0-864151d94635",
+      "title": "Handstand Pose",
+      "description": "A classical advanced yoga pose: Handstand Pose (Adho Mukha Vrikshasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Handstand.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Adho Mukha Vrikshasana": "Handstand Pose"
+      }
+    },
+    {
+      "id": "8299ef52-6df2-4706-ae66-87a27599e684",
+      "title": "Supported Headstand Pose",
+      "description": "A classical intermediate yoga pose: Supported Headstand Pose (Salamba Shirshasana A). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HeadstandSupported.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Salamba Shirshasana A": "Supported Headstand Pose"
+      }
+    },
+    {
+      "id": "7c556684-dad0-47af-a41d-4ffbf35dddd7",
+      "title": "Tripod Headstand Pose",
+      "description": "A classical intermediate yoga pose: Tripod Headstand Pose (Salamba Shirshasana B). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Inversion.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/HeadstandTripod.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Salamba Shirshasana B": "Tripod Headstand Pose"
+      }
+    },
+    {
+      "id": "064f987a-b587-45da-a3df-173fb3c14c89",
+      "title": "Flying Lizard Pose",
+      "description": "A classical advanced yoga pose: Flying Lizard Pose (Uddayana Uttana Pristhasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/FlyingLizard_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Uddayana Uttana Pristhasana": "Flying Lizard Pose"
+      }
+    },
+    {
+      "id": "4efbc39e-e6fe-48f4-ab56-70e501bb160a",
+      "title": "Peacock Pose",
+      "description": "A classical advanced yoga pose: Peacock Pose (Mayurasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Peacock.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Mayurasana": "Peacock Pose"
+      }
+    },
+    {
+      "id": "a8b3f3d0-26a2-487b-a14a-82cc8dd75789",
+      "title": "Pendant Pose",
+      "description": "A classical intermediate yoga pose: Pendant Pose (Lolasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Pendant.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Lolasana": "Pendant Pose"
+      }
+    },
+    {
+      "id": "22c80729-ca24-4256-a675-b2e730fcdc6f",
+      "title": "Flying Pigeon Pose",
+      "description": "A classical advanced yoga pose: Flying Pigeon Pose (Eka Pada Galavasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance, Twist.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/PigeonFlying_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "spine",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Eka Pada Galavasana": "Flying Pigeon Pose"
+      }
+    },
+    {
+      "id": "5a0d45ac-6564-42dd-a24a-d170485f737f",
+      "title": "Plow Pose",
+      "description": "A classical beginner yoga pose: Plow Pose (Halasana). Focuses on alignment, stability, and mindfulness. Category: Inversion, Forward Bend.",
+      "duration_minutes": 5,
+      "category": "asana",
+      "is_premium": false,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Plow.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "beginner",
+      "tightness": [
+        "hamstrings",
+        "lower_back"
+      ],
+      "goals": [
+        "mobility",
+        "stress",
+        "sleep",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Halasana": "Plow Pose"
+      }
+    },
+    {
+      "id": "812e91e5-570c-403c-a144-5c79e958eb8a",
+      "title": "Rooster Pose",
+      "description": "A classical advanced yoga pose: Rooster Pose (Kukkutasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Rooster.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Kukkutasana": "Rooster Pose"
+      }
+    },
+    {
+      "id": "efc334e1-f7fb-4dcf-a9ca-334716ad5171",
+      "title": "Scorpion Pose",
+      "description": "A classical advanced yoga pose: Scorpion Pose (Vrischikasana A). Focuses on alignment, stability, and mindfulness. Category: Inversion, Back Bend.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/Scorpion.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "lower_back",
+        "shoulders",
+        "spine"
+      ],
+      "goals": [
+        "mobility",
+        "strength",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Vrischikasana A": "Scorpion Pose"
+      }
+    },
+    {
+      "id": "5adf5058-9344-4f0f-a2ea-ba1003063dde",
+      "title": "Shoulder Pressing Pose",
+      "description": "A classical advanced yoga pose: Shoulder Pressing Pose (Bhujapidasana). Focuses on alignment, stability, and mindfulness. Category: Arm Balance.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ScaleForward.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "shoulders"
+      ],
+      "goals": [
+        "mobility"
+      ],
+      "sanskrit_terms": {
+        "Bhujapidasana": "Shoulder Pressing Pose"
+      }
+    },
+    {
+      "id": "206aa17e-735c-4d7e-a3ff-a438814c14d7",
+      "title": "Shoulder Stand with Lotus Legs Pose",
+      "description": "A classical advanced yoga pose: Shoulder Stand with Lotus Legs Pose (Urdhva Padmasana). Focuses on alignment, stability, and mindfulness. Category: Inversion.",
+      "duration_minutes": 12,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ShoulderstandLotus.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "advanced",
+      "tightness": [
+        "shoulders"
+      ],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Urdhva Padmasana": "Shoulder Stand with Lotus Legs Pose"
+      }
+    },
+    {
+      "id": "e096cee0-c202-4551-aa96-7cdf6252d631",
+      "title": "Supported Shoulder Stand Pose",
+      "description": "A classical intermediate yoga pose: Supported Shoulder Stand Pose (Salamba Sarvangasana). Focuses on alignment, stability, and mindfulness. Category: Inversion.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ShoulderstandSupported.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "shoulders"
+      ],
+      "goals": [
+        "mobility",
+        "energy",
+        "focus"
+      ],
+      "sanskrit_terms": {
+        "Salamba Sarvangasana": "Supported Shoulder Stand Pose"
+      }
+    },
+    {
+      "id": "42c8c76c-7961-4f50-a795-e59d91a8f050",
+      "title": "Bound Revolved Chair Pose",
+      "description": "A classical intermediate yoga pose: Bound Revolved Chair Pose (Parivritta Utkatasana). Focuses on alignment, stability, and mindfulness. Category: Standing, Twist.",
+      "duration_minutes": 8,
+      "category": "asana",
+      "is_premium": true,
+      "thumbnail_url": "https://pocketyoga.com/assets/images/full/ChairTwistBind_L.png",
+      "media_url": "https://vjs.zencdn.net/v/oceans.mp4",
+      "experience_level": "intermediate",
+      "tightness": [
+        "spine",
+        "lower_back",
+        "hips"
+      ],
+      "goals": [
+        "mobility",
+        "strength"
+      ],
+      "sanskrit_terms": {
+        "Parivritta Utkatasana": "Bound Revolved Chair Pose"
       }
     }
   ],
