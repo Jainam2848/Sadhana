@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Parse .env to get Service Role Key
 let supabaseUrl = 'https://iwwziupfwytlbdlehgoh.supabase.co';
 let serviceRoleKey = '';
 
@@ -28,27 +28,176 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey || process.env.SUPABASE_SERVICE_ROLE_KEY || '');
+const supabaseAdmin = createClient(
+  supabaseUrl,
+  serviceRoleKey || process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+);
+
+type RoutineCategory = 'asana' | 'pranayama' | 'dhyana';
 
 describe('Sadhana Personalization Engine Tests', () => {
   let testUserId: string;
+  const createdRoutineIds: string[] = [];
+
+  const goalFor = (label: string) => `test_${label}_${testUserId.replaceAll('-', '_')}`;
+
+  const insertRoutine = async ({
+    title,
+    description,
+    duration,
+    category,
+    goal,
+    tightness = [],
+    experience = 'beginner',
+  }: {
+    title: string;
+    description: string;
+    duration: number;
+    category: RoutineCategory;
+    goal: string;
+    tightness?: string[];
+    experience?: 'beginner' | 'intermediate' | 'advanced';
+  }) => {
+    const id = randomUUID();
+    const { error } = await supabaseAdmin
+      .from('sadhana_routines')
+      .insert({
+        id,
+        title,
+        description,
+        duration_minutes: duration,
+        category,
+        is_premium: false,
+        thumbnail_url: 'https://example.com/test-personalization.jpg',
+        media_url: 'https://example.com/test-personalization.mp4',
+        sanskrit_terms: {},
+        experience_level: experience,
+        tightness,
+        goals: [goal],
+      });
+
+    expect(error).toBeNull();
+    createdRoutineIds.push(id);
+    return id;
+  };
+
+  const insertExactRoutineSet = async ({
+    label,
+    total,
+    asanaDuration,
+    pranayamaDuration,
+    dhyanaDuration,
+    tightness = ['lower_back'],
+    asanaTitle = 'Balanced Test Asana',
+    asanaDescription = 'A steady practice for personalized test matching.',
+    asanaExperience = 'beginner',
+  }: {
+    label: string;
+    total: number;
+    asanaDuration: number;
+    pranayamaDuration: number;
+    dhyanaDuration: number;
+    tightness?: string[];
+    asanaTitle?: string;
+    asanaDescription?: string;
+    asanaExperience?: 'beginner' | 'intermediate' | 'advanced';
+  }) => {
+    const goal = goalFor(`${label}_${total}`);
+    await insertRoutine({
+      title: asanaTitle,
+      description: asanaDescription,
+      duration: asanaDuration,
+      category: 'asana',
+      goal,
+      tightness,
+      experience: asanaExperience,
+    });
+    await insertRoutine({
+      title: `Balanced Test Breath ${total}`,
+      description: 'Quiet breath practice for exact duration matching.',
+      duration: pranayamaDuration,
+      category: 'pranayama',
+      goal,
+    });
+    await insertRoutine({
+      title: `Balanced Test Meditation ${total}`,
+      description: 'Quiet meditation practice for exact duration matching.',
+      duration: dhyanaDuration,
+      category: 'dhyana',
+      goal,
+    });
+    return goal;
+  };
+
+  const resetUserPersonalization = async () => {
+    await supabaseAdmin.from('sadhana_plans').delete().eq('user_id', testUserId);
+    await supabaseAdmin.from('onboarding_responses').delete().eq('user_id', testUserId);
+    await supabaseAdmin
+      .from('user_streaks')
+      .update({
+        current_streak: 0,
+        longest_streak: 0,
+        last_completed_date: null,
+      })
+      .eq('user_id', testUserId);
+  };
+
+  const insertOnboarding = async ({
+    goals,
+    tightness = ['lower_back'],
+    experience = 'beginner',
+    preferredTime = 'morning',
+    preferredDuration = 15,
+  }: {
+    goals: string[];
+    tightness?: string[];
+    experience?: 'beginner' | 'intermediate' | 'advanced';
+    preferredTime?: 'morning' | 'afternoon' | 'evening';
+    preferredDuration?: 10 | 15 | 20 | 30;
+  }) => {
+    const { error } = await supabaseAdmin
+      .from('onboarding_responses')
+      .insert({
+        user_id: testUserId,
+        goals,
+        tightness,
+        experience_level: experience,
+        preferred_time: preferredTime,
+        preferred_duration: preferredDuration,
+        habit_anchor: `After my ${preferredTime} routine`,
+      });
+
+    expect(error).toBeNull();
+  };
+
+  const fetchPlans = async () => {
+    const { data, error } = await supabaseAdmin
+      .from('sadhana_plans')
+      .select(`
+        day_of_week,
+        asana:asana_routine_id(id,title,duration_minutes,experience_level,tightness,goals),
+        pranayama:pranayama_routine_id(id,title,duration_minutes,experience_level,tightness,goals),
+        dhyana:dhyana_routine_id(id,title,duration_minutes,experience_level,tightness,goals)
+      `)
+      .eq('user_id', testUserId)
+      .order('day_of_week', { ascending: true });
+
+    expect(error).toBeNull();
+    return data as any[];
+  };
+
+  const planTotal = (plan: any) =>
+    plan.asana.duration_minutes + plan.pranayama.duration_minutes + plan.dhyana.duration_minutes;
 
   beforeAll(async () => {
-    // 1. Create a dummy user profile
-    testUserId = `test-user-${Math.floor(Math.random() * 1000000)}`;
-    
-    // We create a temporary mock auth.users row or insert directly into profiles since it has CASCADE
-    // To make sure we satisfy foreign key, we can create a real auth user or insert directly if RLS is bypassed via service role.
-    // Wait, profiles.id references auth.users(id), so we must create a real user in auth.users or use an existing test user.
-    // Let's create a real user in auth using signUp.
     const uniqueEmail = `sadhaka.personalize.${Math.floor(Math.random() * 1000000)}@gmail.com`;
     const { data: signUpData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({
       email: uniqueEmail,
       password: 'Password123!',
       email_confirm: true,
       user_metadata: {
-        username: 'Personalization Tester'
-      }
+        username: 'Personalization Tester',
+      },
     });
 
     if (signUpError) {
@@ -58,84 +207,228 @@ describe('Sadhana Personalization Engine Tests', () => {
     testUserId = signUpData.user!.id;
   });
 
+  beforeEach(async () => {
+    await resetUserPersonalization();
+  });
+
   afterAll(async () => {
-    // Clean up created user
     if (testUserId) {
+      await supabaseAdmin.from('sadhana_plans').delete().eq('user_id', testUserId);
+      await supabaseAdmin.from('onboarding_responses').delete().eq('user_id', testUserId);
       await supabaseAdmin.auth.admin.deleteUser(testUserId);
+    }
+
+    if (createdRoutineIds.length > 0) {
+      await supabaseAdmin.from('sadhana_routines').delete().in('id', createdRoutineIds);
     }
   });
 
-  test('Inserting onboarding responses automatically creates exactly 7 daily plans via database trigger', async () => {
-    // Ensure no prior plans exist
-    const { data: initialPlans } = await supabaseAdmin
-      .from('sadhana_plans')
-      .select('*')
-      .eq('user_id', testUserId);
-    expect(initialPlans?.length).toBe(0);
+  test('inserting onboarding responses automatically creates exactly 7 daily plans via database trigger', async () => {
+    const goal = await insertExactRoutineSet({
+      label: 'trigger',
+      total: 15,
+      asanaDuration: 9,
+      pranayamaDuration: 3,
+      dhyanaDuration: 3,
+    });
 
-    // Insert onboarding responses
-    const { error: insertError } = await supabaseAdmin
-      .from('onboarding_responses')
-      .insert({
-        user_id: testUserId,
-        goals: ['stress', 'mobility'],
-        tightness: ['lower_back', 'shoulders'],
-        experience_level: 'beginner',
-        habit_anchor: 'After my morning tea'
-      });
+    await insertOnboarding({
+      goals: [goal],
+      tightness: ['lower_back'],
+      preferredDuration: 15,
+      preferredTime: 'morning',
+    });
 
-    expect(insertError).toBeNull();
+    const generatedPlans = await fetchPlans();
 
-    // Verify 7 daily plans are automatically generated
-    const { data: generatedPlans, error: plansError } = await supabaseAdmin
-      .from('sadhana_plans')
-      .select('*')
-      .eq('user_id', testUserId)
-      .order('day_of_week', { ascending: true });
-
-    expect(plansError).toBeNull();
     expect(generatedPlans).not.toBeNull();
-    expect(generatedPlans!.length).toBe(7);
+    expect(generatedPlans.length).toBe(7);
+    expect(generatedPlans.map(p => p.day_of_week)).toEqual([0, 1, 2, 3, 4, 5, 6]);
 
-    // Verify day_of_week index coverage (0 to 6)
-    const days = generatedPlans!.map(p => p.day_of_week);
-    expect(days).toEqual([0, 1, 2, 3, 4, 5, 6]);
-
-    // Verify each plan has matching routines
-    for (const plan of generatedPlans!) {
-      expect(plan.asana_routine_id).not.toBeNull();
-      expect(plan.pranayama_routine_id).not.toBeNull();
-      expect(plan.dhyana_routine_id).not.toBeNull();
-
-      // Retrieve and assert asana routine tags
-      const { data: asana } = await supabaseAdmin
-        .from('sadhana_routines')
-        .select('*')
-        .eq('id', plan.asana_routine_id)
-        .single();
-      
-      expect(asana.experience_level).toBe('beginner');
-      expect(asana.category).toBe('asana');
-      
-      // The tightness tag should match one of the user's targeted tightness areas
-      const matchesTightness = asana.tightness.some((t: string) => ['lower_back', 'shoulders'].includes(t));
-      expect(matchesTightness).toBe(true);
-
-      // Retrieve and assert pranayama/dhyana goals
-      const { data: pranayama } = await supabaseAdmin
-        .from('sadhana_routines')
-        .select('*')
-        .eq('id', plan.pranayama_routine_id)
-        .single();
-      expect(pranayama.category).toBe('pranayama');
-      expect(pranayama.experience_level).toBe('beginner');
-
-      const { data: dhyana } = await supabaseAdmin
-        .from('sadhana_routines')
-        .select('*')
-        .eq('id', plan.dhyana_routine_id)
-        .single();
-      expect(dhyana.category).toBe('dhyana');
+    for (const plan of generatedPlans) {
+      expect(plan.asana.id).toBeTruthy();
+      expect(plan.pranayama.id).toBeTruthy();
+      expect(plan.dhyana.id).toBeTruthy();
+      expect(plan.asana.experience_level).toBe('beginner');
+      expect(planTotal(plan)).toBe(15);
     }
+  });
+
+  test('preferred duration maps to exact available routine totals for 10 and 30 minute plans', async () => {
+    const tenMinuteGoal = await insertExactRoutineSet({
+      label: 'duration_10',
+      total: 10,
+      asanaDuration: 6,
+      pranayamaDuration: 2,
+      dhyanaDuration: 2,
+    });
+
+    await insertOnboarding({
+      goals: [tenMinuteGoal],
+      preferredDuration: 10,
+    });
+
+    let generatedPlans = await fetchPlans();
+    expect(generatedPlans.every(plan => planTotal(plan) === 10)).toBe(true);
+
+    await resetUserPersonalization();
+
+    const thirtyMinuteGoal = await insertExactRoutineSet({
+      label: 'duration_30',
+      total: 30,
+      asanaDuration: 18,
+      pranayamaDuration: 6,
+      dhyanaDuration: 6,
+    });
+
+    await insertOnboarding({
+      goals: [thirtyMinuteGoal],
+      preferredDuration: 30,
+    });
+
+    generatedPlans = await fetchPlans();
+    expect(generatedPlans.every(plan => planTotal(plan) === 30)).toBe(true);
+  });
+
+  test('preferred time ranks energizing routines for morning and restorative routines for evening', async () => {
+    const goal = goalFor('time_of_day');
+
+    await insertRoutine({
+      title: 'Solar Energizing Test Flow',
+      description: 'An energizing morning awakening flow with heat and strength.',
+      duration: 9,
+      category: 'asana',
+      goal,
+      tightness: ['lower_back'],
+    });
+    await insertRoutine({
+      title: 'Restorative Sleep Test Release',
+      description: 'A gentle evening release for relaxation and sleep.',
+      duration: 9,
+      category: 'asana',
+      goal,
+      tightness: ['lower_back'],
+    });
+    await insertRoutine({
+      title: 'Time Test Breath',
+      description: 'Balanced breath for the personalization test.',
+      duration: 3,
+      category: 'pranayama',
+      goal,
+    });
+    await insertRoutine({
+      title: 'Time Test Meditation',
+      description: 'Balanced meditation for the personalization test.',
+      duration: 3,
+      category: 'dhyana',
+      goal,
+    });
+
+    await insertOnboarding({
+      goals: [goal],
+      tightness: ['lower_back'],
+      preferredTime: 'morning',
+      preferredDuration: 15,
+    });
+
+    let mondayPlan = (await fetchPlans()).find(plan => plan.day_of_week === 1);
+    expect(mondayPlan.asana.title).toContain('Solar Energizing');
+
+    const { error } = await supabaseAdmin
+      .from('onboarding_responses')
+      .update({ preferred_time: 'evening' })
+      .eq('user_id', testUserId);
+
+    expect(error).toBeNull();
+
+    mondayPlan = (await fetchPlans()).find(plan => plan.day_of_week === 1);
+    expect(mondayPlan.asana.title).toContain('Restorative Sleep');
+  });
+
+  test('daily plans rotate selected tightness areas starting with the first area on Monday', async () => {
+    const goal = goalFor('tightness_rotation');
+
+    await insertRoutine({
+      title: 'Lower Back Monday Relief Test',
+      description: 'A gentle lower back release for the weekly rotation.',
+      duration: 9,
+      category: 'asana',
+      goal,
+      tightness: ['lower_back'],
+    });
+    await insertRoutine({
+      title: 'Hip Tuesday Relief Test',
+      description: 'A gentle hip release for the weekly rotation.',
+      duration: 9,
+      category: 'asana',
+      goal,
+      tightness: ['hips'],
+    });
+    await insertRoutine({
+      title: 'Rotation Test Breath',
+      description: 'Balanced breath for the personalization rotation test.',
+      duration: 3,
+      category: 'pranayama',
+      goal,
+    });
+    await insertRoutine({
+      title: 'Rotation Test Meditation',
+      description: 'Balanced meditation for the personalization rotation test.',
+      duration: 3,
+      category: 'dhyana',
+      goal,
+    });
+
+    await insertOnboarding({
+      goals: [goal],
+      tightness: ['lower_back', 'hips'],
+      preferredDuration: 15,
+    });
+
+    const generatedPlans = await fetchPlans();
+    const mondayPlan = generatedPlans.find(plan => plan.day_of_week === 1);
+    const tuesdayPlan = generatedPlans.find(plan => plan.day_of_week === 2);
+
+    expect(mondayPlan.asana.title).toContain('Lower Back Monday');
+    expect(tuesdayPlan.asana.title).toContain('Hip Tuesday');
+  });
+
+  test('streak updates regenerate plans with duration scaling and next-level difficulty expansion', async () => {
+    const goal = await insertExactRoutineSet({
+      label: 'streak_scaling',
+      total: 20,
+      asanaDuration: 12,
+      pranayamaDuration: 4,
+      dhyanaDuration: 4,
+      tightness: ['lower_back'],
+      asanaTitle: 'Intermediate Streak Expansion Test Flow',
+      asanaDescription: 'An energizing intermediate flow unlocked by streak progress.',
+      asanaExperience: 'intermediate',
+    });
+
+    await insertOnboarding({
+      goals: [goal],
+      tightness: ['lower_back'],
+      experience: 'beginner',
+      preferredDuration: 15,
+    });
+
+    let mondayPlan = (await fetchPlans()).find(plan => plan.day_of_week === 1);
+    expect(mondayPlan.asana.experience_level).toBe('beginner');
+
+    const { error } = await supabaseAdmin
+      .from('user_streaks')
+      .update({
+        current_streak: 10,
+        longest_streak: 10,
+      })
+      .eq('user_id', testUserId);
+
+    expect(error).toBeNull();
+
+    mondayPlan = (await fetchPlans()).find(plan => plan.day_of_week === 1);
+    expect(mondayPlan.asana.title).toContain('Intermediate Streak Expansion');
+    expect(mondayPlan.asana.experience_level).toBe('intermediate');
+    expect(planTotal(mondayPlan)).toBe(20);
   });
 });

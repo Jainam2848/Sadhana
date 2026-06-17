@@ -138,7 +138,7 @@ export function useTodayPlan(userId: string | undefined, isPremium: boolean, day
           .maybeSingle();
 
         if (error) throw error;
-        if (data) return data as SadhanaPlan;
+        if (data) return data as unknown as SadhanaPlan;
         return getLocalMockPlan(dayOfWeek);
       }
 
@@ -165,7 +165,7 @@ export function useTodayPlan(userId: string | undefined, isPremium: boolean, day
       const { data, error } = await query.maybeSingle();
       if (error) throw error;
       
-      if (data) return data as SadhanaPlan;
+      if (data) return data as unknown as SadhanaPlan;
       return getLocalMockPlan(dayOfWeek);
     },
     // Run if dayOfWeek is valid; premium status is required to decide path

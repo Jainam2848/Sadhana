@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { View, Text, ScrollView } from '@/tw';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
-import { ArrowLeft, Check, Sun, Sunset, Moon } from 'lucide-react-native';
+import { ArrowLeft, Check, Sun, Sunset, Moon, AlarmClock } from 'lucide-react-native';
 import { Heading, Subheading, Body } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
@@ -15,6 +15,7 @@ export default function PersonalizeScreen() {
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
   const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
+  const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
 
   const scrollViewRef = useRef<any>(null);
 
@@ -30,19 +31,24 @@ export default function PersonalizeScreen() {
     setSelectedSchedule(sched);
   };
 
+  const handleSelectDuration = (duration: number) => {
+    setSelectedDuration(duration);
+  };
+
   const handleContinue = () => {
-    if (!selectedGoal || !selectedExperience || !selectedSchedule) return;
+    if (!selectedGoal || !selectedExperience || !selectedSchedule || !selectedDuration) return;
 
     updateAnswers({
       goal: selectedGoal,
       experience: selectedExperience,
       schedule: selectedSchedule,
+      duration: selectedDuration,
     });
 
     router.push('/(auth)/breathing-space');
   };
 
-  const isComplete = selectedGoal && selectedExperience && selectedSchedule;
+  const isComplete = selectedGoal && selectedExperience && selectedSchedule && selectedDuration;
 
   return (
     <View className="flex-1 bg-background relative">
@@ -65,9 +71,9 @@ export default function PersonalizeScreen() {
           <View className="w-10" />
         </View>
         
-        {/* Progress Bar (15%) */}
+        {/* Progress Bar (20%) */}
         <View className="w-full h-1 bg-surface-border/20">
-          <View className="h-full bg-accent-terracotta" style={{ width: '15%' }} />
+          <View className="h-full bg-accent-terracotta" style={{ width: '20%' }} />
         </View>
       </View>
 
@@ -79,15 +85,18 @@ export default function PersonalizeScreen() {
       >
         {/* Question 1: Goals */}
         <View className="mb-12">
-          <Subheading className="mb-6 text-on-surface">
+          <Subheading className="mb-3 text-on-surface">
             What brings you to your mat?
           </Subheading>
+          <Body className="mb-6 text-secondary-text">
+            Your intention becomes the compass for each plan, shaping whether Sadhana leans toward nervous-system care, mobility, or deeper yogic study.
+          </Body>
           
           <View className="gap-3">
             {[
-              { id: 'stress', label: 'Relieve stress and anxiety' },
-              { id: 'mobility', label: 'Improve joint mobility and flexibility' },
-              { id: 'philosophy', label: 'Connect with yogic philosophy' },
+              { id: 'stress', label: 'Relieve stress and anxiety', detail: 'For calming breathwork, grounding movement, and steadier sleep.' },
+              { id: 'mobility', label: 'Improve joint mobility and flexibility', detail: 'For daily relief in the areas that feel tight or overworked.' },
+              { id: 'philosophy', label: 'Connect with yogic philosophy', detail: 'For practices that include reflective and meditative depth.' },
             ].map((option) => {
               const isSelected = selectedGoal === option.id;
               return (
@@ -104,7 +113,12 @@ export default function PersonalizeScreen() {
                   accessibilityLabel={`Goal option: ${option.label}`}
                   accessibilityState={{ selected: isSelected }}
                 >
-                  <Body className="text-primary-text">{option.label}</Body>
+                  <View className="flex-1 pr-3">
+                    <Body className="text-primary-text">{option.label}</Body>
+                    <Text className="mt-1 font-sans text-xs text-secondary-text leading-4">
+                      {option.detail}
+                    </Text>
+                  </View>
                   <View
                     className={`w-6 h-6 rounded-full border items-center justify-center ${
                       isSelected
@@ -123,9 +137,12 @@ export default function PersonalizeScreen() {
         {/* Question 2: Experience */}
         {selectedGoal && (
           <View className="mb-12">
-            <Subheading className="mb-4 text-on-surface">
+            <Subheading className="mb-3 text-on-surface">
               How would you describe your experience?
             </Subheading>
+            <Body className="mb-4 text-secondary-text">
+              This keeps today safe and useful. As your streak grows, Sadhana can gently introduce the next level without rushing your body.
+            </Body>
             
             <View className="flex-row flex-wrap gap-2">
               {['Beginner', 'Intermediate', 'Advanced'].map((option) => {
@@ -161,9 +178,12 @@ export default function PersonalizeScreen() {
         {/* Question 3: Schedule */}
         {selectedExperience && (
           <View className="mb-12">
-            <Subheading className="mb-4 text-on-surface">
+            <Subheading className="mb-3 text-on-surface">
               When will you practice daily?
             </Subheading>
+            <Body className="mb-4 text-secondary-text">
+              Time of day changes what your practice should ask of you: brighter, energizing sequences in the morning and softer recovery in the evening.
+            </Body>
             
             <View className="flex-row flex-wrap gap-2">
               {[
@@ -197,6 +217,51 @@ export default function PersonalizeScreen() {
                       }`}
                     >
                       {option.label}
+                    </Text>
+                  </PressableAnimated>
+                );
+              })}
+            </View>
+          </View>
+        )}
+
+        {/* Question 4: Duration */}
+        {selectedSchedule && (
+          <View className="mb-12">
+            <Subheading className="mb-3 text-on-surface">
+              How long is your daily practice?
+            </Subheading>
+            <Body className="mb-4 text-secondary-text">
+              Pick the amount you can actually protect. We proportion it across movement, breath, and meditation so your care feels complete, not crammed.
+            </Body>
+
+            <View className="flex-row flex-wrap gap-2">
+              {[10, 15, 20, 30].map((option) => {
+                const isSelected = selectedDuration === option;
+                return (
+                  <PressableAnimated
+                    key={option}
+                    className={`px-6 py-3 rounded-full border flex-row items-center gap-2 ${
+                      isSelected
+                        ? 'bg-accent-terracotta border-accent-terracotta'
+                        : 'bg-background border-surface-border'
+                    }`}
+                    onPress={() => handleSelectDuration(option)}
+                    haptic="light"
+                    scaleTo={0.95}
+                    accessibilityLabel={`Daily practice duration: ${option} minutes`}
+                    accessibilityState={{ selected: isSelected }}
+                  >
+                    <AlarmClock
+                      size={16}
+                      color={isSelected ? '#FFF' : colors.secondaryText}
+                    />
+                    <Text
+                      className={`font-sans text-sm font-medium ${
+                        isSelected ? 'text-white' : 'text-secondary-text'
+                      }`}
+                    >
+                      {option} min
                     </Text>
                   </PressableAnimated>
                 );

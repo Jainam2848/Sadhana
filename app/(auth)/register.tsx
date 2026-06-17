@@ -76,6 +76,8 @@ export default function RegisterScreen() {
               ? ['hips', 'hamstrings', 'lower_back', 'shoulders']
               : ['lower_back', 'shoulders'],
             experience_level: onboardingAnswers.experience || 'beginner',
+            preferred_time: onboardingAnswers.schedule || 'morning',
+            preferred_duration: onboardingAnswers.duration || 15,
             habit_anchor: onboardingAnswers.schedule 
               ? `After my ${onboardingAnswers.schedule} routine` 
               : 'After my morning tea'
