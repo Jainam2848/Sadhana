@@ -14,6 +14,7 @@ export default function RegisterScreen() {
   const { colors } = useTheme();
   const { tier } = useLocalSearchParams<{ tier: string }>();
   const setSession = useAuthStore((state) => state.setSession);
+  const onboardingAnswers = useAuthStore((state) => state.onboardingAnswers);
 
   const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState('');
@@ -63,6 +64,25 @@ export default function RegisterScreen() {
           if (profileUpdateError) {
             console.warn('Failed to update premium profile status', profileUpdateError);
           }
+        }
+
+        // 3. Write onboarding responses to trigger personalization plan generation
+        const { error: onboardingError } = await supabase
+          .from('onboarding_responses')
+          .insert({
+            user_id: userId,
+            goals: onboardingAnswers.goal ? [onboardingAnswers.goal] : ['stress'],
+            tightness: onboardingAnswers.goal === 'mobility' 
+              ? ['hips', 'hamstrings', 'lower_back', 'shoulders']
+              : ['lower_back', 'shoulders'],
+            experience_level: onboardingAnswers.experience || 'beginner',
+            habit_anchor: onboardingAnswers.schedule 
+              ? `After my ${onboardingAnswers.schedule} routine` 
+              : 'After my morning tea'
+          });
+
+        if (onboardingError) {
+          console.warn('Failed to insert onboarding responses', onboardingError);
         }
 
         // 3. Save session in Zustand and SecureStore
