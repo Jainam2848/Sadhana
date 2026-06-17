@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable } from '@/tw';
+import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Body, Caption } from '@/components/ui/Typography';
 import { Switch, StyleSheet } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function GDPRScreen() {
   const { colors } = useTheme();
@@ -18,6 +19,9 @@ export default function GDPRScreen() {
     // Save only options currently toggled
     router.push('/(auth)/priming');
   };
+
+  const borderColorString = typeof colors.border === 'string' ? colors.border : '#2a1f16';
+  const growthColorString = typeof colors.growth === 'string' ? colors.growth : '#4CAF50';
 
   return (
     <View className="flex-1 bg-background relative justify-end">
@@ -69,7 +73,8 @@ export default function GDPRScreen() {
             <Switch
               value={true}
               disabled={true}
-              trackColor={{ false: '#767577', true: colors.growth }}
+              trackColor={{ false: borderColorString, true: growthColorString }}
+              accessibilityLabel="Essential cookies (Required)"
             />
           </View>
 
@@ -86,31 +91,36 @@ export default function GDPRScreen() {
             <Switch
               value={analyticsEnabled}
               onValueChange={setAnalyticsEnabled}
-              trackColor={{ false: colors.border, true: colors.growth }}
+              trackColor={{ false: borderColorString, true: growthColorString }}
               thumbColor="#FFFFFF"
+              accessibilityLabel="Performance Analytics Consent Toggle"
             />
           </View>
         </View>
 
         {/* Actions Button Bar */}
         <View className="gap-3 mt-auto">
-          <Pressable
+          <PressableAnimated
             className="w-full bg-accent-terracotta py-4 rounded-full items-center active:opacity-90"
             onPress={handleAgreeAll}
+            haptic="medium"
+            accessibilityLabel="Agree to all GDPR consents"
           >
             <Text className="text-white font-sans font-bold text-sm">
               Agree to All
             </Text>
-          </Pressable>
+          </PressableAnimated>
 
-          <Pressable
+          <PressableAnimated
             className="w-full py-2 items-center active:opacity-70"
             onPress={handleSaveOptions}
+            haptic="light"
+            accessibilityLabel="Save current selected GDPR preferences"
           >
             <Text className="text-secondary-text font-sans font-medium text-sm underline underline-offset-4 decoration-surface-border">
               Save current preferences
             </Text>
-          </Pressable>
+          </PressableAnimated>
         </View>
       </View>
     </View>

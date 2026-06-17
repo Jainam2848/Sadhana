@@ -20,10 +20,10 @@
 - Frontend: React Native + Expo + TypeScript (strict mode)
 - Styling: NativeWind (Tailwind CSS v4 for React Native)
 - State: Zustand + React Query
-- Backend: TBD (Supabase / Firebase / Custom Node.js — decided in Phase 4, ADR-001)
-- Payments: TBD (Stripe / RevenueCat / Native IAP — decided in Phase 6, ADR-005)
+- Backend: Supabase (PostgreSQL with RLS, triggers, custom RPC functions)
+- Payments: Local mock billing service in dev/staging (degraded to local Zustand authStore); live Apple/Google IAP via RevenueCat (mobile subscription) in production; Stripe (web/webhook sync — decided in Phase 6, ADR-005)
 - Testing: Jest + React Native Testing Library + Detox/Maestro
 
 ## Status
-- Current Phase: 0 (Project Bootstrap)
-- Next Milestone: User approval of playbook → Phase 1 Discovery
+- Current Phase: 6 (Monetization & Payments)
+- Next Milestone: Implement local mock billing service, onboarding Paywall UI, and Sadhana Rewards ad points logic.

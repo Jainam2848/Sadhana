@@ -1,14 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, Text, Pressable } from '@/tw';
+import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useSubmitSession } from '@/hooks/api';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Caption } from '@/components/ui/Typography';
+import { Svg, Path, Circle } from '@/components/ui/Compat';
 import { Audio } from 'expo-av';
-import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
+import { Alert } from 'react-native';
 import { ChevronDown, Play, Pause, RotateCcw, RotateCw, RefreshCw, Heart, Check } from 'lucide-react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing, cancelAnimation } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import { PlayerSkeleton } from '@/components/ui/Skeletons';
+import { ErrorState } from '@/components/ui/ErrorState';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function SinglePlayerScreen() {
   const { colors } = useTheme();
@@ -30,9 +34,10 @@ export default function SinglePlayerScreen() {
   const [isFavorited, setIsFavorited] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoadingSound, setIsLoadingSound] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   // Time tracking (in seconds)
-  const totalSeconds = parseInt(duration || '15') * 60;
+  const totalSeconds = parseInt(duration || '15', 10) * 60;
   const [position, setPosition] = useState(0);
 
   // Reanimated shared value for rotating Mandala
@@ -48,6 +53,7 @@ export default function SinglePlayerScreen() {
   const loadMedia = async () => {
     try {
       setIsLoadingSound(true);
+      setHasError(false);
       if (sound) {
         await sound.unloadAsync();
       }
@@ -77,7 +83,7 @@ export default function SinglePlayerScreen() {
     } catch (e) {
       console.warn('Failed to load audio stream', e);
       setIsLoadingSound(false);
-      Alert.alert('Playback Error', 'Failed to load the practice audio stream.');
+      setHasError(true);
     }
   };
 
@@ -85,7 +91,7 @@ export default function SinglePlayerScreen() {
     loadMedia();
     return () => {
       if (sound) {
-        sound.unloadAsync();
+        sound.unloadAsync().catch(() => {});
       }
     };
   }, [routineId]);
@@ -114,8 +120,6 @@ export default function SinglePlayerScreen() {
 
   const togglePlayPause = async () => {
     if (!sound) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-
     if (isPlaying) {
       await sound.pauseAsync();
     } else {
@@ -125,17 +129,15 @@ export default function SinglePlayerScreen() {
 
   const handleSkipForward = async () => {
     if (!sound) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const status = await sound.getStatusAsync();
     if (status.isLoaded) {
-      const newPos = Math.min(status.positionMillis + 10000, status.durationMillis || totalSeconds * 1000);
+      const newPos = Math.min(status.positionMillis + 10000, (status.durationMillis || totalSeconds * 1000));
       await sound.setPositionAsync(newPos);
     }
   };
 
   const handleSkipBackward = async () => {
     if (!sound) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const status = await sound.getStatusAsync();
     if (status.isLoaded) {
       const newPos = Math.max(status.positionMillis - 10000, 0);
@@ -145,7 +147,6 @@ export default function SinglePlayerScreen() {
 
   const toggleLoop = async () => {
     if (!sound) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const newLoop = !isLooping;
     setIsLooping(newLoop);
     await sound.setIsLoopingAsync(newLoop);
@@ -153,13 +154,12 @@ export default function SinglePlayerScreen() {
 
   const handleCompletePractice = async () => {
     if (isCompleted) return;
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     setIsCompleted(true);
 
     try {
       await submitSession.mutateAsync({
         routineId: routineId || 'single-practice-mock',
-        durationPracticed: parseInt(duration || '15'),
+        durationPracticed: parseInt(duration || '15', 10),
       });
       
       Alert.alert(
@@ -181,6 +181,24 @@ export default function SinglePlayerScreen() {
 
   const progressPercent = Math.min((position / totalSeconds) * 100, 100);
 
+  if (hasError) {
+    return (
+      <View className="flex-1 bg-[#0D0A06] justify-center items-center px-6">
+        <ErrorState
+          message="We couldn't connect to the temple audio servers. Check your connection and try again."
+          onRetry={loadMedia}
+        />
+      </View>
+    );
+  }
+
+  if (isLoadingSound) {
+    return <PlayerSkeleton />;
+  }
+
+  const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
+  const growthColorString = typeof colors.growth === 'string' ? colors.growth : '#4CAF50';
+
   return (
     <View className="flex-1 bg-[#0D0A06] relative justify-between px-6">
       {/* Top Background Arc */}
@@ -191,125 +209,148 @@ export default function SinglePlayerScreen() {
 
       {/* Header bar */}
       <View className="pt-12 pb-3 z-40 flex-row justify-between items-center w-full">
-        <Pressable
-          className="w-10 h-10 items-center justify-center rounded-full hover:bg-white/10 active:scale-95"
+        <PressableAnimated
+          className="w-10 h-10 items-center justify-center rounded-full bg-white/5 active:scale-95"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ChevronDown size={24} color="#FDFAF5" />
-        </Pressable>
-        <Text className="font-sans font-bold text-xs text-white/50 uppercase tracking-widest">
+        </PressableAnimated>
+        <Text className="font-sans font-bold text-xs text-white/50 uppercase tracking-widest text-center flex-1">
           Now Playing
         </Text>
         <View className="w-10" />
       </View>
 
-      {isLoadingSound ? (
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color={colors.accent} />
-          <Caption className="text-white/60 mt-4">Preparing soundscape...</Caption>
-        </View>
-      ) : (
-        <View className="flex-1 justify-between py-8">
-          {/* Rotating Mandala Artwork */}
-          <View className="items-center justify-center my-auto">
-            <View className="w-56 h-56 bg-[#1C1409] rounded-2xl shadow-2xl items-center justify-center border border-[#2a1f16] overflow-hidden">
-              <Animated.View style={[{ width: 160, height: 160 }, mandalaAnimatedStyle]}>
-                {/* SVG Mandala Shape */}
-                <svg width="160" height="160" viewBox="0 0 100 100" fill="none">
-                  <circle cx="50" cy="50" r="48" stroke="#C44B22" strokeDasharray="2 4" strokeWidth="0.5" />
-                  <circle cx="50" cy="50" r="40" stroke="#C44B22" strokeWidth="0.5" />
-                  <path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#C44B22" strokeWidth="0.25" />
-                  <circle cx="50" cy="50" r="25" stroke="#C44B22" strokeDasharray="1 2" strokeWidth="0.5" />
-                  <circle cx="50" cy="50" fill="#1C1409" r="10" stroke="#C44B22" strokeWidth="1" />
-                </svg>
-              </Animated.View>
-            </View>
+      <View className="flex-1 justify-between py-8">
+        {/* Rotating Mandala Artwork */}
+        <View className="items-center justify-center my-auto">
+          <View className="w-56 h-56 bg-[#1C1409] rounded-2xl shadow-2xl items-center justify-center border border-[#2a1f16] overflow-hidden">
+            <Animated.View style={[{ width: 160, height: 160 }, mandalaAnimatedStyle]}>
+              {/* SVG Mandala Shape */}
+              <Svg width="160" height="160" viewBox="0 0 100 100">
+                <Circle cx="50" cy="50" r="48" stroke="#C44B22" strokeDasharray="2 4" strokeWidth="0.5" fill="none" />
+                <Circle cx="50" cy="50" r="40" stroke="#C44B22" strokeWidth="0.5" fill="none" />
+                <Path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#C44B22" strokeWidth="0.25" />
+                <Circle cx="50" cy="50" r="25" stroke="#C44B22" strokeDasharray="1 2" strokeWidth="0.5" fill="none" />
+                <Circle cx="50" cy="50" fill="#1C1409" r="10" stroke="#C44B22" strokeWidth="1" />
+              </Svg>
+            </Animated.View>
+          </View>
 
-            <View className="text-center mt-8 px-6">
-              <Heading className="text-[#F7E5D2] text-2xl font-serif text-center mb-1">
-                {lessonTitle || title}
-              </Heading>
-              <Caption className="text-[#a38c75] text-center font-medium">
-                Swami Vidyadhishananda • {category?.toUpperCase() || 'PRACTICE'}
+          <View className="mt-8 px-6">
+            <Heading className="text-[#F7E5D2] text-2xl font-serif text-center mb-1">
+              {lessonTitle || title}
+            </Heading>
+            <Caption className="text-[#a38c75] text-center font-medium">
+              Swami Vidyadhishananda • {category?.toUpperCase() || 'PRACTICE'}
+            </Caption>
+          </View>
+        </View>
+
+        {/* Controls Stack */}
+        <View className="gap-6 w-full max-w-sm mx-auto">
+          {/* Scrubber slider */}
+          <View className="w-full gap-2">
+            <View className="w-full h-[3px] bg-white/20 rounded-full relative justify-center">
+              <View
+                className="h-full bg-accent-terracotta rounded-full"
+                style={{ width: `${progressPercent}%` }}
+              />
+              <View
+                className="absolute w-3 h-3 bg-accent-terracotta rounded-full shadow"
+                style={{ left: `${progressPercent}%`, marginLeft: -6 }}
+              />
+            </View>
+            <View className="flex-row justify-between items-center px-1">
+              <Caption className="text-[#a38c75] text-xs tabular-nums">
+                {formatTime(position)}
+              </Caption>
+              <Caption className="text-[#a38c75] text-xs tabular-nums">
+                -{formatTime(Math.max(totalSeconds - position, 0))}
               </Caption>
             </View>
           </View>
 
-          {/* Controls Stack */}
-          <View className="gap-6 w-full max-w-sm mx-auto">
-            {/* Scrubber slider */}
-            <View className="w-full gap-2">
-              <View className="w-full h-[3px] bg-white/20 rounded-full relative justify-center">
-                <View
-                  className="h-full bg-accent-terracotta rounded-full"
-                  style={{ width: `${progressPercent}%` }}
-                />
-                <View
-                  className="absolute w-3 h-3 bg-accent-terracotta rounded-full shadow"
-                  style={{ left: `${progressPercent}%`, marginLeft: -6 }}
-                />
-              </View>
-              <View className="flex-row justify-between items-center px-1">
-                <Caption className="text-[#a38c75] text-xs tabular-nums">
-                  {formatTime(position)}
-                </Caption>
-                <Caption className="text-[#a38c75] text-xs tabular-nums">
-                  -{formatTime(Math.max(totalSeconds - position, 0))}
-                </Caption>
-              </View>
-            </View>
-
-            {/* Play controls */}
-            <View className="flex-row justify-between items-center w-full px-4 mb-4">
-              <Pressable className="active:scale-95" onPress={toggleLoop}>
-                <RefreshCw size={20} color={isLooping ? colors.accent : '#a38c75'} />
-              </Pressable>
-
-              <Pressable className="active:scale-95" onPress={handleSkipBackward}>
-                <RotateCcw size={24} color="#F7E5D2" />
-              </Pressable>
-
-              <Pressable
-                className="w-16 h-16 bg-accent-terracotta rounded-full items-center justify-center shadow-lg active:scale-105"
-                onPress={togglePlayPause}
-              >
-                {isPlaying ? (
-                  <Pause size={28} color="#FDFAF5" fill="#FDFAF5" />
-                ) : (
-                  <Play size={28} color="#FDFAF5" fill="#FDFAF5" style={{ marginLeft: 4 }} />
-                )}
-              </Pressable>
-
-              <Pressable className="active:scale-95" onPress={handleSkipForward}>
-                <RotateCw size={24} color="#F7E5D2" />
-              </Pressable>
-
-              <Pressable className="active:scale-95" onPress={() => setIsFavorited(!isFavorited)}>
-                <Heart size={20} color={isFavorited ? colors.accent : '#a38c75'} fill={isFavorited ? colors.accent : 'transparent'} />
-              </Pressable>
-            </View>
-
-            {/* Mark as Complete CTA */}
-            <Pressable
-              className={`w-full h-12 rounded-full border flex-row items-center justify-center gap-2 active:scale-98 transition-all duration-300 ${
-                isCompleted
-                  ? 'border-growth bg-growth/10'
-                  : 'border-accent-terracotta'
-              }`}
-              onPress={handleCompletePractice}
+          {/* Play controls */}
+          <View className="flex-row justify-between items-center w-full px-4 mb-4">
+            <PressableAnimated
+              scaleTo={0.9}
+              haptic="light"
+              onPress={toggleLoop}
+              accessibilityLabel={isLooping ? "Disable loop" : "Enable loop"}
             >
-              {isCompleted ? (
-                <>
-                  <Check size={16} color={colors.growth} />
-                  <Text className="text-growth-green font-sans font-bold text-sm">Completed</Text>
-                </>
+              <RefreshCw size={20} color={isLooping ? accentColorString : '#a38c75'} />
+            </PressableAnimated>
+
+            <PressableAnimated
+              haptic="light"
+              onPress={handleSkipBackward}
+              accessibilityLabel="Rewind 10 seconds"
+            >
+              <RotateCcw size={24} color="#F7E5D2" />
+            </PressableAnimated>
+
+            <PressableAnimated
+              className="w-16 h-16 bg-accent-terracotta rounded-full items-center justify-center shadow-lg"
+              scaleTo={1.05}
+              haptic="medium"
+              onPress={togglePlayPause}
+              accessibilityLabel={isPlaying ? "Pause session" : "Play session"}
+            >
+              {isPlaying ? (
+                <Pause size={28} color="#FDFAF5" fill="#FDFAF5" />
               ) : (
-                <Text className="text-accent-terracotta font-sans font-bold text-sm">Mark as Complete</Text>
+                <Play size={28} color="#FDFAF5" fill="#FDFAF5" style={{ marginLeft: 4 }} />
               )}
-            </Pressable>
+            </PressableAnimated>
+
+            <PressableAnimated
+              haptic="light"
+              onPress={handleSkipForward}
+              accessibilityLabel="Fast forward 10 seconds"
+            >
+              <RotateCw size={24} color="#F7E5D2" />
+            </PressableAnimated>
+
+            <PressableAnimated
+              scaleTo={0.9}
+              haptic="light"
+              onPress={() => setIsFavorited(!isFavorited)}
+              accessibilityLabel={isFavorited ? "Remove from favorites" : "Add to favorites"}
+            >
+              <Heart
+                size={20}
+                color={isFavorited ? accentColorString : '#a38c75'}
+                fill={isFavorited ? accentColorString : 'transparent'}
+              />
+            </PressableAnimated>
           </View>
+
+          {/* Mark as Complete CTA */}
+          <PressableAnimated
+            scaleTo={0.98}
+            haptic="success"
+            className={`w-full h-12 rounded-full border flex-row items-center justify-center gap-2 transition-all duration-300 ${
+              isCompleted
+                ? 'border-growth bg-growth/10'
+                : 'border-accent-terracotta'
+            }`}
+            onPress={handleCompletePractice}
+            accessibilityLabel={isCompleted ? "Practice session completed" : "Mark practice as complete"}
+          >
+            {isCompleted ? (
+              <>
+                <Check size={16} color={growthColorString} />
+                <Text className="text-growth-green font-sans font-bold text-sm">Completed</Text>
+              </>
+            ) : (
+              <Text className="text-accent-terracotta font-sans font-bold text-sm">Mark as Complete</Text>
+            )}
+          </PressableAnimated>
         </View>
-      )}
+      </View>
     </View>
   );
 }

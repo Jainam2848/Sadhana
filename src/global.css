@@ -19,18 +19,42 @@
   }
 }
 
+:root {
+  --background: #FDFAF5;
+  --surface: #FFFFFF;
+  --surface-border: rgba(42, 29, 10, 0.08);
+  --primary-text: #1C1409;
+  --secondary-text: #6B5A41;
+  --accent-terracotta: #C44B22;
+  --growth-green: #1A6B3A;
+  --warm-highlight: #F5E6C8;
+  --destructive: #991F1F;
+}
+
+.dark {
+  --background: #120F0A;
+  --surface: #1C1610;
+  --surface-border: rgba(245, 230, 200, 0.08);
+  --primary-text: #FDFAF5;
+  --secondary-text: #A69580;
+  --accent-terracotta: #E06135;
+  --growth-green: #2CA358;
+  --warm-highlight: #2C2216;
+  --destructive: #E04343;
+}
+
 @layer theme {
   @theme {
     /* Custom theme variables based on DESIGN_SYSTEM.md */
-    --color-background: #FDFAF5;
-    --color-surface: #FFFFFF;
-    --color-surface-border: rgba(42, 29, 10, 0.08);
-    --color-primary-text: #1C1409;
-    --color-secondary-text: #6B5A41;
-    --color-accent-terracotta: #C44B22;
-    --color-growth-green: #1A6B3A;
-    --color-warm-highlight: #F5E6C8;
-    --color-destructive: #991F1F;
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-border: var(--surface-border);
+    --color-primary-text: var(--primary-text);
+    --color-secondary-text: var(--secondary-text);
+    --color-accent-terracotta: var(--accent-terracotta);
+    --color-growth-green: var(--growth-green);
+    --color-warm-highlight: var(--warm-highlight);
+    --color-destructive: var(--destructive);
 
     /* Custom typography */
     --font-serif: "Cormorant Garamond", serif;

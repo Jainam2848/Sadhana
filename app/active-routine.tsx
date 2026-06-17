@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, Text, Pressable, ScrollView, Image } from '@/tw';
+import { View, Text, ScrollView, Image } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useSubmitSession } from '@/hooks/api';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Caption } from '@/components/ui/Typography';
 import { Video as ExpoVideo, Audio, ResizeMode } from 'expo-av';
 import { Video } from '@/components/ui/Compat';
-import { ActivityIndicator, Modal, StyleSheet, Alert } from 'react-native';
+import { Modal, StyleSheet, Alert } from 'react-native';
 import { ArrowLeft, Play, Pause, RotateCcw, RotateCw, SkipForward, BookOpen, Volume2, VolumeX } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function ActiveRoutinePlayerScreen() {
   const { colors } = useTheme();
@@ -34,9 +35,9 @@ export default function ActiveRoutinePlayerScreen() {
 
   // Time management (in seconds)
   const durations = [
-    parseInt(asanaDuration || '5') * 60,
-    parseInt(pranayamaDuration || '4') * 60,
-    parseInt(dhyanaDuration || '3') * 60,
+    parseInt(asanaDuration || '5', 10) * 60,
+    parseInt(pranayamaDuration || '4', 10) * 60,
+    parseInt(dhyanaDuration || '3', 10) * 60,
   ];
   
   const [timeLeft, setTimeLeft] = useState(durations[0]);
@@ -66,7 +67,7 @@ export default function ActiveRoutinePlayerScreen() {
       loadBackgroundSound();
     } else {
       if (sound) {
-        sound.unloadAsync();
+        sound.unloadAsync().catch(() => {});
         setSound(null);
       }
     }
@@ -79,7 +80,7 @@ export default function ActiveRoutinePlayerScreen() {
   useEffect(() => {
     return () => {
       if (sound) {
-        sound.unloadAsync();
+        sound.unloadAsync().catch(() => {});
       }
     };
   }, [sound]);
@@ -88,9 +89,9 @@ export default function ActiveRoutinePlayerScreen() {
   useEffect(() => {
     if (sound) {
       if (isPlaying && !isMuted) {
-        sound.playAsync();
+        sound.playAsync().catch(() => {});
       } else {
-        sound.pauseAsync();
+        sound.pauseAsync().catch(() => {});
       }
     }
   }, [isPlaying, isMuted, sound]);
@@ -143,16 +144,13 @@ export default function ActiveRoutinePlayerScreen() {
 
   const handleSkipForward = () => {
     setTimeLeft((prev) => Math.max(prev - 10, 0));
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
   const handleSkipBackward = () => {
     setTimeLeft((prev) => Math.min(prev + 10, durations[currentSegment]));
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
   const togglePlayPause = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setIsPlaying(!isPlaying);
   };
 
@@ -184,22 +182,26 @@ export default function ActiveRoutinePlayerScreen() {
 
       {/* Top Header */}
       <View className="pt-12 pb-3 px-6 z-40 bg-gradient-to-b from-[#0D0A06] to-transparent flex-row justify-between items-center w-full">
-        <Pressable
-          className="w-10 h-10 items-center justify-center rounded-full bg-white/10"
+        <PressableAnimated
+          className="w-10 h-10 items-center justify-center rounded-full bg-white/10 active:scale-95"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ArrowLeft size={18} color="#FDFAF5" />
-        </Pressable>
-        <Text className="font-sans font-bold text-sm text-white/80 uppercase tracking-widest">
+        </PressableAnimated>
+        <Text className="font-sans font-bold text-sm text-white/80 uppercase tracking-widest text-center flex-1">
           {currentHeader.type}
         </Text>
         {currentSegment === 2 ? (
-          <Pressable
-            className="w-10 h-10 items-center justify-center rounded-full bg-white/10"
+          <PressableAnimated
+            className="w-10 h-10 items-center justify-center rounded-full bg-white/10 active:scale-95"
             onPress={() => setIsMuted(!isMuted)}
+            haptic="light"
+            accessibilityLabel={isMuted ? "Unmute ambient music" : "Mute ambient music"}
           >
             {isMuted ? <VolumeX size={18} color="#FDFAF5" /> : <Volume2 size={18} color="#FDFAF5" />}
-          </Pressable>
+          </PressableAnimated>
         ) : (
           <View className="w-10" />
         )}
@@ -260,13 +262,15 @@ export default function ActiveRoutinePlayerScreen() {
       <View className="px-6 pb-12 gap-8 w-full max-w-lg mx-auto">
         {/* Sanskrit Glossary Trigger */}
         <View className="items-center">
-          <Pressable
-            className="flex-row items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/5 active:opacity-85"
+          <PressableAnimated
+            className="flex-row items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/5 active:scale-95"
             onPress={() => setIsGlossaryOpen(true)}
+            haptic="light"
+            accessibilityLabel="Open Sanskrit glossary"
           >
             <BookOpen size={14} color="#FDFAF5" />
             <Text className="font-sans font-bold text-xs text-white/80">Sanskrit Glossary</Text>
-          </Pressable>
+          </PressableAnimated>
         </View>
 
         {/* Seek Bar */}
@@ -292,36 +296,49 @@ export default function ActiveRoutinePlayerScreen() {
         </View>
 
         {/* Action Controls */}
-        <View className="flex-row justify-center items-center gap-8 relative">
+        <View className="flex-row justify-center items-center gap-8 relative w-full">
           {/* Replay 10s */}
-          <Pressable className="active:scale-95" onPress={handleSkipBackward}>
+          <PressableAnimated
+            haptic="light"
+            onPress={handleSkipBackward}
+            accessibilityLabel="Rewind 10 seconds"
+          >
             <RotateCcw size={24} color="#FDFAF5" />
-          </Pressable>
+          </PressableAnimated>
 
           {/* Play/Pause toggle */}
-          <Pressable
-            className="w-14 h-14 bg-accent-terracotta rounded-full items-center justify-center shadow-lg active:scale-105"
+          <PressableAnimated
+            className="w-16 h-16 bg-accent-terracotta rounded-full items-center justify-center shadow-lg"
+            scaleTo={1.05}
+            haptic="medium"
             onPress={togglePlayPause}
+            accessibilityLabel={isPlaying ? "Pause routine" : "Resume routine"}
           >
             {isPlaying ? (
               <Pause size={28} color="#FDFAF5" fill="#FDFAF5" />
             ) : (
               <Play size={28} color="#FDFAF5" fill="#FDFAF5" style={{ marginLeft: 4 }} />
             )}
-          </Pressable>
+          </PressableAnimated>
 
           {/* Forward 10s */}
-          <Pressable className="active:scale-95" onPress={handleSkipForward}>
+          <PressableAnimated
+            haptic="light"
+            onPress={handleSkipForward}
+            accessibilityLabel="Fast forward 10 seconds"
+          >
             <RotateCw size={24} color="#FDFAF5" />
-          </Pressable>
+          </PressableAnimated>
 
           {/* Next Segment button */}
-          <Pressable
-            className="absolute right-0 active:scale-95 p-2"
+          <PressableAnimated
+            className="absolute right-0 p-3 bg-white/5 rounded-full"
             onPress={handleNextSegment}
+            haptic="medium"
+            accessibilityLabel="Skip to next segment"
           >
             <SkipForward size={22} color="#FDFAF5" />
-          </Pressable>
+          </PressableAnimated>
         </View>
       </View>
 
@@ -333,7 +350,11 @@ export default function ActiveRoutinePlayerScreen() {
         onRequestClose={() => setIsGlossaryOpen(false)}
       >
         <View style={styles.modalOverlay}>
-          <Pressable style={styles.modalDismiss} onPress={() => setIsGlossaryOpen(false)} />
+          <PressableAnimated
+            style={styles.modalDismiss}
+            onPress={() => setIsGlossaryOpen(false)}
+            haptic="none"
+          />
           <View
             className="bg-background-bone w-full rounded-t-[24px] p-6 pb-12 border-t border-surface-border max-w-md"
             style={styles.modalContent}
@@ -358,12 +379,14 @@ export default function ActiveRoutinePlayerScreen() {
               ))}
             </ScrollView>
 
-            <Pressable
-              className="w-full py-3 rounded-full border border-accent-terracotta items-center active:bg-warm-highlight"
+            <PressableAnimated
+              className="w-full py-3.5 rounded-full border border-accent-terracotta items-center active:bg-warm-highlight"
               onPress={() => setIsGlossaryOpen(false)}
+              haptic="light"
+              accessibilityLabel="Close glossary"
             >
               <Text className="text-accent-terracotta font-sans font-bold text-sm">Close</Text>
-            </Pressable>
+            </PressableAnimated>
           </View>
         </View>
       </Modal>

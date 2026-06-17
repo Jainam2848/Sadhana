@@ -638,68 +638,57 @@ Update task_plan.md and progress.md after each screen.
 ### PROMPT 6.1 — Payment & Sadhana Rewards Integration
 
 ```text
-I'm using the stripe-integration skill with the Stripe MCP Server for
-payment implementation, the paywall-upgrade-cro skill for conversion
-optimization, and the vibe-code-auditor skill for secure code checks.
+I'm using the subagent-driven-development skill to execute monetization and reward features, the paywall-upgrade-cro skill for premium paywall design, and the vibe-code-auditor skill for secure code checks.
 
 Read these skills first:
-- C:\Users\jaina\.gemini\config\skills\stripe-integration\SKILL.md
+- C:\Users\jaina\.gemini\config\skills\subagent-driven-development\SKILL.md
 - C:\Users\jaina\.gemini\config\skills\paywall-upgrade-cro\SKILL.md
 - C:\Users\jaina\.gemini\config\skills\price-psychology-strategist\SKILL.md
-- C:\Users\jaina\.gemini\config\skills\documentation-templates\SKILL.md
 - C:\Users\jaina\.gemini\config\skills\vibe-code-auditor\SKILL.md
 - C:\Users\jaina\.gemini\config\skills\ask-questions-if-underspecified\SKILL.md
 
-Available MCP tools (Stripe MCP Server):
-- stripe:stripe_implementation_planner — Plan the integration
-- stripe:stripe_api_search — Search Stripe API docs
-- stripe:stripe_api_details — Get endpoint details
-- stripe:stripe_api_read / stripe_api_write — Interact with Stripe
-
 Context (read these files first):
-- docs/PRODUCT_REQUIREMENTS.md (monetization model, pricing tiers, and Sadhana Rewards details)
-- docs/design/DESIGN_SYSTEM.md (for paywall & rewards UI)
+- docs/PRODUCT_REQUIREMENTS.md (monetization model, pricing, and rewards details)
+- docs/design/DESIGN_SYSTEM.md (for paywall & rewards styling tokens)
 - docs/PLATFORM_RULES.md (platform payment rules)
+- docs/architecture/DATABASE_SCHEMA.md (rewards schema details)
 
-Monetization model: Freemium subscription model + Ad-Viewing points reward system.
-Free tier includes: Daily meditation, beginner yoga, limited content, ads.
-Premium tier includes: Full library, offline downloads, ad-free standard experience.
+Billing Strategy (Staging & Local Dev):
+- To support local development and staging testing without requiring paid Apple ($99) or Google ($25) developer accounts, we will implement a local mock billing system instead of initializing the live RevenueCat SDK.
+- The actual RevenueCat SDK integration will be deferred to the production deployment and app submission phase.
+- We will write a clean billing service (src/services/billing.ts) with standard API signatures (purchaseMonthly, purchaseAnnual, restorePurchases, getActiveEntitlements).
+- This service will mock network delays and dynamically update the Zustand authStore (toggling user.premium state to true/false) so that all gated content, ad visibility, and rewards logic are fully functional and easily testable.
 
 Do the following:
 
-1. Write ADR-005: Payment Provider to docs/architecture/ADR/ADR-005-payment-provider.md
-   - For mobile apps, consider: RevenueCat (wraps Apple/Google IAP), Stripe, native IAP
-   - NOTE: Apple requires in-app purchases for digital goods (30% cut)
-   - Stripe is better for physical goods/services
+1. Write ADR-005: Billing and Monetization Strategy to docs/architecture/ADR/ADR-005-payment-provider.md
+   - Document the payment architecture. State the decision to use a mock billing service locally to support developer workflows without active store accounts.
+   - Detail the architecture of the mock service (src/services/billing.ts) and explain how it will be replaced by the `@revenuecat/purchases-react-native` SDK during the final production build phase.
+   - Restrict Stripe's role to optional web checkout or future merchandise, syncing status to the mobile client via Supabase.
 
-2. Use stripe:stripe_implementation_planner to plan the integration.
+2. Implement Mock Billing Service:
+   - Create [src/services/billing.ts](file:///d:/Desktop/Fitness/src/services/billing.ts) exporting functions to fetch offerings (Monthly and Annual plans), trigger purchase requests, and restore purchases.
+   - Connect the success callbacks to update the Zustand `authStore` to toggle the user's `premium` subscription flag.
 
-3. Build the paywall screen:
-   - Use paywall-upgrade-cro patterns for conversion optimization
-   - Apply price-psychology-strategist principles (anchoring, decoy pricing)
-   - Include: feature comparison, social proof, money-back guarantee
-   - Match design system tokens exactly
-   - Generate this screen in Stitch first if not already done
+3. Build the Paywall Screen:
+   - Port [paywall.tsx](file:///d:/Desktop/Fitness/app/(auth)/paywall.tsx) to match the onboarding paywall design.
+   - Apply price-psychology-strategist principles (price anchoring: monthly $14.99 vs annual $89.99 selected by default).
+   - Use paywall-upgrade-cro patterns: list key premium features, show testimonials, and include a functioning "Restore Purchases" button that triggers the mock billing service restore logic.
+   - Enforce the **Earth Ritual** tokens (Bone background, Terracotta primary buttons, Ashoka Green unlocks).
 
-4. Implement subscription logic:
-   - Create products/prices in Stripe (or RevenueCat)
-   - Implement purchase flow
-   - Handle subscription status checks
-   - Implement restore purchases
-   - Server-side receipt validation
+4. Implement Gating Logic in the App:
+   - Check the Zustand `authStore.user.premium` state across the screens.
+   - Enforce paywall redirections or lock overlays on premium courses in the Library tab and personalized daily plans on the Home tab.
 
-5. Implement Sadhana Rewards System:
-   - Configure Ad engine callbacks to securely track full-screen interstitial and rewarded ad view completions.
-   - Build points logic in the database to increment the user's monthly count.
-   - Implement the monthly cycle cron to reset counts to 0 at the end of each month.
-   - Code the tier-specific reward redemptions (unlocking a premium class for Free users; awarding permanent Karma Coins for Premium users).
-   - STRICT QUALITY GUARDRAIL: No placeholder code or boilerplate skeletons. All points calculation, database tracking, and ad-state handlers must be complete, typed, and fully functional. Audit with the `vibe-code-auditor` skill.
+5. Implement Sadhana Rewards & Ad Mocking:
+   - Integrate mock rewarded ads inside the Rewards dashboard tab.
+   - Provide a "Watch Rewarded Ad" button that opens a mock full-screen ad overlay with a visible 10-second countdown timer. On countdown completion, trigger the secure Supabase mutation (`useIncrementAdViews`) to increment the user's ad count in the database.
+   - Implement the reward unlock actions: Free users unlock premium courses (milestone logic), and Premium users accrue permanent Karma Coins in their profile wallets.
+   - Verify that monthly cron or RPC triggers correctly reset counts to 0 at the start of each month.
 
-6. Test in sandbox mode:
-   - Full purchase flow, cancellation, restore, and expired subscription handling.
-   - Ad-viewing points earning, milestone triggers, monthly resets, and claim rewards logic.
-
-7. Update progress.md with test results.
+6. Testing & Validation:
+   - Write unit tests in [tests/billing.test.ts](file:///d:/Desktop/Fitness/tests/billing.test.ts) to verify that mock purchases and restores correctly update subscription states.
+   - Run typescript checking and codebase audits using `vibe-code-auditor` to ensure zero placeholder code or fragile logic.
 ```
 
 ---

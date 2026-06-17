@@ -8,7 +8,7 @@
 
 ## Current Phase
 
-**Phase 5: Frontend Build & Integration** — `in_progress`
+**Phase 7: UX Polish** — `in_progress`
 
 ---
 
@@ -21,10 +21,9 @@
 | Phase 2: UX Research & IA | `completed` | 2026-06-15 | 2026-06-15 |
 | Phase 3: Design System & UI | `completed` | 2026-06-15 | 2026-06-15 |
 | Phase 4: Architecture & Backend | `completed` | 2026-06-15 | 2026-06-16 |
-| Phase 5: Frontend Build | `in_progress` | 2026-06-16 | — |
-
-| Phase 6: Monetization | `not_started` | — | — |
-| Phase 7: UX Polish | `not_started` | — | — |
+| Phase 5: Frontend Build | `completed` | 2026-06-16 | 2026-06-16 |
+| Phase 6: Monetization | `completed` | 2026-06-16 | 2026-06-17 |
+| Phase 7: UX Polish | `in_progress` | 2026-06-17 | — |
 | Phase 8: Testing & QA | `not_started` | — | — |
 | Phase 9: Deployment | `not_started` | — | — |
 | Phase 10: Post-Launch | `not_started` | — | — |
@@ -63,6 +62,17 @@
 - [x] Implement Zustand stores (authStore, settingsStore) and React Query client with offline caching
 - [x] Create reusable base components (Button, Card, Input, Typography, SafeAreaWrapper, LoadingSpinner/SkeletonLoader)
 - [x] Run TypeScript compilation checks and confirm build cleanliness
+
+### Phase 6: Monetization & Payments
+
+- [x] Write ADR-005: Billing and Monetization Strategy (Local Mock Billing + Web Stripe + Production RevenueCat Architecture)
+- [x] Implement Mock Billing Service (`src/services/billing.ts`) linked to authStore
+- [x] Implement onboarding Paywall Screen (`app/(auth)/paywall.tsx`)
+- [x] Integrate subscription gating logic in the application
+- [x] Set up mock rewarded ads with countdown timer in Rewards tab
+- [x] Connect ad completion callback to Supabase `increment_ad_views` RPC
+- [x] Code reward milestone unlocks and Karma Coins accruing logic
+- [x] Write unit tests for mock billing and subscription state updates
 
 ---
 

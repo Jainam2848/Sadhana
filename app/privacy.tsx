@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView } from '@/tw';
+import { View, Text, ScrollView } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
 import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { ChevronLeft, ChevronRight, Download, Trash2, ShieldCheck } from 'lucide-react-native';
+import { ChevronLeft, ChevronRight, Download, Trash2 } from 'lucide-react-native';
 import { Switch, Alert } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function PrivacyScreen() {
   const { colors } = useTheme();
@@ -16,7 +17,6 @@ export default function PrivacyScreen() {
   const [personalizationConsent, setPersonalizationConsent] = useState(true);
 
   const handleDownloadData = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     Alert.alert(
       'Export Requested',
       'We are compiling your Sadhana activity logs and profile data. You will receive a secure download link at your registered email address within 24–48 hours.',
@@ -25,9 +25,11 @@ export default function PrivacyScreen() {
   };
 
   const handleDeleteAccountNav = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     router.push('/deletion');
   };
+
+  const borderColorString = typeof colors.border === 'string' ? colors.border : '#2a1f16';
+  const growthColorString = typeof colors.growth === 'string' ? colors.growth : '#4CAF50';
 
   return (
     <View className="flex-1 bg-background relative justify-between">
@@ -35,12 +37,14 @@ export default function PrivacyScreen() {
 
       {/* Header bar */}
       <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
-        <Pressable
+        <PressableAnimated
           className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ChevronLeft size={20} color={colors.primaryText} />
-        </Pressable>
+        </PressableAnimated>
         <Heading className="text-on-background text-center flex-1 font-serif">
           Your Data
         </Heading>
@@ -66,8 +70,9 @@ export default function PrivacyScreen() {
             <Switch
               value={true}
               disabled={true}
-              trackColor={{ false: colors.border, true: colors.border }}
+              trackColor={{ false: borderColorString, true: borderColorString }}
               thumbColor="#FFFFFF"
+              accessibilityLabel="Essential Cookies (Required)"
             />
           </View>
 
@@ -83,8 +88,9 @@ export default function PrivacyScreen() {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 setAnalyticsConsent(val);
               }}
-              trackColor={{ false: colors.border, true: colors.growth }}
+              trackColor={{ false: borderColorString, true: growthColorString }}
               thumbColor="#FFFFFF"
+              accessibilityLabel="Analytics & Improvement Consent"
             />
           </View>
 
@@ -100,8 +106,9 @@ export default function PrivacyScreen() {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 setPersonalizationConsent(val);
               }}
-              trackColor={{ false: colors.border, true: colors.growth }}
+              trackColor={{ false: borderColorString, true: growthColorString }}
               thumbColor="#FFFFFF"
+              accessibilityLabel="Personalization Data Consent"
             />
           </View>
         </View>
@@ -109,28 +116,32 @@ export default function PrivacyScreen() {
         {/* Action Buttons */}
         <View className="gap-3">
           {/* Export Data */}
-          <Pressable
+          <PressableAnimated
             className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-surface-border/10"
             onPress={handleDownloadData}
+            haptic="medium"
+            accessibilityLabel="Download my data"
           >
             <View className="flex-row items-center gap-3">
               <Download size={18} color={colors.growth} />
               <Text className="font-sans font-bold text-sm text-growth-green">Download My Data</Text>
             </View>
             <ChevronRight size={16} color={colors.growth} />
-          </Pressable>
+          </PressableAnimated>
 
           {/* Delete Account */}
-          <Pressable
+          <PressableAnimated
             className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-destructive-red/10"
             onPress={handleDeleteAccountNav}
+            haptic="warning"
+            accessibilityLabel="Delete my account"
           >
             <View className="flex-row items-center gap-3">
               <Trash2 size={18} color="#991F1F" />
               <Text className="font-sans font-bold text-sm text-destructive-red">Delete My Account</Text>
             </View>
             <ChevronRight size={16} color="#991F1F" />
-          </Pressable>
+          </PressableAnimated>
         </View>
       </ScrollView>
 

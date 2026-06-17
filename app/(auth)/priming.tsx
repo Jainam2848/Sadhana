@@ -1,11 +1,11 @@
 import React from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable } from '@/tw';
+import { View, Text } from '@/tw';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Body } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function PrimingScreen() {
   const { colors } = useTheme();
@@ -25,7 +25,6 @@ export default function PrimingScreen() {
   };
 
   const handleEnableReminders = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     // Request mock notification permissions and then transition to paywall
     setTimeout(() => {
       router.push('/(auth)/paywall');
@@ -77,7 +76,10 @@ export default function PrimingScreen() {
         
         {/* Center Grid Graphic */}
         <View className="items-center">
-          <View className="w-44 flex-row flex-wrap justify-center p-2 border border-surface-border/40 rounded-xl bg-surface/50">
+          <View
+            className="w-44 flex-row flex-wrap justify-center p-2 border border-surface-border/40 rounded-xl bg-surface/50"
+            accessibilityLabel="Mock practice log showing streak building"
+          >
             {renderCalendarGrid()}
           </View>
         </View>
@@ -94,23 +96,27 @@ export default function PrimingScreen() {
 
         {/* Action Panel */}
         <View className="w-full gap-6 pt-4 items-center">
-          <Pressable
+          <PressableAnimated
             className="w-full max-w-[280px] h-12 bg-accent-terracotta rounded-full items-center justify-center active:opacity-90"
             onPress={handleEnableReminders}
+            haptic="medium"
+            accessibilityLabel="Enable reminders and proceed"
           >
             <Text className="text-white font-sans font-bold text-sm">
               Enable reminders
             </Text>
-          </Pressable>
+          </PressableAnimated>
 
-          <Pressable
+          <PressableAnimated
             className="active:opacity-75"
             onPress={() => router.push('/(auth)/paywall')}
+            haptic="light"
+            accessibilityLabel="Skip reminders setup for now"
           >
             <Text className="text-secondary-text font-sans font-medium text-sm underline underline-offset-4 decoration-surface-border">
               Skip for now
             </Text>
-          </Pressable>
+          </PressableAnimated>
         </View>
       </View>
     </View>

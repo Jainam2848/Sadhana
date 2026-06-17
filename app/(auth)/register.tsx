@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
-import { View, Text, Pressable, TextInput } from '@/tw';
+import { View, Text, TextInput } from '@/tw';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { Display, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Display, Subheading } from '@/components/ui/Typography';
 import { supabase } from '@/lib/supabase';
 import * as Haptics from 'expo-haptics';
 import { ActivityIndicator, Alert } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function RegisterScreen() {
   const { colors } = useTheme();
@@ -32,7 +33,6 @@ export default function RegisterScreen() {
     }
 
     setLoading(true);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
       if (isSignUp) {
@@ -142,6 +142,7 @@ export default function RegisterScreen() {
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="words"
+                accessibilityLabel="Enter username field"
               />
             </View>
           )}
@@ -158,6 +159,7 @@ export default function RegisterScreen() {
               onChangeText={setEmail}
               autoCapitalize="none"
               keyboardType="email-address"
+              accessibilityLabel="Enter email address field"
             />
           </View>
 
@@ -173,31 +175,82 @@ export default function RegisterScreen() {
               value={password}
               onChangeText={setPassword}
               autoCapitalize="none"
+              accessibilityLabel="Enter password field"
             />
           </View>
         </View>
 
         {/* Submit Button */}
-        <Pressable
+        <PressableAnimated
           className="w-full bg-accent-terracotta py-4 rounded-xl items-center mb-6 active:opacity-90 flex-row justify-center gap-2"
           disabled={loading}
           onPress={handleAuthAction}
+          haptic="medium"
+          accessibilityLabel={isSignUp ? "Submit and create account" : "Submit and sign in"}
         >
           {loading && <ActivityIndicator size="small" color="#FFFFFF" />}
           <Text className="text-white font-sans font-bold text-base">
             {isSignUp ? 'Create Account' : 'Sign In'}
           </Text>
-        </Pressable>
+        </PressableAnimated>
 
         {/* Toggle Account Action */}
-        <Pressable
+        <PressableAnimated
           className="py-2 items-center active:opacity-80"
           onPress={() => setIsSignUp(!isSignUp)}
+          haptic="light"
+          accessibilityLabel={isSignUp ? "Switch to sign in screen" : "Switch to sign up screen"}
         >
           <Text className="text-secondary-text font-sans text-sm underline underline-offset-4 decoration-surface-border">
             {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
           </Text>
-        </Pressable>
+        </PressableAnimated>
+
+        {/* Sandbox Demo Quick Logins */}
+        <View className="mt-8 pt-6 border-t border-surface-border/60 gap-3">
+          <Text className="text-center font-sans font-semibold text-xs text-secondary-text uppercase tracking-widest">
+            Sandbox Testing
+          </Text>
+          <View className="flex-row gap-2.5 justify-center">
+            <PressableAnimated
+              className="flex-1 bg-surface border border-surface-border py-2.5 rounded-lg items-center"
+              onPress={async () => {
+                const demoUser = {
+                  id: "demo-free-user-id",
+                  email: "asha.devi@sandbox.com",
+                  name: "Asha Devi",
+                  premium: false,
+                  onboardingCompleted: true,
+                };
+                await setSession(demoUser, "demo-free-token");
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+              }}
+              haptic="medium"
+              accessibilityLabel="Quick Login as Demo Free User"
+            >
+              <Text className="text-secondary-text font-sans font-bold text-xs">Demo Free</Text>
+            </PressableAnimated>
+
+            <PressableAnimated
+              className="flex-1 bg-warm-highlight border border-accent-terracotta/30 py-2.5 rounded-lg items-center"
+              onPress={async () => {
+                const demoUser = {
+                  id: "demo-premium-user-id",
+                  email: "devendra.nath@sandbox.com",
+                  name: "Devendra Nath",
+                  premium: true,
+                  onboardingCompleted: true,
+                };
+                await setSession(demoUser, "demo-premium-token");
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+              }}
+              haptic="medium"
+              accessibilityLabel="Quick Login as Demo Premium User"
+            >
+              <Text className="text-accent-terracotta font-sans font-bold text-xs">Demo Premium</Text>
+            </PressableAnimated>
+          </View>
+        </View>
       </View>
     </View>
   );

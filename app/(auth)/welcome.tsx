@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable } from '@/tw';
+import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { Display, Body, Caption } from '@/components/ui/Typography';
+import { Display, Body } from '@/components/ui/Typography';
 import { Svg, Path } from '@/components/ui/Compat';
 import { Animated } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 const testimonials = [
   "A grounding start to every day.",
@@ -39,6 +40,8 @@ export default function WelcomeScreen() {
     return () => clearInterval(interval);
   }, [fadeAnim]);
 
+  const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
+
   return (
     <View className="flex-1 bg-background justify-between px-6 py-12 relative">
       {/* Decorative Background Arc */}
@@ -53,46 +56,46 @@ export default function WelcomeScreen() {
             <Path
               d="M50 25 C55 40 55 60 50 75 C45 60 45 40 50 25 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             {/* Inner Petals */}
             <Path
               d="M50 75 C40 65 30 50 35 35 C40 45 45 65 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             <Path
               d="M50 75 C60 65 70 50 65 35 C60 45 55 65 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             {/* Mid Petals */}
             <Path
               d="M50 75 C30 70 20 55 25 45 C30 55 40 65 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             <Path
               d="M50 75 C70 70 80 55 75 45 C70 55 60 65 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             {/* Outer Petals */}
             <Path
               d="M50 75 C20 75 10 65 15 60 C20 65 35 70 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
             <Path
               d="M50 75 C80 75 90 65 85 60 C80 65 65 70 50 75 Z"
               fill="none"
-              stroke={colors.accent}
+              stroke={accentColorString}
               strokeWidth="1.5"
             />
           </Svg>
@@ -120,23 +123,27 @@ export default function WelcomeScreen() {
 
       {/* Bottom Button Panel */}
       <View className="w-full items-center mb-4">
-        <Pressable
+        <PressableAnimated
           className="w-full max-w-[320px] bg-accent-terracotta py-4 rounded-xl items-center mb-6 active:opacity-90"
           onPress={() => router.push('/(auth)/personalize')}
+          haptic="medium"
+          accessibilityLabel="Begin your journey button"
         >
           <Text className="text-white font-sans font-bold text-base tracking-wide">
             Begin Your Journey
           </Text>
-        </Pressable>
+        </PressableAnimated>
 
-        <Pressable
-          className="py-2"
+        <PressableAnimated
+          className="py-2 active:opacity-85"
           onPress={() => router.push('/(auth)/register')}
+          haptic="light"
+          accessibilityLabel="Sign in button"
         >
           <Text className="text-secondary-text font-sans text-sm underline underline-offset-4">
             Already have an account? Sign in
           </Text>
-        </Pressable>
+        </PressableAnimated>
       </View>
     </View>
   );

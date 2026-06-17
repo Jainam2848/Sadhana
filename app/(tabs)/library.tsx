@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput } from '@/tw';
+import { View, Text, ScrollView, TextInput } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { router } from 'expo-router';
 import { useRoutines, useProfile } from '@/hooks/api';
 import { useAuthStore } from '@/stores/authStore';
-import { Display, Heading, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Display, Subheading, Caption, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { LibrarySkeleton } from '@/components/ui/Skeletons';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { ErrorState } from '@/components/ui/ErrorState';
 import { Search, ChevronRight, Lock } from 'lucide-react-native';
-import { ActivityIndicator } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const CATEGORIES = ['Asana', 'Pranayama', 'Dhyana', 'Philosophy'];
 
@@ -20,10 +24,9 @@ export default function LibraryScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Fetch routines using React Query
-  const { data: routines, isLoading } = useRoutines(activeCategory?.toLowerCase() || undefined);
+  const { data: routines, isLoading, isError, refetch } = useRoutines(activeCategory?.toLowerCase() || undefined);
 
   const handleRoutineSelect = (routineId: string) => {
-    // Navigate to course detail
     router.push({
       pathname: '/course-detail',
       params: { routineId },
@@ -36,6 +39,11 @@ export default function LibraryScreen() {
     routine.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleClearFilters = () => {
+    setActiveCategory(null);
+    setSearchQuery('');
+  };
+
   return (
     <View className="flex-1 bg-background relative">
       <MandalaThread />
@@ -46,7 +54,10 @@ export default function LibraryScreen() {
         <Display className="mb-6">Sadhana Library</Display>
 
         {/* Search Bar */}
-        <View className="flex-row items-center bg-surface border border-surface-border rounded-xl px-4 py-2.5 mb-6">
+        <View 
+          className="flex-row items-center bg-surface border border-surface-border rounded-xl px-4 py-2.5 mb-6"
+          accessibilityRole="search"
+        >
           <Search size={18} color={colors.secondaryText} style={{ marginRight: 8 }} />
           <TextInput
             className="flex-1 text-primary-text font-sans text-sm p-0 h-5"
@@ -54,6 +65,7 @@ export default function LibraryScreen() {
             placeholderTextColor="#A69580"
             value={searchQuery}
             onChangeText={setSearchQuery}
+            accessibilityLabel="Search routines"
           />
         </View>
 
@@ -63,14 +75,19 @@ export default function LibraryScreen() {
           showsHorizontalScrollIndicator={false}
           className="-mx-6 px-6"
           contentContainerStyle={{ gap: 8, paddingRight: 32 }}
+          accessibilityRole="tablist"
         >
-          <Pressable
-            className={`px-4 py-2 rounded-full border active:scale-95 transition-transform duration-100 ${
+          <PressableAnimated
+            haptic="light"
+            className={`px-4 py-2 rounded-full border ${
               activeCategory === null
                 ? 'bg-accent-terracotta border-accent-terracotta'
                 : 'bg-surface border-surface-border'
             }`}
             onPress={() => setActiveCategory(null)}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: activeCategory === null }}
+            accessibilityLabel="Show all categories"
           >
             <Text
               className={`font-sans text-xs font-bold ${
@@ -79,19 +96,23 @@ export default function LibraryScreen() {
             >
               All
             </Text>
-          </Pressable>
+          </PressableAnimated>
 
           {CATEGORIES.map((category) => {
             const isSelected = activeCategory === category;
             return (
-              <Pressable
+              <PressableAnimated
                 key={category}
-                className={`px-4 py-2 rounded-full border active:scale-95 transition-transform duration-100 ${
+                haptic="light"
+                className={`px-4 py-2 rounded-full border ${
                   isSelected
                     ? 'bg-accent-terracotta border-accent-terracotta'
                     : 'bg-surface border-surface-border'
                 }`}
                 onPress={() => setActiveCategory(isSelected ? null : category)}
+                accessibilityRole="tab"
+                accessibilityState={{ selected: isSelected }}
+                accessibilityLabel={`Category ${category}`}
               >
                 <Text
                   className={`font-sans text-xs font-medium ${
@@ -100,17 +121,17 @@ export default function LibraryScreen() {
                 >
                   {category}
                 </Text>
-              </Pressable>
+              </PressableAnimated>
             );
           })}
         </ScrollView>
       </View>
 
       {/* Routines Grid/List */}
-      {isLoading ? (
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color={colors.accent} />
-        </View>
+      {isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : isLoading ? (
+        <LibrarySkeleton />
       ) : (
         <ScrollView
           className="flex-1 px-6 pt-4"
@@ -118,37 +139,44 @@ export default function LibraryScreen() {
         >
           <View className="gap-4">
             {filteredRoutines && filteredRoutines.length > 0 ? (
-              filteredRoutines.map((routine) => {
+              filteredRoutines.map((routine, index) => {
                 const isLocked = routine.is_premium && !profile?.premium;
                 return (
-                  <Pressable
+                  <Animated.View
+                    entering={FadeInDown.delay(index * 60)}
                     key={routine.id}
-                    className="bg-surface border border-surface-border p-4 rounded-xl flex-row justify-between items-center active:bg-surface-border/10"
-                    onPress={() => handleRoutineSelect(routine.id)}
                   >
-                    <View className="flex-1 pr-4">
-                      <View className="flex-row items-center gap-2 mb-1">
-                        <Subheading className="text-[15px] font-sans font-bold text-primary-text truncate">
-                          {routine.title}
-                        </Subheading>
-                        {isLocked && (
-                          <Lock size={12} color={colors.secondaryText} />
-                        )}
+                    <PressableAnimated
+                      haptic="light"
+                      className="bg-surface border border-surface-border p-4 rounded-xl flex-row justify-between items-center active:bg-surface-border/10"
+                      onPress={() => handleRoutineSelect(routine.id)}
+                      accessibilityLabel={`${routine.title}, ${routine.category}, ${routine.duration_minutes} minutes. ${isLocked ? 'Locked Premium' : 'Unlocked'}`}
+                    >
+                      <View className="flex-1 pr-4">
+                        <View className="flex-row items-center gap-2 mb-1">
+                          <Subheading className="text-[15px] font-sans font-bold text-primary-text truncate">
+                            {routine.title}
+                          </Subheading>
+                          {isLocked && (
+                            <Lock size={12} color={colors.secondaryText} />
+                          )}
+                        </View>
+                        <Caption className="text-xs text-secondary-text">
+                          {routine.category.toUpperCase()} • {routine.duration_minutes} min
+                        </Caption>
                       </View>
-                      <Caption className="text-xs text-secondary-text">
-                        {routine.category.toUpperCase()} • {routine.duration_minutes} min
-                      </Caption>
-                    </View>
-                    <ChevronRight size={18} color={colors.accent} />
-                  </Pressable>
+                      <ChevronRight size={18} color={colors.accent} />
+                    </PressableAnimated>
+                  </Animated.View>
                 );
               })
             ) : (
-              <View className="py-20 items-center justify-center">
-                <Caption className="text-secondary-text text-sm">
-                  No routines found.
-                </Caption>
-              </View>
+              <EmptyState
+                title="No Practices Found"
+                description="We couldn't find any routines right now. Breathe in, clear your search, or try another category."
+                ctaText="Reset All Filters"
+                onCtaPress={handleClearFilters}
+              />
             )}
           </View>
         </ScrollView>

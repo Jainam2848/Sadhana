@@ -42,45 +42,4 @@ export function LoadingSpinner({ size = 40 }: { size?: number }) {
   );
 }
 
-export function SkeletonLoader({
-  width = '100%',
-  height = 80,
-  className = '',
-}: {
-  width?: number | string;
-  height?: number;
-  className?: string;
-}) {
-  const opacity = useSharedValue(0.3);
-
-  useEffect(() => {
-    opacity.value = withRepeat(
-      withSequence(
-        withTiming(0.7, { duration: 800 }),
-        withTiming(0.3, { duration: 800 })
-      ),
-      -1,
-      true
-    );
-  }, []);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }));
-
-  const containerStyle = {
-    width: typeof width === 'number' ? width : undefined,
-    height,
-  };
-
-  return (
-    <View
-      className={`bg-surface-border/40 rounded-xl ${typeof width === 'string' ? width : ''} ${className}`}
-      style={containerStyle}
-    >
-      <Animated.View
-        style={[animatedStyle, { width: '100%', height: '100%', backgroundColor: 'rgba(42,29,10,0.04)', borderRadius: 12 }]}
-      />
-    </View>
-  );
-}
+export { SkeletonLoader } from './Skeletons';

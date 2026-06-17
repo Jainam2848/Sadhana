@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable } from '@/tw';
+import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Body, Micro } from '@/components/ui/Typography';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withDelay,
   Easing,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { Modal, StyleSheet } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function BreathingSpaceScreen() {
   const { colors } = useTheme();
@@ -118,6 +118,8 @@ export default function BreathingSpaceScreen() {
     }
   };
 
+  const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
+
   return (
     <View className="flex-1 bg-background relative px-6 py-12 justify-between">
       <MandalaThread />
@@ -142,7 +144,7 @@ export default function BreathingSpaceScreen() {
           {/* Animated concentric circles */}
           <View className="absolute w-32 h-32 rounded-full border border-accent-terracotta/20">
             <Animated.View
-              style={[circleStyle3, { width: '100%', height: '100%', borderRadius: 9999, borderWidth: 1, borderColor: colors.accent }]}
+              style={[circleStyle3, { width: '100%', height: '100%', borderRadius: 9999, borderWidth: 1, borderColor: accentColorString }]}
             />
           </View>
           <View className="absolute w-32 h-32 rounded-full bg-surface-border/20">
@@ -166,9 +168,11 @@ export default function BreathingSpaceScreen() {
 
         {/* Sanskrit Glossary Trigger */}
         <View className="mt-8 items-center">
-          <Pressable
-            className="items-center gap-1 active:opacity-80"
+          <PressableAnimated
+            className="items-center gap-1 active:opacity-85"
             onPress={() => setIsGlossaryOpen(true)}
+            haptic="light"
+            accessibilityLabel="Open glossary explaining Pranayama"
           >
             <Text className="text-secondary-text text-sm">
               Sanskrit:{' '}
@@ -180,21 +184,23 @@ export default function BreathingSpaceScreen() {
             <Text className="text-xs text-secondary-text border-b border-dashed border-secondary-text pb-0.5">
               What is this?
             </Text>
-          </Pressable>
+          </PressableAnimated>
         </View>
       </View>
 
       {/* Bottom Button Panel */}
       <View className="w-full items-center h-16 justify-end">
         {showContinue && (
-          <Pressable
+          <PressableAnimated
             className="w-full max-w-[320px] bg-accent-terracotta py-4 rounded-xl items-center active:opacity-90 animate-fade-in"
             onPress={() => router.push('/(auth)/gdpr')}
+            haptic="medium"
+            accessibilityLabel="Continue to GDPR consent screen"
           >
             <Text className="text-white font-sans font-bold text-base">
               Continue
             </Text>
-          </Pressable>
+          </PressableAnimated>
         )}
       </View>
 
@@ -206,7 +212,11 @@ export default function BreathingSpaceScreen() {
         onRequestClose={() => setIsGlossaryOpen(false)}
       >
         <View style={styles.modalOverlay}>
-          <Pressable style={styles.modalDismiss} onPress={() => setIsGlossaryOpen(false)} />
+          <PressableAnimated
+            style={styles.modalDismiss}
+            onPress={() => setIsGlossaryOpen(false)}
+            haptic="none"
+          />
           <View
             className="bg-surface w-full max-w-md rounded-t-[24px] p-6 pb-12 border-t border-surface-border"
             style={styles.modalContent}
@@ -219,14 +229,16 @@ export default function BreathingSpaceScreen() {
             <Body className="text-secondary-text text-sm mb-6 leading-relaxed">
               Prana means "life force" or "breath," and yama means "control." Pranayama is the practice of breath regulation, a core component of yoga. It is a method to clear the physical and emotional obstacles in our body to free the breath and flow of prana.
             </Body>
-            <Pressable
-              className="w-full py-3 rounded-full border border-accent-terracotta items-center active:bg-warm-highlight"
+            <PressableAnimated
+              className="w-full py-3.5 rounded-full border border-accent-terracotta items-center active:bg-warm-highlight"
               onPress={() => setIsGlossaryOpen(false)}
+              haptic="light"
+              accessibilityLabel="Close glossary modal"
             >
               <Text className="text-accent-terracotta font-sans font-bold text-sm">
                 Close
               </Text>
-            </Pressable>
+            </PressableAnimated>
           </View>
         </View>
       </Modal>

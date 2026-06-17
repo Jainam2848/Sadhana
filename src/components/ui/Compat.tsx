@@ -1,4 +1,4 @@
-import SvgComponent, { Path as PathComponent } from 'react-native-svg';
+import SvgComponent, { Path as PathComponent, Circle as CircleComponent } from 'react-native-svg';
 import { Video as ExpoVideo } from 'expo-av';
 import SliderComponent from '@react-native-community/slider';
 
@@ -8,5 +8,7 @@ import SliderComponent from '@react-native-community/slider';
  */
 export const Svg = SvgComponent as any;
 export const Path = PathComponent as any;
+export const Circle = CircleComponent as any;
 export const Video = ExpoVideo as any;
 export const Slider = SliderComponent as any;
+

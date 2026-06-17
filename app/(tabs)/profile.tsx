@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, Text, Pressable, ScrollView, Image } from '@/tw';
+import { View, Text, ScrollView, Image } from '@/tw';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import { router } from 'expo-router';
 import { useProfile } from '@/hooks/api';
-import { Display, Heading, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Display, Heading, Subheading, Caption, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { Settings, LogOut, Lock, Award } from 'lucide-react-native';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { ProfileSkeleton } from '@/components/ui/Skeletons';
+import { ErrorState } from '@/components/ui/ErrorState';
+import { Settings, Award } from 'lucide-react-native';
 
 export default function ProfileScreen() {
   const { colors } = useTheme();
   const user = useAuthStore((state) => state.user);
 
   // Fetch profile details dynamically
-  const { data: profile, isLoading } = useProfile(user?.id);
+  const { data: profile, isLoading, isError, refetch } = useProfile(user?.id);
 
   const stats = [
     { value: '18', label: 'Sessions' },
@@ -51,6 +53,7 @@ export default function ProfileScreen() {
           <View
             key={r}
             className={`w-4 h-4 rounded-sm m-0.5 ${cellColor}`}
+            accessibilityLabel={`Heatmap cell tier ${tier}`}
           />
         );
       }
@@ -71,18 +74,20 @@ export default function ProfileScreen() {
       {/* Top App Bar */}
       <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
         <Heading className="text-primary font-serif">Profile</Heading>
-        <Pressable
+        <PressableAnimated
+          haptic="light"
           className="w-10 h-10 items-center justify-center rounded-full active:bg-surface-border/20"
           onPress={() => router.push('/settings')}
+          accessibilityLabel="Open settings menu"
         >
           <Settings size={20} color={colors.primaryText} />
-        </Pressable>
+        </PressableAnimated>
       </View>
 
-      {isLoading ? (
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color={colors.accent} />
-        </View>
+      {isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : isLoading ? (
+        <ProfileSkeleton />
       ) : (
         <ScrollView className="flex-1 px-6 pt-6" contentContainerStyle={{ paddingBottom: 100 }}>
           {/* User Meta Card */}
@@ -91,6 +96,7 @@ export default function ProfileScreen() {
               <Image
                 className="w-full h-full rounded-full object-cover"
                 source={{ uri: profile?.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAU4rze07XFKfWs--9lYl1SLu5Dwc9f2i9OLbeYHxVWjKNMJgDSbYLbTjvbtDdl-u0TK4G9LWRTLwlJslNDoWIl-XBKG9lMbZT4Bljdyxaz2jGHmhuhViqSeMjfF1sjArH_JeXL-ceHWb7SJfs5meuUorPJeidxYInXadeCVlQGNpcSg0RjcGCcyYX6mCCoB54vHDQCq0r_ToC6Y_Mp7Rh1N5CPC6qW7ozUcJGeQ7QQF0lRZbdFvOwR1EFtmMkBkLALfcdt9_XKCA' }}
+                accessibilityLabel="User profile photo"
               />
             </View>
             <View className="items-center">
@@ -104,9 +110,12 @@ export default function ProfileScreen() {
           </View>
 
           {/* Stats Bar */}
-          <View className="flex-row justify-around border-t border-b border-surface-border py-6 mb-8 bg-surface/30 rounded-xl">
+          <View 
+            className="flex-row justify-around border-t border-b border-surface-border py-6 mb-8 bg-surface/30 rounded-xl"
+            accessibilityLabel="Practice statistics summary"
+          >
             {stats.map((stat, idx) => (
-              <View key={idx} className="items-center justify-center flex-1">
+              <View key={idx} className="items-center justify-center flex-1" accessibilityLabel={`${stat.value} ${stat.label}`}>
                 <Text className="font-serif text-3xl font-bold text-primary-text">{stat.value}</Text>
                 <Caption className="text-secondary-text font-sans mt-1">{stat.label}</Caption>
               </View>
@@ -118,7 +127,10 @@ export default function ProfileScreen() {
             <Subheading className="text-primary-text font-serif text-base">
               Practice Heatmap
             </Subheading>
-            <View className="bg-surface rounded-xl border border-surface-border p-5 items-center justify-center">
+            <View 
+              className="bg-surface rounded-xl border border-surface-border p-5 items-center justify-center"
+              accessibilityLabel="Interactive practice heatmap grid showing active days"
+            >
               <View className="flex-row justify-center gap-1">
                 {renderHeatmap()}
               </View>
@@ -127,9 +139,11 @@ export default function ProfileScreen() {
 
           {/* Upgrade Banner for Free Users */}
           {!profile?.premium && (
-            <Pressable
+            <PressableAnimated
+              haptic="medium"
               className="bg-accent-terracotta/10 border border-accent-terracotta/20 rounded-xl p-5 flex-row items-center justify-between"
               onPress={() => router.push('/(auth)/paywall')}
+              accessibilityLabel="Unlock Personalized Plans. Taps to open paywall subscription options."
             >
               <View className="flex-1 pr-4">
                 <Text className="font-sans font-bold text-sm text-accent-terracotta">
@@ -140,7 +154,7 @@ export default function ProfileScreen() {
                 </Caption>
               </View>
               <Award size={20} color={colors.accent} />
-            </Pressable>
+            </PressableAnimated>
           )}
         </ScrollView>
       )}

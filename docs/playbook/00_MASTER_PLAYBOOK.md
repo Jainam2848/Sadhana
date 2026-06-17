@@ -538,18 +538,17 @@ Screen: Profile    → Subagent builds + tests + spec review + quality review
 > **Gate:** Successful sandbox transactions end-to-end.
 
 ### Actions
-1. **Select payment provider** — Write ADR-005 (Stripe vs. RevenueCat vs. Native IAP)
+1. **Select payment provider** — Write ADR-005 (Billing Strategy: Local Mock Billing in Dev/Staging, deferred live RevenueCat/Native IAP for production mobile client subscription, and optional Stripe web checkout sync)
 2. **Implement paywall UI** — Premium, conversion-optimized paywall screens
-3. **Integrate payment SDK** — Stripe MCP server for Stripe, or RevenueCat SDK
-4. **Build subscription logic** — Free tier gating, premium unlock, restore purchases
-5. **Implement receipt validation** — Server-side validation for security
-6. **Sandbox testing** — Full purchase flow in test mode
-7. **Implement Sadhana Rewards point system** — Code points database schema, ad-tracking counters, monthly cycles, and redemption logic (free unlocks vs. premium Karma Coins)
+3. **Integrate local billing service** — Build `src/services/billing.ts` to mock subscription packages and state transitions (which will be swapped with the real `@revenuecat/purchases-react-native` SDK in production)
+4. **Build subscription logic** — Free tier gating, premium unlock, and mock restore purchases
+5. **Simulate transactions** — Verify billing states locally using mock subscriptions and unit tests
+6. **Implement Sadhana Rewards point system** — Code points database schema, ad-tracking counters, monthly cycles, and redemption logic (free unlocks vs. premium Karma Coins)
 
 ### Skills Invoked
 | Skill | Why | When in Phase |
 |-------|-----|---------------|
-| `stripe-integration` | Stripe payment integration (uses Stripe MCP Server) | Steps 2–4 |
+| `stripe-integration` | Stripe server/webhook integration (uses Stripe MCP Server) | Steps 2–4 |
 | `paywall-upgrade-cro` | Conversion-optimized paywall design | Step 2 |
 | `price-psychology-strategist` | Pricing presentation psychology | Step 2 |
 | `popup-cro` | Paywall and upgrade modal optimization | Step 2 |
@@ -559,7 +558,7 @@ Screen: Profile    → Subagent builds + tests + spec review + quality review
 ### MCP Server Usage
 
 The **Stripe MCP Server** is available for:
-- `stripe_implementation_planner` — Plan the payment integration
+- `stripe_implementation_planner` — Plan the web-payment integration
 - `stripe_api_search` / `stripe_api_details` — Look up Stripe API usage
 - `stripe_api_read` / `stripe_api_write` — Read/write Stripe resources
 - `search_stripe_documentation` — Search Stripe docs for implementation guidance
@@ -568,14 +567,13 @@ The **Stripe MCP Server** is available for:
 - `docs/architecture/ADR/ADR-005-payment-provider.md`
 
 ### Exit Criteria
-- [ ] Payment provider selected with ADR justification
-- [ ] Paywall UI implemented with premium, conversion-optimized design
-- [ ] Payment SDK integrated and configured
-- [ ] Subscription creation working in sandbox
-- [ ] Subscription cancellation / restore working in sandbox
-- [ ] Receipt validation on server side
+- [ ] Billing strategy defined and justified in ADR-005 (Mocking locally, RevenueCat in production)
+- [ ] Paywall UI implemented with premium, conversion-optimized design and Restore button
+- [ ] Local billing service (`src/services/billing.ts`) integrated and configured with Zustand state
+- [ ] Subscription creation and status changes working locally via mock controls
+- [ ] Subscription restore flow working locally via mock controls
 - [ ] Sadhana Rewards system fully integrated (points earned on ad views, monthly resets working, and redemption rules functional for both free and premium users)
-- [ ] All payment and rewards flow tests passing
+- [ ] All billing and rewards flow tests passing
 
 ---
 

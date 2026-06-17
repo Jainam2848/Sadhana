@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable, ScrollView } from '@/tw';
+import { View, Text, ScrollView } from '@/tw';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import { ArrowLeft, Check, Sun, Sunset, Moon } from 'lucide-react-native';
-import { Display, Heading, Subheading, Body, Micro } from '@/components/ui/Typography';
+import { Heading, Subheading, Body } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function PersonalizeScreen() {
   const { colors } = useTheme();
   const updateAnswers = useAuthStore((state) => state.updateOnboardingAnswers);
-  const onboardingAnswers = useAuthStore((state) => state.onboardingAnswers);
 
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
@@ -20,10 +20,6 @@ export default function PersonalizeScreen() {
 
   const handleSelectGoal = (goal: string) => {
     setSelectedGoal(goal);
-    // Auto scroll down slightly to focus on experience
-    setTimeout(() => {
-      // Simple offset scroll to bring experience into view
-    }, 100);
   };
 
   const handleSelectExperience = (exp: string) => {
@@ -55,12 +51,14 @@ export default function PersonalizeScreen() {
       {/* Top Header Bar */}
       <View className="w-full bg-background border-b border-surface-border z-40 pt-12 pb-2">
         <View className="flex-row justify-between items-center px-6 py-2">
-          <Pressable
+          <PressableAnimated
             className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
             onPress={() => router.back()}
+            haptic="light"
+            accessibilityLabel="Go back"
           >
             <ArrowLeft size={20} color={colors.primaryText} />
-          </Pressable>
+          </PressableAnimated>
           <Heading className="text-accent-terracotta tracking-tight text-center">
             Sadhana
           </Heading>
@@ -93,14 +91,18 @@ export default function PersonalizeScreen() {
             ].map((option) => {
               const isSelected = selectedGoal === option.id;
               return (
-                <Pressable
+                <PressableAnimated
                   key={option.id}
-                  className={`w-full p-4 rounded-xl border flex-row justify-between items-center transition-all duration-200 active:scale-[0.98] ${
+                  className={`w-full p-4 rounded-xl border flex-row justify-between items-center transition-all duration-200 ${
                     isSelected
                       ? 'bg-warm-highlight border-accent-terracotta'
                       : 'bg-surface border-surface-border'
                   }`}
                   onPress={() => handleSelectGoal(option.id)}
+                  haptic="light"
+                  scaleTo={0.99}
+                  accessibilityLabel={`Goal option: ${option.label}`}
+                  accessibilityState={{ selected: isSelected }}
                 >
                   <Body className="text-primary-text">{option.label}</Body>
                   <View
@@ -112,13 +114,13 @@ export default function PersonalizeScreen() {
                   >
                     {isSelected && <Check size={14} color="#FFF" />}
                   </View>
-                </Pressable>
+                </PressableAnimated>
               );
             })}
           </View>
         </View>
 
-        {/* Question 2: Experience (Fades in / Shows when goal is selected) */}
+        {/* Question 2: Experience */}
         {selectedGoal && (
           <View className="mb-12">
             <Subheading className="mb-4 text-on-surface">
@@ -129,14 +131,18 @@ export default function PersonalizeScreen() {
               {['Beginner', 'Intermediate', 'Advanced'].map((option) => {
                 const isSelected = selectedExperience === option.toLowerCase();
                 return (
-                  <Pressable
+                  <PressableAnimated
                     key={option}
-                    className={`px-6 py-3 rounded-full border active:scale-[0.98] ${
+                    className={`px-6 py-3 rounded-full border ${
                       isSelected
                         ? 'bg-accent-terracotta border-accent-terracotta'
                         : 'bg-background border-surface-border'
                     }`}
                     onPress={() => handleSelectExperience(option.toLowerCase())}
+                    haptic="light"
+                    scaleTo={0.95}
+                    accessibilityLabel={`Experience level: ${option}`}
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <Text
                       className={`font-sans text-sm font-medium ${
@@ -145,14 +151,14 @@ export default function PersonalizeScreen() {
                     >
                       {option}
                     </Text>
-                  </Pressable>
+                  </PressableAnimated>
                 );
               })}
             </View>
           </View>
         )}
 
-        {/* Question 3: Schedule (Shows when experience is selected) */}
+        {/* Question 3: Schedule */}
         {selectedExperience && (
           <View className="mb-12">
             <Subheading className="mb-4 text-on-surface">
@@ -168,14 +174,18 @@ export default function PersonalizeScreen() {
                 const isSelected = selectedSchedule === option.id;
                 const IconComponent = option.icon;
                 return (
-                  <Pressable
+                  <PressableAnimated
                     key={option.id}
-                    className={`px-6 py-3 rounded-full border flex-row items-center gap-2 active:scale-[0.98] ${
+                    className={`px-6 py-3 rounded-full border flex-row items-center gap-2 ${
                       isSelected
                         ? 'bg-accent-terracotta border-accent-terracotta'
                         : 'bg-background border-surface-border'
                     }`}
                     onPress={() => handleSelectSchedule(option.id)}
+                    haptic="light"
+                    scaleTo={0.95}
+                    accessibilityLabel={`Practice schedule: ${option.label}`}
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <IconComponent
                       size={16}
@@ -188,7 +198,7 @@ export default function PersonalizeScreen() {
                     >
                       {option.label}
                     </Text>
-                  </Pressable>
+                  </PressableAnimated>
                 );
               })}
             </View>
@@ -198,15 +208,17 @@ export default function PersonalizeScreen() {
 
       {/* Sticky Bottom Continue Button */}
       <View className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background to-transparent z-50 items-center">
-        <Pressable
+        <PressableAnimated
           className={`w-full max-w-md h-12 rounded-full flex-row items-center justify-center gap-2 ${
             isComplete ? 'bg-accent-terracotta' : 'bg-accent-terracotta/40'
           }`}
           disabled={!isComplete}
           onPress={handleContinue}
+          haptic={isComplete ? 'medium' : 'none'}
+          accessibilityLabel="Continue to breathing space screen"
         >
           <Text className="text-white font-sans font-medium text-sm">Continue</Text>
-        </Pressable>
+        </PressableAnimated>
       </View>
     </View>
   );

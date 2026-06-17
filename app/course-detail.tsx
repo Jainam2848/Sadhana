@@ -1,13 +1,17 @@
 import React from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, Text, Pressable, ScrollView, Image } from '@/tw';
+import { View, Text, ScrollView, Image } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useRoutine, useProfile } from '@/hooks/api';
 import { useAuthStore } from '@/stores/authStore';
 import { Display, Heading, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { ArrowLeft, ChevronLeft, Lock, CheckCircle, PlayCircle, BookOpen, Clock, Layers } from 'lucide-react-native';
-import { ActivityIndicator, Alert } from 'react-native';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { CourseDetailSkeleton } from '@/components/ui/Skeletons';
+import { ErrorState } from '@/components/ui/ErrorState';
+import { ChevronLeft, Lock, CheckCircle, PlayCircle, BookOpen, Clock, Layers } from 'lucide-react-native';
+import { Alert } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 
 export default function CourseDetailScreen() {
@@ -18,11 +22,11 @@ export default function CourseDetailScreen() {
   const { routineId } = useLocalSearchParams<{ routineId: string }>();
 
   // Fetch routine details
-  const { data: routine, isLoading } = useRoutine(routineId);
+  const { data: routine, isLoading, isError, refetch } = useRoutine(routineId);
 
   // Fetch profile to verify premium tier
   const { data: profile } = useProfile(user?.id);
-  const isPremium = profile?.premium || false;
+  const isPremium = profile?.premium || user?.premium || false;
 
   const handlePlayLesson = (lessonIndex: number, isLessonLocked: boolean) => {
     if (isLessonLocked) {
@@ -55,28 +59,36 @@ export default function CourseDetailScreen() {
   };
 
   const handleBeginCourse = () => {
+    if (!routine) return;
     // Play the first available active session (Session 2, the core practice)
-    handlePlayLesson(1, false);
+    const isLocked = routine.is_premium && !isPremium;
+    handlePlayLesson(1, isLocked);
   };
 
-  if (isLoading) {
+  if (isError) {
     return (
       <View className="flex-1 bg-background justify-center items-center">
-        <ActivityIndicator size="large" color={colors.accent} />
+        <ErrorState onRetry={refetch} />
       </View>
     );
+  }
+
+  if (isLoading) {
+    return <CourseDetailSkeleton />;
   }
 
   if (!routine) {
     return (
       <View className="flex-1 bg-background justify-center items-center px-6">
         <Heading className="text-center mb-4">Practice Not Found</Heading>
-        <Pressable
+        <PressableAnimated
+          haptic="light"
           className="px-6 py-2.5 bg-accent-terracotta rounded-full active:opacity-90"
           onPress={() => router.back()}
+          accessibilityLabel="Return to library"
         >
           <Text className="text-white font-sans font-bold text-sm">Return to Library</Text>
-        </Pressable>
+        </PressableAnimated>
       </View>
     );
   }
@@ -95,7 +107,7 @@ export default function CourseDetailScreen() {
       duration: `${routine.duration_minutes} min`,
       type: routine.category.charAt(0).toUpperCase() + routine.category.slice(1),
       isCompleted: false,
-      isLocked: false,
+      isLocked: routine.is_premium && !isPremium,
     },
     {
       title: `${routine.title} - Deepening`,
@@ -118,16 +130,21 @@ export default function CourseDetailScreen() {
       <MandalaThread />
 
       {/* Floating Back Button */}
-      <Pressable
+      <PressableAnimated
+        haptic="light"
         className="absolute top-12 left-6 z-50 w-10 h-10 bg-white rounded-full flex items-center justify-center border border-surface-border shadow active:scale-95 transition-transform duration-200"
         onPress={() => router.back()}
+        accessibilityLabel="Go back"
       >
         <ChevronLeft size={20} color={colors.primaryText} />
-      </Pressable>
+      </PressableAnimated>
 
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }}>
         {/* Hero Area */}
-        <View className="h-[240px] bg-warm-highlight/50 relative overflow-hidden flex items-center justify-center w-full border-b border-surface-border">
+        <View 
+          className="h-[240px] bg-warm-highlight/50 relative overflow-hidden flex items-center justify-center w-full border-b border-surface-border"
+          accessibilityLabel="Course hero background"
+        >
           <Layers size={64} color={colors.accent} strokeWidth={1} />
         </View>
 
@@ -138,12 +155,13 @@ export default function CourseDetailScreen() {
             <Micro className="text-accent-terracotta">{routine.category.toUpperCase()}</Micro>
             <Display className="text-3xl font-serif">{routine.title}</Display>
             
-            <View className="flex-row items-center gap-3 mt-2">
+            <View className="flex-row items-center gap-3 mt-2" accessibilityLabel="Lead Instructor: Swami Vidyadhishananda">
               <Image
                 className="w-10 h-10 rounded-full border border-surface-border object-cover bg-surface"
                 source={{
                   uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_7gevYX4494t40AF-j9TtqTlakeUrDqCWOojwNVkDi3XojhrvINqqTp3krO1PjlfWcfdlO18tbKoC322zSA6vetJxLDvrlM2Fzw-cfho8FTZIb9oV10z5VG28FYABFTBD_06XVds6bWcHhj6nQvT0ZrxsLT_aQ8MXGknt2JzKZSE14sZdPgeTa5comz-OAVI5qc8itbBTASamXQXygcK4-dyfGIzSOYtZc0ThaBufY1Mo5j0mYRyXxarBU0ZaFxg5evBiZG7FlA',
                 }}
+                accessibilityLabel="Swami Vidyadhishananda profile picture"
               />
               <View className="flex-col">
                 <Text className="font-sans font-bold text-sm text-primary-text">Swami Vidyadhishananda</Text>
@@ -151,7 +169,7 @@ export default function CourseDetailScreen() {
               </View>
             </View>
 
-            <View className="flex-row flex-wrap gap-2 mt-4">
+            <View className="flex-row flex-wrap gap-2 mt-4" accessibilityLabel="Course details summary">
               <View className="px-3 py-1 rounded-full border border-surface-border bg-surface">
                 <Caption className="text-primary-text font-bold">
                   {routine.is_premium ? 'Premium' : 'Free Tier'}
@@ -192,52 +210,58 @@ export default function CourseDetailScreen() {
                 const isLocked = session.isLocked;
                 
                 return (
-                  <Pressable
+                  <Animated.View
                     key={index}
-                    className={`flex-row items-center gap-4 py-4 px-4 rounded-xl border border-transparent active:scale-[0.99] transition-transform ${
-                      session.isCompleted
-                        ? 'bg-surface/40'
-                        : isLocked
-                        ? 'opacity-60 bg-surface/30'
-                        : 'bg-surface border-surface-border shadow-[0_2px_8px_rgba(42,29,10,0.02)]'
-                    }`}
-                    onPress={() => handlePlayLesson(index, isLocked)}
+                    entering={FadeInDown.delay(index * 60)}
                   >
-                    <Text
-                      className={`font-sans font-bold text-sm w-6 text-center ${
-                        isLocked
-                          ? 'text-secondary-text'
-                          : session.isCompleted
-                          ? 'text-growth-green'
-                          : 'text-accent-terracotta'
+                    <PressableAnimated
+                      haptic={isLocked ? 'warning' : 'medium'}
+                      className={`flex-row items-center gap-4 py-4 px-4 rounded-xl border border-transparent active:scale-[0.99] transition-transform ${
+                        session.isCompleted
+                          ? 'bg-surface/40'
+                          : isLocked
+                          ? 'opacity-60 bg-surface/30'
+                          : 'bg-surface border-surface-border shadow-[0_2px_8px_rgba(42,29,10,0.02)]'
                       }`}
+                      onPress={() => handlePlayLesson(index, isLocked)}
+                      accessibilityLabel={`Session ${formattedNum}: ${session.title}, ${session.duration}. ${isLocked ? 'Locked Premium' : session.isCompleted ? 'Completed' : 'Play Session'}`}
                     >
-                      {formattedNum}
-                    </Text>
-
-                    <View className="flex-1">
                       <Text
-                        className={`font-sans text-[15px] ${
+                        className={`font-sans font-bold text-sm w-6 text-center ${
                           isLocked
-                            ? 'text-secondary-text font-medium'
-                            : 'text-primary-text font-bold'
+                            ? 'text-secondary-text'
+                            : session.isCompleted
+                            ? 'text-growth-green'
+                            : 'text-accent-terracotta'
                         }`}
                       >
-                        {session.title}
+                        {formattedNum}
                       </Text>
-                      <Caption className="text-secondary-text mt-0.5">
-                        {session.duration} • {session.type}
-                      </Caption>
-                    </View>
 
-                    {session.isCompleted ? (
-                      <CheckCircle size={18} color={colors.growth} />
-                    ) : isLocked ? (
-                      <Lock size={16} color={colors.secondaryText} />
-                    ) : (
-                      <PlayCircle size={18} color={colors.accent} />
-                    )}
-                  </Pressable>
+                      <View className="flex-1">
+                        <Text
+                          className={`font-sans text-[15px] ${
+                            isLocked
+                              ? 'text-secondary-text font-medium'
+                              : 'text-primary-text font-bold'
+                          }`}
+                        >
+                          {session.title}
+                        </Text>
+                        <Caption className="text-secondary-text mt-0.5">
+                          {session.duration} • {session.type}
+                        </Caption>
+                      </View>
+
+                      {session.isCompleted ? (
+                        <CheckCircle size={18} color={colors.growth} />
+                      ) : isLocked ? (
+                        <Lock size={16} color={colors.secondaryText} />
+                      ) : (
+                        <PlayCircle size={18} color={colors.accent} />
+                      )}
+                    </PressableAnimated>
+                  </Animated.View>
                 );
               })}
             </View>
@@ -247,13 +271,15 @@ export default function CourseDetailScreen() {
 
       {/* Sticky Bottom Bar */}
       <View className="absolute bottom-0 left-0 w-full bg-surface/95 border-t border-surface-border px-6 py-4 z-50 flex items-center pb-8">
-        <Pressable
+        <PressableAnimated
+          haptic="medium"
           className="w-full max-w-sm h-12 bg-accent-terracotta rounded-full flex-row items-center justify-center gap-2 active:opacity-90 shadow"
           onPress={handleBeginCourse}
+          accessibilityLabel="Begin practice course now"
         >
           <Text className="text-white font-sans font-bold text-sm">Begin Practice</Text>
           <PlayCircle size={16} color="#FFFFFF" />
-        </Pressable>
+        </PressableAnimated>
       </View>
     </View>
   );

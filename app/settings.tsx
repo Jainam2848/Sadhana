@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Text, Pressable, ScrollView } from '@/tw';
+import { View, Text, ScrollView } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useProfile } from '@/hooks/api';
-import { Heading, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { ChevronLeft, ChevronRight, User, Settings, Info, LogOut, Shield } from 'lucide-react-native';
 import { Alert } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function SettingsScreen() {
   const { colors } = useTheme();
@@ -40,7 +41,6 @@ export default function SettingsScreen() {
   };
 
   const handleHelpCenter = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     Alert.alert('Help Center', 'For support or questions, contact us at support@sadhana.app');
   };
 
@@ -50,12 +50,14 @@ export default function SettingsScreen() {
 
       {/* Header Bar */}
       <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
-        <Pressable
+        <PressableAnimated
           className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ChevronLeft size={20} color={colors.primaryText} />
-        </Pressable>
+        </PressableAnimated>
         <Heading className="text-on-background text-center flex-1 font-serif">
           Settings
         </Heading>
@@ -93,33 +95,31 @@ export default function SettingsScreen() {
         <View className="mb-6">
           <Micro className="text-secondary-text mb-3">App Settings</Micro>
           <View className="bg-surface rounded-xl border border-surface-border overflow-hidden">
-            <Pressable
+            <PressableAnimated
               className="flex-row justify-between items-center p-4 border-b border-surface-border/50 active:bg-surface-border/10"
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                router.push('/preferences');
-              }}
+              onPress={() => router.push('/preferences')}
+              haptic="light"
+              accessibilityLabel="Open preferences screen"
             >
               <View className="flex-row items-center gap-3">
                 <Settings size={18} color={colors.secondaryText} />
                 <Text className="font-sans font-medium text-sm text-secondary-text">Preferences</Text>
               </View>
               <ChevronRight size={16} color={colors.secondaryText} />
-            </Pressable>
+            </PressableAnimated>
 
-            <Pressable
+            <PressableAnimated
               className="flex-row justify-between items-center p-4 active:bg-surface-border/10"
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                router.push('/privacy');
-              }}
+              onPress={() => router.push('/privacy')}
+              haptic="light"
+              accessibilityLabel="Open GDPR and Privacy screen"
             >
               <View className="flex-row items-center gap-3">
                 <Shield size={18} color={colors.secondaryText} />
                 <Text className="font-sans font-medium text-sm text-secondary-text">GDPR & Privacy</Text>
               </View>
               <ChevronRight size={16} color={colors.secondaryText} />
-            </Pressable>
+            </PressableAnimated>
           </View>
         </View>
 
@@ -127,35 +127,38 @@ export default function SettingsScreen() {
         <View className="mb-8">
           <Micro className="text-secondary-text mb-3">Support & Legal</Micro>
           <View className="bg-surface rounded-xl border border-surface-border overflow-hidden">
-            <Pressable
+            <PressableAnimated
               className="flex-row justify-between items-center p-4 border-b border-surface-border/50 active:bg-surface-border/10"
               onPress={handleHelpCenter}
+              haptic="light"
+              accessibilityLabel="Open help center"
             >
               <Text className="font-sans font-medium text-sm text-secondary-text">Help Center</Text>
               <ChevronRight size={16} color={colors.secondaryText} />
-            </Pressable>
+            </PressableAnimated>
 
-            <Pressable
+            <PressableAnimated
               className="flex-row justify-between items-center p-4 active:bg-surface-border/10"
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                router.push('/privacy');
-              }}
+              onPress={() => router.push('/privacy')}
+              haptic="light"
+              accessibilityLabel="Open privacy policy screen"
             >
               <Text className="font-sans font-medium text-sm text-secondary-text">Privacy Policy</Text>
               <ChevronRight size={16} color={colors.secondaryText} />
-            </Pressable>
+            </PressableAnimated>
           </View>
         </View>
 
         {/* Logout CTA */}
-        <Pressable
+        <PressableAnimated
           className="w-full bg-surface border border-surface-border rounded-xl p-4 flex-row items-center justify-between active:bg-surface-border/10"
           onPress={handleLogout}
+          haptic="warning"
+          accessibilityLabel="Sign out of account"
         >
           <Text className="font-sans font-bold text-sm text-destructive-red">Sign Out</Text>
           <LogOut size={18} color="#991F1F" />
-        </Pressable>
+        </PressableAnimated>
       </ScrollView>
     </View>
   );

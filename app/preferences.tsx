@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Text, Pressable, ScrollView } from '@/tw';
+import { View, Text, ScrollView } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
 import { useSettingsStore } from '@/stores/settingsStore';
-import { Heading, Subheading, Body, Caption, Micro } from '@/components/ui/Typography';
+import { Heading, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { ChevronLeft, Sliders, Moon, Sun, Bell, Volume2 } from 'lucide-react-native';
-import { Switch, StyleSheet } from 'react-native';
+import { ChevronLeft, Moon, Sun, Bell } from 'lucide-react-native';
+import { Switch } from 'react-native';
 import { Slider } from '@/components/ui/Compat';
 import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function PreferencesScreen() {
   const { colors } = useTheme();
@@ -41,10 +42,13 @@ export default function PreferencesScreen() {
   };
 
   const handleThemeToggle = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const nextTheme = themeMode === 'light' ? 'dark' : themeMode === 'dark' ? 'system' : 'light';
     setThemeMode(nextTheme);
   };
+
+  const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
+  const borderColorString = typeof colors.border === 'string' ? colors.border : '#2a1f16';
+  const growthColorString = typeof colors.growth === 'string' ? colors.growth : '#4CAF50';
 
   return (
     <View className="flex-1 bg-background relative">
@@ -52,12 +56,14 @@ export default function PreferencesScreen() {
 
       {/* Header bar */}
       <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
-        <Pressable
+        <PressableAnimated
           className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ChevronLeft size={20} color={colors.primaryText} />
-        </Pressable>
+        </PressableAnimated>
         <Heading className="text-on-background text-center flex-1 font-serif">
           Preferences
         </Heading>
@@ -78,7 +84,7 @@ export default function PreferencesScreen() {
 
             {/* Range Slider */}
             <View className="flex-row items-center gap-4">
-              <Text className="font-sans font-medium text-xs text-secondary-text">A</Text>
+              <Text className="font-sans font-medium text-xs text-secondary-text" accessibilityElementsHidden={true} importantForAccessibility="no">A</Text>
               <Slider
                 style={{ flex: 1, height: 40 }}
                 minimumValue={0.8}
@@ -86,11 +92,18 @@ export default function PreferencesScreen() {
                 value={fontSizeScale}
                 onValueChange={handleSliderChange}
                 onSlidingComplete={handleSliderComplete}
-                minimumTrackTintColor={colors.accent}
-                maximumTrackTintColor={colors.border}
-                thumbTintColor={colors.accent}
+                minimumTrackTintColor={accentColorString}
+                maximumTrackTintColor={borderColorString}
+                thumbTintColor={accentColorString}
+                accessibilityLabel="Adjust text reading size"
+                accessibilityValue={{
+                  now: Math.round(fontSizeScale * 100),
+                  min: 80,
+                  max: 160,
+                  text: `${Math.round(fontSizeScale * 100)}%`
+                }}
               />
-              <Text className="font-sans font-medium text-lg text-secondary-text">A</Text>
+              <Text className="font-sans font-medium text-lg text-secondary-text" accessibilityElementsHidden={true} importantForAccessibility="no">A</Text>
             </View>
 
             {/* Typography Live Preview Card */}
@@ -109,9 +122,12 @@ export default function PreferencesScreen() {
         <View className="mb-6">
           <Micro className="text-secondary-text mb-3">Display</Micro>
           <View className="bg-surface rounded-xl border border-surface-border overflow-hidden">
-            <Pressable
+            <PressableAnimated
               className="flex-row justify-between items-center p-4 active:bg-surface-border/10"
               onPress={handleThemeToggle}
+              haptic="light"
+              accessibilityLabel="Switch theme mode"
+              accessibilityHint="Toggles between Light, Dark and System theme modes"
             >
               <View className="flex-row items-center gap-3">
                 {themeMode === 'light' ? (
@@ -124,7 +140,7 @@ export default function PreferencesScreen() {
               <Text className="font-sans font-bold text-xs text-accent-terracotta uppercase">
                 {themeMode}
               </Text>
-            </Pressable>
+            </PressableAnimated>
           </View>
         </View>
 
@@ -142,8 +158,9 @@ export default function PreferencesScreen() {
               <Switch
                 value={notificationsEnabled}
                 onValueChange={handleNotificationsToggle}
-                trackColor={{ false: colors.border, true: colors.growth }}
+                trackColor={{ false: borderColorString, true: growthColorString }}
                 thumbColor="#FFFFFF"
+                accessibilityLabel="Toggle daily reminders"
               />
             </View>
 

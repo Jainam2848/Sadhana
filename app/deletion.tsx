@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput } from '@/tw';
+import { View, Text, TextInput } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
 import { useDeleteAccount } from '@/hooks/api';
 import { useAuthStore } from '@/stores/authStore';
-import { Heading, Body, Caption, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { ChevronLeft, AlertTriangle } from 'lucide-react-native';
-import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withSequence, withTiming } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import { PressableAnimated } from '@/components/ui/PressableAnimated';
 
 export default function DeletionScreen() {
   const { colors } = useTheme();
@@ -90,12 +90,14 @@ export default function DeletionScreen() {
 
       {/* Header bar */}
       <View className="pt-12 pb-3 z-40 bg-background/80 flex-row justify-between items-center w-full">
-        <Pressable
+        <PressableAnimated
           className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
           onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Go back"
         >
           <ChevronLeft size={20} color={colors.primaryText} />
-        </Pressable>
+        </PressableAnimated>
         <Text className="font-sans font-bold text-xs text-secondary-text uppercase tracking-widest text-center flex-1">
           Account Deletion
         </Text>
@@ -131,6 +133,7 @@ export default function DeletionScreen() {
             autoCorrect={false}
             value={confirmText}
             onChangeText={setConfirmText}
+            accessibilityLabel="Confirmation field. Type DELETE to confirm."
           />
         </View>
       </View>
@@ -138,12 +141,14 @@ export default function DeletionScreen() {
       {/* Action buttons */}
       <View className="gap-4 pb-12 w-full max-w-sm mx-auto items-center">
         <Animated.View style={[{ width: '100%' }, shakeStyle]}>
-          <Pressable
-            className={`w-full h-12 rounded-full items-center justify-center flex-row gap-2 active:scale-98 ${
+          <PressableAnimated
+            className={`w-full h-12 rounded-full items-center justify-center flex-row gap-2 ${
               isMatched ? 'bg-destructive-red' : 'bg-destructive-red/35'
             }`}
             disabled={isDeleting}
             onPress={handleDeleteAccount}
+            haptic={isMatched ? 'warning' : 'error'}
+            accessibilityLabel="Permanently delete my account button"
           >
             {isDeleting ? (
               <ActivityIndicator size="small" color="#FFFFFF" />
@@ -152,14 +157,19 @@ export default function DeletionScreen() {
                 Permanently delete my account
               </Text>
             )}
-          </Pressable>
+          </PressableAnimated>
         </Animated.View>
 
-        <Pressable className="py-2" onPress={() => router.back()}>
+        <PressableAnimated
+          className="py-2 active:opacity-85"
+          onPress={() => router.back()}
+          haptic="light"
+          accessibilityLabel="Cancel and go back"
+        >
           <Text className="text-secondary-text font-sans font-medium text-sm underline underline-offset-4 decoration-surface-border">
             Take me back
           </Text>
-        </Pressable>
+        </PressableAnimated>
       </View>
     </View>
   );

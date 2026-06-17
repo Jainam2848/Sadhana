@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { useColorScheme as useDeviceColorScheme } from 'react-native';
-import * as AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSettingsStore } from '@/stores/settingsStore';
+import { useColorScheme as useNativewindColorScheme } from 'nativewind';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -81,43 +82,24 @@ const ThemeContext = createContext<Theme | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const deviceColorScheme = useDeviceColorScheme();
-  const [mode, setModeState] = useState<ThemeMode>('system');
+  const themeMode = useSettingsStore((state) => state.themeMode);
+  const setThemeMode = useSettingsStore((state) => state.setThemeMode);
+  const { setColorScheme } = useNativewindColorScheme();
+
+  const isDark = themeMode === 'system' ? deviceColorScheme === 'dark' : themeMode === 'dark';
+  const colors = isDark ? darkColors : lightColors;
 
   useEffect(() => {
-    // Load persisted theme preference
-    // We import AsyncStorage dynamically or directly
-    const loadTheme = async () => {
-      try {
-        const savedMode = await AsyncStorage.default.getItem('sadhana-theme-mode');
-        if (savedMode) {
-          setModeState(savedMode as ThemeMode);
-        }
-      } catch (e) {
-        console.warn('Failed to load theme preference', e);
-      }
-    };
-    loadTheme();
-  }, []);
-
-  const setMode = async (newMode: ThemeMode) => {
-    setModeState(newMode);
-    try {
-      await AsyncStorage.default.setItem('sadhana-theme-mode', newMode);
-    } catch (e) {
-      console.warn('Failed to save theme preference', e);
-    }
-  };
-
-  const isDark = mode === 'system' ? deviceColorScheme === 'dark' : mode === 'dark';
-  const colors = isDark ? darkColors : lightColors;
+    setColorScheme(isDark ? 'dark' : 'light');
+  }, [isDark]);
 
   const value: Theme = {
     dark: isDark,
-    mode,
+    mode: themeMode,
     colors,
     spacing,
     borderRadius,
-    setMode,
+    setMode: setThemeMode,
   };
 
   return (

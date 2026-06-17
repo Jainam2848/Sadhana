@@ -71,6 +71,7 @@ To hit our **3-week MVP deadline**, features are strictly triaged:
     *   Paywall screen showing monthly/annual subscription options.
     *   Gating of premium media content.
     *   "Restore Purchases" capability (mandatory for App Store approval).
+    *   *Implementation Note (Staging & Local Dev):* To support developer workflows and testing without active developer subscriptions, the app will utilize a local mock billing wrapper (`src/services/billing.ts`) to simulate purchases. The live RevenueCat SDK and store products will be configured and integrated during the production build and app store submission phase.
 7.  **Sadhana Rewards System (Ad Incentives):**
     *   Point-based reward mechanics for both Free and Paid tiers.
     *   Tracking monthly ad views with milestone notifications.
