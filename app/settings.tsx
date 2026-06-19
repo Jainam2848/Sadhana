@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useProfile } from '@/hooks/api';
 import { Heading, Micro } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
-import { ChevronLeft, ChevronRight, User, Settings, Info, LogOut, Shield } from 'lucide-react-native';
+import { ChevronLeft, ChevronRight, User, Settings, Info, LogOut, Shield, Sliders } from 'lucide-react-native';
 import { Alert } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
@@ -95,6 +95,19 @@ export default function SettingsScreen() {
         <View className="mb-6">
           <Micro className="text-secondary-text mb-3">App Settings</Micro>
           <View className="bg-surface rounded-xl border border-surface-border overflow-hidden">
+            <PressableAnimated
+              className="flex-row justify-between items-center p-4 border-b border-surface-border/50 active:bg-surface-border/10"
+              onPress={() => router.push('/personalization')}
+              haptic="light"
+              accessibilityLabel="Open personalization settings screen"
+            >
+              <View className="flex-row items-center gap-3">
+                <Sliders size={18} color={colors.secondaryText} />
+                <Text className="font-sans font-medium text-sm text-secondary-text">Edit Personalization</Text>
+              </View>
+              <ChevronRight size={16} color={colors.secondaryText} />
+            </PressableAnimated>
+
             <PressableAnimated
               className="flex-row justify-between items-center p-4 border-b border-surface-border/50 active:bg-surface-border/10"
               onPress={() => router.push('/preferences')}

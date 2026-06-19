@@ -23,6 +23,9 @@ export interface Routine {
   thumbnail_url: string | null;
   media_url: string | null;
   sanskrit_terms: Record<string, string> | null;
+  experience_level?: 'beginner' | 'intermediate' | 'advanced';
+  tightness?: string[];
+  goals?: string[];
 }
 
 export interface SadhanaPlan {
@@ -184,6 +187,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600',
     media_url: 'https://example.com/media/surya_namaskar.mp4',
+    experience_level: 'beginner',
+    tightness: ['hips', 'hamstrings'],
+    goals: ['mobility', 'strength'],
     sanskrit_terms: {
       "Surya Namaskar": "Sun Salutations",
       "Pranamasana": "Prayer Pose",
@@ -201,6 +207,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600',
     media_url: 'https://example.com/media/spinal_alignment.mp4',
+    experience_level: 'beginner',
+    tightness: ['lower_back', 'shoulders'],
+    goals: ['stress', 'mobility'],
     sanskrit_terms: {
       "Marjariasana": "Cat Pose",
       "Bitilasana": "Cow Pose",
@@ -217,6 +226,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=600',
     media_url: 'https://example.com/media/joint_mobilization.mp4',
+    experience_level: 'beginner',
+    tightness: ['shoulders', 'hips'],
+    goals: ['mobility'],
     sanskrit_terms: {
       "Sukshma Vyayama": "Subtle exercise",
       "Tadasana": "Mountain Pose",
@@ -232,10 +244,81 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: true,
     thumbnail_url: 'https://images.unsplash.com/photo-1510894347713-fc3ed6ecda6e?q=80&w=600',
     media_url: 'https://example.com/media/vinyasa_flow.mp4',
+    experience_level: 'intermediate',
+    tightness: ['hips', 'hamstrings'],
+    goals: ['strength', 'focus'],
     sanskrit_terms: {
       "Virabhadrasana": "Warrior Pose",
       "Trikonasana": "Triangle Pose",
       "Chaturanga Dandasana": "Four-Limbed Staff Pose"
+    }
+  },
+  {
+    id: 'a5555555-5555-5555-5555-555555555555',
+    title: 'Deep Hip & Glute Release',
+    description: 'A focused, deep stretching sequence targeting the glutes and deep hip rotators to release accumulated lower body tension.',
+    duration_minutes: 15,
+    category: 'asana',
+    is_premium: true,
+    thumbnail_url: 'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?q=80&w=600',
+    media_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    experience_level: 'intermediate',
+    tightness: ['hips', 'lower_back'],
+    goals: ['mobility', 'stress'],
+    sanskrit_terms: {
+      "Eka Pada Rajakapotasana": "Pigeon Pose",
+      "Anjaneyasana": "Low Lunge"
+    }
+  },
+  {
+    id: 'a6666666-6666-6666-6666-666666666666',
+    title: 'Shoulder Openers & Neck Release',
+    description: 'Gentle but deep somatic releases for tight shoulders, upper back, and neck, counteracting the effects of prolonged screen time.',
+    duration_minutes: 10,
+    category: 'asana',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600',
+    media_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    experience_level: 'beginner',
+    tightness: ['shoulders'],
+    goals: ['mobility', 'stress'],
+    sanskrit_terms: {
+      "Garudasana": "Eagle Arms",
+      "Balasana": "Child's Pose"
+    }
+  },
+  {
+    id: 'a7777777-7777-7777-7777-777777777777',
+    title: 'Hamstring Sanctuary Flow',
+    description: 'A slow-paced stretching routine aiming to safely lengthen the hamstrings and release tension in the posterior chain.',
+    duration_minutes: 12,
+    category: 'asana',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=600',
+    media_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    experience_level: 'beginner',
+    tightness: ['hamstrings'],
+    goals: ['mobility'],
+    sanskrit_terms: {
+      "Uttanasana": "Standing Forward Fold",
+      "Adho Mukha Svanasana": "Downward Dog"
+    }
+  },
+  {
+    id: 'a8888888-8888-8888-8888-888888888888',
+    title: 'Ashtanga Vinyasa Flow (Advanced)',
+    description: 'A highly challenging, continuous physical sequence synchronizing breath and movement. For advanced practitioners with significant arm balance and core strength.',
+    duration_minutes: 25,
+    category: 'asana',
+    is_premium: true,
+    thumbnail_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600',
+    media_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    experience_level: 'advanced',
+    tightness: ['hips', 'hamstrings', 'shoulders'],
+    goals: ['strength', 'focus'],
+    sanskrit_terms: {
+      "Bakasana": "Crow Pose",
+      "Urdhva Dhanurasana": "Upward Bow Pose"
     }
   },
   {
@@ -247,6 +330,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600',
     media_url: 'https://example.com/media/nadi_shodhana.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['stress', 'focus'],
     sanskrit_terms: {
       "Nadi Shodhana": "Channel Purification",
       "Prana": "Vital Energy",
@@ -263,6 +349,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=600',
     media_url: 'https://example.com/media/kapalabhati.mp3',
+    experience_level: 'intermediate',
+    tightness: [],
+    goals: ['energy', 'focus'],
     sanskrit_terms: {
       "Kapalabhati": "Skull Shining Breath",
       "Rechaka": "Exhalation",
@@ -278,9 +367,46 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: true,
     thumbnail_url: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=600',
     media_url: 'https://example.com/media/sheetali.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['stress'],
     sanskrit_terms: {
       "Sheetali": "Cooling Breath",
       "Kumbhaka": "Breath Retention"
+    }
+  },
+  {
+    id: 'b4444444-4444-4444-4444-444444444444',
+    title: 'Box Breathing (Sama Vritti)',
+    description: 'A highly structured equal ratio breathing technique (4s inhale, 4s hold, 4s exhale, 4s hold) used by high performers to regulate the nervous system and build extreme focus.',
+    duration_minutes: 6,
+    category: 'pranayama',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600',
+    media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['focus', 'stress'],
+    sanskrit_terms: {
+      "Sama Vritti": "Equal Ratio",
+      "Pranayama": "Breath Control"
+    }
+  },
+  {
+    id: 'b5555555-5555-5555-5555-555555555555',
+    title: 'Bhramari (Humming Bee Breath)',
+    description: 'A deep humming vibration practice to trigger the parasympathetic nervous system, release mental tension, and quiet racing thoughts. Ideal for preparing for sleep.',
+    duration_minutes: 5,
+    category: 'pranayama',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600',
+    media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['stress', 'sleep'],
+    sanskrit_terms: {
+      "Bhramari": "Humming Bee",
+      "NADA": "Inner Sound vibration"
     }
   },
   {
@@ -292,6 +418,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600',
     media_url: 'https://example.com/media/trataka.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['focus'],
     sanskrit_terms: {
       "Trataka": "To Look or Gaze",
       "Dharana": "Concentration"
@@ -306,6 +435,9 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: false,
     thumbnail_url: 'https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?q=80&w=600',
     media_url: 'https://example.com/media/yoga_nidra.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['stress', 'sleep'],
     sanskrit_terms: {
       "Yoga Nidra": "Yogic Sleep",
       "Pratyahara": "Sensory Withdrawal",
@@ -321,10 +453,47 @@ const MOCK_ROUTINES: Routine[] = [
     is_premium: true,
     thumbnail_url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',
     media_url: 'https://example.com/media/beeja_mantra.mp3',
+    experience_level: 'intermediate',
+    tightness: [],
+    goals: ['focus', 'stress'],
     sanskrit_terms: {
       "Beeja Mantra": "Seed Sound",
       "Sushumna": "Central Energy Channel",
       "Kundalini": "Coiled Energy"
+    }
+  },
+  {
+    id: 'd4444444-4444-4444-4444-444444444444',
+    title: 'Anapana (Breath Mindfulness)',
+    description: 'Focusing the mind entirely on the natural, unforced breath at the entrance of the nostrils to build stillness, sensory awareness, and mental clarity.',
+    duration_minutes: 10,
+    category: 'dhyana',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600',
+    media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['focus'],
+    sanskrit_terms: {
+      "Anapana": "Mindfulness of Breathing",
+      "Vipassana": "Insight"
+    }
+  },
+  {
+    id: 'd5555555-5555-5555-5555-555555555555',
+    title: 'Metta (Loving-Kindness)',
+    description: 'A meditation practice expanding unconditional compassion and wishing safety, happiness, and peace to oneself, loved ones, and eventually all living beings.',
+    duration_minutes: 10,
+    category: 'dhyana',
+    is_premium: false,
+    thumbnail_url: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=600',
+    media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    experience_level: 'beginner',
+    tightness: [],
+    goals: ['stress'],
+    sanskrit_terms: {
+      "Metta": "Loving-Kindness",
+      "Bhavana": "Cultivation/Development"
     }
   }
 ];
@@ -450,6 +619,128 @@ export function useDeleteAccount() {
     mutationFn: async () => {
       const { error } = await supabase.rpc('delete_user_account');
       if (error) throw error;
+    },
+  });
+}
+
+// 8. Fetch user personalization (onboarding responses)
+export function useOnboardingResponses(userId: string | undefined) {
+  return useQuery({
+    queryKey: ['onboarding_responses', userId],
+    queryFn: async () => {
+      if (!userId) throw new Error('User ID is required');
+
+      if (userId.startsWith('demo-')) {
+        const authState = useAuthStore.getState();
+        const answers = authState.onboardingAnswers;
+        return {
+          user_id: userId,
+          goals: answers.goal ? [answers.goal] : ['stress'],
+          experience_level: answers.experience || 'beginner',
+          preferred_time: answers.schedule || 'morning',
+          preferred_duration: answers.duration || 15,
+          tightness: answers.goal === 'mobility'
+            ? ['hips', 'hamstrings', 'lower_back', 'shoulders']
+            : ['lower_back', 'shoulders'],
+          habit_anchor: answers.schedule
+            ? `After my ${answers.schedule} routine`
+            : 'After my morning tea',
+        };
+      }
+
+      const { data, error } = await supabase
+        .from('onboarding_responses')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (error) {
+        // Fallback default
+        return {
+          user_id: userId,
+          goals: ['stress'],
+          experience_level: 'beginner',
+          preferred_time: 'morning',
+          preferred_duration: 15,
+          tightness: ['lower_back', 'shoulders'],
+          habit_anchor: 'After my morning tea',
+        };
+      }
+      return data;
+    },
+    enabled: !!userId,
+  });
+}
+
+// 9. Update user personalization (onboarding responses)
+export function useUpdateOnboardingResponses() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      userId,
+      goals,
+      experience_level,
+      preferred_time,
+      preferred_duration,
+    }: {
+      userId: string;
+      goals: string[];
+      experience_level: string;
+      preferred_time: string;
+      preferred_duration: number;
+    }) => {
+      if (userId.startsWith('demo-')) {
+        const updateAnswers = useAuthStore.getState().updateOnboardingAnswers;
+        updateAnswers({
+          goal: goals[0] || 'stress',
+          experience: experience_level,
+          schedule: preferred_time,
+          duration: preferred_duration,
+        });
+        return {
+          user_id: userId,
+          goals,
+          experience_level,
+          preferred_time,
+          preferred_duration,
+          tightness: goals.includes('mobility')
+            ? ['hips', 'hamstrings', 'lower_back', 'shoulders']
+            : ['lower_back', 'shoulders'],
+          habit_anchor: `After my ${preferred_time} routine`,
+        };
+      }
+
+      const tightness = goals.includes('mobility')
+        ? ['hips', 'hamstrings', 'lower_back', 'shoulders']
+        : ['lower_back', 'shoulders'];
+
+      const habit_anchor = `After my ${preferred_time} routine`;
+
+      const { data, error } = await supabase
+        .from('onboarding_responses')
+        .upsert(
+          {
+            user_id: userId,
+            goals,
+            tightness,
+            experience_level,
+            preferred_time,
+            preferred_duration,
+            habit_anchor,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'user_id' }
+        )
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['onboarding_responses', variables.userId] });
+      queryClient.invalidateQueries({ queryKey: ['today_plan', variables.userId] });
+      queryClient.invalidateQueries({ queryKey: ['profile', variables.userId] });
     },
   });
 }
