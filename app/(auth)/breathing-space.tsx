@@ -4,74 +4,74 @@ import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { Heading, Body, Micro } from '@/components/ui/Typography';
+import { Svg, Circle, Path } from '@/components/ui/Compat';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
+  withRepeat,
   Easing,
+  runOnJS,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Modal, StyleSheet } from 'react-native';
+import { Modal, StyleSheet, useWindowDimensions } from 'react-native';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function BreathingSpaceScreen() {
   const { colors } = useTheme();
   const [breatheState, setBreatheState] = useState<'ready' | 'inhale' | 'hold' | 'exhale' | 'complete'>('ready');
   const [isGlossaryOpen, setIsGlossaryOpen] = useState(false);
   const [showContinue, setShowContinue] = useState(false);
+  const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+  const isSmallDevice = height < 750;
 
-  // Animation values
-  const circleScale1 = useSharedValue(1);
-  const circleScale2 = useSharedValue(1);
-  const circleScale3 = useSharedValue(1);
+  // Reanimated shared values
+  const scale = useSharedValue(1);
+  const rotation = useSharedValue(0);
+  const opacity = useSharedValue(0.4);
 
-  const circleOpacity1 = useSharedValue(0.3);
-  const circleOpacity2 = useSharedValue(0.2);
-  const circleOpacity3 = useSharedValue(0.1);
+  // Slow continuous linear loop for aesthetic rotation
+  useEffect(() => {
+    rotation.value = withRepeat(
+      withTiming(360, { duration: 24000, easing: Easing.linear }),
+      -1,
+      false
+    );
+  }, []);
 
-  // Run the 30-second breathing space demo (1 full cycles of 10s: Inhale 4s, Hold 2s, Exhale 4s, repeat, then complete)
+  // Run the 30-second breathing space demo (1 full cycle: Inhale 4s, Hold 2s, Exhale 4s, repeat, then complete)
   useEffect(() => {
     let timer: any;
 
     const runDemo = () => {
-      // 1. Ready to Inhale (delayed start)
+      // 1. Ready state (1.5s delay)
       timer = setTimeout(() => {
-        // First Cycle: Inhale (0 to 4s)
+        // Inhale Phase (0s to 4s)
         setBreatheState('inhale');
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         
-        circleScale1.value = withTiming(1.15, { duration: 4000, easing: Easing.out(Easing.ease) });
-        circleScale2.value = withTiming(1.45, { duration: 4000, easing: Easing.out(Easing.ease) });
-        circleScale3.value = withTiming(1.85, { duration: 4000, easing: Easing.out(Easing.ease) });
+        scale.value = withTiming(1.6, { duration: 4000, easing: Easing.out(Easing.ease) });
+        opacity.value = withTiming(0.8, { duration: 4000 });
 
-        circleOpacity1.value = withTiming(0.7, { duration: 4000 });
-        circleOpacity2.value = withTiming(0.5, { duration: 4000 });
-        circleOpacity3.value = withTiming(0.3, { duration: 4000 });
-
-        // Hold (4s to 6s)
+        // Hold Phase (4s to 6s)
         timer = setTimeout(() => {
           setBreatheState('hold');
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
           // Subtly pulse opacity during hold
-          circleOpacity1.value = withTiming(0.5, { duration: 2000 });
-          circleOpacity2.value = withTiming(0.3, { duration: 2000 });
-          circleOpacity3.value = withTiming(0.2, { duration: 2000 });
+          opacity.value = withTiming(0.6, { duration: 2000 });
 
-          // Exhale (6s to 10s)
+          // Exhale Phase (6s to 10s)
           timer = setTimeout(() => {
             setBreatheState('exhale');
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
-            circleScale1.value = withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) });
-            circleScale2.value = withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) });
-            circleScale3.value = withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) });
+            scale.value = withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) });
+            opacity.value = withTiming(0.4, { duration: 4000 });
 
-            circleOpacity1.value = withTiming(0.3, { duration: 4000 });
-            circleOpacity2.value = withTiming(0.2, { duration: 4000 });
-            circleOpacity3.value = withTiming(0.1, { duration: 4000 });
-
-            // Complete
+            // Complete State
             timer = setTimeout(() => {
               setBreatheState('complete');
               setShowContinue(true);
@@ -87,20 +87,13 @@ export default function BreathingSpaceScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Animated styles for concentric circles
-  const circleStyle1 = useAnimatedStyle(() => ({
-    transform: [{ scale: circleScale1.value }],
-    opacity: circleOpacity1.value,
-  }));
-
-  const circleStyle2 = useAnimatedStyle(() => ({
-    transform: [{ scale: circleScale2.value }],
-    opacity: circleOpacity2.value,
-  }));
-
-  const circleStyle3 = useAnimatedStyle(() => ({
-    transform: [{ scale: circleScale3.value }],
-    opacity: circleOpacity3.value,
+  // Animated style for the spinning & breathing mandala
+  const animatedMandalaStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: scale.value },
+      { rotate: `${rotation.value}deg` }
+    ],
+    opacity: opacity.value,
   }));
 
   const getBreatheText = () => {
@@ -121,16 +114,21 @@ export default function BreathingSpaceScreen() {
   const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
 
   return (
-    <View className="flex-1 bg-background relative px-6 py-12 justify-between">
+    <View
+      style={{
+        paddingBottom: Math.max(insets.bottom, 24),
+      }}
+      className="flex-1 bg-background relative px-6 justify-between"
+    >
       <MandalaThread />
 
       {/* Top Header Block */}
-      <View className="w-full items-center mt-4">
+      <View style={{ paddingTop: Math.max(insets.top, 16) }} className="w-full items-center">
         {/* Progress Bar (30%) */}
         <View className="w-full bg-surface-border/20 h-1 rounded-full overflow-hidden">
           <View className="bg-accent-terracotta h-full w-[30%]" />
         </View>
-        <View className="text-center items-center mt-12 gap-2">
+        <View className={`text-center items-center gap-2 ${isSmallDevice ? 'mt-6' : 'mt-12'}`}>
           <Micro className="text-secondary-text">Experience Stillness</Micro>
           <Heading className="text-on-surface px-4 text-center">
             A 30-Second Breathing Space
@@ -138,36 +136,80 @@ export default function BreathingSpaceScreen() {
         </View>
       </View>
 
-      {/* Center Section: Concentric Circles Animation */}
-      <View className="flex-1 justify-center items-center my-12">
-        <View className="w-64 h-64 justify-center items-center relative">
-          {/* Animated concentric circles */}
-          <View className="absolute w-32 h-32 rounded-full border border-accent-terracotta/20">
-            <Animated.View
-              style={[circleStyle3, { width: '100%', height: '100%', borderRadius: 9999, borderWidth: 1, borderColor: accentColorString }]}
-            />
-          </View>
-          <View className="absolute w-32 h-32 rounded-full bg-surface-border/20">
-            <Animated.View
-              style={[circleStyle2, { width: '100%', height: '100%', borderRadius: 9999, backgroundColor: 'rgba(42,29,10,0.08)' }]}
-            />
-          </View>
-          <View className="absolute w-32 h-32 rounded-full bg-surface-border/40">
-            <Animated.View
-              style={[circleStyle1, { width: '100%', height: '100%', borderRadius: 9999, backgroundColor: 'rgba(42,29,10,0.16)' }]}
-            />
-          </View>
+      {/* Center Section: Concentric circles replaced with a beautiful spinning SVG mandala */}
+      <View className={`flex-1 justify-center items-center ${isSmallDevice ? 'my-4' : 'my-12'}`}>
+        <View className={`justify-center items-center relative ${isSmallDevice ? 'w-52 h-52' : 'w-64 h-64'}`}>
+          <Animated.View
+            style={[animatedMandalaStyle, { width: isSmallDevice ? 156 : 192, height: isSmallDevice ? 156 : 192 }]}
+            className="absolute items-center justify-center"
+          >
+            <Svg width="100%" height="100%" viewBox="0 0 200 200">
+              {/* Outer decorative dotted circle */}
+              <Circle
+                cx="100"
+                cy="100"
+                r="90"
+                fill="none"
+                stroke={accentColorString}
+                strokeWidth="0.5"
+                strokeDasharray="4 4"
+                opacity="0.3"
+              />
+              {/* Mid hairline circle */}
+              <Circle
+                cx="100"
+                cy="100"
+                r="70"
+                fill="none"
+                stroke={accentColorString}
+                strokeWidth="0.5"
+                opacity="0.4"
+              />
+              {/* Inner hairline circle */}
+              <Circle
+                cx="100"
+                cy="100"
+                r="50"
+                fill="none"
+                stroke={accentColorString}
+                strokeWidth="0.5"
+                opacity="0.5"
+              />
+              {/* 8 symmetric geometric petals */}
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, index) => (
+                <Path
+                  key={index}
+                  d="M100 100 C115 70 125 70 100 30 C75 70 85 70 100 100 Z"
+                  fill="none"
+                  stroke={accentColorString}
+                  strokeWidth="0.75"
+                  opacity="0.35"
+                  transform={`rotate(${angle} 100 100)`}
+                />
+              ))}
+              {/* Concentric center ring */}
+              <Circle
+                cx="100"
+                cy="100"
+                r="25"
+                fill="none"
+                stroke={accentColorString}
+                strokeWidth="0.75"
+                opacity="0.4"
+              />
+            </Svg>
+          </Animated.View>
           
           {/* Centered state text */}
           <View className="absolute inset-0 items-center justify-center z-10">
-            <Heading className="text-accent-terracotta text-2xl font-semibold">
+            <Heading className={`text-accent-terracotta font-semibold ${isSmallDevice ? 'text-xl' : 'text-2xl'}`}>
               {getBreatheText()}
             </Heading>
           </View>
         </View>
 
         {/* Sanskrit Glossary Trigger */}
-        <View className="mt-8 items-center">
+        <View className={`items-center ${isSmallDevice ? 'mt-4' : 'mt-8'}`}>
           <PressableAnimated
             className="items-center gap-1 active:opacity-85"
             onPress={() => setIsGlossaryOpen(true)}

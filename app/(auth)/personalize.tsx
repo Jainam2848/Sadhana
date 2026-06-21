@@ -7,10 +7,46 @@ import { ArrowLeft, Check, Sun, Sunset, Moon, AlarmClock } from 'lucide-react-na
 import { Heading, Subheading, Body } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useWindowDimensions } from 'react-native';
+
+// Animated Checkbox Component with spring feedback
+function AnimatedCheckbox({ isSelected }: { isSelected: boolean }) {
+  const scale = useSharedValue(isSelected ? 1 : 0);
+  const opacity = useSharedValue(isSelected ? 1 : 0);
+
+  React.useEffect(() => {
+    scale.value = withSpring(isSelected ? 1 : 0, { damping: 15 });
+    opacity.value = withTiming(isSelected ? 1 : 0, { duration: 150 });
+  }, [isSelected]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  return (
+    <View
+      className={`w-6 h-6 rounded-full border items-center justify-center ${
+        isSelected
+          ? 'bg-accent-terracotta border-accent-terracotta'
+          : 'border-secondary-text'
+      }`}
+    >
+      <Animated.View style={animatedStyle}>
+        <Check size={14} color="#FFF" />
+      </Animated.View>
+    </View>
+  );
+}
 
 export default function PersonalizeScreen() {
   const { colors } = useTheme();
   const updateAnswers = useAuthStore((state) => state.updateOnboardingAnswers);
+  const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+  const isSmallDevice = height < 750;
 
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
@@ -55,7 +91,10 @@ export default function PersonalizeScreen() {
       <MandalaThread />
 
       {/* Top Header Bar */}
-      <View className="w-full bg-background border-b border-surface-border z-40 pt-12 pb-2">
+      <View
+        style={{ paddingTop: Math.max(insets.top, 16) }}
+        className="w-full bg-background border-b border-surface-border z-40 pb-2"
+      >
         <View className="flex-row justify-between items-center px-6 py-2">
           <PressableAnimated
             className="w-10 h-10 -ml-2 items-center justify-center rounded-full active:bg-surface-border/20"
@@ -80,11 +119,14 @@ export default function PersonalizeScreen() {
       {/* Scrollable Questionnaire */}
       <ScrollView
         ref={scrollViewRef}
-        className="flex-1 px-6 pt-8 pb-32"
-        contentContainerStyle={{ paddingBottom: 120 }}
+        className="flex-1 px-6"
+        contentContainerStyle={{
+          paddingTop: isSmallDevice ? 16 : 24,
+          paddingBottom: Math.max(insets.bottom + 100, 140),
+        }}
       >
         {/* Question 1: Goals */}
-        <View className="mb-12">
+        <View className={isSmallDevice ? 'mb-8' : 'mb-12'}>
           <Subheading className="mb-3 text-on-surface">
             What brings you to your mat?
           </Subheading>
@@ -102,7 +144,7 @@ export default function PersonalizeScreen() {
               return (
                 <PressableAnimated
                   key={option.id}
-                  className={`w-full p-4 rounded-xl border flex-row justify-between items-center transition-all duration-200 ${
+                  className={`w-full ${isSmallDevice ? 'p-3.5' : 'p-4'} rounded-xl border flex-row justify-between items-center transition-all duration-200 ${
                     isSelected
                       ? 'bg-warm-highlight border-accent-terracotta'
                       : 'bg-surface border-surface-border'
@@ -119,15 +161,7 @@ export default function PersonalizeScreen() {
                       {option.detail}
                     </Text>
                   </View>
-                  <View
-                    className={`w-6 h-6 rounded-full border items-center justify-center ${
-                      isSelected
-                        ? 'bg-accent-terracotta border-accent-terracotta'
-                        : 'border-secondary-text'
-                    }`}
-                  >
-                    {isSelected && <Check size={14} color="#FFF" />}
-                  </View>
+                  <AnimatedCheckbox isSelected={isSelected} />
                 </PressableAnimated>
               );
             })}
@@ -136,7 +170,7 @@ export default function PersonalizeScreen() {
 
         {/* Question 2: Experience */}
         {selectedGoal && (
-          <View className="mb-12">
+          <Animated.View entering={FadeInDown.duration(400)} className={isSmallDevice ? 'mb-8' : 'mb-12'}>
             <Subheading className="mb-3 text-on-surface">
               How would you describe your experience?
             </Subheading>
@@ -172,12 +206,12 @@ export default function PersonalizeScreen() {
                 );
               })}
             </View>
-          </View>
+          </Animated.View>
         )}
 
         {/* Question 3: Schedule */}
         {selectedExperience && (
-          <View className="mb-12">
+          <Animated.View entering={FadeInDown.duration(400)} className={isSmallDevice ? 'mb-8' : 'mb-12'}>
             <Subheading className="mb-3 text-on-surface">
               When will you practice daily?
             </Subheading>
@@ -222,12 +256,12 @@ export default function PersonalizeScreen() {
                 );
               })}
             </View>
-          </View>
+          </Animated.View>
         )}
 
         {/* Question 4: Duration */}
         {selectedSchedule && (
-          <View className="mb-12">
+          <Animated.View entering={FadeInDown.duration(400)} className={isSmallDevice ? 'mb-8' : 'mb-12'}>
             <Subheading className="mb-3 text-on-surface">
               How long is your daily practice?
             </Subheading>
@@ -267,12 +301,18 @@ export default function PersonalizeScreen() {
                 );
               })}
             </View>
-          </View>
+          </Animated.View>
         )}
       </ScrollView>
 
       {/* Sticky Bottom Continue Button */}
-      <View className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background to-transparent z-50 items-center">
+      <View
+        style={{
+          paddingBottom: Math.max(insets.bottom, 24),
+          paddingTop: 16,
+        }}
+        className="absolute bottom-0 left-0 right-0 px-6 bg-gradient-to-t from-background via-background to-transparent z-50 items-center"
+      >
         <PressableAnimated
           className={`w-full max-w-md h-12 rounded-full flex-row items-center justify-center gap-2 ${
             isComplete ? 'bg-accent-terracotta' : 'bg-accent-terracotta/40'

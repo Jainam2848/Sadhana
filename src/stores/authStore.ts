@@ -10,11 +10,19 @@ export interface User {
   onboardingCompleted: boolean;
 }
 
+export interface DailyCheckIn {
+  date: string;
+  energy: 'high' | 'low';
+  state: 'tight' | 'clear';
+  mind: 'restless' | 'steady';
+}
+
 export interface AuthState {
   user: User | null;
   token: string | null;
   isLoading: boolean;
   onboardingAnswers: Record<string, any>;
+  dailyCheckIn: DailyCheckIn | null;
 }
 
 export interface AuthActions {
@@ -22,6 +30,8 @@ export interface AuthActions {
   setUserPremium: (premium: boolean) => void;
   setOnboardingCompleted: (completed: boolean) => void;
   updateOnboardingAnswers: (answers: Record<string, any>) => void;
+  submitDailyCheckIn: (energy: 'high' | 'low', state: 'tight' | 'clear', mind: 'restless' | 'steady') => void;
+  clearDailyCheckIn: () => void;
   clearSession: () => Promise<void>;
   initializeAuth: () => Promise<void>;
 }
@@ -37,6 +47,7 @@ export const useAuthStore = create<AuthStore>()(
     token: null,
     isLoading: true,
     onboardingAnswers: {},
+    dailyCheckIn: null,
 
     setSession: async (user, token) => {
       set({ user, token });
@@ -79,6 +90,22 @@ export const useAuthStore = create<AuthStore>()(
       set((state) => ({
         onboardingAnswers: { ...state.onboardingAnswers, ...answers },
       }));
+    },
+
+    submitDailyCheckIn: (energy, state, mind) => {
+      const today = new Date().toISOString().split('T')[0];
+      set({
+        dailyCheckIn: {
+          date: today,
+          energy,
+          state,
+          mind,
+        },
+      });
+    },
+
+    clearDailyCheckIn: () => {
+      set({ dailyCheckIn: null });
     },
 
     clearSession: async () => {

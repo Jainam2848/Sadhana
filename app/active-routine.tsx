@@ -2,14 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, ScrollView, Image } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
-import { useSubmitSession } from '@/hooks/api';
+import { useSubmitSession, useRoutine } from '@/hooks/api';
 import { Heading, Caption } from '@/components/ui/Typography';
 import { Video as ExpoVideo, Audio, ResizeMode } from 'expo-av';
-import { Video } from '@/components/ui/Compat';
+import { Video, Svg, Circle, Path } from '@/components/ui/Compat';
 import { Modal, StyleSheet, Alert } from 'react-native';
 import { ArrowLeft, Play, Pause, RotateCcw, RotateCw, SkipForward, BookOpen, Volume2, VolumeX } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat, Easing } from 'react-native-reanimated';
 
 export default function ActiveRoutinePlayerScreen() {
   const { colors } = useTheme();
@@ -33,6 +34,81 @@ export default function ActiveRoutinePlayerScreen() {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isMuted, setIsMuted] = useState(false);
 
+  // Fetch actual routine details from catalog dynamically
+  const { data: asanaRoutine } = useRoutine(asanaId);
+  const { data: pranayamaRoutine } = useRoutine(pranayamaId);
+  const { data: dhyanaRoutine } = useRoutine(dhyanaId);
+
+  // Reanimated shared values for premium visualizer
+  const visualizerScale = useSharedValue(1);
+  const visualizerRotation = useSharedValue(0);
+  const visualizerOpacity = useSharedValue(0.4);
+
+  // Slow continuous linear loop for aesthetic rotation
+  useEffect(() => {
+    visualizerRotation.value = withRepeat(
+      withTiming(360, { duration: 24000, easing: Easing.linear }),
+      -1,
+      false
+    );
+  }, []);
+
+  // Synchronized breathing loop (10-second cycles: 4s inhale, 2s hold, 4s exhale)
+  useEffect(() => {
+    if (currentSegment === 0 || !isPlaying) {
+      // Return to baseline when in Asana or paused
+      visualizerScale.value = withTiming(1.0, { duration: 500 });
+      visualizerOpacity.value = withTiming(0.4, { duration: 500 });
+      return;
+    }
+
+    let isSubscribed = true;
+    let holdTimeout: any;
+    let exhaleTimeout: any;
+
+    const runCycle = () => {
+      if (!isSubscribed || !isPlaying) return;
+
+      // Inhale Phase (0s to 4s)
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+      visualizerScale.value = withTiming(1.5, { duration: 4000, easing: Easing.out(Easing.ease) });
+      visualizerOpacity.value = withTiming(0.8, { duration: 4000 });
+
+      // Hold Phase (4s to 6s)
+      holdTimeout = setTimeout(() => {
+        if (!isSubscribed || !isPlaying) return;
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+        visualizerOpacity.value = withTiming(0.6, { duration: 2000 });
+
+        // Exhale Phase (6s to 10s)
+        exhaleTimeout = setTimeout(() => {
+          if (!isSubscribed || !isPlaying) return;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+          visualizerScale.value = withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) });
+          visualizerOpacity.value = withTiming(0.4, { duration: 4000 });
+        }, 2000);
+      }, 4000);
+    };
+
+    runCycle();
+    const interval = setInterval(runCycle, 10000);
+
+    return () => {
+      isSubscribed = false;
+      clearInterval(interval);
+      clearTimeout(holdTimeout);
+      clearTimeout(exhaleTimeout);
+    };
+  }, [currentSegment, isPlaying]);
+
+  const animatedMandalaStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: visualizerScale.value },
+      { rotate: `${visualizerRotation.value}deg` }
+    ],
+    opacity: visualizerOpacity.value,
+  }));
+
   // Time management (in seconds)
   const durations = [
     parseInt(asanaDuration || '5', 10) * 60,
@@ -52,7 +128,7 @@ export default function ActiveRoutinePlayerScreen() {
       }
 
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' }, // Sitar-like slow ambient sound URL
+        { uri: dhyanaRoutine?.media_url || 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' }, // Sitar-like slow ambient sound URL
         { shouldPlay: isPlaying && !isMuted, isLooping: true, volume: 0.15 }
       );
       setSound(newSound);
@@ -163,11 +239,29 @@ export default function ActiveRoutinePlayerScreen() {
   const currentDuration = durations[currentSegment];
   const progressPercent = ((currentDuration - timeLeft) / currentDuration) * 100;
 
-  // Segment headers
+  // Segment headers resolved dynamically
   const segmentHeaders = [
-    { type: 'Asana', title: 'Adho Mukha Svanasana', subtitle: 'Downward-Facing Dog' },
-    { type: 'Pranayama', title: 'Equal Breathing', subtitle: 'Sanskrit: Nadi Shodhana' },
-    { type: 'Dhyana', title: 'Silent Observation', subtitle: 'Sitar Background' },
+    {
+      type: 'Asana',
+      title: asanaRoutine?.title || 'Physical Posture',
+      subtitle: asanaRoutine
+        ? Object.keys(asanaRoutine.sanskrit_terms || {})[0] || asanaRoutine.description
+        : 'Downward-Facing Dog',
+    },
+    {
+      type: 'Pranayama',
+      title: pranayamaRoutine?.title || 'Breathing Technique',
+      subtitle: pranayamaRoutine
+        ? Object.keys(pranayamaRoutine.sanskrit_terms || {})[0] || pranayamaRoutine.description
+        : 'Sanskrit: Nadi Shodhana',
+    },
+    {
+      type: 'Dhyana',
+      title: dhyanaRoutine?.title || 'Silent Meditation',
+      subtitle: dhyanaRoutine
+        ? Object.keys(dhyanaRoutine.sanskrit_terms || {})[0] || dhyanaRoutine.description
+        : 'Sitar Background',
+    },
   ];
 
   const currentHeader = segmentHeaders[currentSegment];
@@ -216,7 +310,7 @@ export default function ActiveRoutinePlayerScreen() {
               ref={videoRef}
               style={StyleSheet.absoluteFill}
               source={{
-                uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4', // demo testing video stream
+                uri: asanaRoutine?.media_url || 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4', // dynamic video stream
               }}
               resizeMode={ResizeMode.COVER}
               shouldPlay={isPlaying}
@@ -228,22 +322,64 @@ export default function ActiveRoutinePlayerScreen() {
         ) : currentSegment === 1 ? (
           /* Segment 2: Pranayama breathing visualizer */
           <View className="w-full h-64 items-center justify-center">
-            {/* Concentric circles representing breathing cycle */}
-            <View className="w-40 h-40 rounded-full border border-accent-terracotta/40 items-center justify-center">
-              <View className="w-28 h-28 rounded-full bg-accent-terracotta/10 items-center justify-center">
-                <Text className="font-sans font-bold text-sm text-accent-terracotta">
-                  Breathe
-                </Text>
-              </View>
+            <Animated.View
+              style={[animatedMandalaStyle, { width: 192, height: 192 }]}
+              className="items-center justify-center"
+            >
+              <Svg width="100%" height="100%" viewBox="0 0 200 200">
+                <Circle cx="100" cy="100" r="90" fill="none" stroke={colors.accent} strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
+                <Circle cx="100" cy="100" r="70" fill="none" stroke={colors.accent} strokeWidth="0.5" opacity="0.4" />
+                <Circle cx="100" cy="100" r="50" fill="none" stroke={colors.accent} strokeWidth="0.5" opacity="0.5" />
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, index) => (
+                  <Path
+                    key={index}
+                    d="M100 100 C115 70 125 70 100 30 C75 70 85 70 100 100 Z"
+                    fill="none"
+                    stroke={colors.accent}
+                    strokeWidth="0.75"
+                    opacity="0.35"
+                    transform={`rotate(${angle} 100 100)`}
+                  />
+                ))}
+                <Circle cx="100" cy="100" r="25" fill="none" stroke={colors.accent} strokeWidth="0.75" opacity="0.4" />
+              </Svg>
+            </Animated.View>
+            <View className="absolute inset-0 items-center justify-center pointer-events-none">
+              <Text className="font-sans font-bold text-xs text-white/50 tracking-wider">
+                BREATHE
+              </Text>
             </View>
           </View>
         ) : (
           /* Segment 3: Dhyana meditation visual focus */
           <View className="w-full h-64 items-center justify-center">
-            <Image
-              className="w-48 h-48 rounded-full border border-accent-terracotta/20 opacity-60"
-              source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOBqUUu5CIaHxn1iqKt_K72OTq3Mz4d5pD3kCaHnL559px4_e5-2JkaTR4dRcmCfeNporGlLjde2y67GLEIY7w7b9QoaoTWXKgVPMEjXhSnOO3jc-SkkPJeU6M8bBt0TuIHFa5ggi2Cig8b-LpmZQq_mirQh0_zSUVTowJtlDWmPcR6hyF47-d-o0QGKKsWM54pxgUPR_GwwRgXl7leFGN1iez4RboqAi7cFFPn5eETqNHkQm2fIxB3dAhRyuzM9E2NzSfedxLIQ' }}
-            />
+            <Animated.View
+              style={[animatedMandalaStyle, { width: 192, height: 192 }]}
+              className="items-center justify-center"
+            >
+              <Svg width="100%" height="100%" viewBox="0 0 200 200">
+                <Circle cx="100" cy="100" r="90" fill="none" stroke={colors.accent} strokeWidth="0.5" strokeDasharray="4 4" opacity="0.2" />
+                <Circle cx="100" cy="100" r="70" fill="none" stroke={colors.accent} strokeWidth="0.5" opacity="0.3" />
+                <Circle cx="100" cy="100" r="50" fill="none" stroke={colors.accent} strokeWidth="0.5" opacity="0.4" />
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, index) => (
+                  <Path
+                    key={index}
+                    d="M100 100 C115 70 125 70 100 30 C75 70 85 70 100 100 Z"
+                    fill="none"
+                    stroke={colors.accent}
+                    strokeWidth="0.75"
+                    opacity="0.25"
+                    transform={`rotate(${angle} 100 100)`}
+                  />
+                ))}
+                <Circle cx="100" cy="100" r="25" fill="none" stroke={colors.accent} strokeWidth="0.75" opacity="0.3" />
+              </Svg>
+            </Animated.View>
+            <View className="absolute inset-0 items-center justify-center pointer-events-none">
+              <Text className="font-sans font-bold text-xs text-white/50 tracking-wider">
+                FOCUS
+              </Text>
+            </View>
           </View>
         )}
 

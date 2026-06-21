@@ -1,60 +1,76 @@
 import React from 'react';
-import { TextProps, TextStyle } from 'react-native';
-import { Text } from '@/tw';
-import { useSettingsStore } from '@/stores/settingsStore';
+import { TextProps as RNTextProps, TextStyle } from 'react-native';
+import { Text } from './Text';
 
-export type TypographyVariant = 'display' | 'heading' | 'subheading' | 'body' | 'caption' | 'micro';
+export type TypographyVariant = 'display' | 'heading' | 'subheading' | 'body' | 'caption' | 'micro' | 'stat';
 
-export interface TypographyProps extends TextProps {
+export interface TypographyProps extends RNTextProps {
   variant?: TypographyVariant;
   children: React.ReactNode;
-  className?: string;
+  style?: TextStyle | TextStyle[];
 }
 
 const fontSizes: Record<TypographyVariant, number> = {
-  display: 32,
-  heading: 24,
-  subheading: 18,
-  body: 15,
-  caption: 13,
+  display: 36,
+  heading: 26,
+  subheading: 20,
+  body: 16,
+  caption: 14,
   micro: 11,
+  stat: 48,
 };
 
+/**
+ * Backward-compatible wrapper component that delegates styling to our strict Text wrapper.
+ * Ensures all existing Typography calls respect the typography restraint design tokens.
+ */
 export function Typography({
   variant = 'body',
   children,
-  className = '',
   style,
   ...props
 }: TypographyProps) {
-  const fontSizeScale = useSettingsStore((state) => state.fontSizeScale);
-  const baseSize = fontSizes[variant];
-  const scaledSize = Math.round(baseSize * fontSizeScale);
+  // Map Typography variant to Text variant & weight
+  let textVariant: 'display' | 'body' | 'stat' = 'body';
+  let weight: 'regular' | 'medium' | 'bold' = 'regular';
+  const customStyles: TextStyle = {};
 
-  // Map variant to Tailwind CSS class rules
-  let fontClasses = '';
   if (variant === 'display') {
-    fontClasses = 'font-serif text-primary-text leading-[1.1]';
+    textVariant = 'display';
+    weight = 'bold';
   } else if (variant === 'heading') {
-    fontClasses = 'font-serif text-primary-text leading-[1.2]';
+    textVariant = 'display';
+    weight = 'bold';
+    customStyles.fontSize = fontSizes.heading;
   } else if (variant === 'subheading') {
-    fontClasses = 'font-serif text-primary-text leading-[1.3]';
+    textVariant = 'display';
+    weight = 'regular';
+    customStyles.fontSize = fontSizes.subheading;
   } else if (variant === 'body') {
-    fontClasses = 'font-sans text-primary-text leading-[1.5]';
+    textVariant = 'body';
+    weight = 'regular';
   } else if (variant === 'caption') {
-    fontClasses = 'font-sans text-secondary-text leading-[1.4]';
+    textVariant = 'body';
+    weight = 'regular';
+    customStyles.fontSize = fontSizes.caption;
+    customStyles.opacity = 0.8;
   } else if (variant === 'micro') {
-    fontClasses = 'font-sans text-secondary-text leading-[1.2] uppercase tracking-[0.08em]';
+    textVariant = 'body';
+    weight = 'medium';
+    customStyles.fontSize = fontSizes.micro;
+    customStyles.textTransform = 'uppercase';
+    customStyles.letterSpacing = 1.2;
+    customStyles.opacity = 0.7;
+  } else if (variant === 'stat') {
+    textVariant = 'stat';
+    weight = 'regular';
   }
-
-  const textStyle: TextStyle = {
-    fontSize: scaledSize,
-  };
 
   return (
     <Text
-      className={`${fontClasses} ${className}`}
-      style={[textStyle, style]}
+      variant={textVariant}
+      weight={weight}
+      style={[customStyles, style]}
       {...props}
     >
       {children}
@@ -69,3 +85,4 @@ export const Subheading = (props: Omit<TypographyProps, 'variant'>) => <Typograp
 export const Body = (props: Omit<TypographyProps, 'variant'>) => <Typography variant="body" {...props} />;
 export const Caption = (props: Omit<TypographyProps, 'variant'>) => <Typography variant="caption" {...props} />;
 export const Micro = (props: Omit<TypographyProps, 'variant'>) => <Typography variant="micro" {...props} />;
+export const Stat = (props: Omit<TypographyProps, 'variant'>) => <Typography variant="stat" {...props} />;

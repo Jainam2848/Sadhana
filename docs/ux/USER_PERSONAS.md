@@ -84,7 +84,7 @@ Occupation: High School History Teacher
 Location: Toronto, Ontario (Canada)
 Tech Comfort: Moderate (Uses standard web browsers, streaming TV apps, and basic messaging)
 Device: Google Pixel 8 (Android 14, 6.2-inch screen)
-Subscription Tier: Paid Premium ($14.99/mo)
+Subscription Tier: Paid Premium ($5.99/mo)
 ```
 
 ### 1. Visual Photo Description (for Image Generation)

@@ -182,21 +182,23 @@ BEGIN
             ORDER BY score, r.id
             LIMIT 12
         )
-        SELECT a.id, p.id, d.id
-        INTO selected_asana, selected_pranayama, selected_dhyana
-        FROM asana_candidates a
-        CROSS JOIN pranayama_candidates p
-        CROSS JOIN dhyana_candidates d
-        ORDER BY
-            ABS((a.duration_minutes + p.duration_minutes + d.duration_minutes) - effective_duration) * 20,
-            a.score + p.score + d.score,
-            ABS(a.duration_minutes - asana_target) * 3
-                + ABS(p.duration_minutes - pranayama_target) * 2
-                + ABS(d.duration_minutes - dhyana_target) * 2,
-            a.id,
-            p.id,
-            d.id
-        LIMIT 1;
+        -- Select Asana matching user criteria, rotating the selection index:
+        SELECT id INTO selected_asana FROM (
+            SELECT id, row_number() OVER (ORDER BY score, id) as rnk
+            FROM asana_candidates
+        ) t WHERE rnk = (day_idx % GREATEST(1, (SELECT count(*) FROM asana_candidates))) + 1 LIMIT 1;
+
+        -- Select Pranayama:
+        SELECT id INTO selected_pranayama FROM (
+            SELECT id, row_number() OVER (ORDER BY score, id) as rnk
+            FROM pranayama_candidates
+        ) t WHERE rnk = ((day_idx + 1) % GREATEST(1, (SELECT count(*) FROM pranayama_candidates))) + 1 LIMIT 1;
+
+        -- Select Dhyana:
+        SELECT id INTO selected_dhyana FROM (
+            SELECT id, row_number() OVER (ORDER BY score, id) as rnk
+            FROM dhyana_candidates
+        ) t WHERE rnk = ((day_idx + 2) % GREATEST(1, (SELECT count(*) FROM dhyana_candidates))) + 1 LIMIT 1;
 
         INSERT INTO public.sadhana_plans (
             user_id,

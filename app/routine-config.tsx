@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, ScrollView } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
-import { useTodayPlan, useProfile } from '@/hooks/api';
+import { useTodayPlan, useProfile, useRoutines } from '@/hooks/api';
 import { useAuthStore } from '@/stores/authStore';
 import { Heading, Caption } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
@@ -35,21 +35,59 @@ export default function RoutineConfigScreen() {
   const today = new Date().getDay();
   const { data: plan, isLoading, isError, refetch } = useTodayPlan(user?.id, isPremium, today);
 
+  // Fetch routines catalog to resolve adjusted IDs if passed
+  const { data: allRoutines } = useRoutines();
+
+  const resolvedAsana = React.useMemo(() => {
+    if (asanaId && allRoutines) {
+      return allRoutines.find((r) => r.id === asanaId);
+    }
+    return plan?.asana;
+  }, [asanaId, allRoutines, plan?.asana]);
+
+  const resolvedPranayama = React.useMemo(() => {
+    if (pranayamaId && allRoutines) {
+      return allRoutines.find((r) => r.id === pranayamaId);
+    }
+    return plan?.pranayama;
+  }, [pranayamaId, allRoutines, plan?.pranayama]);
+
+  const resolvedDhyana = React.useMemo(() => {
+    if (dhyanaId && allRoutines) {
+      return allRoutines.find((r) => r.id === dhyanaId);
+    }
+    return plan?.dhyana;
+  }, [dhyanaId, allRoutines, plan?.dhyana]);
+
+  // Mount diagnostics logging
+  React.useEffect(() => {
+    console.log(`[RoutineConfigScreen] Component Mounted. Parameters: planId=${planId || 'undefined'}, asanaId=${asanaId || 'undefined'}, pranayamaId=${pranayamaId || 'undefined'}, dhyanaId=${dhyanaId || 'undefined'}`);
+  }, []);
+
+  // Log resolved routines
+  React.useEffect(() => {
+    console.log(`[RoutineConfigScreen] Resolved Routines: asana="${resolvedAsana?.title || 'none'}", pranayama="${resolvedPranayama?.title || 'none'}", dhyana="${resolvedDhyana?.title || 'none'}"`);
+  }, [resolvedAsana, resolvedPranayama, resolvedDhyana]);
+
   const handleStartPractice = () => {
-    if (!plan) return;
+    if (!resolvedAsana) {
+      console.warn(`[RoutineConfigScreen] handleStartPractice called but resolvedAsana is null`);
+      return;
+    }
+    console.log(`[RoutineConfigScreen] Start Practice clicked. Navigating to /active-routine with params: planId=${planId || plan?.id}, asanaId=${resolvedAsana.id}, pranayamaId=${resolvedPranayama?.id}, dhyanaId=${resolvedDhyana?.id}`);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     // Navigate to active player screen
     router.push({
       pathname: '/active-routine',
       params: {
-        planId: plan.id,
-        asanaId: plan.asana?.id,
-        asanaDuration: plan.asana?.duration_minutes,
-        pranayamaId: plan.pranayama?.id,
-        pranayamaDuration: plan.pranayama?.duration_minutes,
-        dhyanaId: plan.dhyana?.id,
-        dhyanaDuration: plan.dhyana?.duration_minutes,
+        planId: planId || plan?.id,
+        asanaId: resolvedAsana.id,
+        asanaDuration: resolvedAsana.duration_minutes?.toString(),
+        pranayamaId: resolvedPranayama?.id,
+        pranayamaDuration: resolvedPranayama?.duration_minutes?.toString(),
+        dhyanaId: resolvedDhyana?.id,
+        dhyanaDuration: resolvedDhyana?.duration_minutes?.toString(),
       },
     });
   };
@@ -71,9 +109,9 @@ export default function RoutineConfigScreen() {
     setOfflineEnabled(value);
   };
 
-  const asanaDuration = plan?.asana?.duration_minutes || 5;
-  const pranayamaDuration = plan?.pranayama?.duration_minutes || 4;
-  const dhyanaDuration = plan?.dhyana?.duration_minutes || 3;
+  const asanaDuration = resolvedAsana?.duration_minutes || 5;
+  const pranayamaDuration = resolvedPranayama?.duration_minutes || 4;
+  const dhyanaDuration = resolvedDhyana?.duration_minutes || 3;
   const totalDuration = asanaDuration + pranayamaDuration + dhyanaDuration;
 
   return (
@@ -91,7 +129,7 @@ export default function RoutineConfigScreen() {
           <ArrowLeft size={20} color={colors.primaryText} />
         </PressableAnimated>
         <Heading className="text-on-background text-center flex-1 font-serif">
-          {plan?.asana ? 'Morning Sanctuary' : 'Preparing...'}
+          {resolvedAsana ? 'Morning Sanctuary' : 'Preparing...'}
         </Heading>
         <View className="w-10" />
       </View>
@@ -109,51 +147,51 @@ export default function RoutineConfigScreen() {
           {/* Segments list */}
           <View className="gap-3 mb-8" accessibilityLabel="Routine practice segments list">
             {/* Segment 1: Asana */}
-            {plan?.asana && (
+            {resolvedAsana && (
               <View 
                 className="bg-surface rounded-xl border border-surface-border p-4 flex-row items-center gap-4"
-                accessibilityLabel={`Asana practice: ${plan.asana.title}, duration ${asanaDuration} minutes`}
+                accessibilityLabel={`Asana practice: ${resolvedAsana.title}, duration ${asanaDuration} minutes`}
               >
                 <View className="w-12 h-12 rounded-full bg-warm-highlight/50 flex items-center justify-center">
                   <Move size={22} color={colors.accent} />
                 </View>
                 <View className="flex-1">
                   <Text className="font-sans font-bold text-sm text-primary-text">Asana</Text>
-                  <Caption className="text-secondary-text">{plan.asana.title}</Caption>
+                  <Caption className="text-secondary-text">{resolvedAsana.title}</Caption>
                 </View>
                 <Caption className="text-secondary-text font-bold">{asanaDuration} min</Caption>
               </View>
             )}
 
             {/* Segment 2: Pranayama */}
-            {plan?.pranayama && (
+            {resolvedPranayama && (
               <View 
                 className="bg-surface rounded-xl border border-surface-border p-4 flex-row items-center gap-4"
-                accessibilityLabel={`Pranayama breathing practice: ${plan.pranayama.title}, duration ${pranayamaDuration} minutes`}
+                accessibilityLabel={`Pranayama breathing practice: ${resolvedPranayama.title}, duration ${pranayamaDuration} minutes`}
               >
                 <View className="w-12 h-12 rounded-full bg-warm-highlight/50 flex items-center justify-center">
                   <Wind size={22} color={colors.accent} />
                 </View>
                 <View className="flex-1">
                   <Text className="font-sans font-bold text-sm text-primary-text">Pranayama</Text>
-                  <Caption className="text-secondary-text">{plan.pranayama.title}</Caption>
+                  <Caption className="text-secondary-text">{resolvedPranayama.title}</Caption>
                 </View>
                 <Caption className="text-secondary-text font-bold">{pranayamaDuration} min</Caption>
               </View>
             )}
 
             {/* Segment 3: Dhyana */}
-            {plan?.dhyana && (
+            {resolvedDhyana && (
               <View 
                 className="bg-surface rounded-xl border border-surface-border p-4 flex-row items-center gap-4"
-                accessibilityLabel={`Dhyana meditation: ${plan.dhyana.title}, duration ${dhyanaDuration} minutes`}
+                accessibilityLabel={`Dhyana meditation: ${resolvedDhyana.title}, duration ${dhyanaDuration} minutes`}
               >
                 <View className="w-12 h-12 rounded-full bg-warm-highlight/50 flex items-center justify-center">
                   <Moon size={22} color={colors.accent} />
                 </View>
                 <View className="flex-1">
                   <Text className="font-sans font-bold text-sm text-primary-text">Dhyana</Text>
-                  <Caption className="text-secondary-text">{plan.dhyana.title}</Caption>
+                  <Caption className="text-secondary-text">{resolvedDhyana.title}</Caption>
                 </View>
                 <Caption className="text-secondary-text font-bold">{dhyanaDuration} min</Caption>
               </View>

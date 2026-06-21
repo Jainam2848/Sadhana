@@ -25,14 +25,14 @@ export default function LibraryScreen() {
 
   // Fetch routines using React Query
   const { data: routines, isLoading, isError, refetch } = useRoutines(activeCategory?.toLowerCase() || undefined);
-
   const handleRoutineSelect = (routineId: string) => {
+    const routineObj = routines?.find(r => r.id === routineId);
+    console.log(`[LibraryScreen] Navigating to /course-detail. Params: routineId=${routineId}, title="${routineObj?.title || 'unknown'}"`);
     router.push({
       pathname: '/course-detail',
       params: { routineId },
     });
   };
-
   // Local client side filtering for search
   const filteredRoutines = routines?.filter((routine) =>
     routine.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

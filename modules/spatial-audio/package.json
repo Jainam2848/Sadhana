@@ -1,0 +1,10 @@
+{
+  "name": "spatial-audio",
+  "version": "1.0.0",
+  "description": "Local Expo module for iOS/Android Spatial Audio bridging",
+  "main": "index.ts",
+  "types": "index.ts",
+  "peerDependencies": {
+    "expo": "*"
+  }
+}

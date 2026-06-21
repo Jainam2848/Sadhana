@@ -21,11 +21,17 @@ Traditional onboarding flows fail because they treat first-use as a technical se
 
 ---
 
-## 2. Screen-by-Screen Breakdown (Onboarding Sequence)To maximize retention and trial starts, the sequence is structured as a progressive **seven-screen journey** before the first full session.
+## 2. Screen-by-Screen Breakdown (Onboarding Sequence)
+
+To maximize retention and trial starts, the sequence is structured as a progressive journey before the first full session. The GDPR consent check is handled at initial app boot to avoid mid-funnel friction.
 
 ```
-[Screen 1: Welcome] ──> [Screen 2: Personalization & Habit Anchoring] ──> [Screen 3: Breathing Space Demo] ──> [Screen 4: GDPR Consent] ──> [Screen 5: Permission Priming & Intentions] ──> [Screen 6: Onboarding Paywall] ──> [Screen 7: Auth (Gated/Deferred)] ──> [Value Moment]
+[GDPR Consent Check (App Boot)] ──> [Screen 1: Welcome] ──> [Screen 2: Personalization & Habit Anchoring] ──> [Screen 3: Breathing Space Demo] ──> [Screen 4: Permission Priming & Intentions] ──> [Screen 5: Onboarding Paywall] ──> [Screen 6: Auth (Gated/Deferred)] ──> [Value Moment]
 ```
+
+### Initial Boot: GDPR Consent
+*   **Concept:** Explicit analytical opt-in for EU regulatory compliance, presented as a trust-building system prompt on very first app opening.
+*   **Components:** Descriptive consent terms, permanent Essential toggle, and interactive Performance Analytics toggle (defaulted to off). This prevents a compliance context switch during active onboarding.
 
 ### Screen 1: Welcome & Brand Sanctity
 *   **Aesthetic:** Immersive *Earth Premium* background (cream `#FDFAF5` base, terracotta `#C44B22` logo), high-contrast readable text (Cormorant Garamond font for heading, DM Sans for body). No generic illustrations; clean, premium typography and testimonials.
@@ -40,7 +46,8 @@ Traditional onboarding flows fail because they treat first-use as a technical se
 *   **Questions Asked:**
     1.  *What is your primary wellness goal today?* (Options: Relieve Stress & Anxiety, Improve Joint Mobility, Master Breathwork/Pranayama, Connect with Yoga Philosophy).
     2.  *What is your experience level?* (Options: Beginner - "Learn the basics", Intermediate - "Grow my practice", Advanced - "Deepen my connection").
-    3.  *Habit Anchor Choice:* **"When will you practice daily?"** (Options: "After waking up", "After brushing my teeth", "After my morning coffee/tea", "Before going to sleep").
+    3.  *Habit Anchor Choice (Optional):* **"When will you practice daily?"** (Options: "After waking up", "After brushing my teeth", "After my morning coffee/tea", "Before going to sleep").
+*   **Behavioral Note:** The habit anchor choice is optional and defaults to "After waking up" if skipped, allowing the primary Goal + Experience selections alone to unlock the "Continue" CTA to reduce quiz drop-offs.
 *   **Copy Tone:** Respectful and encouraging. Avoid clinical or overly athletic terms.
 
 ### Screen 3: The "Aha Moment" (Breathing Space Demo)
@@ -49,31 +56,27 @@ Traditional onboarding flows fail because they treat first-use as a technical se
 *   **Mechanics:** concentric SVG circle guide expands and contracts (inhale/exhale), synchronized with a soft ambient background audio wave. Sanskrit subtitles (*Pranayama*) slide up, showing a tooltip detailing neuroscientific benefits (vagus nerve stimulation) on tap.
 *   **Benefit:** Delivers a somatic "micro-win" (calming the nervous system) in seconds, showing the tactile and premium quality of the app.
 
-### Screen 4: GDPR Consent Screen
-*   **Concept:** Explicit analytical opt-in for EU regulatory compliance, presented as a trust-building feature rather than a legal barrier.
-*   **Components:** Descriptive consent terms, permanent Essential toggle, and interactive Performance Analytics toggle (defaulted to off).
-
-### Screen 5: Permission Priming & Intentions
-*   **Timing:** Triggered immediately after GDPR check.
+### Screen 4: Permission Priming & Intentions
+*   **Timing:** Triggered immediately after Screen 3.
 *   **Psychological Framing (Implementation Intentions):**
     *   *Copy:* *"Consistency builds the habit. We will send a quiet reminder at your chosen time to anchor your Sadhana [Chosen Routine Anchor, e.g. after brushing your teeth]."*
 *   **Primary CTA:** **"Enable Reminders"** (Triggers native iOS/Android notification alert permissions).
 *   **Secondary CTA:** *"Skip for now" (allows proceeding without notifications).*
 
-### Screen 6: Soft-Gated Onboarding Paywall
+### Screen 5: Soft-Gated Onboarding Paywall
 *   **Timing:** Triggered immediately after notification setup. A clean, custom loading animation is shown for 1.5 seconds: *"Assembling your customized Sadhana sequence..."* to leverage the labor-investment (IKEA) effect.
 *   **Aesthetic:** Elegant layout with Cormorant Garamond headings and comparison matrices.
-*   **Subscription Offerings:** Clear monthly ($14.99) and annual ($89.99) options. A prominent **"Start 7-Day Free Trial"** primary button.
+*   **Subscription Offerings:** Clear monthly ($5.99) and annual ($49.00) options. A prominent **"Start 7-Day Free Trial"** primary button.
 *   **Autonomy Preservation:** A clear **"Skip / Try Free Version"** text link fades in after a 1.8-second delay.
 *   **Branching Logic:**
-    *   *If User Subscribes:* Routes to Screen 7 (Registration) to capture credentials and bind their purchase transaction.
-    *   *If User Skips:* Bypasses account registration entirely, immediately initializing a Free Guest Session and routing to the Home Dashboard (reducing registration friction for non-converters).
+    *   *If User Subscribes:* Routes to Screen 6 (Registration) to secure the purchase.
+    *   *If User Skips:* Launches a soft-gated guest email capture modal (Screen 6 Alternate), then routes to the Home Dashboard with a Free Guest Session.
 
-### Screen 7: Authentication & Registration (Gated / Post-Paywall)
-*   **Timing:** Gated only for users starting a trial/purchase to secure their subscription. Optional for guest users (accessible later via settings).
+### Screen 6: Authentication & Registration (Gated / Post-Paywall)
+*   **Timing:** Required for users starting a trial/purchase. For guest users who skip, it opens a soft-gated "Save Your Streak" email-only capture prompt before loading the Home Dashboard.
 *   **Aesthetic:** Clean input fields with floating labels, autofill configuration, and inline verification errors.
-*   **Copy:** *"Create your sanctuary account to secure your premium trial benefits."*
-*   **CTAs:** "Create Account" (Email/Apple/Google) and "Skip Registration" (returns to guest mode).
+*   **Copy:** *"Create your sanctuary account to secure your premium trial benefits."* (Or for guests: *"Enter your email to preserve your streak history and personalized plan."*)
+*   **CTAs:** "Create Account" (Email/Apple/Google) and "Skip Registration" (returns/proceeds to guest mode).
 
 ---
 

@@ -35,34 +35,34 @@ These features represent the finalized scope for the Sadhana MVP, detailing whic
 This numbered inventory lists all 21 screens in the Sadhana application, mapping their purpose and interactive elements:
 
 ### Navigation Stack A: Onboarding Stack
-1.  **Welcome Screen**
-    *   *Purpose:* Introduce brand tagline and visual tone.
+1.  **GDPR Consent Screen (App Boot)**
+    *   *Purpose:* Manage tracking opt-in for EU regulatory compliance before entering onboarding.
     *   *Parent:* Root App Controller (modal).
+    *   *Components:* Legal disclosure body, "Agree to All" primary button, "Manage Options" toggle links.
+2.  **Welcome Screen**
+    *   *Purpose:* Introduce brand tagline and visual tone.
+    *   *Parent:* GDPR Consent Screen.
     *   *Components:* Horizontal swiping card carousel, Terracotta logo icon, "Begin Journey" button, "Log In" link, dynamic testimonial slider.
-2.  **Personalization Screen (Questionnaire & Anchoring)**
-    *   *Purpose:* Collect user focus, experience, and habit anchors.
+3.  **Personalization Screen (Questionnaire & Anchoring)**
+    *   *Purpose:* Collect user focus, experience, and optional habit anchors.
     *   *Parent:* Welcome Screen.
-    *   *Components:* Top progress bar, multi-select goal blocks, skill level selector buttons, habit stacking trigger options, "Continue" CTA.
-3.  **Onboarding Demo / Breathing Space Screen**
+    *   *Components:* Top progress bar, multi-select goal blocks, skill level selector buttons, optional habit stacking trigger options (defaults to "After waking up" if skipped), "Continue" CTA (unlocked by goal + level selections alone).
+4.  **Onboarding Demo / Breathing Space Screen**
     *   *Purpose:* Present immediate value with a short 30-second interactive guided breathing preview.
     *   *Parent:* Personalization Screen.
     *   *Components:* Concentric circles, respiratory animation timer, Sanskrit terms overlay link, neuroscientific benefit sheets.
-4.  **GDPR Consent Screen**
-    *   *Purpose:* Manage tracking opt-in for EU regulatory compliance.
-    *   *Parent:* Onboarding Demo Screen.
-    *   *Components:* Legal disclosure body, "Agree to All" primary button, "Manage Options" toggle links.
 5.  **Permission Priming Screen**
     *   *Purpose:* Contextualize reminders based on chosen habit anchor to boost streak opt-ins.
-    *   *Parent:* GDPR Consent Screen.
-    *   *Components:* Animated calendar flame-streak graphic, custom reminder priming copy (referencing chosen anchor), "Allow Reminders" button, "Skip" text link.
+    *   *Parent:* Onboarding Demo Screen.
+    *   *Components:* Animated calendar flame-streak graphic, custom reminder priming copy (referencing chosen anchor or default), "Allow Reminders" button, "Skip" text link.
 6.  **Onboarding Paywall Screen**
     *   *Purpose:* Gate premium packages and manage subscription transactions during onboarding.
     *   *Parent:* Permission Priming Screen.
-    *   *Components:* Subscription plan grid (Monthly vs Annual), features comparison matrix, "Start 7-Day Free Trial" button, delayed "Skip / Try Free" link.
-7.  **Auth / Register Screen**
-    *   *Purpose:* Create or access user account (only prompted on purchase, or optional deferred login/guest route).
+    *   *Components:* Subscription plan grid (Monthly $5.99 vs Annual $49.00), outcome-based feature comparison matrix, "Start 7-Day Free Trial" button, delayed "Skip / Try Free" link.
+7.  **Auth / Register Screen & Guest Email Capture**
+    *   *Purpose:* Create/access user account or capture guest email before routing to Dashboard.
     *   *Parent:* Onboarding Paywall Screen.
-    *   *Components:* Email text input, secure password field, "Sign Up" button, Apple/Google social CTAs, "Skip Registration" guest link.
+    *   *Components:* Email text input, secure password field, "Sign Up" button, Apple/Google social CTAs, guest email capture modal (for paywall skippers to save their streak), "Skip Registration" guest link.
 
 ### Navigation Stack B: Home Tab Stack
 8.  **Sadhana Dashboard (Home Screen)**
@@ -282,14 +282,15 @@ Bottom section — CTA:
 
 ---
 
-## PROMPT 3.3 — GDPR Consent & Permission Priming (Screens 4 & 5)
+## PROMPT 3.3 — GDPR Consent & Permission Priming (App Boot & Screen 4)
 
 ```text
 Sadhana app. Load the Design System Primer above before writing any code.
 
-SCREEN 4 — GDPR CONSENT
+GDPR CONSENT (App Boot)
 
 Treat this as a trust moment, not a legal wall. Tone must feel like the app explaining itself, not lawyers speaking.
+Triggered on initial app boot before entering onboarding.
 
 Layout: Modal bottom sheet that covers 75% of screen height. The bottom 25% shows the blurred screen behind.
 Sheet: background #FDFAF5, border-radius 20px top corners only, 24px horizontal padding
@@ -309,7 +310,7 @@ Sheet entrance: slide up from translateY(100%) to 0, 280ms cubic-bezier(0.16, 1,
 
 ---
 
-SCREEN 5 — PERMISSION PRIMING
+SCREEN 4 — PERMISSION PRIMING
 
 Reframes reminders based on the daily habit anchor selected in Screen 2.
 
@@ -320,6 +321,7 @@ Center graphic area (SVG, 200×160px):
 - Squares representing "past 18 days of practice": fill #F5E6C8, border 1px #C44B22
 - Squares representing "today and future": fill #FFFFFF, border 1px rgba(42,29,10,0.12)
 - On top of "today" square: a small flame icon SVG (terracotta, 16px), with a gentle scale(1.04) breathing pulse on infinite loop, 2000ms ease-in-out, guarded by prefers-reduced-motion
+- Parent: Onboarding Demo Screen (Screen 3)
 
 Heading: Cormorant Garamond 24px / 600 / #1C1409: "Build Your Daily Ritual"
 Body: DM Sans 15px / #6B5A41: "We'll send a single quiet reminder [e.g. after your morning coffee] to help you anchor your Sadhana. No spam, ever."
@@ -353,15 +355,15 @@ Plan cards (stacked vertically, 12px gap):
 
 Card A — Monthly:
 - #FFFFFF background, border 1px rgba(42,29,10,0.12), border-radius 12px, padding 20px
-- DM Sans 15px/500/#1C1409 "Monthly" + right-aligned DM Sans 15px/500/#1C1409 "$14.99/month"
+- DM Sans 15px/500/#1C1409 "Monthly" + right-aligned DM Sans 15px/500/#1C1409 "$5.99/month"
 - DM Sans 13px/#6B5A41 "Billed monthly · Cancel anytime"
 - Selection indicator: empty circle right side, 20px, border 1px rgba(42,29,10,0.3)
 
 Card B — Annual (default selected state):
 - Same card structure
 - Border: 2px solid #C44B22 (the one place 2px is used)
-- Small badge top-right corner of card: DM Sans 11px/500/#C44B22 on #F5E6C8 background, border-radius 8px, "Best value · 50% off"
-- DM Sans 15px/500/#1C1409 "Annual" + right: DM Sans 15px/500/#1C1409 "$89.99/year" with DM Sans 11px/#6B5A41 strikethrough "$179.88"
+- Small badge top-right corner of card: DM Sans 11px/500/#C44B22 on #F5E6C8 background, border-radius 8px, "Best value · Save 30%"
+- DM Sans 15px/500/#1C1409 "Annual" + right: DM Sans 15px/500/#1C1409 "$49.00/year" with DM Sans 11px/#6B5A41 strikethrough "$71.88"
 - Selection indicator: filled circle #C44B22 with white center dot
 
 Card border animation on Card B ONLY: the 2px border has a very slow hue rotation — #C44B22 → a slightly warmer orange (#D4621F) → back, 4s linear infinite. Use a CSS animation on border-color with 2 stops. This is the ONLY ambient animation on this screen.
@@ -370,7 +372,7 @@ Tapping Card A: Card B deselects (border returns to 1px), Card A gets 2px #C44B2
 
 Feature comparison (below cards):
 5 rows. Each: a left SVG checkmark (12px) in #1A6B3A / DM Sans 13px/#1C1C09 feature name / right: either checkmark (both plans) or "Creator+" label in DM Sans 11px/#C44B22 on #F5E6C8 bg
-Features: Personalized daily routine / Offline downloads / Karma Coins / Advanced library / Ad-free experience
+Features: Routines tailored for your joint mobility & goals / Offline practices / Karma Coins / Philosophical & physical mastery library / Uninterrupted quiet practice sanctuary
 
 Primary CTA: "Start 7-day free trial" — #C44B22, 48px, full-width, border-radius 28px, DM Sans 15px/500/#FFFFFF
 Breathing glow on CTA: filter drop-shadow(0 0 6px rgba(196,75,34,0.3))→drop-shadow(0 0 2px rgba(196,75,34,0.1)), 2500ms ease-in-out infinite, guarded by prefers-reduced-motion.
@@ -379,7 +381,7 @@ Below CTA: DM Sans 11px/#6B5A41/centered "No payment until trial ends. Cancel an
 
 BRANCHING NAVIGATION:
 - Tapping "Start 7-day free trial" pushes to Screen 7 (Registration) to capture credentials.
-- Tapping "Skip · Try Free" sets premium state = false, initializes a Free Guest Session, and redirects straight to Screen 8 (Home Dashboard).
+- Tapping "Skip · Try Free" triggers the soft-gated guest email capture modal ("Save Your Streak: Enter your email to secure your custom plan progress"). Entering email or tapping skip inside the modal sets premium state = false, initializes a Free Guest Session, and redirects straight to Screen 8 (Home Dashboard).
 ```
 
 ---

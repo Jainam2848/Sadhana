@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text } from '@/tw';
+import { View, Text, ScrollView } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
 import { Heading, Body, Caption } from '@/components/ui/Typography';
-import { Switch, StyleSheet } from 'react-native';
+import { Switch, StyleSheet, useWindowDimensions } from 'react-native';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function GDPRScreen() {
   const { colors } = useTheme();
   const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
+  const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+  const isSmallDevice = height < 750;
 
   const handleAgreeAll = () => {
     // Save consent (both essential and performance analytics)
@@ -37,8 +41,14 @@ export default function GDPRScreen() {
 
       {/* Bottom Sheet Container */}
       <View
-        className="bg-background-bone rounded-t-[28px] px-6 pt-4 pb-12 border-t border-surface-border w-full max-w-md mx-auto z-10"
-        style={styles.bottomSheet}
+        className="bg-background-bone rounded-t-[28px] px-6 pt-4 border-t border-surface-border w-full max-w-md mx-auto z-10"
+        style={[
+          styles.bottomSheet,
+          {
+            paddingBottom: Math.max(insets.bottom, 24),
+            maxHeight: height * 0.9,
+          }
+        ]}
       >
         {/* Drag Handle */}
         <View className="w-12 h-1 bg-surface-border/40 rounded-full mx-auto mb-6" />
@@ -46,57 +56,64 @@ export default function GDPRScreen() {
         {/* Title */}
         <Heading className="text-on-background mb-4">How we handle your data</Heading>
 
-        {/* Content paragraphs */}
-        <View className="mb-8 gap-4">
-          <Body className="text-secondary-text text-sm leading-relaxed">
-            We use session data to understand your practice patterns and build a personalized routine that adapts to your evolving needs.
-          </Body>
-          <Body className="text-secondary-text text-sm leading-relaxed">
-            We never sell your data to third parties. Your personal reflections, progress, and rituals are kept secure and entirely private.
-          </Body>
-        </View>
-
-        <View className="h-[1px] bg-surface-border/20 w-full mb-6" />
-
-        {/* Consent Toggles */}
-        <View className="gap-6 mb-8">
-          {/* Essential toggle */}
-          <View className="flex-row justify-between items-center">
-            <View className="flex-1 pr-4">
-              <Text className="font-sans font-bold text-sm text-primary-text">
-                Essential (required)
-              </Text>
-              <Caption className="text-xs text-secondary-text mt-0.5">
-                Core app functionality
-              </Caption>
-            </View>
-            <Switch
-              value={true}
-              disabled={true}
-              trackColor={{ false: borderColorString, true: growthColorString }}
-              accessibilityLabel="Essential cookies (Required)"
-            />
+        {/* Scrollable Consent Form Content */}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="flex-shrink mb-4"
+          contentContainerStyle={{ paddingBottom: 8 }}
+        >
+          {/* Content paragraphs */}
+          <View className={`mb-6 ${isSmallDevice ? 'gap-2' : 'gap-4'}`}>
+            <Body className="text-secondary-text text-sm leading-relaxed">
+              We use session data to understand your practice patterns and build a personalized routine that adapts to your evolving needs.
+            </Body>
+            <Body className="text-secondary-text text-sm leading-relaxed">
+              We never sell your data to third parties. Your personal reflections, progress, and rituals are kept secure and entirely private.
+            </Body>
           </View>
 
-          {/* Performance Analytics Toggle */}
-          <View className="flex-row justify-between items-center">
-            <View className="flex-1 pr-4">
-              <Text className="font-sans font-bold text-sm text-primary-text">
-                Performance analytics
-              </Text>
-              <Caption className="text-xs text-secondary-text mt-0.5">
-                Help us improve Sadhana
-              </Caption>
+          <View className="h-[1px] bg-surface-border/20 w-full mb-6" />
+
+          {/* Consent Toggles */}
+          <View className={`mb-2 ${isSmallDevice ? 'gap-4' : 'gap-6'}`}>
+            {/* Essential toggle */}
+            <View className="flex-row justify-between items-center">
+              <View className="flex-1 pr-4">
+                <Text className="font-sans font-bold text-sm text-primary-text">
+                  Essential (required)
+                </Text>
+                <Caption className="text-xs text-secondary-text mt-0.5">
+                  Core app functionality
+                </Caption>
+              </View>
+              <Switch
+                value={true}
+                disabled={true}
+                trackColor={{ false: borderColorString, true: growthColorString }}
+                accessibilityLabel="Essential cookies (Required)"
+              />
             </View>
-            <Switch
-              value={analyticsEnabled}
-              onValueChange={setAnalyticsEnabled}
-              trackColor={{ false: borderColorString, true: growthColorString }}
-              thumbColor="#FFFFFF"
-              accessibilityLabel="Performance Analytics Consent Toggle"
-            />
+
+            {/* Performance Analytics Toggle */}
+            <View className="flex-row justify-between items-center">
+              <View className="flex-1 pr-4">
+                <Text className="font-sans font-bold text-sm text-primary-text">
+                  Performance analytics
+                </Text>
+                <Caption className="text-xs text-secondary-text mt-0.5">
+                  Help us improve Sadhana
+                </Caption>
+              </View>
+              <Switch
+                value={analyticsEnabled}
+                onValueChange={setAnalyticsEnabled}
+                trackColor={{ false: borderColorString, true: growthColorString }}
+                thumbColor="#FFFFFF"
+                accessibilityLabel="Performance Analytics Consent Toggle"
+              />
+            </View>
           </View>
-        </View>
+        </ScrollView>
 
         {/* Actions Button Bar */}
         <View className="gap-3 mt-auto">

@@ -6,10 +6,15 @@ import { useTheme } from '@/hooks/useTheme';
 import { Heading, Body } from '@/components/ui/Typography';
 import { MandalaThread } from '@/components/ui/MandalaThread';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useWindowDimensions } from 'react-native';
 
 export default function PrimingScreen() {
   const { colors } = useTheme();
   const onboardingAnswers = useAuthStore((state) => state.onboardingAnswers);
+  const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+  const isSmallDevice = height < 750;
 
   const getHabitAnchorText = () => {
     const schedule = onboardingAnswers.schedule || 'morning';
@@ -35,13 +40,15 @@ export default function PrimingScreen() {
   const renderCalendarGrid = () => {
     const grid = [];
     const todayIndex = 18; // Day 19 (0-indexed) represents today
+    const boxSizeClass = isSmallDevice ? 'w-3.5 h-3.5 m-0.5' : 'w-4 h-4 m-0.5';
+    
     for (let i = 0; i < 35; i++) {
       if (i < todayIndex) {
         // Past completed days
         grid.push(
           <View
             key={i}
-            className="w-4 h-4 m-0.5 bg-warm-highlight border border-accent-terracotta/40 rounded-sm"
+            className={`${boxSizeClass} bg-warm-highlight border border-accent-terracotta/40 rounded-sm`}
           />
         );
       } else if (i === todayIndex) {
@@ -49,9 +56,9 @@ export default function PrimingScreen() {
         grid.push(
           <View
             key={i}
-            className="w-4 h-4 m-0.5 bg-surface border border-accent-terracotta rounded-sm items-center justify-center"
+            className={`${boxSizeClass} bg-surface border border-accent-terracotta rounded-sm items-center justify-center`}
           >
-            <Text className="text-[10px] leading-none">🔥</Text>
+            <Text className={`leading-none ${isSmallDevice ? 'text-[8px]' : 'text-[10px]'}`}>🔥</Text>
           </View>
         );
       } else {
@@ -59,7 +66,7 @@ export default function PrimingScreen() {
         grid.push(
           <View
             key={i}
-            className="w-4 h-4 m-0.5 bg-surface border border-surface-border rounded-sm"
+            className={`${boxSizeClass} bg-surface border border-surface-border rounded-sm`}
           />
         );
       }
@@ -68,16 +75,24 @@ export default function PrimingScreen() {
   };
 
   return (
-    <View className="flex-1 bg-background relative px-6 py-12 justify-center items-center">
+    <View
+      style={{
+        paddingTop: Math.max(insets.top, 24),
+        paddingBottom: Math.max(insets.bottom, 24),
+      }}
+      className="flex-1 bg-background relative px-6 justify-center items-center"
+    >
       <MandalaThread />
 
       {/* Main Content Canvas */}
-      <View className="w-full max-w-md items-center text-center gap-12 z-10">
+      <View className={`w-full max-w-md items-center text-center z-10 ${isSmallDevice ? 'gap-6' : 'gap-12'}`}>
         
         {/* Center Grid Graphic */}
         <View className="items-center">
           <View
-            className="w-44 flex-row flex-wrap justify-center p-2 border border-surface-border/40 rounded-xl bg-surface/50"
+            className={`flex-row flex-wrap justify-center border border-surface-border/40 rounded-xl bg-surface/50 ${
+              isSmallDevice ? 'w-36 p-1.5' : 'w-44 p-2'
+            }`}
             accessibilityLabel="Mock practice log showing streak building"
           >
             {renderCalendarGrid()}
@@ -95,7 +110,7 @@ export default function PrimingScreen() {
         </View>
 
         {/* Action Panel */}
-        <View className="w-full gap-6 pt-4 items-center">
+        <View className="w-full gap-6 pt-2 items-center">
           <PressableAnimated
             className="w-full max-w-[280px] h-12 bg-accent-terracotta rounded-full items-center justify-center active:opacity-90"
             onPress={handleEnableReminders}

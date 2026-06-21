@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Sadhana implements a freemium subscription model (Monthly at $14.99/mo; Annual at $89.99/yr with a 7-day trial) and an ad-supported points reward system.
+Sadhana implements a freemium subscription model (Monthly at $5.99/mo; Annual at $49.00/yr with a 7-day trial) and an ad-supported points reward system.
 
 Apple App Store Guideline 3.1.1 and Google Play Store Billing policies mandate that all digital content consumed within mobile apps (including premium yoga classes, meditations, and custom routine plans) must be purchased via native In-App Purchases (IAP). 
 

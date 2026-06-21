@@ -29,11 +29,14 @@ Every component in Sadhana inherits these visual identity tokens:
 | **Surface** | `#FFFFFF` | Cards, bottom sheets, and modal bases |
 | **Surface Border** | `1px solid rgba(42,29,10,0.08)` | Subtle card dividers and containment borders |
 | **Primary Text** | `#1C1409` | Near-black warm: headings, body copy, and navigation titles |
-| **Secondary Text** | `#6B5A41` | Warm umber: captions, subheadings, labels, and disabled icons |
+| **Secondary Text** | `#6B5A41` | Warm umber: captions, subheadings, labels |
 | **Accent — Terracotta** | `#C44B22` | Darker terracotta: Core CTA buttons, active states, progress indicators |
 | **Growth — Ashoka Green**| `#1A6B3A` | Dark forest green: Success tags, streak calendar nodes, unlocks |
 | **Warm Highlight** | `#F5E6C8` | Sandstone: Active selections, highlighted tags, focus backgrounds |
 | **Danger / Destructive** | `#991F1F` | Deep red: Account deletion warning borders, destructive CTAs |
+| **Disabled Text** | `rgba(28,20,9,0.32)` | Outlined or secondary text on inactive buttons/inputs |
+| **Disabled Surface** | `rgba(42,29,10,0.04)` | Surface background color for inactive buttons/fields |
+| **Validation Error** | `#C0392B` | Medium crimson red: Input field validation error borders and labels |
 
 ---
 
@@ -58,7 +61,7 @@ Every component in Sadhana inherits these visual identity tokens:
 
 ---
 
-## 4. Spacing & Layout Grammar
+## 4. Spacing, Layout & Shadows
 
 Sadhana uses a **4px-base spacing grid** and safe-area-aware layouts:
 
@@ -70,20 +73,40 @@ Sadhana uses a **4px-base spacing grid** and safe-area-aware layouts:
     *   `20px`: Modal bottom sheets and slide-up dialogs.
     *   `28px`: Primary CTA buttons.
 *   **Tab Bar:** Sticky bottom navigation, `56px` height, 5 tabs.
+*   **Elevation & Depth Shadows**:
+    *   `Flat/Flat-Card`: `1px solid rgba(42,29,10,0.08)` border (no shadow).
+    *   `Elevation Low (Dashboard Card)`: `box-shadow: 0 4px 12px rgba(42,29,10,0.04)`.
+    *   `Elevation High (Modal/Bottom Sheet)`: `box-shadow: 0 -8px 24px rgba(28,20,9,0.08)`.
 
 ---
 
-## 5. Motion Hierarchy (Three Tiers Only)
+## 5. Compositional Standards
 
-To prevent visual clutter, motion is strictly structured into three categories:
+### 5.1 Empty States
+Any screen containing zero-states (e.g. no completed sessions in history, empty course lists) must render:
+*   Min padding: `48px` vertical.
+*   An SVG line icon centered, sized `48px`, stroke `#6B5A41` at `1.2px` width.
+*   Label: `DM Sans 15px / 500 / #1C1409`, center-aligned.
+*   Description: `DM Sans 13px / 400 / #6B5A41`, center-aligned.
+
+### 5.2 Icon System
+*   **Sizing Bounds**: `20px` for inline/header elements, `24px` for navigation tabs, `32px` for highlighted features.
+*   **Stroke Parameters**: Hard limit of `1.5px` stroke weight for active states, `1.2px` for normal states. No solid fill unless checking/selecting.
+
+---
+
+## 6. Motion Hierarchy (Four Tiers)
+
+To prevent visual clutter, motion is strictly structured into four categories:
 
 1.  **Tier 1 — Screen Transitions (280ms ease-out):** Screen pushes, modal entries (slide-up translation from `translateY(100%)` to `0`).
 2.  **Tier 2 — Component Feedback (150ms ease-out):** Button presses (scale `0.97`), card taps, category chip selections, toggle slides.
 3.  **Tier 3 — Ambient / Atmospheric (2000ms–4000ms ease-in-out infinite):** Used selectively for the streak flame glow and breathing visualizers. *Must be disabled under `prefers-reduced-motion: reduce` settings.*
+4.  **Tier 4 — Ultra-Slow Ornamental Loops (16000ms+ linear infinite):** Used for slow ambient background rotations (like the single player's rotating mandala artwork). *Must be disabled under `prefers-reduced-motion` settings.*
 
 ---
 
-## 6. Signature Visual Element: The Mandala Thread
+## 7. Signature Visual Element: The Mandala Thread
 
 Every screen must include exactly one instance of the **Mandala thread**:
 *   An extremely thin SVG circular arc (`stroke-width: 0.5px`, `opacity: 0.08`, color: `#C44B22`).

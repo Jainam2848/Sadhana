@@ -65,16 +65,16 @@ To hit our **3-week MVP deadline**, features are strictly triaged:
     *   Stat tracking (total minutes practiced, sessions completed).
 5.  **Monetization — Full-Screen Interstitial Ads:**
     *   *Target:* Free tier users.
-    *   *Trigger:* Triggered immediately upon completion of any session (yoga, meditation, breathwork) or during tab transitions (capped at 1 ad per 15 minutes).
+    *   *Trigger:* To protect the habit loop, the first session completed by a Free user each day is completely ad-free. Interstitial ads trigger only upon completion of subsequent sessions (2nd+ session of the day) or during tab transitions (capped at 1 ad per 15 minutes).
     *   *Logic:* Ad must be full-screen, displaying a mandatory **10-second visual countdown timer**. The close/skip button is disabled and hidden until the timer reaches zero.
 6.  **Monetization — Subscriptions:**
-    *   Paywall screen showing monthly/annual subscription options.
+    *   Paywall screen showing monthly ($5.99) and annual ($49.00) subscription options.
     *   Gating of premium media content.
     *   "Restore Purchases" capability (mandatory for App Store approval).
     *   *Implementation Note (Staging & Local Dev):* To support developer workflows and testing without active developer subscriptions, the app will utilize a local mock billing wrapper (`src/services/billing.ts`) to simulate purchases. The live RevenueCat SDK and store products will be configured and integrated during the production build and app store submission phase.
 7.  **Sadhana Rewards System (Ad Incentives):**
     *   Point-based reward mechanics for both Free and Paid tiers.
-    *   Tracking monthly ad views with milestone notifications.
+    *   Tracking cumulative (lifetime) ad views with milestone notifications.
     *   Tier-specific reward structures (Free: premium unlocks/ad-free passes; Paid: redeemable Karma Coins).
 8.  **Personalized Sadhana Planner (Premium Only):**
     *   Onboarding questionnaire inputs (goals, physical tightness, level) dynamically generate a customized daily routine (Asana + Pranayama + Dhyana) tailored specifically to the user.
@@ -97,24 +97,27 @@ To hit our **3-week MVP deadline**, features are strictly triaged:
 ---
 
 ### 3.3 Sadhana Rewards System
-To incentivize and reward user engagement while maintaining a healthy ad-based monetization stream, Sadhana implements a monthly ad-viewing reward cycle available to both Free and Premium tiers, with tier-specific reward limitations.
+To incentivize and reward user engagement while maintaining a healthy ad-based monetization stream, Sadhana implements a cumulative ad-viewing reward cycle available to both Free and Premium tiers, with tier-specific reward limitations.
 
 #### Core Mechanics:
-1.  **Ad Tracking:** The app tracks the number of full-screen ads viewed by each user within a calendar month. The count resets to `0` at midnight (user's local time) on the first day of each month.
-2.  **Tracking Method:** Successful ad dismissals trigger a secure server-side increment of the user's monthly ad count in the database (verified via ad-network callbacks to prevent client-side spoofing).
+1.  **Ad Tracking:** The app tracks the lifetime number of ads viewed by each user. This count does not reset monthly, ensuring long-term progress.
+2.  **Tracking Method:** Successful ad dismissals trigger a secure server-side increment of the user's lifetime ad count in the database (verified via ad-network callbacks to prevent client-side spoofing).
 3.  **Reward Tiers & Limits:**
 
-| Monthly Milestone | Free Tier Rewards | Premium Tier Rewards |
+| Cumulative Milestone | Free Tier Rewards | Premium Tier Rewards |
 |-------------------|-------------------|----------------------|
-| **Tier 1 (10 Ads)** | Unlock **1 Premium Single Session** of choice (valid for the current month). | Earn **10 Karma Coins** in permanent wallet. |
-| **Tier 2 (30 Ads)** | Unlock **1 Premium Guided Course Bundle** (valid for the current month). | Earn **30 Karma Coins** in permanent wallet. |
-| **Tier 3 (50 Ads)** | Unlock a **24-Hour Ad-Free Pass** (can be activated on demand). | Earn **50 Karma Coins** in permanent wallet. |
+| **Tier 1 (50 Ads)** | Unlock **1 Premium Single Session** of choice permanently. | Earn **50 Karma Coins** in permanent wallet. |
+| **Tier 2 (150 Ads)** | Unlock **1 Premium Guided Course Bundle** permanently. | Earn **150 Karma Coins** in permanent wallet. |
+| **Tier 3 (300 Ads)** | Unlock a permanent **Ad-Free Day** or redeemable pass. | Earn **300 Karma Coins** in permanent wallet. |
 
-#### Karma Coins Redemption (Premium Only):
-Karma Coins are stored in the user's permanent wallet and do not expire. Premium users can redeem them for:
--   **Subscription Discounts:** 100 Karma Coins = $5 off subscription renewal.
--   **Wellness Gear Discounts:** Partner coupon codes for authentic yoga mats, blocks, or incense.
--   **Charity Donations:** Users can direct Sadhana to donate a set amount (e.g., 50 coins = $2) to Indian cultural heritage preservation or rural wellness non-profits.
+#### Karma Coins Earning & Redemption (Premium Only):
+*   **Earning Rates:**
+    *   1 optional rewarded ad watched = **10 Karma Coins**
+    *   1 streak milestone completed (7 days) = **25 Karma Coins**
+*   **Redemption Rules:**
+    *   **Subscription Discounts:** 100 Karma Coins = $5 off subscription renewal.
+    *   **Wellness Gear Discounts:** Partner coupon codes for authentic yoga mats, blocks, or incense.
+    *   **Charity Donations:** Users can direct Sadhana to donate a set amount (e.g., 50 coins = $2) to Indian cultural heritage preservation or rural wellness non-profits.
 
 ---
 

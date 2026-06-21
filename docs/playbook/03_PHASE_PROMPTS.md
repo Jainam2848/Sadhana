@@ -672,7 +672,7 @@ Do the following:
 
 3. Build the Paywall Screen:
    - Port [paywall.tsx](file:///d:/Desktop/Fitness/app/(auth)/paywall.tsx) to match the onboarding paywall design.
-   - Apply price-psychology-strategist principles (price anchoring: monthly $14.99 vs annual $89.99 selected by default).
+   - Apply price-psychology-strategist principles (price anchoring: monthly $5.99 vs annual $49.00 selected by default).
    - Use paywall-upgrade-cro patterns: list key premium features, show testimonials, and include a functioning "Restore Purchases" button that triggers the mock billing service restore logic.
    - Enforce the **Earth Ritual** tokens (Bone background, Terracotta primary buttons, Ashoka Green unlocks).
 
