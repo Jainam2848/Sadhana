@@ -27,25 +27,6 @@ const RadialGradientAny = RadialGradient as any;
 const StopAny = Stop as any;
 const RectAny = Rect as any;
 
-const testimonials = [
-  {
-    quote: "Sadhana helped me build a real morning breathing routine.",
-    author: "Sarah J."
-  },
-  {
-    quote: "A quiet space to start my day. No noise, just practice.",
-    author: "Rohan M."
-  },
-  {
-    quote: "The physical stretches and breath cues feel incredibly authentic.",
-    author: "Michael T."
-  },
-  {
-    quote: "Simple, grounding, and beautifully designed.",
-    author: "Elena K."
-  },
-];
-
 export default function WelcomeScreen() {
   const { colors, dark } = useTheme();
   const timeOfDay = useTimeOfDayTheme();
@@ -53,7 +34,6 @@ export default function WelcomeScreen() {
   const { height } = useWindowDimensions();
   const isSmallDevice = height < 750;
 
-  const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
   const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
 
   // Animation values
@@ -65,7 +45,6 @@ export default function WelcomeScreen() {
 
   const lotusScale = useSharedValue(1);
   const ctaPulse = useSharedValue(1);
-  const testimonialOpacity = useSharedValue(1);
 
   // Check and listen to OS reduced motion setting
   useEffect(() => {
@@ -128,26 +107,6 @@ export default function WelcomeScreen() {
     }
   }, [reduceMotionEnabled]);
 
-  // Testimonials auto-rotation cross-fade
-  useEffect(() => {
-    const rotateTestimonial = () => {
-      setActiveTestimonialIdx((prev) => (prev + 1) % testimonials.length);
-    };
-
-    const interval = setInterval(() => {
-      testimonialOpacity.value = withTiming(0, { duration: 400 }, (finished) => {
-        if (finished) {
-          runOnJS(rotateTestimonial)();
-          testimonialOpacity.value = withTiming(1, { duration: 450 });
-        }
-      });
-    }, 6000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
   // Animated styles
   const entranceStyle1 = useAnimatedStyle(() => ({
     opacity: entrance1.value,
@@ -205,10 +164,6 @@ export default function WelcomeScreen() {
 
   const ctaAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: ctaPulse.value }],
-  }));
-
-  const testimonialAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: testimonialOpacity.value,
   }));
 
   const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
@@ -320,7 +275,7 @@ export default function WelcomeScreen() {
         <View className="w-full">
           <Animated.View style={entranceStyle2}>
             <Display className={`text-center px-4 ${isSmallDevice ? 'mb-2' : 'mb-4'}`}>
-              Your Daily Sanctuary
+              Return to still.
             </Display>
           </Animated.View>
         </View>
@@ -329,23 +284,8 @@ export default function WelcomeScreen() {
         <View className="w-full items-center">
           <Animated.View style={entranceStyle3}>
             <Body className="text-secondary-text text-center px-6 leading-relaxed max-w-sm mb-4">
-              Step onto the mat for a personalized ritual of yoga, breathwork, and meditation.
+              Sadhana is a quiet space for authentic posture, breath control, and contemplation.
             </Body>
-          </Animated.View>
-        </View>
-
-        {/* Integrated Testimonial/Quote Editorial Block */}
-        <View className="h-28 justify-center items-center px-6 max-w-sm mt-4">
-          <Animated.View style={[entranceStyle4, testimonialAnimatedStyle, { alignItems: 'center', justifyContent: 'center' }]}>
-            <Text
-              style={{ fontFamily: 'CormorantGaramond-Regular', fontStyle: 'italic' }}
-              className="text-lg text-primary-text text-center leading-relaxed"
-            >
-              "{testimonials[activeTestimonialIdx].quote}"
-            </Text>
-            <Text className="font-sans text-xs uppercase tracking-wider text-secondary-text/60 mt-3 text-center">
-              {testimonials[activeTestimonialIdx].author}
-            </Text>
           </Animated.View>
         </View>
       </View>
@@ -355,13 +295,20 @@ export default function WelcomeScreen() {
         <Animated.View style={[entranceStyle5, { width: '100%', alignItems: 'center' }]}>
           <Animated.View style={[ctaAnimatedStyle, { width: '100%', maxWidth: 320, alignItems: 'center' }]}>
             <PressableAnimated
-              className="w-full bg-accent-terracotta py-4 rounded-xl items-center active:opacity-90 shadow-lg shadow-accent-terracotta/20 mb-4"
+              className="w-full bg-accent-terracotta py-4 rounded-xl items-center active:opacity-90 mb-4"
+              style={{
+                shadowColor: accentColorString,
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.2,
+                shadowRadius: 6,
+                elevation: 4,
+              }}
               onPress={() => router.push('/(auth)/personalize')}
               haptic="medium"
               accessibilityLabel="Begin your journey button"
             >
               <Text className="text-white font-sans font-bold text-base tracking-wide">
-                Begin Your Journey
+                Enter the Sanctuary
               </Text>
             </PressableAnimated>
           </Animated.View>

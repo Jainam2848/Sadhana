@@ -131,14 +131,14 @@ export default function PrivacyScreen() {
 
           {/* Delete Account */}
           <PressableAnimated
-            className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-destructive-red/10"
+            className="bg-surface border border-surface-border p-4 rounded-xl flex-row items-center justify-between active:bg-destructive/10"
             onPress={handleDeleteAccountNav}
             haptic="warning"
             accessibilityLabel="Delete my account"
           >
             <View className="flex-row items-center gap-3">
               <Trash2 size={18} color="#991F1F" />
-              <Text className="font-sans font-bold text-sm text-destructive-red">Delete My Account</Text>
+              <Text className="font-sans font-bold text-sm text-destructive">Delete My Account</Text>
             </View>
             <ChevronRight size={16} color="#991F1F" />
           </PressableAnimated>

@@ -8,6 +8,7 @@ import { MandalaThread } from '@/components/ui/MandalaThread';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useWindowDimensions } from 'react-native';
+import { Svg, Path } from 'react-native-svg';
 
 export default function PrimingScreen() {
   const { colors } = useTheme();
@@ -25,53 +26,15 @@ export default function PrimingScreen() {
         return 'before you go to sleep';
       case 'morning':
       default:
-        return 'after your morning coffee';
+        return 'after you wake up';
     }
   };
 
   const handleEnableReminders = async () => {
-    // Request mock notification permissions and then transition to paywall
+    // Request mock notification permissions and transition to registration vault
     setTimeout(() => {
-      router.push('/(auth)/paywall');
+      router.push('/(auth)/register');
     }, 500);
-  };
-
-  // Generate boxes for a 5x7 grid (35 days total)
-  const renderCalendarGrid = () => {
-    const grid = [];
-    const todayIndex = 18; // Day 19 (0-indexed) represents today
-    const boxSizeClass = isSmallDevice ? 'w-3.5 h-3.5 m-0.5' : 'w-4 h-4 m-0.5';
-    
-    for (let i = 0; i < 35; i++) {
-      if (i < todayIndex) {
-        // Past completed days
-        grid.push(
-          <View
-            key={i}
-            className={`${boxSizeClass} bg-warm-highlight border border-accent-terracotta/40 rounded-sm`}
-          />
-        );
-      } else if (i === todayIndex) {
-        // Today (with streak flame icon)
-        grid.push(
-          <View
-            key={i}
-            className={`${boxSizeClass} bg-surface border border-accent-terracotta rounded-sm items-center justify-center`}
-          >
-            <Text className={`leading-none ${isSmallDevice ? 'text-[8px]' : 'text-[10px]'}`}>🔥</Text>
-          </View>
-        );
-      } else {
-        // Future days
-        grid.push(
-          <View
-            key={i}
-            className={`${boxSizeClass} bg-surface border border-surface-border rounded-sm`}
-          />
-        );
-      }
-    }
-    return grid;
   };
 
   return (
@@ -85,46 +48,65 @@ export default function PrimingScreen() {
       <MandalaThread />
 
       {/* Main Content Canvas */}
-      <View className={`w-full max-w-md items-center text-center z-10 ${isSmallDevice ? 'gap-6' : 'gap-12'}`}>
+      <View className={`w-full max-w-md items-center text-center z-10 ${isSmallDevice ? 'gap-6' : 'gap-10'}`}>
         
-        {/* Center Grid Graphic */}
-        <View className="items-center">
-          <View
-            className={`flex-row flex-wrap justify-center border border-surface-border/40 rounded-xl bg-surface/50 ${
-              isSmallDevice ? 'w-36 p-1.5' : 'w-44 p-2'
-            }`}
-            accessibilityLabel="Mock practice log showing streak building"
-          >
-            {renderCalendarGrid()}
-          </View>
+        {/* Sunrise Line Art Illustration */}
+        <View className="items-center justify-center py-4">
+          <Svg width={120} height={120} viewBox="0 0 100 100" fill="none">
+            {/* Sun rise arc */}
+            <Path
+              d="M 20,70 A 30,30 0 0,1 80,70"
+              stroke="#C44B22"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            {/* Horizon line */}
+            <Path
+              d="M 10,70 L 90,70"
+              stroke="#A69580"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeDasharray="4 4"
+            />
+            {/* Rays */}
+            <Path d="M 50,25 L 50,15" stroke="#C44B22" strokeWidth="2" strokeLinecap="round" />
+            <Path d="M 30,35 L 23,28" stroke="#C44B22" strokeWidth="2" strokeLinecap="round" />
+            <Path d="M 70,35 L 77,28" stroke="#C44B22" strokeWidth="2" strokeLinecap="round" />
+            <Path d="M 18,55 L 8,53" stroke="#C44B22" strokeWidth="2" strokeLinecap="round" />
+            <Path d="M 82,55 L 92,53" stroke="#C44B22" strokeWidth="2" strokeLinecap="round" />
+          </Svg>
         </View>
 
         {/* Text Details */}
-        <View className="gap-4 px-4 items-center">
+        <View className="gap-3 px-4 items-center">
+          {/* Authentic title + translation/explanation for clarity */}
           <Heading className="text-on-surface text-center">
-            Build Your Daily Ritual
+            Dinacharya
           </Heading>
-          <Body className="text-secondary-text text-center leading-relaxed max-w-[320px]">
-            We'll send a single quiet reminder <Text className="font-bold text-accent-terracotta">{getHabitAnchorText()}</Text> to help you anchor your Sadhana. No spam, ever.
+          <Text className="text-secondary-text text-sm font-sans font-medium text-center uppercase tracking-widest">
+            Daily Rhythm & Ritual
+          </Text>
+          <Body className="text-secondary-text text-center leading-relaxed max-w-[320px] mt-2">
+            We will send a single quiet invitation {getHabitAnchorText()} to anchor your practice. No metrics pressure, just a gentle path.
           </Body>
         </View>
 
         {/* Action Panel */}
-        <View className="w-full gap-6 pt-2 items-center">
+        <View className="w-full gap-5 pt-2 items-center">
           <PressableAnimated
             className="w-full max-w-[280px] h-12 bg-accent-terracotta rounded-full items-center justify-center active:opacity-90"
             onPress={handleEnableReminders}
             haptic="medium"
-            accessibilityLabel="Enable reminders and proceed"
+            accessibilityLabel="Enable invitations and proceed"
           >
             <Text className="text-white font-sans font-bold text-sm">
-              Enable reminders
+              Receive Invitations
             </Text>
           </PressableAnimated>
 
           <PressableAnimated
             className="active:opacity-75"
-            onPress={() => router.push('/(auth)/paywall')}
+            onPress={() => router.push('/(auth)/register')}
             haptic="light"
             accessibilityLabel="Skip reminders setup for now"
           >

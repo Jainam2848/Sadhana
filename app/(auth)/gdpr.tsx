@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, ScrollView } from '@/tw';
+import { View, Text } from '@/tw';
 import { useTheme } from '@/hooks/useTheme';
-import { Heading, Body, Caption } from '@/components/ui/Typography';
-import { Switch, StyleSheet, useWindowDimensions } from 'react-native';
+import { Body, Caption, Display } from '@/components/ui/Typography';
+import { Switch, useWindowDimensions } from 'react-native';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MandalaThread } from '@/components/ui/MandalaThread';
+import { Shield } from 'lucide-react-native';
 
 export default function GDPRScreen() {
   const { colors } = useTheme();
@@ -28,103 +30,98 @@ export default function GDPRScreen() {
   const growthColorString = typeof colors.growth === 'string' ? colors.growth : '#4CAF50';
 
   return (
-    <View className="flex-1 bg-background relative justify-end">
-      {/* Blurred Backdrop Mockup */}
-      <View className="absolute inset-0 z-0 p-6 opacity-30 justify-start pt-16">
-        <Heading className="text-primary-text mb-6">Sadhana</Heading>
-        <View className="bg-surface border border-surface-border p-5 rounded-2xl mb-4 h-28" />
-        <View className="bg-surface border border-surface-border p-5 rounded-2xl mb-4 h-36" />
-      </View>
+    <View className="flex-1 bg-background">
+      <MandalaThread />
 
-      {/* Dark overlay behind bottom sheet */}
-      <View style={styles.darkOverlay} />
-
-      {/* Bottom Sheet Container */}
       <View
-        className="bg-background-bone rounded-t-[28px] px-6 pt-4 border-t border-surface-border w-full max-w-md mx-auto z-10"
-        style={[
-          styles.bottomSheet,
-          {
-            paddingBottom: Math.max(insets.bottom, 24),
-            maxHeight: height * 0.9,
-          }
-        ]}
+        className="flex-1 px-8 justify-between"
+        style={{
+          paddingTop: Math.max(insets.top + 20, 40),
+          paddingBottom: Math.max(insets.bottom + 20, 40),
+        }}
       >
-        {/* Drag Handle */}
-        <View className="w-12 h-1 bg-surface-border/40 rounded-full mx-auto mb-6" />
+        {/* Top Header Label */}
+        <View className="items-center mb-6">
+          <Text className="text-accent-terracotta tracking-widest text-xs uppercase font-medium">
+            Sadhana
+          </Text>
+        </View>
 
-        {/* Title */}
-        <Heading className="text-on-background mb-4">How we handle your data</Heading>
-
-        {/* Scrollable Consent Form Content */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          className="flex-shrink mb-4"
-          contentContainerStyle={{ paddingBottom: 8 }}
-        >
-          {/* Content paragraphs */}
-          <View className={`mb-6 ${isSmallDevice ? 'gap-2' : 'gap-4'}`}>
-            <Body className="text-secondary-text text-sm leading-relaxed">
-              We use session data to understand your practice patterns and build a personalized routine that adapts to your evolving needs.
-            </Body>
-            <Body className="text-secondary-text text-sm leading-relaxed">
-              We never sell your data to third parties. Your personal reflections, progress, and rituals are kept secure and entirely private.
-            </Body>
+        {/* Center Content */}
+        <View className="flex-1 justify-center my-auto">
+          {/* Icon */}
+          <View className="w-12 h-12 rounded-full items-center justify-center bg-accent-terracotta/10 mb-6">
+            <Shield size={22} color="#C44B22" />
           </View>
 
-          <View className="h-[1px] bg-surface-border/20 w-full mb-6" />
+          {/* Title */}
+          <Display className="text-primary-text leading-tight mb-2">
+            A Covenant of Space
+          </Display>
+          {/* Easy-to-understand subtitle to satisfy user's feedback */}
+          <Text className="text-secondary-text text-sm font-sans font-medium mb-6">
+            Our Commitment to Your Privacy (Data Policy)
+          </Text>
 
-          {/* Consent Toggles */}
-          <View className={`mb-2 ${isSmallDevice ? 'gap-4' : 'gap-6'}`}>
-            {/* Essential toggle */}
-            <View className="flex-row justify-between items-center">
-              <View className="flex-1 pr-4">
+          {/* Body statement */}
+          <Body className="text-secondary-text text-base leading-relaxed mb-8">
+            In our tradition, practice is private. We hold your metrics locally, encrypt your reflections, and sell nothing. Ever.
+          </Body>
+
+          {/* Divider */}
+          <View className="h-[1px] bg-surface-border/20 w-full mb-8" />
+
+          {/* Transparent full-bleed consent rows */}
+          <View className="gap-6">
+            {/* Required Row */}
+            <View className="flex-row justify-between items-center py-1">
+              <View className="flex-1 pr-6">
                 <Text className="font-sans font-bold text-sm text-primary-text">
-                  Essential (required)
+                  Essential practice functions
                 </Text>
                 <Caption className="text-xs text-secondary-text mt-0.5">
-                  Core app functionality
+                  Secures your local session files and syncs configuration.
                 </Caption>
               </View>
               <Switch
                 value={true}
                 disabled={true}
                 trackColor={{ false: borderColorString, true: growthColorString }}
-                accessibilityLabel="Essential cookies (Required)"
+                accessibilityLabel="Essential functions (Required)"
               />
             </View>
 
-            {/* Performance Analytics Toggle */}
-            <View className="flex-row justify-between items-center">
-              <View className="flex-1 pr-4">
+            {/* Analytics Row */}
+            <View className="flex-row justify-between items-center py-1">
+              <View className="flex-1 pr-6">
                 <Text className="font-sans font-bold text-sm text-primary-text">
                   Performance analytics
                 </Text>
                 <Caption className="text-xs text-secondary-text mt-0.5">
-                  Help us improve Sadhana
+                  Helps us refine timing, transitions, and daily wisdom delivery.
                 </Caption>
               </View>
               <Switch
                 value={analyticsEnabled}
                 onValueChange={setAnalyticsEnabled}
-                trackColor={{ false: borderColorString, true: growthColorString }}
+                trackColor={{ false: borderColorString, true: '#C44B22' }}
                 thumbColor="#FFFFFF"
                 accessibilityLabel="Performance Analytics Consent Toggle"
               />
             </View>
           </View>
-        </ScrollView>
+        </View>
 
-        {/* Actions Button Bar */}
-        <View className="gap-3 mt-auto">
+        {/* Buttons footer */}
+        <View className="gap-4 mt-6">
           <PressableAnimated
             className="w-full bg-accent-terracotta py-4 rounded-full items-center active:opacity-90"
             onPress={handleAgreeAll}
             haptic="medium"
-            accessibilityLabel="Agree to all GDPR consents"
+            accessibilityLabel="Agree to all data policies"
           >
             <Text className="text-white font-sans font-bold text-sm">
-              Agree to All
+              Agree and Continue
             </Text>
           </PressableAnimated>
 
@@ -132,10 +129,10 @@ export default function GDPRScreen() {
             className="w-full py-2 items-center active:opacity-70"
             onPress={handleSaveOptions}
             haptic="light"
-            accessibilityLabel="Save current selected GDPR preferences"
+            accessibilityLabel="Save selected preferences"
           >
             <Text className="text-secondary-text font-sans font-medium text-sm underline underline-offset-4 decoration-surface-border">
-              Save current preferences
+              Save selected preferences
             </Text>
           </PressableAnimated>
         </View>
@@ -143,22 +140,3 @@ export default function GDPRScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  darkOverlay: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(28, 20, 9, 0.4)',
-    zIndex: 5,
-  },
-  bottomSheet: {
-    shadowColor: '#1C1409',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-});
