@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Platform, ActivityIndicator, Alert, AccessibilityInfo } from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import { useSubmitSession } from '@/hooks/api';
 import { Text } from '@/components/ui/Text';
 import { SettlingTransition } from '@/components/ui/SettlingTransition';
 import { useSignatureHaptic } from '@/hooks/useSignatureHaptic';
-import { PracticeIcon } from '@/components/ui/PracticeIcon';
 import { Audio } from 'expo-av';
 import * as Haptics from 'expo-haptics';
-import { ChevronDown, Play, Pause, RotateCcw, Heart, Check } from 'lucide-react-native';
+import { ChevronDown, Play, Pause, RotateCcw, Heart, Check, Award, Volume2, VolumeX } from 'lucide-react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -21,6 +20,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
 import { StatusBar } from 'expo-status-bar';
+import { Svg, Circle, Path } from 'react-native-svg';
+import { Display, Heading, Subheading, Caption, Micro } from '@/components/ui/Typography';
+import { MandalaThread } from '@/components/ui/MandalaThread';
 
 export default function SinglePlayerScreen() {
   const { colors } = useTheme();
@@ -43,17 +45,55 @@ export default function SinglePlayerScreen() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoadingSound, setIsLoadingSound] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [breathCue, setBreathCue] = useState('Stillness');
 
   // Time tracking (countdown)
   const totalSeconds = useMemo(() => parseInt(duration || '15', 10) * 60, [duration]);
   const [position, setPosition] = useState(0);
   const remainingSeconds = useMemo(() => Math.max(totalSeconds - position, 0), [totalSeconds, position]);
 
-  // 1. Reanimated Shared Values for the Breathing Ring
+  // Reanimated Shared Values for Breathing Mandala
   const breathingScale = useSharedValue(1);
-  const breathingOpacity = useSharedValue(0.15);
+  const breathingOpacity = useSharedValue(0.42);
+  const visualizerRotation = useSharedValue(0);
 
-  // 2. Playback finished handler
+  // Check and listen to OS reduced motion setting
+  const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
+  useEffect(() => {
+    AccessibilityInfo.isReduceMotionEnabled().then((enabled) => {
+      setReduceMotionEnabled(enabled);
+    });
+
+    const subscription = AccessibilityInfo.addEventListener(
+      'reduceMotionChanged',
+      (enabled) => {
+        setReduceMotionEnabled(enabled);
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotionEnabled) {
+      visualizerRotation.value = 0;
+      cancelAnimation(visualizerRotation);
+    } else {
+      visualizerRotation.value = withRepeat(
+        withTiming(360, { duration: 32000, easing: Easing.linear }),
+        -1,
+        false
+      );
+    }
+    return () => {
+      cancelAnimation(visualizerRotation);
+    };
+  }, [reduceMotionEnabled]);
+
+  // Playback finished handler
   const handlePlaybackFinished = useCallback(async () => {
     setIsPlaying(false);
     setPosition(totalSeconds);
@@ -65,8 +105,8 @@ export default function SinglePlayerScreen() {
     // Perform dramatic visual completion expand-and-fade animation on breathing ring
     cancelAnimation(breathingScale);
     cancelAnimation(breathingOpacity);
-    breathingScale.value = withTiming(3.0, { duration: 1200, easing: Easing.out(Easing.quad) });
-    breathingOpacity.value = withTiming(0, { duration: 1200, easing: Easing.out(Easing.quad) });
+    breathingScale.value = withTiming(2.5, { duration: 1000, easing: Easing.out(Easing.quad) });
+    breathingOpacity.value = withTiming(0, { duration: 1000, easing: Easing.out(Easing.quad) });
 
     // Submit session to backend
     try {
@@ -77,7 +117,7 @@ export default function SinglePlayerScreen() {
     } catch (e) {
       console.warn('[SinglePlayer] Failed to upload finished session:', e);
     }
-  }, [routineId, duration, totalSeconds, triggerSignatureHaptic, submitSession, breathingScale, breathingOpacity]);
+  }, [routineId, duration, totalSeconds, triggerSignatureHaptic, breathingScale, breathingOpacity, submitSession]);
 
   // Load sound stream
   const loadMedia = async () => {
@@ -92,7 +132,7 @@ export default function SinglePlayerScreen() {
 
       const { sound: newSound } = await Audio.Sound.createAsync(
         { uri: streamUrl },
-        { shouldPlay: false, volume: 0.5 }
+        { shouldPlay: false, volume: isMuted ? 0 : 0.5 }
       );
 
       setSound(newSound);
@@ -126,32 +166,45 @@ export default function SinglePlayerScreen() {
     };
   }, [routineId]);
 
-  // 3. Coordinate Breathing Ring animation loop when playing
+  // Sync volume with mute status
+  useEffect(() => {
+    if (sound) {
+      sound.setVolumeAsync(isMuted ? 0 : 0.5).catch(() => {});
+    }
+  }, [isMuted, sound]);
+
+  // Coordinate Breathing Ring animation loop when playing
   useEffect(() => {
     if (isCompleted) return;
 
     if (isPlaying) {
-      // Gentle breathing rate (4s inhale, 4s exhale)
-      breathingScale.value = withRepeat(
-        withSequence(
-          withTiming(1.25, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
-          withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) })
-        ),
-        -1,
-        false
-      );
-      breathingOpacity.value = withRepeat(
-        withSequence(
-          withTiming(0.35, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
-          withTiming(0.15, { duration: 4000, easing: Easing.inOut(Easing.ease) })
-        ),
-        -1,
-        false
-      );
+      if (reduceMotionEnabled) {
+        // Reduced motion: static scale and static opacity
+        breathingScale.value = withTiming(1.0, { duration: 500 });
+        breathingOpacity.value = withTiming(0.6, { duration: 500 });
+      } else {
+        // Gentle breathing rate (4s inhale, 4s exhale)
+        breathingScale.value = withRepeat(
+          withSequence(
+            withTiming(1.28, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
+            withTiming(1.0, { duration: 4000, easing: Easing.inOut(Easing.ease) })
+          ),
+          -1,
+          false
+        );
+        breathingOpacity.value = withRepeat(
+          withSequence(
+            withTiming(0.8, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
+            withTiming(0.42, { duration: 4000, easing: Easing.inOut(Easing.ease) })
+          ),
+          -1,
+          false
+        );
+      }
     } else {
       // Settle down to static breathing ring
       breathingScale.value = withTiming(1.0, { duration: 1000 });
-      breathingOpacity.value = withTiming(0.15, { duration: 1000 });
+      breathingOpacity.value = withTiming(0.42, { duration: 1000 });
     }
 
     return () => {
@@ -160,9 +213,36 @@ export default function SinglePlayerScreen() {
         cancelAnimation(breathingOpacity);
       }
     };
-  }, [isPlaying, isCompleted, breathingScale, breathingOpacity]);
+  }, [isPlaying, isCompleted, breathingScale, breathingOpacity, reduceMotionEnabled]);
 
-  // 4. useCallback play/pause toggles to prevent lag and block-free layout triggers
+  // Coordinate Breathing Cues and Haptics
+  useEffect(() => {
+    if (isCompleted) {
+      setBreathCue('Completed');
+      return;
+    }
+    if (!isPlaying) {
+      setBreathCue('Paused');
+      return;
+    }
+
+    setBreathCue('Inhale');
+    let isExhale = false;
+
+    // Trigger haptic at start of play
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+
+    const interval = setInterval(() => {
+      isExhale = !isExhale;
+      setBreathCue(isExhale ? 'Exhale' : 'Inhale');
+      // Subtle microinteraction: haptic pulse on inhale/exhale transition
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, isCompleted]);
+
+  // Play/pause toggles
   const togglePlayPause = useCallback(async () => {
     if (!sound) return;
     if (isPlaying) {
@@ -180,7 +260,6 @@ export default function SinglePlayerScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, [sound]);
 
-  // Format countdown string
   const formatTime = useCallback((seconds: number) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -192,12 +271,115 @@ export default function SinglePlayerScreen() {
   // Breathing style mapping
   const breathingRingStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: breathingScale.value }],
+      transform: [
+        { scale: breathingScale.value },
+        { rotate: `${visualizerRotation.value}deg` }
+      ],
       opacity: breathingOpacity.value,
     };
   });
 
   const accentColorString = useMemo(() => (typeof colors.accent === 'string' ? colors.accent : '#C44B22'), [colors.accent]);
+
+  // Render Full Screen Completion State
+  if (isCompleted) {
+    return (
+      <View style={styles.fullscreenOverlay}>
+        <MandalaThread />
+        <View className="items-center justify-center px-8 flex-1">
+          {/* Circular badge */}
+          <View className="w-24 h-24 bg-growth-green/10 border border-growth-green/30 rounded-full items-center justify-center mb-6">
+            <Award size={48} color="#4CAF50" strokeWidth={1.5} />
+          </View>
+
+          {/* Stats Card */}
+          <View className="w-full max-w-xs flex-row justify-around bg-surface border border-surface-border rounded-xl p-5 mb-6 shadow-sm">
+            <View className="items-center">
+              <Text className="font-sans text-xs text-secondary-text">Minutes Completed</Text>
+              <Display className="text-primary-text font-bold text-2xl mt-1">
+                {duration || '15'}
+              </Display>
+            </View>
+            <View className="w-[1px] bg-surface-border/50" />
+            <View className="items-center">
+              <Text className="font-sans text-xs text-secondary-text">Karma Coins</Text>
+              <Display className="text-primary-text font-bold text-2xl mt-1">
+                +30
+              </Display>
+            </View>
+          </View>
+          
+          <Heading className="text-3xl font-serif text-primary-text text-center mb-2">
+            Practice Complete
+          </Heading>
+          
+          <Heading className="text-accent-terracotta text-center font-devanagari text-2xl mb-4">
+            Hari Om Tat Sat
+          </Heading>
+          <Caption className="text-secondary-text text-center font-sans max-w-xs mb-8">
+            You have completed {duration || '15'} minutes of {lessonTitle || title || 'Meditation'}. Your morning devotion is logged.
+          </Caption>
+
+          <PressableAnimated
+            haptic="medium"
+            className="px-8 py-4 bg-accent-terracotta rounded-full flex-row items-center gap-2 active:opacity-90 shadow-md"
+            onPress={() => router.back()}
+            accessibilityLabel="Return to dashboard"
+          >
+            <Text className="text-white font-sans font-bold text-sm">Hari Om</Text>
+          </PressableAnimated>
+        </View>
+      </View>
+    );
+  }
+
+  // Render Full Screen Loading State
+  if (isLoadingSound) {
+    return (
+      <View style={styles.fullscreenOverlay}>
+        <MandalaThread />
+        <View className="items-center justify-center flex-1">
+          <ActivityIndicator size="large" color={accentColorString} />
+          <Text className="font-serif text-base text-primary-text mt-4">
+            Preparing your practice sanctuary...
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  // Render Full Screen Error State
+  if (hasError) {
+    return (
+      <View style={styles.fullscreenOverlay}>
+        <MandalaThread />
+        <View className="items-center justify-center flex-1 px-8">
+          <Text className="font-serif text-lg text-accent-terracotta font-bold mb-2 text-center">
+            Failed to open sanctuary
+          </Text>
+          <Text className="text-sm text-secondary-text mb-6 text-center leading-relaxed">
+            Please make sure your device is connected to the internet and try again.
+          </Text>
+          <View className="flex-row gap-4">
+            <PressableAnimated
+              haptic="light"
+              className="px-6 py-2.5 bg-surface border border-surface-border rounded-full"
+              onPress={() => router.back()}
+            >
+              <Text className="font-sans font-bold text-sm text-primary-text">Back</Text>
+            </PressableAnimated>
+            <PressableAnimated
+              haptic="medium"
+              className="px-6 py-2.5 bg-accent-terracotta rounded-full"
+              onPress={loadMedia}
+            >
+              <Text className="font-sans font-bold text-sm text-white">Retry</Text>
+            </PressableAnimated>
+          </View>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <SettlingTransition style={styles.settlingContainer}>
@@ -216,33 +398,65 @@ export default function SinglePlayerScreen() {
           >
             <ChevronDown size={24} color="#FDFAF5" />
           </PressableAnimated>
+
           <Text variant="body" weight="medium" style={styles.headerTitle}>
             PRACTICE PLAYER
           </Text>
-          <View style={styles.headerSpacer} />
+
+          <PressableAnimated
+            style={styles.closeBtn}
+            onPress={() => {
+              setIsFavorited(!isFavorited);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            }}
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={isFavorited ? "Remove from favorites" : "Add to favorites"}
+          >
+            <Heart
+              size={20}
+              color={isFavorited ? accentColorString : '#FDFAF5'}
+              fill={isFavorited ? accentColorString : 'transparent'}
+            />
+          </PressableAnimated>
         </View>
 
-        {/* Dynamic Center Stage: Breathing Ring and Details */}
+        {/* Dynamic Center Stage: Concentric Breathing Mandala */}
         <View style={styles.centerStage}>
-          {isLoadingSound ? (
-            <ActivityIndicator size="large" color={accentColorString} style={styles.loader} />
-          ) : (
-            <View style={styles.visualizerContainer}>
-              {/* Outer Breathing Ring (Animated) */}
-              <Animated.View style={[styles.breathingRing, { borderColor: accentColorString }, breathingRingStyle]} />
+          <View style={styles.visualizerContainer}>
+            {/* Pulsing Spinning Mandala SVG */}
+            <Animated.View style={[styles.mandalaWrapper, breathingRingStyle]}>
+              <Svg width={240} height={240} viewBox="0 0 220 220" fill="none">
+                {/* Concentric rings */}
+                <Circle cx="110" cy="110" r="96" stroke={accentColorString} strokeWidth="0.6" strokeDasharray="5 6" opacity="0.25" />
+                <Circle cx="110" cy="110" r="72" stroke={accentColorString} strokeWidth="0.6" opacity="0.4" />
+                <Circle cx="110" cy="110" r="50" stroke={accentColorString} strokeWidth="0.8" opacity="0.55" />
+                {/* Petals */}
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                  <Path
+                    key={angle}
+                    d="M110 110 C128 78 136 78 110 36 C84 78 92 78 110 110 Z"
+                    stroke={accentColorString}
+                    strokeWidth="0.75"
+                    opacity="0.35"
+                    transform={`rotate(${angle} 110 110)`}
+                  />
+                ))}
+              </Svg>
+            </Animated.View>
 
-              {/* Inner Focus core and Practice Icon */}
-              <View style={[styles.focusCore, { backgroundColor: '#1C1409', borderColor: 'rgba(196, 75, 34, 0.2)' }]}>
-                <PracticeIcon 
-                  type={(category?.toLowerCase() as any) || 'dhyana'} 
-                  size={56} 
-                  color={accentColorString}
-                  streakIntensity={0.8}
-                />
-              </View>
+            {/* Inner Center Timer Display */}
+            <View className="absolute inset-0 items-center justify-center">
+              <Text className="font-serif text-3xl font-bold text-white leading-none">
+                {formatTime(remainingSeconds)}
+              </Text>
+              <Caption className="text-white/40 text-[9px] uppercase font-bold mt-1.5 tracking-widest">
+                {breathCue}
+              </Caption>
             </View>
-          )}
+          </View>
 
+          {/* Title & Instructor Details */}
           <View style={styles.metaContainer}>
             <Text variant="display" weight="bold" style={styles.lessonTitle}>
               {lessonTitle || title}
@@ -255,30 +469,18 @@ export default function SinglePlayerScreen() {
 
         {/* Lower Controls Section */}
         <View style={styles.controlsSection}>
-          {/* Main Countdown Scrubber */}
+          {/* Main Countdown Scrubber (Weightless Thin Line) */}
           <View style={styles.scrubberContainer}>
             <View style={styles.progressBarBg}>
               <View
                 style={[styles.progressBarFill, { width: `${progressPercent}%`, backgroundColor: accentColorString }]}
               />
             </View>
-            <View style={styles.timeLabelsRow}>
-              {/* Stat text represents the actual elapsed time */}
-              <Text variant="stat" style={styles.timeLabel}>
-                {formatTime(position)}
-              </Text>
-              {/* Middle countdown timer */}
-              <Text variant="stat" style={[styles.countdownText, { color: '#FDFAF5' }]}>
-                {formatTime(remainingSeconds)}
-              </Text>
-              <Text variant="stat" style={styles.timeLabel}>
-                -{formatTime(remainingSeconds)}
-              </Text>
-            </View>
           </View>
 
           {/* Button Control Row */}
           <View style={styles.buttonsRow}>
+            {/* Restart Button */}
             <PressableAnimated
               style={styles.circleButton}
               onPress={handleReset}
@@ -286,9 +488,10 @@ export default function SinglePlayerScreen() {
               accessibilityRole="button"
               accessibilityLabel="Restart session"
             >
-              <RotateCcw size={22} color="#F7E5D2" />
+              <RotateCcw size={20} color="#F7E5D2" />
             </PressableAnimated>
 
+            {/* Central Play Button */}
             <PressableAnimated
               style={[styles.playButton, { backgroundColor: accentColorString }]}
               scaleTo={1.05}
@@ -305,28 +508,21 @@ export default function SinglePlayerScreen() {
               )}
             </PressableAnimated>
 
+            {/* Mute/Volume Toggle */}
             <PressableAnimated
               style={styles.circleButton}
-              onPress={() => setIsFavorited(!isFavorited)}
+              onPress={() => setIsMuted(!isMuted)}
               haptic="light"
               accessibilityRole="button"
-              accessibilityLabel={isFavorited ? "Remove practice from favorites" : "Add practice to favorites"}
+              accessibilityLabel={isMuted ? "Unmute audio" : "Mute audio"}
             >
-              <Heart
-                size={22}
-                color={isFavorited ? accentColorString : '#a38c75'}
-                fill={isFavorited ? accentColorString : 'transparent'}
-              />
+              {isMuted ? (
+                <VolumeX size={20} color="#F7E5D2" />
+              ) : (
+                <Volume2 size={20} color="#F7E5D2" />
+              )}
             </PressableAnimated>
           </View>
-
-          {/* Quick complete feedback indicator */}
-          {isCompleted && (
-            <View style={styles.completedBadge}>
-              <Check size={14} color="#FDFAF5" />
-              <Text variant="body" weight="bold" style={styles.completedText}>Practice Sanctuary Completed</Text>
-            </View>
-          )}
         </View>
       </View>
     </SettlingTransition>
@@ -342,6 +538,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     paddingHorizontal: 24,
+  },
+  fullscreenOverlay: {
+    flex: 1,
+    backgroundColor: '#0D0A06',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  completedContainer: {
+    flex: 1,
+    backgroundColor: '#0D0A06',
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: '#0D0A06',
+  },
+  errorContainer: {
+    flex: 1,
+    backgroundColor: '#0D0A06',
   },
   header: {
     paddingTop: Platform.OS === 'ios' ? 60 : 40,
@@ -365,16 +579,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flex: 1,
   },
-  headerSpacer: {
-    width: 44,
-  },
   centerStage: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  loader: {
-    marginVertical: 40,
   },
   visualizerContainer: {
     width: 240,
@@ -384,29 +592,16 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginVertical: 24,
   },
-  breathingRing: {
+  mandalaWrapper: {
     position: 'absolute',
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    borderWidth: 2,
-  },
-  focusCore: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    borderWidth: 1,
+    width: 240,
+    height: 240,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
-    elevation: 8,
   },
   metaContainer: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 24,
     paddingHorizontal: 16,
   },
   lessonTitle: {
@@ -422,34 +617,22 @@ const styles = StyleSheet.create({
   },
   controlsSection: {
     paddingBottom: Platform.OS === 'ios' ? 50 : 30,
-    gap: 28,
+    gap: 32,
   },
   scrubberContainer: {
     width: '100%',
-    gap: 12,
   },
   progressBarBg: {
     width: '100%',
-    height: 3,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderRadius: 1.5,
+    height: 2,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 1,
   },
   progressBarFill: {
     height: '100%',
-    borderRadius: 1.5,
-  },
-  timeLabelsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  timeLabel: {
-    fontSize: 11,
-    color: '#a38c75',
-    width: 44,
+    borderRadius: 1,
   },
   countdownText: {
-    fontSize: 32,
     letterSpacing: 0.5,
   },
   buttonsRow: {
@@ -457,6 +640,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
+    marginBottom: 8,
   },
   circleButton: {
     width: 48,
@@ -477,20 +661,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 8,
     elevation: 4,
-  },
-  completedBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(76, 175, 80, 0.15)',
-    borderColor: '#4CAF50',
-    borderWidth: 0.5,
-    paddingVertical: 10,
-    borderRadius: 20,
-    gap: 6,
-  },
-  completedText: {
-    color: '#FDFAF5',
-    fontSize: 12,
   },
 });

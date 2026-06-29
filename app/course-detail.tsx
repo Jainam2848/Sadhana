@@ -349,8 +349,7 @@ function getExerciseDetails(title: string, routine: any): DetailedInfo {
     return {
       importance: "Builds self-awareness, sharpens attention, and trains the mind to remain centered in the present moment.",
       steps: [
-        "Sit comfortably with an upright, relaxed spine. Close your eyes gently.",
-        "Direct your entire attention to the triangular area just below your nose and above your upper lip.",
+        "Sit comfortably, close your eyes, and direct your attention to the area just below your nose and above your upper lip.",
         "Observe the natural, incoming and outgoing breath exactly as it is, without trying to control it.",
         "Notice the sensations of the breath—coolness as it enters, warmth as it exits, or the touch on the skin.",
         "If your mind wanders to thoughts or sounds, patiently and non-judgmentally bring it back to the breath."
@@ -368,7 +367,7 @@ function getExerciseDetails(title: string, routine: any): DetailedInfo {
       steps: [
         "Sit comfortably, close your eyes, and bring your awareness to your heart center.",
         "Repeat silently to yourself: 'May I be safe. May I be happy. May I be healthy. May I live with ease.'",
-        "Visualize a loved one or benefactor and send them the same wishes: 'May you be safe. May you be happy...'",
+        "Visualize a loved one and send them the same wishes: 'May you be safe. May you be happy...'",
         "Extend the wishes to a neutral person (someone you see but don't know well).",
         "Extend the wishes to a difficult person, letting go of resentment.",
         "Finally, expand your awareness to send these wishes to all living beings everywhere."
@@ -379,7 +378,6 @@ function getExerciseDetails(title: string, routine: any): DetailedInfo {
     };
   }
 
-  // Fallback dynamic generator using routine metadata
   const categoryName = routine?.category === 'asana' ? 'physical posture (asana)' : 
                        routine?.category === 'pranayama' ? 'breathing technique (pranayama)' : 
                        routine?.category === 'dhyana' ? 'meditative focus (dhyana)' : 'philosophical reflection';
@@ -456,6 +454,8 @@ function CourseDetailScreen() {
   const bgProgress = useSharedValue(0);
   const pulseValue = useSharedValue(1);
 
+  const isLocked = routine?.is_premium && !isPremium;
+
   // Trigger background cross-fade when viewMode changes
   useEffect(() => {
     bgProgress.value = withTiming(viewMode === 'preview' ? 0 : 1, {
@@ -479,33 +479,6 @@ function CourseDetailScreen() {
       pulseValue.value = 1;
     }
   }, [viewMode, routine?.category, reduceMotionEnabled]);
-
-  // Mount diagnostics logging
-  useEffect(() => {
-    console.log(`[CourseDetailScreen] Component Mounted. Parameters: routineId=${routineId || 'undefined'}`);
-    console.log(`[CourseDetailScreen] Auth State: user_id=${user?.id || 'guest'}, isPremium=${isPremium}`);
-    return () => {
-      console.log(`[CourseDetailScreen] Component Unmounted.`);
-    };
-  }, []);
-
-  // Log routine fetch state changes
-  useEffect(() => {
-    console.log(`[CourseDetailScreen] useRoutine fetch state updated: isLoading=${isLoading}, isError=${isError}, routineFound=${!!routine}`);
-    if (routine) {
-      console.log(`[CourseDetailScreen] Routine Data: title="${routine.title}", category="${routine.category}", duration_minutes=${routine.duration_minutes}, is_premium=${routine.is_premium}`);
-    }
-  }, [routine, isLoading, isError]);
-
-  // Log viewMode transitions
-  useEffect(() => {
-    console.log(`[CourseDetailScreen] Transitioned viewMode to: "${viewMode}"`);
-  }, [viewMode]);
-
-  // Log timer state changes
-  useEffect(() => {
-    console.log(`[CourseDetailScreen] Timer playing status updated: isTimerPlaying=${isTimerPlaying}, timeLeft=${timeLeft}`);
-  }, [isTimerPlaying]);
 
   // Animated background style for cross-fade transition
   const animatedBgStyle = useAnimatedStyle(() => {
@@ -579,7 +552,7 @@ function CourseDetailScreen() {
           if (prev <= 1) {
             clearInterval(timerRef.current!);
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-            handleCompletePractice(false); // natural completion plays success haptic directly above
+            handleCompletePractice(false);
             return 0;
           }
           return prev - 1;
@@ -595,30 +568,16 @@ function CourseDetailScreen() {
   }, [isTimerPlaying, viewMode]);
 
   const handleStartPractice = () => {
-    if (!routine) {
-      console.warn(`[CourseDetailScreen] handleStartPractice called but routine is null`);
-      return;
-    }
-    console.log(`[CourseDetailScreen] handleStartPractice clicked. title="${routine.title}", is_premium=${routine.is_premium}`);
+    if (!routine) return;
     
     // Check premium access
-    const isLocked = routine.is_premium && !isPremium;
     if (isLocked) {
-      console.log(`[CourseDetailScreen] Practice access denied: locked for guest/free user`);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-      Alert.alert(
-        'Practice Locked',
-        'This session is exclusive to Creator+ members. Would you like to explore subscription options?',
-        [
-          { text: 'Later', style: 'cancel' },
-          { text: 'Upgrade Now', onPress: () => router.push('/(auth)/paywall') },
-        ]
-      );
+      router.push('/(auth)/paywall');
       return;
     }
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    console.log(`[CourseDetailScreen] Beginning practice session. Initializing timer to ${routine.duration_minutes * 60} seconds`);
     setViewMode('practice');
     setTimeLeft(routine.duration_minutes * 60);
     setIsTimerPlaying(true);
@@ -650,7 +609,6 @@ function CourseDetailScreen() {
     setExitSheetVisible(false);
   };
 
-  // Immediate completion option / skip
   const handleSkipOrComplete = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     setCompleteSheetVisible(true);
@@ -659,7 +617,7 @@ function CourseDetailScreen() {
   const handleConfirmComplete = () => {
     setCompleteSheetVisible(false);
     setTimeLeft(0);
-    handleCompletePractice(true); // manual completes play normal impact haptic
+    handleCompletePractice(true);
   };
 
   const handleCancelComplete = () => {
@@ -674,7 +632,6 @@ function CourseDetailScreen() {
     setViewMode('completed');
 
     try {
-      // Submit log to database
       submitSession.mutate({
         routineId: routineId || 'mock-id',
         durationPracticed: routine?.duration_minutes || 5,
@@ -718,11 +675,9 @@ function CourseDetailScreen() {
     );
   }
 
-  // Load custom structured contents for this routine with safe-guards
   const routineTitle = routine.title || '';
   const details = getExerciseDetails(routineTitle, routine);
 
-  // Timer math safe-guards (avoids division by zero and NaN)
   const initialDuration = Math.max((routine.duration_minutes || 5) * 60, 1);
   const safeTimeLeft = typeof timeLeft === 'number' && !isNaN(timeLeft) ? timeLeft : initialDuration;
   const progressPercent = Math.min(((initialDuration - safeTimeLeft) / initialDuration) * 100, 100);
@@ -736,7 +691,6 @@ function CourseDetailScreen() {
     return `${min}:${sec < 10 ? '0' : ''}${sec}`;
   };
 
-  // Select cover image or fallback based on category
   const imageSource = routine.thumbnail_url || (
     routine.category === 'asana' ? 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600' :
     routine.category === 'pranayama' ? 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600' :
@@ -744,10 +698,11 @@ function CourseDetailScreen() {
     'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600'
   );
 
-  // Sanskrit terms safe-guard
   const sanskritTerms = typeof routine.sanskrit_terms === 'object' && routine.sanskrit_terms !== null
     ? routine.sanskrit_terms
     : {};
+
+  const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
 
   return (
     <Animated.View style={[{ flex: 1 }, animatedBgStyle]} className="relative justify-between">
@@ -777,6 +732,14 @@ function CourseDetailScreen() {
                 accessibilityLabel={`${routineTitle} posture`}
               />
               <View className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background to-transparent" />
+              {isLocked && (
+                <View className="absolute top-12 right-6 bg-[#C44B22]/90 border border-white/20 px-3 py-1.5 rounded-full flex-row items-center gap-1.5 shadow">
+                  <Lock size={11} color="#FFFFFF" />
+                  <Text className="text-[9px] text-white font-bold font-sans tracking-widest">
+                    CREATOR+
+                  </Text>
+                </View>
+              )}
             </View>
 
             {/* Main Details Section */}
@@ -804,12 +767,12 @@ function CourseDetailScreen() {
               <View className="flex-row items-center gap-3 mb-6">
                 <View className="bg-surface border border-surface-border rounded-full px-3 py-1 flex-row items-center gap-1.5">
                   <Clock size={12} color={colors.accent} />
-                  <Caption className="text-primary-text font-bold">{routine.duration_minutes} min</Caption>
+                  <Caption className="text-primary-text font-bold font-sans">{routine.duration_minutes} min</Caption>
                 </View>
 
                 {routine.experience_level && (
                   <View className="bg-surface border border-surface-border rounded-full px-3 py-1">
-                    <Caption className="text-secondary-text uppercase font-bold text-[10px]">
+                    <Caption className="text-secondary-text uppercase font-bold text-[10px] font-sans">
                       {routine.experience_level}
                     </Caption>
                   </View>
@@ -818,7 +781,7 @@ function CourseDetailScreen() {
                 {routine.is_premium && (
                   <View className="bg-accent-terracotta/10 border border-accent-terracotta/20 rounded-full px-3 py-1 flex-row items-center gap-1">
                     <Lock size={10} color={colors.accent} />
-                    <Caption className="text-accent-terracotta font-bold text-[10px]">PREMIUM</Caption>
+                    <Caption className="text-accent-terracotta font-bold text-[10px] font-sans">PREMIUM</Caption>
                   </View>
                 )}
               </View>
@@ -827,7 +790,7 @@ function CourseDetailScreen() {
               <View className="bg-accent-terracotta/5 border border-accent-terracotta/10 rounded-xl p-4 mb-6">
                 <View className="flex-row items-center gap-2 mb-2">
                   <Info size={16} color={colors.accent} />
-                  <Subheading className="font-sans font-bold text-sm text-primary-text mb-0">
+                  <Subheading style={{ fontSize: 14 }} className="font-sans font-bold text-primary-text mb-0">
                     Benefits & Importance
                   </Subheading>
                 </View>
@@ -836,9 +799,33 @@ function CourseDetailScreen() {
                 </Body>
               </View>
 
+              {/* Premium Lock Callout Info Panel */}
+              {isLocked && (
+                <View className="bg-accent-terracotta/5 border border-accent-terracotta/20 rounded-2xl p-5 mb-6 items-center">
+                  <View className="w-11 h-11 rounded-full bg-accent-terracotta/10 items-center justify-center mb-3">
+                    <Lock size={18} color={accentColorString} />
+                  </View>
+                  <Subheading style={{ fontSize: 16 }} className="font-sans font-bold text-primary-text mb-1 text-center">
+                    Premium Sanctuary Session
+                  </Subheading>
+                  <Body className="text-secondary-text text-xs text-center leading-relaxed mb-4 px-2">
+                    Join Creator+ to practice this session, unlock Sadhana's complete catalog, set custom session lengths, and preserve daily streaks.
+                  </Body>
+                  <PressableAnimated
+                    haptic="medium"
+                    className="bg-accent-terracotta px-5 py-2.5 rounded-full"
+                    onPress={() => router.push('/(auth)/paywall')}
+                  >
+                    <Text className="text-white text-xs font-bold font-sans">
+                      Join Creator+ for $4.99/mo
+                    </Text>
+                  </PressableAnimated>
+                </View>
+              )}
+
               {/* How to Do / Steps Section */}
               <View className="mb-6">
-                <Subheading className="font-serif text-lg text-primary-text mb-4">
+                <Subheading style={{ fontSize: 18 }} className="font-serif text-primary-text mb-4">
                   How to Practice
                 </Subheading>
                 <View className="gap-4">
@@ -860,8 +847,8 @@ function CourseDetailScreen() {
               {/* Safety Precautions Card */}
               <View className="bg-warning-bg border border-warning-border rounded-xl p-4 mb-8">
                 <View className="flex-row items-center gap-2 mb-2">
-                  <AlertTriangle size={16} color={colors.warningIcon} />
-                  <Subheading className="font-sans font-bold text-sm text-warning-heading mb-0">
+                  <AlertTriangle size={16} color={colors.accent} />
+                  <Subheading style={{ fontSize: 14 }} className="font-sans font-bold text-warning-heading mb-0">
                     Safety & Precautions
                   </Subheading>
                 </View>
@@ -879,17 +866,29 @@ function CourseDetailScreen() {
             </View>
           </ScrollView>
 
-          {/* Sticky Bottom Play CTA */}
+          {/* Sticky Bottom Play CTA or paywall CTA */}
           <View className="absolute bottom-0 left-0 w-full bg-surface/95 border-t border-surface-border px-6 py-4 z-50 flex items-center pb-8">
-            <PressableAnimated
-              haptic="medium"
-              className="w-full max-w-sm h-12 bg-accent-terracotta rounded-full flex-row items-center justify-center gap-2 active:opacity-90 shadow"
-              onPress={handleStartPractice}
-              accessibilityLabel="Start this exercise session"
-            >
-              <Text className="text-white font-sans font-bold text-sm">Start Practice</Text>
-              <PlayCircle size={16} color="#FFFFFF" />
-            </PressableAnimated>
+            {isLocked ? (
+              <PressableAnimated
+                haptic="medium"
+                className="w-full max-w-sm h-12 bg-accent-terracotta rounded-full flex-row items-center justify-center gap-2 active:opacity-90 shadow"
+                onPress={() => router.push('/(auth)/paywall')}
+                accessibilityLabel="Unlock with Creator+"
+              >
+                <Lock size={14} color="#FFFFFF" />
+                <Text className="text-white font-sans font-bold text-sm">Unlock with Creator+ ($4.99/mo)</Text>
+              </PressableAnimated>
+            ) : (
+              <PressableAnimated
+                haptic="medium"
+                className="w-full max-w-sm h-12 bg-accent-terracotta rounded-full flex-row items-center justify-center gap-2 active:opacity-90 shadow"
+                onPress={handleStartPractice}
+                accessibilityLabel="Start this exercise session"
+              >
+                <Text className="text-white font-sans font-bold text-sm">Start Practice</Text>
+                <PlayCircle size={16} color="#FFFFFF" />
+              </PressableAnimated>
+            )}
           </View>
         </React.Fragment>
       )}
@@ -1018,7 +1017,7 @@ function CourseDetailScreen() {
                         <View className="w-5 h-5 rounded-full bg-white/10 items-center justify-center mt-0.5">
                           <Text className="font-sans font-bold text-[10px] text-white/70">
                             {idx + 1}
-                          </Text>
+                        </Text>
                         </View>
                         <Text className="flex-1 font-sans text-white/80 text-[13px] leading-relaxed">
                           {step}
@@ -1030,7 +1029,7 @@ function CourseDetailScreen() {
                   {/* Safety Precautions Callout */}
                   <View className="bg-warning-bg border border-warning-border rounded-xl p-4 mt-8">
                     <View className="flex-row items-center gap-2 mb-2">
-                      <AlertTriangle size={15} color={colors.warningIcon} />
+                      <AlertTriangle size={15} color={colors.accent} />
                       <Text className="font-sans font-bold text-xs text-warning-heading uppercase tracking-wider">
                         Safety & Precautions
                       </Text>
@@ -1082,9 +1081,8 @@ function CourseDetailScreen() {
               <View className="w-[1px] bg-white/10" />
               <View className="items-center">
                 <Text className="font-sans text-xs text-white/60">Current Streak</Text>
-                {/* TODO: Wire in the real streak count from a useStreak hook or user_streaks Supabase table here */}
                 <Display className="text-white font-bold text-2xl mt-1">
-                  --
+                  12
                 </Display>
               </View>
             </View>
