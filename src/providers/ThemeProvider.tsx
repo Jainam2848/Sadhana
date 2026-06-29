@@ -26,6 +26,10 @@ export interface ThemeColors {
   growth: string;
   highlight: string;
   destructive: string;
+  sandstoneRose: string;
+  templeBronze: string;
+  templeBronzeLight: string;
+  manuscriptGold: string;
 }
 
 export interface AnimatedColors {
@@ -38,6 +42,10 @@ export interface AnimatedColors {
   growth: SharedValue<string>;
   highlight: SharedValue<string>;
   destructive: SharedValue<string>;
+  sandstoneRose: SharedValue<string>;
+  templeBronze: SharedValue<string>;
+  templeBronzeLight: SharedValue<string>;
+  manuscriptGold: SharedValue<string>;
 }
 
 export interface Theme {
@@ -74,6 +82,10 @@ const morningColors: ThemeColors = {
   growth: '#4E6E58', // Sage green
   highlight: '#F5ECE8',
   destructive: '#C54E4E',
+  sandstoneRose: '#E8DEC9',
+  templeBronze: '#9E7850',
+  templeBronzeLight: '#E5CDAE',
+  manuscriptGold: '#D4AF37',
 };
 
 const middayColors: ThemeColors = {
@@ -86,6 +98,10 @@ const middayColors: ThemeColors = {
   growth: '#3D5C47', // Forest moss green
   highlight: '#F2EADF', // Sandstone linen
   destructive: '#C54E4E',
+  sandstoneRose: '#EADEC9',
+  templeBronze: '#8A663E',
+  templeBronzeLight: '#D4B895',
+  manuscriptGold: '#D4AF37',
 };
 
 const eveningColors: ThemeColors = {
@@ -98,6 +114,10 @@ const eveningColors: ThemeColors = {
   growth: '#598266', // Glowing moss
   highlight: '#2A221E',
   destructive: '#C54E4E',
+  sandstoneRose: '#2C2621',
+  templeBronze: '#C5A880',
+  templeBronzeLight: '#A37E58',
+  manuscriptGold: '#FFDF7A',
 };
 
 const spacing = {
@@ -209,6 +229,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const growthAnim = useSharedValue(activeColors.growth);
   const highlightAnim = useSharedValue(activeColors.highlight);
   const destructiveAnim = useSharedValue(activeColors.destructive);
+  const sandstoneRoseAnim = useSharedValue(activeColors.sandstoneRose);
+  const templeBronzeAnim = useSharedValue(activeColors.templeBronze);
+  const templeBronzeLightAnim = useSharedValue(activeColors.templeBronzeLight);
+  const manuscriptGoldAnim = useSharedValue(activeColors.manuscriptGold);
 
   // We maintain a target secondary text color that will animate, and apply contrast protection on top.
   const secondaryTextTargetAnim = useSharedValue(activeColors.secondaryText);
@@ -251,6 +275,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     growthAnim.value = withTiming(activeColors.growth, config);
     highlightAnim.value = withTiming(activeColors.highlight, config);
     destructiveAnim.value = withTiming(activeColors.destructive, config);
+    sandstoneRoseAnim.value = withTiming(activeColors.sandstoneRose, config);
+    templeBronzeAnim.value = withTiming(activeColors.templeBronze, config);
+    templeBronzeLightAnim.value = withTiming(activeColors.templeBronzeLight, config);
+    manuscriptGoldAnim.value = withTiming(activeColors.manuscriptGold, config);
     secondaryTextTargetAnim.value = withTiming(activeColors.secondaryText, config);
   }, [activeColors, isDark]);
 
@@ -271,6 +299,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       growth: growthAnim,
       highlight: highlightAnim,
       destructive: destructiveAnim,
+      sandstoneRose: sandstoneRoseAnim,
+      templeBronze: templeBronzeAnim,
+      templeBronzeLight: templeBronzeLightAnim,
+      manuscriptGold: manuscriptGoldAnim,
     },
     spacing,
     borderRadius,
