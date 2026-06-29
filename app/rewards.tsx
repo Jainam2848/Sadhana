@@ -9,7 +9,7 @@ import { MandalaThread } from '@/components/ui/MandalaThread';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
 import { RewardsSkeleton } from '@/components/ui/Skeletons';
 import { ErrorState } from '@/components/ui/ErrorState';
-import { Check, Lock, Play } from 'lucide-react-native';
+import { Check, Lock, Play, ArrowLeft } from 'lucide-react-native';
 import { ActivityIndicator, Modal, StyleSheet, Alert, Animated, Easing } from 'react-native';
 import * as Haptics from 'expo-haptics';
 
@@ -119,16 +119,28 @@ export default function RewardsScreen() {
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
+    opacityRange: [0, 1], // Unused but keeps interpolation happy
     outputRange: ['0deg', '360deg'],
-  });
+  } as any);
 
   return (
     <View className="flex-1 bg-background relative">
       <MandalaThread />
 
-      {/* Top App Bar */}
+      {/* Top App Bar with back button */}
       <View className="pt-16 pb-4 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
-        <Heading className="text-primary font-serif">Rewards</Heading>
+        <View className="flex-row items-center gap-1">
+          <PressableAnimated
+            haptic="light"
+            className="w-10 h-10 items-center justify-center rounded-full active:bg-surface-border/20 -ml-2 mr-1"
+            onPress={() => router.back()}
+            accessibilityLabel="Go back to Profile"
+          >
+            <ArrowLeft size={20} color={colors.primaryText} />
+          </PressableAnimated>
+          <Heading className="text-primary font-serif">Rewards</Heading>
+        </View>
+
         {isPremium && (
           <PressableAnimated
             haptic="light"
@@ -347,5 +359,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(28, 20, 9, 0.85)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  starRow: {
+    flexDirection: 'row',
+    gap: 3,
   },
 });

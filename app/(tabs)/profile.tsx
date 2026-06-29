@@ -137,6 +137,31 @@ export default function ProfileScreen() {
             </View>
           </View>
 
+          {/* Rewards Gateway Card */}
+          <PressableAnimated
+            haptic="medium"
+            className="bg-surface border border-surface-border rounded-xl p-5 flex-row items-center justify-between mb-8"
+            onPress={() => router.push('/rewards')}
+            accessibilityLabel="View Practice Rewards. Balance: Karma Coins."
+          >
+            <View className="flex-1 pr-4">
+              <Text className="font-sans font-bold text-sm text-primary-text">
+                Practice Rewards & Milestones
+              </Text>
+              <Caption className="text-secondary-text text-xs mt-1">
+                Claim Karma Coins (Practice Rewards) for completing daily sessions and track milestones.
+              </Caption>
+            </View>
+            <View className="flex-row items-center gap-2">
+              <View className="bg-warm-highlight/20 px-2 py-1 rounded-full border border-accent-terracotta/10">
+                <Text className="font-sans font-bold text-xs text-accent-terracotta">
+                  {profile?.karma_coins || 0} ॐ
+                </Text>
+              </View>
+              <Award size={18} color="#C44B22" />
+            </View>
+          </PressableAnimated>
+
           {/* Upgrade Banner for Free Users */}
           {!profile?.premium && (
             <PressableAnimated
