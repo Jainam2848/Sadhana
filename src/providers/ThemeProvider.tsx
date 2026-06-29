@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useColorScheme as useDeviceColorScheme } from 'react-native';
 import { useSettingsStore } from '@/stores/settingsStore';
-import { useThemeStore } from '@/stores/themeStore';
 import { useTimeOfDayTheme } from '@/hooks/useTimeOfDayTheme';
 import { useColorScheme as useNativewindColorScheme } from 'nativewind';
 import { useFonts } from 'expo-font';
@@ -12,7 +11,6 @@ import {
   useSharedValue,
   useDerivedValue,
   withTiming,
-  interpolateColor,
   SharedValue,
 } from 'react-native-reanimated';
 
@@ -54,6 +52,7 @@ export interface Theme {
     md: number;
     lg: number;
     xl: number;
+    xxl: number;
   };
   borderRadius: {
     sm: number;
@@ -66,39 +65,39 @@ export interface Theme {
 
 // 1. Theme Palette Definitions
 const morningColors: ThemeColors = {
-  background: '#EBF3FA', // Crisp light sky blue
+  background: '#FAF5F2', // Soft clay tint
   surface: '#FFFFFF',
-  border: 'rgba(28, 76, 120, 0.08)',
-  primaryText: '#080603', // Mathematically black for contrast
-  secondaryText: '#4A607A',
-  accent: '#D97706', // Warm amber sunrise
-  growth: '#10B981',
-  highlight: '#DBEAFE',
-  destructive: '#EF4444',
+  border: 'rgba(44, 34, 30, 0.05)',
+  primaryText: '#2C221E', // Espresso
+  secondaryText: '#8C7A70', // Warm silt
+  accent: '#D48C70', // Terracotta sunrise
+  growth: '#4E6E58', // Sage green
+  highlight: '#F5ECE8',
+  destructive: '#C54E4E',
 };
 
 const middayColors: ThemeColors = {
-  background: '#FDFAF5', // Warm cream
+  background: '#FAF7F2', // Grounding warm sand
   surface: '#FFFFFF',
-  border: 'rgba(42, 29, 10, 0.08)',
-  primaryText: '#080603', // Mathematically black for contrast
-  secondaryText: '#6B5A41',
-  accent: '#C44B22', // Terracotta
-  growth: '#1A6B3A',
-  highlight: '#F5E6C8',
-  destructive: '#991F1F',
+  border: 'rgba(42, 36, 33, 0.06)',
+  primaryText: '#2A2421', // Dark bark / charcoal
+  secondaryText: '#7A6F68', // Soil gray
+  accent: '#C95B32', // Earthen terracotta
+  growth: '#3D5C47', // Forest moss green
+  highlight: '#F2EADF', // Sandstone linen
+  destructive: '#C54E4E',
 };
 
 const eveningColors: ThemeColors = {
-  background: '#151210', // Dark warm charcoal
-  surface: '#221C18', // Darker surface
-  border: 'rgba(245, 230, 200, 0.08)',
-  primaryText: '#FFFFFF', // Pure white for contrast
-  secondaryText: '#A69580',
-  accent: '#E06135', // Sunset orange
-  growth: '#2CA358',
-  highlight: '#2C2216',
-  destructive: '#E04343',
+  background: '#181513', // Deep clay shadow
+  surface: '#201C19', // Dark bark
+  border: 'rgba(245, 239, 235, 0.05)',
+  primaryText: '#F5EFEB', // Warm linen
+  secondaryText: '#B0A298', // Volcanic ash
+  accent: '#E27E57', // Sunset terracotta embers
+  growth: '#598266', // Glowing moss
+  highlight: '#2A221E',
+  destructive: '#C54E4E',
 };
 
 const spacing = {
@@ -106,8 +105,9 @@ const spacing = {
   xs: 4,
   sm: 8,
   md: 16,
-  lg: 24,
-  xl: 32,
+  lg: 28, // Relaxed
+  xl: 44, // Generous section spacing
+  xxl: 56, // Large break spacing
 };
 
 const borderRadius = {
@@ -219,7 +219,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const primaryTextAnim = useDerivedValue<string>(() => {
     const bg = backgroundAnim.value;
     const bgLum = getRelativeLuminance(bg);
-    return bgLum >= 0.18 ? '#080603' : '#FFFFFF';
+    return bgLum >= 0.18 ? '#2A2421' : '#F5EFEB';
   });
 
   const secondaryTextAnim = useDerivedValue<string>(() => {
@@ -234,7 +234,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return targetSec;
     }
 
-    return bgLum >= 0.18 ? '#4A607A' : '#A69580';
+    return bgLum >= 0.18 ? '#7A6F68' : '#B0A298';
   });
 
   // F. Run UI thread animations when theme updates
@@ -254,9 +254,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     secondaryTextTargetAnim.value = withTiming(activeColors.secondaryText, config);
   }, [activeColors, isDark]);
 
-  if (!fontsLoaded) {
-    return null; // Return null until fonts are fully loaded (standard Expo pattern)
-  }
+  // Don't gate on fontsLoaded — always render children so the navigator
+  // and AuthProvider mount immediately. Fonts will swap in once ready.
 
   const value: Theme = {
     dark: isDark,

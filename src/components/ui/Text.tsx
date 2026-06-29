@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text as RNText, TextProps as RNTextProps, TextStyle, StyleSheet } from 'react-native';
+import { Text as CSSText } from '@/tw';
+import { TextProps as RNTextProps, TextStyle, StyleSheet } from 'react-native';
 import { useSettingsStore } from '@/stores/settingsStore';
 
 export type TextVariant = 'display' | 'body' | 'stat';
@@ -99,18 +100,22 @@ export function Text({
   const scaledSize = Math.round(baseSize * fontSizeScale);
   const fontFamily = fontFamilies[variant][weight];
 
+  const letterSpacing = variant === 'display' ? -scaledSize * 0.02 : undefined;
+  const lineHeight = variant === 'display' ? Math.round(scaledSize * 1.15) : Math.round(scaledSize * 1.5);
+
   const combinedStyle = StyleSheet.flatten([
     {
       fontFamily,
       fontSize: scaledSize,
-      color: variant === 'display' ? '#080603' : undefined, // Will be overridden by active theme colors
+      letterSpacing,
+      lineHeight,
     },
     style,
   ]);
 
   return (
-    <RNText style={combinedStyle} {...props}>
+    <CSSText style={combinedStyle} {...props}>
       {children}
-    </RNText>
+    </CSSText>
   );
 }

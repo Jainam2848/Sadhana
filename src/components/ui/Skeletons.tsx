@@ -20,13 +20,13 @@ export function SkeletonLoader({
   className?: string;
   borderRadius?: number;
 }) {
-  const opacity = useSharedValue(0.3);
+  const opacity = useSharedValue(0.2);
 
   useEffect(() => {
     opacity.value = withRepeat(
       withSequence(
-        withTiming(0.65, { duration: 750 }),
-        withTiming(0.3, { duration: 750 })
+        withTiming(0.45, { duration: 1800 }),
+        withTiming(0.2, { duration: 1800 })
       ),
       -1,
       true
@@ -53,7 +53,7 @@ export function SkeletonLoader({
           {
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(107, 90, 65, 0.08)',
+            backgroundColor: 'rgba(122, 111, 104, 0.08)',
             borderRadius,
           },
         ]}
@@ -65,57 +65,74 @@ export function SkeletonLoader({
 // 2. Home Screen Skeleton
 export function HomeSkeleton() {
   return (
-    <View className="flex-1 px-6 pt-6 gap-6">
-      {/* Greetings Block */}
-      <View className="mb-2 gap-3">
-        <SkeletonLoader width="70%" height={32} />
-        <View className="flex-row items-center gap-2">
-          <SkeletonLoader width={16} height={16} borderRadius={8} />
-          <SkeletonLoader width="35%" height={16} />
-        </View>
+    <View className="flex-1 px-6 pt-10 gap-6">
+      {/* Floating Minimalist Header Skeleton */}
+      <View className="flex-row items-center justify-between mb-4">
+        <SkeletonLoader width="45%" height={16} />
+        <SkeletonLoader width={32} height={32} borderRadius={16} />
       </View>
 
-      {/* Plan Card Block */}
-      <View className="bg-surface rounded-xl border border-surface-border p-5 gap-5">
-        <View className="flex-row justify-between items-start">
-          <SkeletonLoader width="50%" height={24} />
-          <SkeletonLoader width="25%" height={18} borderRadius={12} />
+      {/* Immersive Hero Sanctuary Skeleton */}
+      <View className="items-center justify-center py-6 min-h-[380px]">
+        {/* Title display skeleton */}
+        <View className="items-center mb-4 gap-2 w-full">
+          <SkeletonLoader width="80%" height={32} />
+          <SkeletonLoader width="60%" height={32} />
         </View>
-        <View className="flex-row gap-2">
-          <SkeletonLoader width={90} height={28} borderRadius={14} />
-          <SkeletonLoader width={110} height={28} borderRadius={14} />
-          <SkeletonLoader width={90} height={28} borderRadius={14} />
+        
+        {/* Subtitle skeleton */}
+        <SkeletonLoader width="70%" height={16} className="mb-6" />
+
+        {/* Horizontal Ritual Pathway Skeleton */}
+        <View className="flex-row items-center justify-center my-6 gap-3 w-full">
+          <View className="items-center">
+            <SkeletonLoader width={50} height={14} className="mb-1" />
+            <SkeletonLoader width={40} height={10} />
+          </View>
+          <SkeletonLoader width={28} height={1} />
+          <View className="items-center">
+            <SkeletonLoader width={70} height={14} className="mb-1" />
+            <SkeletonLoader width={40} height={10} />
+          </View>
+          <SkeletonLoader width={28} height={1} />
+          <View className="items-center">
+            <SkeletonLoader width={60} height={14} className="mb-1" />
+            <SkeletonLoader width={40} height={10} />
+          </View>
         </View>
-        <SkeletonLoader width="60%" height={16} />
-        <SkeletonLoader width="100%" height={48} borderRadius={24} />
+
+        {/* Segmented Tuning Row Skeleton */}
+        <View className="flex-row items-center justify-center gap-4 mb-8">
+          <SkeletonLoader width={55} height={18} borderRadius={9} />
+          <SkeletonLoader width={4} height={4} borderRadius={2} />
+          <SkeletonLoader width={55} height={18} borderRadius={9} />
+          <SkeletonLoader width={4} height={4} borderRadius={2} />
+          <SkeletonLoader width={55} height={18} borderRadius={9} />
+        </View>
+
+        {/* CTA Button Skeleton */}
+        <SkeletonLoader width={220} height={52} borderRadius={26} />
       </View>
 
-      {/* Recent Sessions Block */}
-      <View className="gap-4">
-        <SkeletonLoader width="40%" height={16} />
-        <View className="flex-row gap-3">
-          <View className="w-[140px] h-[86px] bg-surface border border-surface-border rounded-xl p-3 justify-between">
-            <SkeletonLoader width="60%" height={10} />
-            <View className="gap-1.5">
-              <SkeletonLoader width="90%" height={12} />
-              <SkeletonLoader width="50%" height={10} />
+      {/* Alignment Statistics Section Skeleton */}
+      <View className="flex-row items-center justify-center py-4 border-t border-b border-surface-border/20 gap-4">
+        <SkeletonLoader width="35%" height={14} />
+        <View className="w-[1px] h-[12px] bg-surface-border/20" />
+        <SkeletonLoader width="40%" height={14} />
+      </View>
+
+      {/* Recent Practice Journal Skeleton */}
+      <View className="mt-4 gap-4">
+        <SkeletonLoader width="30%" height={12} className="mb-2" />
+        {[1, 2, 3].map((i) => (
+          <View key={i} className="flex-row items-center justify-between py-4 border-b border-surface-border/10">
+            <View className="gap-2 flex-1 mr-4">
+              <SkeletonLoader width="25%" height={10} />
+              <SkeletonLoader width="70%" height={14} />
             </View>
+            <SkeletonLoader width={50} height={12} />
           </View>
-          <View className="w-[140px] h-[86px] bg-surface border border-surface-border rounded-xl p-3 justify-between">
-            <SkeletonLoader width="60%" height={10} />
-            <View className="gap-1.5">
-              <SkeletonLoader width="90%" height={12} />
-              <SkeletonLoader width="50%" height={10} />
-            </View>
-          </View>
-          <View className="w-[140px] h-[86px] bg-surface border border-surface-border rounded-xl p-3 justify-between">
-            <SkeletonLoader width="60%" height={10} />
-            <View className="gap-1.5">
-              <SkeletonLoader width="90%" height={12} />
-              <SkeletonLoader width="50%" height={10} />
-            </View>
-          </View>
-        </View>
+        ))}
       </View>
     </View>
   );

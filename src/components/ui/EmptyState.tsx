@@ -17,9 +17,9 @@ export function EmptyState({
   onCtaPress,
 }: EmptyStateProps) {
   return (
-    <View className="flex-1 items-center justify-center py-12 px-6 bg-transparent">
+    <View className="flex-1 items-center justify-center py-16 px-8 bg-transparent">
       {/* Custom Generated Earth Premium Illustration */}
-      <View className="w-48 h-48 mb-6 items-center justify-center rounded-2xl overflow-hidden border border-surface-border bg-surface/30">
+      <View className="w-44 h-44 mb-8 items-center justify-center rounded-full overflow-hidden border border-surface-border/50 bg-surface/40">
         <Image
           source={require('../../../assets/images/empty_state_illustration.png')}
           className="w-full h-full object-cover"
@@ -28,10 +28,10 @@ export function EmptyState({
       </View>
 
       {/* Text Context */}
-      <Heading className="text-primary-text text-lg font-serif mb-2 text-center">
+      <Heading className="text-primary-text text-xl font-normal mb-3 text-center">
         {title}
       </Heading>
-      <Body className="text-secondary-text text-sm text-center mb-6 max-w-[280px] leading-relaxed">
+      <Body className="text-secondary-text text-sm text-center mb-8 max-w-[260px] leading-relaxed opacity-80">
         {description}
       </Body>
 
@@ -40,9 +40,9 @@ export function EmptyState({
         <PressableAnimated
           haptic="medium"
           onPress={onCtaPress}
-          className="bg-accent-terracotta px-6 py-2.5 rounded-full active:opacity-90 shadow-sm"
+          className="bg-accent-terracotta px-8 py-3.5 rounded-full active:opacity-90 shadow-sm"
         >
-          <Body className="text-white font-sans font-bold text-xs">
+          <Body className="text-white font-sans font-medium text-xs tracking-widest uppercase">
             {ctaText}
           </Body>
         </PressableAnimated>

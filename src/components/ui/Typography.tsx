@@ -37,10 +37,10 @@ export function Typography({
 
   if (variant === 'display') {
     textVariant = 'display';
-    weight = 'bold';
+    weight = 'regular'; // Editorial regular weight for large displays
   } else if (variant === 'heading') {
     textVariant = 'display';
-    weight = 'bold';
+    weight = 'bold'; // Bold is fine for structural heading weights
     customStyles.fontSize = fontSizes.heading;
   } else if (variant === 'subheading') {
     textVariant = 'display';
@@ -53,14 +53,14 @@ export function Typography({
     textVariant = 'body';
     weight = 'regular';
     customStyles.fontSize = fontSizes.caption;
-    customStyles.opacity = 0.8;
+    customStyles.opacity = 0.75;
   } else if (variant === 'micro') {
     textVariant = 'body';
     weight = 'medium';
     customStyles.fontSize = fontSizes.micro;
     customStyles.textTransform = 'uppercase';
-    customStyles.letterSpacing = 1.2;
-    customStyles.opacity = 0.7;
+    customStyles.letterSpacing = 1.6; // High tracking for resort aesthetic
+    customStyles.opacity = 0.6;
   } else if (variant === 'stat') {
     textVariant = 'stat';
     weight = 'regular';

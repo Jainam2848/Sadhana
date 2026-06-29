@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useTheme } from '@/hooks/useTheme';
 
-const AnimatedG = Animated.createAnimatedComponent(G);
+const AnimatedG = Animated.createAnimatedComponent(G) as any;
 
 export type PracticeIconType = 'asana' | 'pranayama' | 'dhyana' | 'diya' | 'om-coin';
 
@@ -85,7 +85,7 @@ export function PracticeIcon({
           {...commonProps}
           accessibilityLabel="Asana Practice - Body Posture"
           style={style}
-          {...props}
+          {...props as any}
         >
           {/* Head */}
           <Circle cx="12" cy="5" r="2" stroke={iconColor} fill="none" />
@@ -105,7 +105,7 @@ export function PracticeIcon({
           {...commonProps}
           accessibilityLabel="Pranayama Practice - Breath Expansion"
           style={style}
-          {...props}
+          {...props as any}
         >
           {/* Sine wave 1 - Inhale wave */}
           <Path
@@ -128,7 +128,7 @@ export function PracticeIcon({
           {...commonProps}
           accessibilityLabel="Dhyana Practice - Lotus Meditation"
           style={style}
-          {...props}
+          {...props as any}
         >
           {/* Center Petal */}
           <Path d="M 12 4 C 10 8, 10 16, 12 19 C 14 16, 14 8, 12 4 Z" fill="none" />
@@ -147,7 +147,7 @@ export function PracticeIcon({
           {...commonProps}
           accessibilityLabel="Diya Streak Lamp"
           style={style}
-          {...props}
+          {...props as any}
         >
           {/* Oil bowl base */}
           <Path
@@ -181,7 +181,7 @@ export function PracticeIcon({
           {...commonProps}
           accessibilityLabel="Sadhana Om Coin"
           style={style}
-          {...props}
+          {...props as any}
         >
           {/* Coin outer border */}
           <Circle cx="12" cy="12" r="10" />
