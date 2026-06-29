@@ -40,6 +40,24 @@ export interface SadhanaPlan {
   dhyana?: Routine;
 }
 
+// Local in-memory state for demo/sandbox users to simulate DB updates during the app session
+const demoProfiles: Record<string, Profile> = {};
+
+function getDemoProfile(userId: string): Profile {
+  if (!demoProfiles[userId]) {
+    demoProfiles[userId] = {
+      id: userId,
+      username: userId === 'demo-premium-user-id' ? 'Devendra Nath' : 'Asha Devi',
+      avatar_url: null,
+      premium: userId === 'demo-premium-user-id',
+      monthly_ad_count: 0,
+      karma_coins: userId === 'demo-premium-user-id' ? 150 : 20,
+      created_at: new Date().toISOString(),
+    };
+  }
+  return demoProfiles[userId];
+}
+
 // 1. Fetch Profile hook
 export function useProfile(userId: string | undefined) {
   return useQuery({
@@ -49,15 +67,7 @@ export function useProfile(userId: string | undefined) {
 
       // Intercept demo sandbox users to return local mock profiles
       if (userId.startsWith('demo-')) {
-        return {
-          id: userId,
-          username: userId === 'demo-premium-user-id' ? 'Devendra Nath' : 'Asha Devi',
-          avatar_url: null,
-          premium: userId === 'demo-premium-user-id',
-          monthly_ad_count: 0,
-          karma_coins: userId === 'demo-premium-user-id' ? 150 : 20,
-          created_at: new Date().toISOString(),
-        } as Profile;
+        return getDemoProfile(userId);
       }
 
       const { data, error } = await supabase
@@ -576,6 +586,38 @@ export function useIncrementAdViews() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
+      const userId = useAuthStore.getState().user?.id;
+      if (userId && userId.startsWith('demo-')) {
+        const profile = getDemoProfile(userId);
+        profile.monthly_ad_count += 1;
+        const newCount = profile.monthly_ad_count;
+        
+        let milestoneUnlocked = false;
+        let karmaCoinsAdded = 0;
+        if (newCount === 10) {
+          milestoneUnlocked = true;
+          karmaCoinsAdded = 10;
+        } else if (newCount === 30) {
+          milestoneUnlocked = true;
+          karmaCoinsAdded = 30;
+        } else if (newCount === 50) {
+          milestoneUnlocked = true;
+          karmaCoinsAdded = 50;
+        }
+
+        profile.karma_coins += karmaCoinsAdded;
+
+        // Optimistically update query client data
+        queryClient.setQueryData(['profile', userId], { ...profile });
+
+        return {
+          success: true,
+          updated_ad_count: newCount,
+          milestone_unlocked: milestoneUnlocked,
+          karma_coins_added: karmaCoinsAdded,
+        };
+      }
+
       const { data, error } = await supabase.rpc('increment_ad_views');
       if (error) throw error;
       return data as {
@@ -586,7 +628,8 @@ export function useIncrementAdViews() {
       };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      const userId = useAuthStore.getState().user?.id;
+      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
     },
   });
 }
@@ -596,6 +639,23 @@ export function useRedeemCoins() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ amount, type, description }: { amount: number; type: string; description: string }) => {
+      const userId = useAuthStore.getState().user?.id;
+      if (userId && userId.startsWith('demo-')) {
+        const profile = getDemoProfile(userId);
+        if (profile.karma_coins < amount) {
+          throw new Error('Insufficient Karma Coins');
+        }
+        profile.karma_coins -= amount;
+
+        // Optimistically update query client data
+        queryClient.setQueryData(['profile', userId], { ...profile });
+
+        return {
+          success: true,
+          remaining_balance: profile.karma_coins,
+        };
+      }
+
       const { data, error } = await supabase.rpc('redeem_karma_coins', {
         amount,
         transaction_type: type,
@@ -608,7 +668,8 @@ export function useRedeemCoins() {
       };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      const userId = useAuthStore.getState().user?.id;
+      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
     },
   });
 }
@@ -617,6 +678,10 @@ export function useRedeemCoins() {
 export function useDeleteAccount() {
   return useMutation({
     mutationFn: async () => {
+      const userId = useAuthStore.getState().user?.id;
+      if (userId && userId.startsWith('demo-')) {
+        return;
+      }
       const { error } = await supabase.rpc('delete_user_account');
       if (error) throw error;
     },
