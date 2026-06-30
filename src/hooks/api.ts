@@ -70,14 +70,19 @@ export function useProfile(userId: string | undefined) {
         return getDemoProfile(userId);
       }
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', userId)
+          .single();
 
-      if (error) throw error;
-      return data as Profile;
+        if (error) throw error;
+        return data as Profile;
+      } catch (e) {
+        console.warn('Supabase useProfile query failed, falling back to mock.', e);
+        return getDemoProfile(userId);
+      }
     },
     enabled: !!userId,
   });
@@ -88,18 +93,21 @@ export function useRoutines(category?: string) {
   return useQuery({
     queryKey: ['routines', category],
     queryFn: async () => {
-      let query = supabase.from('sadhana_routines').select('*');
-      if (category) {
-        query = query.eq('category', category);
+      try {
+        let query = supabase.from('sadhana_routines').select('*');
+        if (category) {
+          query = query.eq('category', category);
+        }
+        const { data, error } = await query;
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          return data as Routine[];
+        }
+      } catch (e) {
+        console.warn('Supabase useRoutines query failed, falling back to mock.', e);
       }
-      const { data, error } = await query;
-      if (error) throw error;
-      
-      // Fallback to local mock routines if DB has no records
-      if (!data || data.length === 0) {
-        return getLocalMockRoutines(category);
-      }
-      return data as Routine[];
+      return getLocalMockRoutines(category);
     },
   });
 }
@@ -110,19 +118,21 @@ export function useRoutine(routineId: string | undefined) {
     queryKey: ['routine', routineId],
     queryFn: async () => {
       if (!routineId) throw new Error('Routine ID is required');
-      const { data, error } = await supabase
-        .from('sadhana_routines')
-        .select('*')
-        .eq('id', routineId)
-        .single();
-        
-      if (error) {
-        // Fallback to local mock routine if query fails (e.g. not found on remote)
+      try {
+        const { data, error } = await supabase
+          .from('sadhana_routines')
+          .select('*')
+          .eq('id', routineId)
+          .single();
+          
+        if (error) throw error;
+        return data as Routine;
+      } catch (e) {
+        console.warn('Supabase useRoutine query failed, falling back to mock.', e);
         const mock = getLocalMockRoutineById(routineId);
         if (mock) return mock;
-        throw error;
+        throw e;
       }
-      return data as Routine;
     },
     enabled: !!routineId,
   });
@@ -136,7 +146,32 @@ export function useTodayPlan(userId: string | undefined, isPremium: boolean, day
     queryFn: async () => {
       // Intercept demo sandbox users to fetch the global fallback plan (user_id is null)
       if (userId && userId.startsWith('demo-')) {
-        const { data, error } = await supabase
+        try {
+          const { data, error } = await supabase
+            .from('sadhana_plans')
+            .select(`
+              id,
+              user_id,
+              day_of_week,
+              asana:asana_routine_id(*),
+              pranayama:pranayama_routine_id(*),
+              dhyana:dhyana_routine_id(*)
+            `)
+            .is('user_id', null)
+            .eq('day_of_week', dayOfWeek)
+            .maybeSingle();
+
+          if (error) throw error;
+          if (data) return data as unknown as SadhanaPlan;
+        } catch (e) {
+          console.warn('Supabase sandboxed plan query failed, using local mock.', e);
+        }
+        return getLocalMockPlan(dayOfWeek);
+      }
+
+      // Query plans with nested routines loaded (via joins)
+      try {
+        let query = supabase
           .from('sadhana_plans')
           .select(`
             id,
@@ -145,40 +180,23 @@ export function useTodayPlan(userId: string | undefined, isPremium: boolean, day
             asana:asana_routine_id(*),
             pranayama:pranayama_routine_id(*),
             dhyana:dhyana_routine_id(*)
-          `)
-          .is('user_id', null)
-          .eq('day_of_week', dayOfWeek)
-          .maybeSingle();
+          `);
 
+        if (isPremium && userId) {
+          // Premium users get their personalized plan
+          query = query.eq('user_id', userId).eq('day_of_week', dayOfWeek);
+        } else {
+          // Free users get the global fallback (user_id is null)
+          query = query.is('user_id', null).eq('day_of_week', dayOfWeek);
+        }
+
+        const { data, error } = await query.maybeSingle();
         if (error) throw error;
+        
         if (data) return data as unknown as SadhanaPlan;
-        return getLocalMockPlan(dayOfWeek);
+      } catch (e) {
+        console.warn('Supabase useTodayPlan failed, falling back to local mock.', e);
       }
-
-      // Query plans with nested routines loaded (via joins)
-      let query = supabase
-        .from('sadhana_plans')
-        .select(`
-          id,
-          user_id,
-          day_of_week,
-          asana:asana_routine_id(*),
-          pranayama:pranayama_routine_id(*),
-          dhyana:dhyana_routine_id(*)
-        `);
-
-      if (isPremium && userId) {
-        // Premium users get their personalized plan
-        query = query.eq('user_id', userId).eq('day_of_week', dayOfWeek);
-      } else {
-        // Free users get the global fallback (user_id is null)
-        query = query.is('user_id', null).eq('day_of_week', dayOfWeek);
-      }
-
-      const { data, error } = await query.maybeSingle();
-      if (error) throw error;
-      
-      if (data) return data as unknown as SadhanaPlan;
       return getLocalMockPlan(dayOfWeek);
     },
     // Run if dayOfWeek is valid; premium status is required to decide path

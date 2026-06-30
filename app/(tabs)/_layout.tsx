@@ -40,17 +40,19 @@ const TabItem: React.FC<TabItemProps> = ({
   const opacityVal = useSharedValue(spotlightOpacity);
   const scale = useSharedValue(1);
 
+  const { motion } = useTheme();
+
   useEffect(() => {
-    opacityVal.value = withTiming(spotlightOpacity, { duration: 300 });
+    opacityVal.value = withTiming(spotlightOpacity, { duration: motion.duration.standard });
   }, [spotlightOpacity]);
 
   useEffect(() => {
     if (isFocused) {
-      scale.value = withSpring(1.15, { damping: 10, stiffness: 150 }, () => {
-        scale.value = withSpring(1, { damping: 10, stiffness: 150 });
+      scale.value = withSpring(1.15, motion.spring.bouncy, () => {
+        scale.value = withSpring(1, motion.spring.bouncy);
       });
     } else {
-      scale.value = withSpring(1);
+      scale.value = withSpring(1, motion.spring.bouncy);
     }
   }, [isFocused]);
 
@@ -98,7 +100,7 @@ const TabItem: React.FC<TabItemProps> = ({
 
 // Custom TabBar that aligns with Earth Ritual styles and implements spotlight slide interactions
 function SpotlightTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const { colors } = useTheme();
+  const { colors, motion } = useTheme();
   const activeIndex = state.index;
 
   const numTabs = state.routes.length;
@@ -110,10 +112,10 @@ function SpotlightTabBar({ state, descriptors, navigation }: BottomTabBarProps) 
   const indicatorLeft = useSharedValue(0);
 
   useEffect(() => {
-    indicatorLeft.value = withSpring(activeIndex * tabWidth + paddingX + (tabWidth - 48) / 2, {
-      damping: 15,
-      stiffness: 120,
-    });
+    indicatorLeft.value = withSpring(
+      activeIndex * tabWidth + paddingX + (tabWidth - 48) / 2,
+      motion.spring.calm
+    );
   }, [activeIndex, tabWidth]);
 
   const indicatorStyle = useAnimatedStyle(() => ({
@@ -123,7 +125,7 @@ function SpotlightTabBar({ state, descriptors, navigation }: BottomTabBarProps) 
   const accentColorString = typeof colors.accent === 'string' ? colors.accent : '#C44B22';
 
   return (
-    <View className="bg-background px-4 pb-4 pt-1 z-50">
+    <View className="bg-transparent px-4 pb-4 pt-1 z-50">
       <View className="relative flex-row items-center h-16 bg-surface border border-surface-border rounded-xl shadow-sm px-2 justify-around overflow-hidden">
         {/* Sliding top indicator line */}
         <Animated.View
@@ -185,6 +187,7 @@ export default function TabLayout() {
       tabBar={(props) => <SpotlightTabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        sceneStyle: { backgroundColor: 'transparent' },
       }}
     >
       <Tabs.Screen name="home" options={{ title: 'Home' }} />

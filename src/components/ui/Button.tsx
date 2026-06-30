@@ -7,7 +7,9 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
+  withDelay,
 } from 'react-native-reanimated';
+import { useTheme } from '@/hooks/useTheme';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 
@@ -30,6 +32,7 @@ export function Button({
   loading = false,
   className = '',
 }: ButtonProps) {
+  const { motion } = useTheme();
   const scale = useSharedValue(1);
   const pressActive = useSharedValue(0);
 
@@ -43,7 +46,7 @@ export function Button({
 
   const handlePressIn = () => {
     if (disabled || loading) return;
-    scale.value = withSpring(0.96, { damping: 24, stiffness: 180 });
+    scale.value = withSpring(0.96, motion.spring.responsive);
     pressActive.value = withTiming(1, { duration: 120 });
 
     if (Platform.OS !== 'web') {
@@ -52,12 +55,13 @@ export function Button({
   };
 
   const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 24, stiffness: 180 });
+    // Hold slightly (40ms) then release using responsive spring
+    scale.value = withDelay(40, withSpring(1, motion.spring.responsive));
     pressActive.value = withTiming(0, { duration: 200 });
   };
 
   // Build luxury capsule button styles
-  let containerStyles = 'py-4 px-8 rounded-full items-center justify-center flex-row relative overflow-hidden ';
+  let containerStyles = 'py-4 px-8 rounded-full items-center justify-center flex-row relative overflow-hidden min-h-[44px] ';
   let textStyles = 'font-sans font-medium text-xs tracking-widest uppercase ';
 
   if (variant === 'primary') {

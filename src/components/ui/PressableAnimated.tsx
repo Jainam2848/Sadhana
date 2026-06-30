@@ -6,7 +6,9 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withDelay,
 } from 'react-native-reanimated';
+import { useTheme } from '@/hooks/useTheme';
 
 export type HapticType = 'light' | 'medium' | 'success' | 'warning' | 'error' | 'none';
 
@@ -21,6 +23,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export const PressableAnimated = React.forwardRef<any, PressableAnimatedProps>(
   ({ haptic = 'light', scaleTo = 0.97, onPress, onPressIn, onPressOut, style, children, ...props }, ref) => {
     const scale = useSharedValue(1);
+    const { motion } = useTheme();
 
     const animatedStyle = useAnimatedStyle(() => ({
       transform: [{ scale: scale.value }],
@@ -28,7 +31,7 @@ export const PressableAnimated = React.forwardRef<any, PressableAnimatedProps>(
 
     const handlePressIn = (event: any) => {
       if (props.disabled) return;
-      scale.value = withSpring(scaleTo, { damping: 15, stiffness: 300 });
+      scale.value = withSpring(scaleTo, motion.spring.responsive);
 
       if (Platform.OS !== 'web' && haptic !== 'none') {
         try {
@@ -53,7 +56,8 @@ export const PressableAnimated = React.forwardRef<any, PressableAnimatedProps>(
 
     const handlePressOut = (event: any) => {
       if (props.disabled) return;
-      scale.value = withSpring(1, { damping: 15, stiffness: 300 });
+      // Pause briefly (30ms) before returning to original scale
+      scale.value = withDelay(30, withSpring(1, motion.spring.responsive));
       if (onPressOut) onPressOut(event);
     };
 

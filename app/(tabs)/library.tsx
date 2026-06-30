@@ -209,11 +209,11 @@ export default function LibraryScreen() {
   }, [allRoutines, activeCategory, searchQuery]);
 
   return (
-    <View className="flex-1 bg-background relative">
+    <View className="flex-1 bg-transparent relative">
       <MandalaThread />
 
       {/* Top Header */}
-      <View className="pt-16 pb-4 px-6 z-40 bg-background/80">
+      <View className="pt-16 pb-4 px-6 z-40 bg-transparent">
         <Micro className="text-secondary-text mb-1 font-sans font-semibold">Sanctuary</Micro>
         <Display className="mb-6 font-serif">Sadhana Library</Display>
 
@@ -337,9 +337,9 @@ export default function LibraryScreen() {
               })
             ) : (
               <EmptyState
-                title="No Practices Found"
-                description="We couldn't find any routines matching your filters. Breathe in, reset your search, or try another need."
-                ctaText="Reset All Filters"
+                title="Your Path Awaits"
+                description="Every moment is a fresh start. Clear these filters and let the natural flow of practices return."
+                ctaText="Clear Filters"
                 onCtaPress={handleClearFilters}
               />
             )}

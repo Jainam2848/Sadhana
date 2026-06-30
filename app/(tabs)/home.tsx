@@ -1,19 +1,23 @@
+
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Platform, AccessibilityInfo } from 'react-native';
+import { View, ScrollView, StyleSheet, Platform, AccessibilityInfo, Switch, Alert, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import * as Haptics from 'expo-haptics';
-import { Sparkles, Play } from 'lucide-react-native';
-import Svg, { Defs, LinearGradient, Stop, Path, Circle, G, Rect } from 'react-native-svg';
+import { Sparkles, Play, ArrowLeft, Download, Lock, Moon, Move, Wind, ChevronDown } from 'lucide-react-native';
+import Svg, { Defs, LinearGradient, Stop, Path, Circle, G, Rect, RadialGradient } from 'react-native-svg';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   withRepeat,
   withDelay,
+  withSequence,
   withSpring,
   Easing,
   cancelAnimation,
+  runOnJS,
 } from 'react-native-reanimated';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
@@ -23,7 +27,10 @@ import { Text } from '@/components/ui/Text';
 import { PressableAnimated } from '@/components/ui/PressableAnimated';
 import { HomeSkeleton } from '@/components/ui/Skeletons';
 import { ErrorState } from '@/components/ui/ErrorState';
+import { Heading, Caption, Micro } from '@/components/ui/Typography';
 import { PracticeIcon } from '@/components/ui/PracticeIcon';
+import { Divider } from '@/components/ui/Divider';
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface SessionItem {
   label: string;
@@ -65,340 +72,7 @@ const nightIntentions = [
   "Find comfort in quiet contemplation.",
 ];
 
-const AnimatedG = Animated.createAnimatedComponent(G) as any;
 
-function LotusPetal({ style, color }: { style: any; color: string }) {
-  return (
-    <Animated.View style={[styles.lotusPetal, style]} pointerEvents="none">
-      <Svg width="16" height="24" viewBox="0 0 10 20">
-        <Path
-          d="M5 0 C7.5 5, 7.5 15, 5 20 C2.5 15, 2.5 5, 5 0 Z"
-          fill={color}
-          opacity={0.35}
-        />
-      </Svg>
-    </Animated.View>
-  );
-}
-
-function Particle({ style, color }: { style: any; color: string }) {
-  return (
-    <Animated.View
-      style={[
-        styles.particleDot,
-        style,
-        { backgroundColor: color }
-      ]}
-      pointerEvents="none"
-    />
-  );
-}
-
-function HeroBackground({
-  timeOfDay,
-  hours,
-  reduceMotion,
-}: {
-  timeOfDay: 'morning' | 'midday' | 'evening';
-  hours: number;
-  reduceMotion: boolean;
-}) {
-  const { colors } = useTheme();
-  const isNight = hours >= 21 || hours < 5;
-
-  const config = useMemo(() => {
-    if (timeOfDay === 'morning') {
-      return {
-        gradStart: '#FFEBE0', // Sunrise peach
-        gradEnd: colors.background,
-        sunColor: '#FFD2B8',
-        sunOpacity: 0.65,
-        mountainColor1: 'rgba(212, 140, 112, 0.05)',
-        mountainColor2: 'rgba(212, 140, 112, 0.12)',
-        lightRayOpacity: 0.1,
-        showStars: false,
-        petalColor1: '#FFD2B8',
-        petalColor2: '#D48C70',
-        particleColor1: '#FFF0E6',
-        particleColor2: '#FFD2B8',
-      };
-    } else if (timeOfDay === 'midday') {
-      return {
-        gradStart: '#E5EEFC', // Midday soft blue
-        gradEnd: colors.background,
-        sunColor: '#FFFDE8',
-        sunOpacity: 0.5,
-        mountainColor1: 'rgba(122, 111, 104, 0.03)',
-        mountainColor2: 'rgba(122, 111, 104, 0.08)',
-        lightRayOpacity: 0.05,
-        showStars: false,
-        petalColor1: '#E29B7A',
-        petalColor2: '#C95B32',
-        particleColor1: '#FFFDE8',
-        particleColor2: '#DCE8FA',
-      };
-    } else if (isNight) {
-      return {
-        gradStart: '#080811', // Deep night violet
-        gradEnd: colors.background,
-        sunColor: '#E6E4FA', // Silver moon
-        sunOpacity: 0.3,
-        mountainColor1: 'rgba(245, 239, 235, 0.02)',
-        mountainColor2: 'rgba(245, 239, 235, 0.06)',
-        lightRayOpacity: 0,
-        showStars: true,
-        petalColor1: '#8A82C7', // Lilac
-        petalColor2: '#534E7C', // Volcanic violet
-        particleColor1: '#E6E4FA', // Silver moondust
-        particleColor2: '#413A6B',
-      };
-    } else {
-      // Evening
-      return {
-        gradStart: '#2A1814', // Sunset terracotta
-        gradEnd: colors.background,
-        sunColor: '#E27E57', // Dusk sun
-        sunOpacity: 0.4,
-        mountainColor1: 'rgba(226, 126, 87, 0.04)',
-        mountainColor2: 'rgba(226, 126, 87, 0.10)',
-        lightRayOpacity: 0.08,
-        showStars: false,
-        petalColor1: '#E27E57',
-        petalColor2: '#B85834',
-        particleColor1: '#FFE6D9',
-        particleColor2: '#E27E57',
-      };
-    }
-  }, [timeOfDay, isNight, colors.background]);
-
-  const mistOffset1 = useSharedValue(0);
-  const mistOffset2 = useSharedValue(0);
-  const lightRayPulse = useSharedValue(0.8);
-
-  // Lotus petals animation values
-  const petal1Progress = useSharedValue(0);
-  const petal2Progress = useSharedValue(0);
-  const petal3Progress = useSharedValue(0);
-
-  // Ambient particles animation values
-  const part1Progress = useSharedValue(0);
-  const part2Progress = useSharedValue(0);
-  const part3Progress = useSharedValue(0);
-  const part4Progress = useSharedValue(0);
-
-  useEffect(() => {
-    if (reduceMotion) {
-      mistOffset1.value = 0;
-      mistOffset2.value = 0;
-      lightRayPulse.value = 0.8;
-      petal1Progress.value = 0;
-      petal2Progress.value = 0;
-      petal3Progress.value = 0;
-      part1Progress.value = 0;
-      part2Progress.value = 0;
-      part3Progress.value = 0;
-      part4Progress.value = 0;
-      return;
-    }
-
-    mistOffset1.value = withRepeat(
-      withTiming(40, { duration: 15000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true
-    );
-    mistOffset2.value = withRepeat(
-      withTiming(-30, { duration: 18000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true
-    );
-    lightRayPulse.value = withRepeat(
-      withTiming(1.2, { duration: 6000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true
-    );
-
-    // Drifting Lotus Petals Loop
-    petal1Progress.value = withRepeat(withTiming(1, { duration: 16000, easing: Easing.linear }), -1, false);
-    petal2Progress.value = withRepeat(withTiming(1, { duration: 22000, easing: Easing.linear }), -1, false);
-    petal3Progress.value = withRepeat(withTiming(1, { duration: 18000, easing: Easing.linear }), -1, false);
-
-    // Rising Faint Particles Loop
-    part1Progress.value = withRepeat(withTiming(1, { duration: 11000, easing: Easing.linear }), -1, false);
-    part2Progress.value = withRepeat(withTiming(1, { duration: 15000, easing: Easing.linear }), -1, false);
-    part3Progress.value = withRepeat(withTiming(1, { duration: 13000, easing: Easing.linear }), -1, false);
-    part4Progress.value = withRepeat(withTiming(1, { duration: 17000, easing: Easing.linear }), -1, false);
-
-    return () => {
-      cancelAnimation(mistOffset1);
-      cancelAnimation(mistOffset2);
-      cancelAnimation(lightRayPulse);
-      cancelAnimation(petal1Progress);
-      cancelAnimation(petal2Progress);
-      cancelAnimation(petal3Progress);
-      cancelAnimation(part1Progress);
-      cancelAnimation(part2Progress);
-      cancelAnimation(part3Progress);
-      cancelAnimation(part4Progress);
-    };
-  }, [reduceMotion]);
-
-  const animatedMist1Style = useAnimatedStyle(() => ({
-    transform: [{ translateX: mistOffset1.value }],
-  }));
-
-  const animatedMist2Style = useAnimatedStyle(() => ({
-    transform: [{ translateX: mistOffset2.value }],
-  }));
-
-  const animatedRayStyle = useAnimatedStyle(() => ({
-    opacity: lightRayPulse.value * config.lightRayOpacity,
-  }));
-
-  // Lotus Petal animated styles
-  const animatedPetal1 = useAnimatedStyle(() => {
-    const x = 30 + petal1Progress.value * 90;
-    const y = -20 + petal1Progress.value * 200;
-    const rot = petal1Progress.value * 360;
-    return {
-      transform: [{ translateX: x }, { translateY: y }, { rotate: `${rot}deg` }],
-      opacity: Math.sin(petal1Progress.value * Math.PI) * 0.45,
-    };
-  });
-
-  const animatedPetal2 = useAnimatedStyle(() => {
-    const x = 280 - petal2Progress.value * 120;
-    const y = 10 + petal2Progress.value * 210;
-    const rot = petal2Progress.value * -240;
-    return {
-      transform: [{ translateX: x }, { translateY: y }, { rotate: `${rot}deg` }],
-      opacity: Math.sin(petal2Progress.value * Math.PI) * 0.35,
-    };
-  });
-
-  const animatedPetal3 = useAnimatedStyle(() => {
-    const x = 110 + petal3Progress.value * 80;
-    const y = 60 + petal3Progress.value * 180;
-    const rot = petal3Progress.value * 180;
-    return {
-      transform: [{ translateX: x }, { translateY: y }, { rotate: `${rot}deg` }],
-      opacity: Math.sin(petal3Progress.value * Math.PI) * 0.3,
-    };
-  });
-
-  // Particle animated styles
-  const animatedPart1 = useAnimatedStyle(() => {
-    const y = 200 - part1Progress.value * 150;
-    return {
-      transform: [{ translateX: 60 }, { translateY: y }],
-      opacity: Math.sin(part1Progress.value * Math.PI) * 0.4,
-    };
-  });
-
-  const animatedPart2 = useAnimatedStyle(() => {
-    const y = 220 - part2Progress.value * 180;
-    return {
-      transform: [{ translateX: 150 + Math.sin(part2Progress.value * Math.PI * 2) * 15 }, { translateY: y }],
-      opacity: Math.sin(part2Progress.value * Math.PI) * 0.35,
-    };
-  });
-
-  const animatedPart3 = useAnimatedStyle(() => {
-    const y = 240 - part3Progress.value * 160;
-    return {
-      transform: [{ translateX: 290 }, { translateY: y }],
-      opacity: Math.sin(part3Progress.value * Math.PI) * 0.4,
-    };
-  });
-
-  const animatedPart4 = useAnimatedStyle(() => {
-    const y = 180 - part4Progress.value * 140;
-    return {
-      transform: [{ translateX: 220 + Math.cos(part4Progress.value * Math.PI * 2) * 10 }, { translateY: y }],
-      opacity: Math.sin(part4Progress.value * Math.PI) * 0.3,
-    };
-  });
-
-  return (
-    <View style={StyleSheet.absoluteFillObject}>
-      <Svg width="100%" height="100%" style={StyleSheet.absoluteFill}>
-        <Defs>
-          <LinearGradient id="heroBgGrad" x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0" stopColor={config.gradStart} />
-            <Stop offset="0.6" stopColor={config.gradStart} stopOpacity={0.8} />
-            <Stop offset="1" stopColor={config.gradEnd} />
-          </LinearGradient>
-        </Defs>
-
-        <Rect width="100%" height="100%" fill="url(#heroBgGrad)" />
-
-        {config.showStars && (
-          <G opacity={0.6}>
-            <Circle cx="45" cy="50" r="0.8" fill="#FFF" opacity={0.8} />
-            <Circle cx="120" cy="30" r="0.6" fill="#FFF" opacity={0.6} />
-            <Circle cx="280" cy="70" r="1.0" fill="#FFF" opacity={0.9} />
-            <Circle cx="320" cy="25" r="0.5" fill="#FFF" opacity={0.5} />
-            <Circle cx="190" cy="80" r="0.6" fill="#FFF" opacity={0.7} />
-            <Circle cx="80" cy="95" r="0.8" fill="#FFF" opacity={0.7} />
-          </G>
-        )}
-
-        {!reduceMotion && config.lightRayOpacity > 0 && (
-          <AnimatedG style={animatedRayStyle}>
-            <Path d="M120 0 L150 200 L180 200 Z" fill={config.sunColor} opacity={0.2} />
-            <Path d="M220 0 L200 220 L250 220 Z" fill={config.sunColor} opacity={0.15} />
-            <Path d="M80 0 L40 180 L100 180 Z" fill={config.sunColor} opacity={0.15} />
-          </AnimatedG>
-        )}
-
-        <Circle cx="200" cy="95" r="48" fill={config.sunColor} opacity={config.sunOpacity} />
-
-        <Path
-          d="M-50 200 L30 110 L110 170 L190 80 L270 160 L360 70 L460 200 Z"
-          fill={config.mountainColor1}
-        />
-
-        <Path
-          d="M-50 220 L70 140 L150 190 L240 120 L320 170 L400 110 L490 220 Z"
-          fill={config.mountainColor2}
-        />
-      </Svg>
-
-      {!reduceMotion && (
-        <View style={StyleSheet.absoluteFill} pointerEvents="none">
-          <Animated.View style={[styles.mistLayer, { bottom: 15 }, animatedMist1Style]}>
-            <Svg width="500" height="50" viewBox="0 0 500 50">
-              <Path
-                d="M0 25 Q125 10 250 25 T500 25 L500 50 L0 50 Z"
-                fill={timeOfDay === 'midday' ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.12)'}
-                opacity={0.5}
-              />
-            </Svg>
-          </Animated.View>
-          <Animated.View style={[styles.mistLayer, { bottom: 0 }, animatedMist2Style]}>
-            <Svg width="500" height="50" viewBox="0 0 500 50">
-              <Path
-                d="M0 25 Q125 40 250 25 T500 25 L500 50 L0 50 Z"
-                fill={timeOfDay === 'midday' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.15)'}
-                opacity={0.4}
-              />
-            </Svg>
-          </Animated.View>
-
-          {/* Floating Lotus Petals */}
-          <LotusPetal style={animatedPetal1} color={config.petalColor1} />
-          <LotusPetal style={animatedPetal2} color={config.petalColor2} />
-          <LotusPetal style={animatedPetal3} color={config.petalColor2} />
-
-          {/* Drifting Ambient Particles */}
-          <Particle style={animatedPart1} color={config.particleColor1} />
-          <Particle style={animatedPart2} color={config.particleColor2} />
-          <Particle style={animatedPart3} color={config.particleColor1} />
-          <Particle style={animatedPart4} color={config.particleColor2} />
-        </View>
-      )}
-    </View>
-  );
-}
 
 function RotatingMandala({
   reduceMotion,
@@ -434,7 +108,10 @@ function RotatingMandala({
   const strokeColor = colors.accent;
 
   return (
-    <Animated.View style={[styles.mandalaContainer, animatedStyle]} pointerEvents="none">
+    <Animated.View
+      style={[styles.mandalaContainer, animatedStyle]}
+      pointerEvents="none"
+    >
       <Svg width="220" height="220" viewBox="0 0 100 100">
         <G stroke={strokeColor} strokeWidth="0.4" fill="none" opacity="0.08">
           <Circle cx="50" cy="50" r="45" strokeDasharray="1,1" />
@@ -463,202 +140,102 @@ function RotatingMandala({
   );
 }
 
-function BreathingOrbWithProgress({
-  progress = 0.72,
-  reduceMotion,
-}: {
-  progress?: number;
-  reduceMotion: boolean;
-}) {
+const AnimatedPath = Animated.createAnimatedComponent(Path) as any;
+const AnimatedG = Animated.createAnimatedComponent(G) as any;
+
+function AnimatedSunrise({ reduceMotion }: { reduceMotion: boolean }) {
   const { colors } = useTheme();
-  const orbScale = useSharedValue(1);
-  const orbOpacity = useSharedValue(0.4);
-  const [phase, setPhase] = useState<'Inhale' | 'Hold' | 'Exhale' | 'Rest'>('Inhale');
+  const breath = useSharedValue(0);
 
   useEffect(() => {
     if (reduceMotion) {
-      orbScale.value = 1;
-      orbOpacity.value = 0.5;
-      setPhase('Inhale');
+      breath.value = 0.5;
       return;
     }
-
-    // Sama Vritti 4s Inhale, 4s Hold, 4s Exhale, 4s Hold
-    const runBreathAnimation = () => {
-      orbScale.value = withTiming(
-        1.25,
-        { duration: 4000, easing: Easing.inOut(Easing.sin) },
-        (isFinished) => {
-          if (isFinished) {
-            // Hold (In)
-            orbScale.value = withDelay(
-              4000,
-              withTiming(
-                1.0,
-                { duration: 4000, easing: Easing.inOut(Easing.sin) },
-                (finished) => {
-                  if (finished) {
-                    // Hold (Out)
-                    orbScale.value = withDelay(
-                      4000,
-                      withTiming(1.25, { duration: 0 }, () => {
-                        runBreathAnimation();
-                      })
-                    );
-                  }
-                }
-              )
-            );
-          }
-        }
-      );
-
-      orbOpacity.value = withTiming(
-        0.75,
-        { duration: 4000, easing: Easing.inOut(Easing.sin) },
-        (isFinished) => {
-          if (isFinished) {
-            orbOpacity.value = withDelay(
-              4000,
-              withTiming(
-                0.35,
-                { duration: 4000, easing: Easing.inOut(Easing.sin) },
-                (finished) => {
-                  if (finished) {
-                    orbOpacity.value = withDelay(
-                      4000,
-                      withTiming(0.75, { duration: 0 })
-                    );
-                  }
-                }
-              )
-            );
-          }
-        }
-      );
-    };
-
-    runBreathAnimation();
-
-    let count = 0;
-    const interval = setInterval(() => {
-      count = (count + 1) % 4;
-      const phases: Array<'Inhale' | 'Hold' | 'Exhale' | 'Rest'> = ['Inhale', 'Hold', 'Exhale', 'Rest'];
-      setPhase(phases[count]);
-    }, 4000);
-
+    breath.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 4000, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0, { duration: 4000, easing: Easing.inOut(Easing.sin) })
+      ),
+      -1,
+      false
+    );
     return () => {
-      cancelAnimation(orbScale);
-      cancelAnimation(orbOpacity);
-      clearInterval(interval);
+      cancelAnimation(breath);
     };
   }, [reduceMotion]);
 
-  const animatedOrbStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: orbScale.value }],
-    opacity: orbOpacity.value,
-  }));
+  const animatedSunStyle = useAnimatedStyle(() => {
+    const scale = 1 + breath.value * 0.12;
+    const translateY = -breath.value * 5;
+    return {
+      transform: [
+        { scale },
+        { translateY }
+      ]
+    };
+  });
 
-  const radius = 55;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference * (1 - progress);
+  const animatedGlowStyle = useAnimatedStyle(() => {
+    const opacity = 0.35 + breath.value * 0.45;
+    return {
+      opacity
+    };
+  });
 
   return (
-    <View style={styles.breathingOrbContainer}>
-      <Svg width="140" height="140" viewBox="0 0 140 140" style={styles.progressRingSvg}>
-        <Circle
-          cx="70"
-          cy="70"
-          r={radius}
-          fill="none"
+    <View style={styles.sunriseContainer}>
+      <Svg width="180" height="100" viewBox="0 0 180 100" style={styles.sunriseSvg}>
+        <Defs>
+          <RadialGradient id="sunGlow" cx="50%" cy="100%" r="50%">
+            <Stop offset="0%" stopColor={colors.accent} stopOpacity="1" />
+            <Stop offset="50%" stopColor={colors.accent} stopOpacity="0.4" />
+            <Stop offset="100%" stopColor={colors.accent} stopOpacity="0" />
+          </RadialGradient>
+        </Defs>
+
+        {/* Glow */}
+        <AnimatedPath
+          d="M 10 100 A 80 80 0 0 1 170 100 Z"
+          fill="url(#sunGlow)"
+          style={animatedGlowStyle}
+        />
+
+        {/* Sunrise Horizon Line */}
+        <Path
+          d="M 10 100 L 170 100"
           stroke={colors.border}
-          strokeWidth="3.5"
-          opacity={0.3}
+          strokeWidth="1.2"
+          opacity={0.4}
         />
-        <Circle
-          cx="70"
-          cy="70"
-          r={radius}
-          fill="none"
-          stroke={colors.accent}
-          strokeWidth="3.5"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          transform="rotate(-90 70 70)"
-        />
+
+        {/* Rising Sun */}
+        <AnimatedG style={animatedSunStyle}>
+          <Path
+            d="M 60 100 A 30 30 0 0 1 120 100 Z"
+            fill={colors.accent}
+            opacity={0.8}
+          />
+          <Path
+            d="M 48 100 A 42 42 0 0 1 132 100"
+            fill="none"
+            stroke={colors.accent}
+            strokeWidth="0.8"
+            strokeDasharray="2,3"
+            opacity={0.4}
+          />
+        </AnimatedG>
       </Svg>
-
-      <Animated.View
-        style={[
-          styles.breathingOrb,
-          { backgroundColor: colors.accent },
-          animatedOrbStyle,
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel={`Pranayama breathing orb. Current phase: ${phase}`}
-        accessibilityHint="Guides you through Sama Vritti box breathing rhythm"
-      >
-        <Text
-          variant="body"
-          weight="bold"
-          style={[styles.breathingOrbText, { color: '#FFFFFF' }]}
-        >
-          {phase === 'Rest' ? 'HOLD' : phase.toUpperCase()}
-        </Text>
-      </Animated.View>
     </View>
-  );
-}
-
-function PracticeCard({
-  title,
-  duration,
-  icon,
-  onPress,
-}: {
-  title: string;
-  duration?: number;
-  icon: 'asana' | 'pranayama' | 'dhyana';
-  onPress?: () => void;
-}) {
-  const { colors, spacing, borderRadius } = useTheme();
-
-  return (
-    <PressableAnimated
-      haptic="light"
-      scaleTo={0.97}
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={`${title} practice, ${duration || 5} minutes`}
-      accessibilityHint="Tap to configure this routine"
-      style={[
-        styles.practiceCard,
-        {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderRadius: borderRadius.lg,
-          paddingVertical: spacing.sm * 1.5, // 12px
-          paddingHorizontal: spacing.sm, // 8px
-        }
-      ]}
-    >
-      <View style={[styles.practiceCardIconWrapper, { backgroundColor: colors.highlight }]}>
-        <PracticeIcon type={icon} size={18} color={colors.accent} />
-      </View>
-      <Text variant="body" weight="medium" style={[styles.practiceCardTitle, { color: colors.primaryText }]}>
-        {title}
-      </Text>
-      <Text variant="body" style={[styles.practiceCardDuration, { color: colors.secondaryText }]}>
-        {duration || 5} min
-      </Text>
-    </PressableAnimated>
   );
 }
 
 export default function HomeScreen() {
   const theme = useTheme();
-  const { colors, spacing, borderRadius, dark } = theme;
+  const { colors, spacing, borderRadius, dark, motion, shadows } = theme;
+  const insets = useSafeAreaInsets();
+  const bottomTabBarHeight = 84; // h-16 (64) + pb-4 (16) + pt-1 (4)
+  const ctaBottomPosition = bottomTabBarHeight + insets.bottom + 8;
   const user = useAuthStore((state) => state.user);
   const dailyCheckIn = useAuthStore((state) => state.dailyCheckIn);
   const submitDailyCheckIn = useAuthStore((state) => state.submitDailyCheckIn);
@@ -666,6 +243,9 @@ export default function HomeScreen() {
 
   const [tuneMode, setTuneMode] = useState<'restore' | 'steady' | 'energize'>('steady');
   const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
+  const [isConfiguring, setIsConfiguring] = useState(false);
+  const [offlineEnabled, setOfflineEnabled] = useState(false);
+  const expansionProgress = useSharedValue(0);
 
   const today = useMemo(() => new Date(), []);
   const formattedDate = useMemo(
@@ -728,7 +308,7 @@ export default function HomeScreen() {
 
   // Floating CTA Glow Loop
   const ctaGlowScale = useSharedValue(1);
-  const ctaGlowOpacity = useSharedValue(0.2);
+  const ctaGlowOpacity = useSharedValue(0.04);
 
   // Custom sliding segmented pill background alignment values
   const [containerWidth, setContainerWidth] = useState(0);
@@ -783,36 +363,32 @@ export default function HomeScreen() {
       return;
     }
 
-    // Staggered reveal animations
-    headerOpacity.value = withTiming(1, { duration: 550 });
+    // Staggered reveal animations using standard design tokens
+    headerOpacity.value = withTiming(1, { duration: motion.duration.slow });
 
-    titleOpacity.value = withDelay(120, withTiming(1, { duration: 600 }));
-    titleTranslateY.value = withDelay(120, withSpring(0, { damping: 15 }));
+    titleOpacity.value = withDelay(motion.duration.quick, withTiming(1, { duration: motion.duration.slow }));
+    titleTranslateY.value = withDelay(motion.duration.quick, withSpring(0, motion.spring.calm));
 
-    orbOpacity.value = withDelay(240, withTiming(1, { duration: 600 }));
-    orbScale.value = withDelay(240, withSpring(1, { damping: 14 }));
+    orbOpacity.value = withDelay(motion.duration.standard, withTiming(1, { duration: motion.duration.slow }));
+    orbScale.value = withDelay(motion.duration.standard, withSpring(1, motion.spring.calm));
 
-    panelOpacity.value = withDelay(360, withTiming(1, { duration: 600 }));
-    panelTranslateY.value = withDelay(360, withSpring(0, { damping: 16 }));
+    panelOpacity.value = withDelay(motion.duration.slow, withTiming(1, { duration: motion.duration.slow }));
+    panelTranslateY.value = withDelay(motion.duration.slow, withSpring(0, motion.spring.calm));
 
-    ctaOpacity.value = withDelay(480, withTiming(1, { duration: 600 }));
-    ctaTranslateY.value = withDelay(480, withSpring(0, { damping: 15 }));
+    ctaOpacity.value = withDelay(motion.duration.slow + motion.duration.quick, withTiming(1, { duration: motion.duration.slow }));
+    ctaTranslateY.value = withDelay(motion.duration.slow + motion.duration.quick, withSpring(0, motion.spring.calm));
 
-    // Card Hover Loop (moves gently up and down by 4px)
-    hoverTranslation.value = withRepeat(
-      withTiming(4, { duration: 3500, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true
-    );
+    // Note: Removed hoverTranslation looping animation to align with Rule 2 (only one primary moving element).
+    hoverTranslation.value = 0;
 
-    // Glowing CTA Halo Loop
+    // Glowing CTA Halo Loop - extremely subtle peripheral animation
     ctaGlowScale.value = withRepeat(
-      withTiming(1.06, { duration: 2500, easing: Easing.inOut(Easing.quad) }),
+      withTiming(1.03, { duration: 3000, easing: Easing.inOut(Easing.quad) }),
       -1,
       true
     );
     ctaGlowOpacity.value = withRepeat(
-      withTiming(0.12, { duration: 2500, easing: Easing.inOut(Easing.quad) }),
+      withTiming(0.06, { duration: 3000, easing: Easing.inOut(Easing.quad) }),
       -1,
       true
     );
@@ -835,33 +411,82 @@ export default function HomeScreen() {
 
   // Entrance animated styles mapping
   const animatedHeaderStyle = useAnimatedStyle(() => ({
-    opacity: headerOpacity.value,
+    opacity: headerOpacity.value * (1 - expansionProgress.value),
   }));
 
   const animatedTitleStyle = useAnimatedStyle(() => ({
-    opacity: titleOpacity.value,
-    transform: [{ translateY: titleTranslateY.value }],
+    opacity: titleOpacity.value * (1 - expansionProgress.value),
+    transform: [
+      { translateY: titleTranslateY.value },
+      { scale: 1 - 0.1 * expansionProgress.value }
+    ],
   }));
 
   const animatedOrbStyle = useAnimatedStyle(() => ({
-    opacity: orbOpacity.value,
-    transform: [{ scale: orbScale.value }],
+    opacity: orbOpacity.value * (1 - expansionProgress.value),
+    transform: [
+      { scale: orbScale.value * (1 - 0.2 * expansionProgress.value) }
+    ],
   }));
 
   const animatedPanelStyle = useAnimatedStyle(() => ({
-    opacity: panelOpacity.value,
-    transform: [{ translateY: panelTranslateY.value + hoverTranslation.value }],
+    opacity: panelOpacity.value * (1 - expansionProgress.value),
+    transform: [
+      { translateY: panelTranslateY.value + hoverTranslation.value },
+      { scale: 1 - 0.05 * expansionProgress.value }
+    ],
   }));
 
   const animatedCtaStyle = useAnimatedStyle(() => ({
-    opacity: ctaOpacity.value,
-    transform: [{ translateY: ctaTranslateY.value }],
+    opacity: ctaOpacity.value * (1 - expansionProgress.value),
+    transform: [
+      { translateY: ctaTranslateY.value },
+      { scale: 1 - 0.05 * expansionProgress.value }
+    ],
   }));
 
   const animatedCtaGlowStyle = useAnimatedStyle(() => ({
     transform: [{ scale: ctaGlowScale.value }],
-    opacity: ctaGlowOpacity.value,
+    opacity: ctaGlowOpacity.value * (1 - expansionProgress.value),
   }));
+
+  const animatedMandalaStyle = useAnimatedStyle(() => {
+    const progress = expansionProgress.value;
+    const tx = progress * (SCREEN_WIDTH / 2 - 40);
+    const initialTop = Platform.OS === 'ios' ? 75 : 55;
+    const ty = progress * (-initialTop - 20); // shifts to top: -20
+    const scaleVal = 1 + progress * 0.36; // scales from 220 to 300
+    
+    return {
+      transform: [
+        { translateX: tx },
+        { translateY: ty },
+        { scale: scaleVal }
+      ],
+    };
+  });
+
+  const animatedMorphPanelStyle = useAnimatedStyle(() => {
+    const progress = expansionProgress.value;
+    
+    // Interpolating coordinates from inline glassPanel to fullscreen:
+    const left = (1 - progress) * 24;
+    const right = (1 - progress) * 24;
+    // Estimated initial top offset is 450, final is 0:
+    const top = (1 - progress) * 440;
+    // Estimated initial height is 230, final is full screen:
+    const height = 230 + progress * (SCREEN_HEIGHT - 230);
+    const borderRadiusVal = (1 - progress) * 24;
+    
+    return {
+      left,
+      right,
+      top,
+      height,
+      borderRadius: borderRadiusVal,
+      opacity: progress,
+    };
+  });
 
   const animatedSliderStyle = useAnimatedStyle(() => {
     const step = containerWidth / 3;
@@ -915,16 +540,65 @@ export default function HomeScreen() {
 
   const handlePrepareRoutine = useCallback(() => {
     if (!plan) return;
+    setIsConfiguring(true);
+    expansionProgress.value = withTiming(1, { duration: motion.duration.slow, easing: Easing.bezier(0.25, 1, 0.5, 1) });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+  }, [plan]);
+
+  const handleCloseConfig = useCallback(() => {
+    expansionProgress.value = withTiming(0, { duration: motion.duration.slow, easing: Easing.bezier(0.25, 1, 0.5, 1) }, (finished) => {
+      if (finished) {
+        runOnJS(setIsConfiguring)(false);
+      }
+    });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+  }, []);
+
+  const handleStartPractice = useCallback(() => {
+    if (!plan || !plan.asana) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+    
+    // Auto-close configuration so it's clean when we return from player
+    setIsConfiguring(false);
+    expansionProgress.value = 0;
+
     router.push({
-      pathname: '/routine-config',
+      pathname: '/active-routine',
       params: {
         planId: plan.id,
-        asanaId: plan.asana?.id,
+        asanaId: plan.asana.id,
+        asanaDuration: plan.asana.duration_minutes?.toString() || '5',
         pranayamaId: plan.pranayama?.id,
+        pranayamaDuration: plan.pranayama?.duration_minutes?.toString() || '4',
         dhyanaId: plan.dhyana?.id,
+        dhyanaDuration: plan.dhyana?.duration_minutes?.toString() || '3',
       },
     });
   }, [plan]);
+
+  const handleOfflineToggle = useCallback((value: boolean) => {
+    if (!isPremium) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      Alert.alert(
+        'Offline is premium',
+        'Download rituals for travel, retreats, and low-signal mornings with Sadhana Premium.',
+        [
+          { text: 'Later', style: 'cancel' },
+          {
+            text: 'See Premium',
+            onPress: () => {
+              setIsConfiguring(false);
+              expansionProgress.value = 0;
+              router.push('/(auth)/paywall');
+            },
+          },
+        ]
+      );
+      return;
+    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    setOfflineEnabled(value);
+  }, [isPremium]);
 
   // Adjust plan quietly when clicking a segmented mood option
   const selectMood = useCallback((mood: 'restore' | 'steady' | 'energize') => {
@@ -963,7 +637,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: 'transparent' }]}>
       <StatusBar style={dark ? 'light' : 'dark'} />
 
       <ScrollView
@@ -973,15 +647,10 @@ export default function HomeScreen() {
       >
         {/* Immersive Hero Section Container */}
         <View style={styles.heroContainer}>
-          <HeroBackground
-            timeOfDay={timeOfDay}
-            hours={today.getHours()}
-            reduceMotion={reduceMotionEnabled}
-          />
 
-          <View style={styles.mandalaWrapper}>
+          <Animated.View style={[styles.mandalaWrapper, animatedMandalaStyle]}>
             <RotatingMandala reduceMotion={reduceMotionEnabled} />
-          </View>
+          </Animated.View>
 
           {/* Minimalist Floating Header */}
           <Animated.View style={[styles.heroHeader, animatedHeaderStyle]}>
@@ -1005,151 +674,87 @@ export default function HomeScreen() {
 
           {/* Hero text branding & dynamic intention */}
           <Animated.View style={[styles.heroTextSection, animatedTitleStyle]}>
-            <Text variant="body" weight="medium" style={[styles.greetingText, { color: colors.accent }]}>
+            <Text variant="body" weight="medium" style={[styles.greetingText, { color: colors.manuscriptGold }]}>
               {greeting}
             </Text>
             <Text variant="display" weight="bold" style={[styles.heroTitle, { color: colors.primaryText }]}>
-              Begin with one quiet breath.
-            </Text>
-            <Text variant="body" style={[styles.intentionText, { color: colors.secondaryText }]}>
-              Intention: {dailyIntention}
+              Begin with{"\n"}one quiet breath.
             </Text>
           </Animated.View>
 
-          {/* Centralized Breathing Orb and Progress Ring */}
+          {/* Centralized Breathing Sunrise */}
           <Animated.View style={[styles.breathingSection, animatedOrbStyle]}>
-            <BreathingOrbWithProgress
-              progress={dailyProgress}
-              reduceMotion={reduceMotionEnabled}
-            />
+            <AnimatedSunrise reduceMotion={reduceMotionEnabled} />
           </Animated.View>
 
-          {/* Glassmorphic content panel */}
-          <Animated.View style={[
-            styles.glassPanel,
-            glassPanelStyle,
-            animatedPanelStyle,
-            { borderRadius: borderRadius.xl, padding: spacing.md }
-          ]}>
-            {/* Practice Breakdown Cards */}
-            <View style={styles.practiceCardsRow}>
-              <PracticeCard title="Asana" duration={plan?.asana?.duration_minutes} icon="asana" onPress={handlePrepareRoutine} />
-              <PracticeCard title="Pranayama" duration={plan?.pranayama?.duration_minutes} icon="pranayama" onPress={handlePrepareRoutine} />
-              <PracticeCard title="Meditation" duration={plan?.dhyana?.duration_minutes} icon="dhyana" onPress={handlePrepareRoutine} />
-            </View>
+          {/* Subtle Down Arrow chevron guide */}
+          <Animated.View style={[styles.chevronDown, animatedTitleStyle]}>
+            <ChevronDown size={16} color={colors.secondaryText} style={{ opacity: 0.6 }} />
+          </Animated.View>
 
-            {/* Segmented Pill Tuning Controls */}
-            <View style={styles.tuningContainer}>
-              <View
-                style={[
-                  styles.tuningPillContainer,
-                  { backgroundColor: colors.highlight, borderRadius: borderRadius.lg }
-                ]}
-                onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width - 8)}
-              >
-                {containerWidth > 0 && (
-                  <Animated.View
-                    style={[
-                      styles.tuningPillSlider,
-                      {
-                        width: containerWidth / 3,
-                        backgroundColor: colors.surface,
-                        borderRadius: borderRadius.md,
-                      },
-                      animatedSliderStyle
-                    ]}
-                  />
-                )}
-                <PressableAnimated
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: tuneMode === 'restore' }}
-                  accessibilityLabel="Restore mode"
-                  accessibilityHint="Tunes your practice routine to be relaxing and restorative"
-                  haptic="light"
-                  scaleTo={0.96}
-                  onPress={() => selectMood('restore')}
-                  style={styles.tuningPill}
-                >
-                  <Text
-                    variant="body"
-                    weight={tuneMode === 'restore' ? 'bold' : 'regular'}
-                    style={[
-                      styles.tuningPillText,
-                      { color: tuneMode === 'restore' ? colors.accent : colors.secondaryText }
-                    ]}
+          {/* Today's Ritual Block (directly on the page) */}
+          <Animated.View style={[styles.ritualContainer, animatedPanelStyle]}>
+            <Text style={[styles.ritualLabel, { color: colors.secondaryText }]}>
+              Today's Ritual
+            </Text>
+            <Text variant="stat" style={[styles.ritualDuration, { color: colors.primaryText }]}>
+              {totalDuration} MIN
+            </Text>
+            <Text style={[styles.ritualBreakdown, { color: colors.primaryText }]}>
+              {plan?.asana ? 'Asana' : ''}
+              {plan?.pranayama ? ' • Pranayama' : ''}
+              {plan?.dhyana ? ' • Meditation' : ''}
+            </Text>
+
+            {/* Clean inline text mood links switcher */}
+            <View style={styles.moodLinksRow}>
+              {(['restore', 'steady', 'energize'] as const).map((mood) => {
+                const isActive = tuneMode === mood;
+                return (
+                  <PressableAnimated
+                    key={mood}
+                    haptic="light"
+                    scaleTo={0.96}
+                    onPress={() => selectMood(mood)}
+                    style={styles.moodLink}
+                    accessibilityRole="tab"
+                    accessibilityState={{ selected: isActive }}
+                    accessibilityLabel={`${mood} mode`}
                   >
-                    Restore
-                  </Text>
-                </PressableAnimated>
-                <PressableAnimated
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: tuneMode === 'steady' }}
-                  accessibilityLabel="Steady mode"
-                  accessibilityHint="Tunes your practice routine to be balanced and steady"
-                  haptic="light"
-                  scaleTo={0.96}
-                  onPress={() => selectMood('steady')}
-                  style={styles.tuningPill}
-                >
-                  <Text
-                    variant="body"
-                    weight={tuneMode === 'steady' ? 'bold' : 'regular'}
-                    style={[
-                      styles.tuningPillText,
-                      { color: tuneMode === 'steady' ? colors.accent : colors.secondaryText }
-                    ]}
-                  >
-                    Steady
-                  </Text>
-                </PressableAnimated>
-                <PressableAnimated
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: tuneMode === 'energize' }}
-                  accessibilityLabel="Energize mode"
-                  accessibilityHint="Tunes your practice routine to be active and energizing"
-                  haptic="light"
-                  scaleTo={0.96}
-                  onPress={() => selectMood('energize')}
-                  style={styles.tuningPill}
-                >
-                  <Text
-                    variant="body"
-                    weight={tuneMode === 'energize' ? 'bold' : 'regular'}
-                    style={[
-                      styles.tuningPillText,
-                      { color: tuneMode === 'energize' ? colors.accent : colors.secondaryText }
-                    ]}
-                  >
-                    Energize
-                  </Text>
-                </PressableAnimated>
-              </View>
+                    <Text
+                      style={[
+                        styles.moodLinkText,
+                        {
+                          color: isActive ? colors.accent : colors.secondaryText,
+                          fontWeight: isActive ? '700' : '400',
+                        }
+                      ]}
+                    >
+                      {mood.charAt(0).toUpperCase() + mood.slice(1)}
+                    </Text>
+                    {isActive && (
+                      <View style={[styles.moodDot, { backgroundColor: colors.accent }]} />
+                    )}
+                  </PressableAnimated>
+                );
+              })}
             </View>
           </Animated.View>
 
-          {/* Elevated Glowing CTA button */}
+          {/* Clean wide CTA button */}
           <Animated.View style={[styles.ctaWrapper, animatedCtaStyle]}>
-            {!reduceMotionEnabled && (
-              <Animated.View
-                style={[
-                  styles.ctaGlowBehind,
-                  { backgroundColor: colors.accent },
-                  animatedCtaGlowStyle,
-                ]}
-              />
-            )}
             <PressableAnimated
               haptic="medium"
               scaleTo={0.98}
-              style={[styles.glowingCTA, { backgroundColor: colors.accent, shadowColor: colors.accent }]}
+              style={[styles.glowingCTA, { backgroundColor: colors.accent }]}
               onPress={handlePrepareRoutine}
               accessibilityRole="button"
               accessibilityLabel="Begin today's practice"
               accessibilityHint="Launches the guided session configurator"
             >
-              <Play size={15} color="#FFFFFF" fill="#FFFFFF" />
+              <Play size={14} color="#FFFFFF" fill="#FFFFFF" />
               <Text variant="body" weight="bold" style={styles.glowingCTAText}>
-                Begin Today's Practice
+                Begin Practice
               </Text>
             </PressableAnimated>
           </Animated.View>
@@ -1167,7 +772,7 @@ export default function HomeScreen() {
             </View>
             <View style={[styles.alignmentLineDivider, { backgroundColor: colors.border }]} />
             <View style={styles.alignmentItem}>
-              <Sparkles size={14} color={colors.accent} strokeWidth={1.8} />
+              <Sparkles size={14} color={colors.manuscriptGold} strokeWidth={1.8} />
               <Text variant="body" weight="medium" style={[styles.alignmentText, { color: colors.primaryText }]}>
                 {profile?.karma_coins ?? 0} Karma Coins
               </Text>
@@ -1179,30 +784,184 @@ export default function HomeScreen() {
             <Text variant="body" weight="medium" style={[styles.sectionTitle, { color: colors.secondaryText }]}>
               Recent Practice
             </Text>
-            {recentSessions.map((session) => (
-              <View
-                key={`${session.label}-${session.title}`}
-                style={[
-                  styles.recentRow,
-                  { borderBottomColor: colors.border }
-                ]}
-              >
-                <View style={styles.recentLeft}>
-                  <Text variant="body" weight="medium" style={[styles.recentLabel, { color: colors.secondaryText }]}>
-                    {session.label}
-                  </Text>
-                  <Text variant="body" weight="bold" style={[styles.recentTitle, { color: colors.primaryText }]} numberOfLines={1}>
-                    {session.title}
+            {recentSessions.map((session, index) => (
+              <React.Fragment key={`${session.label}-${session.title}`}>
+                {index > 0 && <Divider variant="carved" className="my-1" />}
+                <View
+                  style={styles.recentRow}
+                >
+                  <View style={styles.recentLeft}>
+                    <Text variant="body" weight="medium" style={[styles.recentLabel, { color: colors.secondaryText }]}>
+                      {session.label}
+                    </Text>
+                    <Text variant="body" weight="bold" style={[styles.recentTitle, { color: colors.primaryText }]} numberOfLines={1}>
+                      {session.title}
+                    </Text>
+                  </View>
+                  <Text variant="body" style={[styles.recentDuration, { color: colors.secondaryText }]}>
+                    {session.duration}
                   </Text>
                 </View>
-                <Text variant="body" style={[styles.recentDuration, { color: colors.secondaryText }]}>
-                  {session.duration}
-                </Text>
-              </View>
+              </React.Fragment>
             ))}
           </View>
         </View>
       </ScrollView>
+
+      {/* Routine Configuration Content Morph Overlay */}
+      {isConfiguring && (
+        <Animated.View
+          style={[
+            styles.morphOverlay,
+            {
+              backgroundColor: dark ? 'rgba(32, 28, 25, 0.96)' : 'rgba(253, 250, 245, 0.96)',
+            },
+            animatedMorphPanelStyle
+          ]}
+        >
+          <View style={styles.morphHeader}>
+            <PressableAnimated
+              haptic="light"
+              style={styles.morphBackButton}
+              onPress={handleCloseConfig}
+              accessibilityLabel="Go back"
+            >
+              <ArrowLeft size={20} color={colors.primaryText} />
+            </PressableAnimated>
+            <Micro className="text-secondary-text">PREPARE</Micro>
+            <View style={{ width: 44 }} />
+          </View>
+
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={[
+              styles.morphScrollContent,
+              { paddingBottom: 120 + ctaBottomPosition }
+            ]}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.morphHeroBlock}>
+              <Heading className="text-primary-text text-[36px] leading-[38px] font-bold">
+                Enter gently.
+              </Heading>
+              <Caption className="text-secondary-text text-[15px] leading-6 mt-3 max-w-[310px]">
+                Your practice opens with movement, settles into breath, and closes in quiet attention.
+              </Caption>
+            </View>
+
+            <View style={[styles.morphDurationBand, { borderColor: colors.border }]}>
+              <View>
+                <Text className="font-mono text-primary-text text-[44px] leading-[48px]">{totalDuration}</Text>
+                <Caption className="text-secondary-text -mt-1">minutes total</Caption>
+              </View>
+              <View style={styles.morphPhaseDots}>
+                {[0, 1, 2].map((item) => (
+                  <View key={item} style={[styles.morphPhaseDot, { backgroundColor: item === 0 ? colors.accent : colors.border }]} />
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.morphSequenceList} accessibilityLabel="Today's practice sequence">
+              {plan?.asana && (
+                <View style={styles.morphSequenceRow}>
+                  <View style={[styles.morphSequenceRail, { backgroundColor: colors.accent }]} />
+                  <View style={[styles.morphSequenceIcon, { borderColor: colors.accent }]}>
+                    <Move size={18} color={colors.accent} strokeWidth={1.8} />
+                  </View>
+                  <View style={styles.morphSequenceCopy}>
+                    <Text className="font-sans text-[11px] uppercase tracking-[1.4px] text-secondary-text">
+                      Asana
+                    </Text>
+                    <Text className="font-sans font-bold text-[15px] text-primary-text mt-1" numberOfLines={1}>
+                      {plan.asana.title}
+                    </Text>
+                  </View>
+                  <Text className="font-mono text-[16px] text-secondary-text">{plan.asana.duration_minutes}m</Text>
+                </View>
+              )}
+
+              {plan?.pranayama && (
+                <View style={styles.morphSequenceRow}>
+                  <View style={[styles.morphSequenceRail, { backgroundColor: colors.accent }]} />
+                  <View style={[styles.morphSequenceIcon, { borderColor: colors.accent }]}>
+                    <Wind size={18} color={colors.accent} strokeWidth={1.8} />
+                  </View>
+                  <View style={styles.morphSequenceCopy}>
+                    <Text className="font-sans text-[11px] uppercase tracking-[1.4px] text-secondary-text">
+                      Pranayama
+                    </Text>
+                    <Text className="font-sans font-bold text-[15px] text-primary-text mt-1" numberOfLines={1}>
+                      {plan.pranayama.title}
+                    </Text>
+                  </View>
+                  <Text className="font-mono text-[16px] text-secondary-text">{plan.pranayama.duration_minutes}m</Text>
+                </View>
+              )}
+
+              {plan?.dhyana && (
+                <View style={styles.morphSequenceRow}>
+                  <View style={[styles.morphSequenceRail, { backgroundColor: colors.accent }]} />
+                  <View style={[styles.morphSequenceIcon, { borderColor: colors.accent }]}>
+                    <Moon size={18} color={colors.accent} strokeWidth={1.8} />
+                  </View>
+                  <View style={styles.morphSequenceCopy}>
+                    <Text className="font-sans text-[11px] uppercase tracking-[1.4px] text-secondary-text">
+                      Dhyana
+                    </Text>
+                    <Text className="font-sans font-bold text-[15px] text-primary-text mt-1" numberOfLines={1}>
+                      {plan.dhyana.title}
+                    </Text>
+                  </View>
+                  <Text className="font-mono text-[16px] text-secondary-text">{plan.dhyana.duration_minutes}m</Text>
+                </View>
+              )}
+            </View>
+
+            <View style={[styles.morphOfflineRow, { borderColor: colors.border }]}>
+              <View className="flex-row items-center gap-3 flex-1">
+                <View style={[styles.morphDownloadIcon, { backgroundColor: colors.highlight }]}>
+                  {isPremium ? <Download size={17} color={colors.accent} /> : <Lock size={17} color={colors.secondaryText} />}
+                </View>
+                <View className="flex-1">
+                  <Text className="font-sans font-bold text-primary-text text-[14px]">Make available offline</Text>
+                  <Caption className="text-secondary-text text-[12px] mt-1">
+                    Best for travel, retreats, and early mornings.
+                  </Caption>
+                </View>
+              </View>
+              <Switch
+                value={offlineEnabled}
+                onValueChange={handleOfflineToggle}
+                trackColor={{ false: colors.border, true: colors.growth }}
+                thumbColor="#FFFFFF"
+                accessibilityRole="switch"
+                accessibilityLabel="Download practice for offline use"
+              />
+            </View>
+          </ScrollView>
+
+          <View
+            style={[
+              styles.morphStickyCta,
+              {
+                bottom: ctaBottomPosition,
+                backgroundColor: 'transparent',
+              }
+            ]}
+          >
+            <PressableAnimated
+              haptic="medium"
+              scaleTo={0.98}
+              style={[styles.morphStartButton, { backgroundColor: colors.accent }]}
+              onPress={handleStartPractice}
+              accessibilityLabel="Start today's Sadhana practice"
+            >
+              <Text className="text-white font-sans font-bold text-[15px]">Start Ritual</Text>
+              <Play size={17} color="#FFFFFF" fill="#FFFFFF" />
+            </PressableAnimated>
+          </View>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -1290,83 +1049,67 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 10,
   },
-  glassPanel: {
-    borderWidth: 1,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.06,
-    shadowRadius: 16,
-    elevation: 4,
-    width: '100%',
-    zIndex: 2,
-    marginTop: 14,
-    marginBottom: 16,
-  },
-  practiceCardsRow: {
-    flexDirection: 'row',
-    gap: 10,
-    width: '100%',
-    marginBottom: 16,
-  },
-  practiceCard: {
-    flex: 1,
-    alignItems: 'center',
-    borderWidth: 1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.02,
-    shadowRadius: 4,
-    elevation: 1,
-  },
-  practiceCardIconWrapper: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+  sunriseContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 20,
+    zIndex: 2,
+  },
+  sunriseSvg: {
+    overflow: 'visible',
+  },
+  chevronDown: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+    zIndex: 2,
+  },
+  ritualContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 16,
+    zIndex: 2,
+  },
+  ritualLabel: {
+    fontSize: 11,
+    letterSpacing: 1.6,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+    opacity: 0.6,
+  },
+  ritualDuration: {
+    fontSize: 40,
+    lineHeight: 46,
     marginBottom: 6,
   },
-  practiceCardTitle: {
-    fontSize: 11,
+  ritualBreakdown: {
+    fontSize: 14,
     letterSpacing: 0.5,
-    textTransform: 'uppercase',
-    marginBottom: 2,
+    opacity: 0.85,
+    marginBottom: 16,
     textAlign: 'center',
   },
-  practiceCardDuration: {
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  tuningContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  tuningPillContainer: {
+  moodLinksRow: {
     flexDirection: 'row',
-    padding: 4,
-    width: '100%',
-    justifyContent: 'space-between',
-    position: 'relative',
-  },
-  tuningPillSlider: {
-    position: 'absolute',
-    top: 4,
-    bottom: 4,
-    left: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  tuningPill: {
-    flex: 1,
-    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 2,
+    gap: 16,
+    marginBottom: 8,
   },
-  tuningPillText: {
-    fontSize: 13,
-    letterSpacing: 0.4,
+  moodLink: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+  moodLinkText: {
+    fontSize: 14,
+    letterSpacing: 0.8,
+  },
+  moodDot: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    marginTop: 2,
+    alignSelf: 'center',
   },
   ctaWrapper: {
     width: '100%',
@@ -1374,13 +1117,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 2,
     marginTop: 6,
-  },
-  ctaGlowBehind: {
-    position: 'absolute',
-    width: '100%',
-    height: 52,
-    borderRadius: 26,
-    pointerEvents: 'none',
   },
   glowingCTA: {
     height: 52,
@@ -1390,10 +1126,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     gap: 8,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-    elevation: 5,
   },
   glowingCTAText: {
     color: '#FFFFFF',
@@ -1406,11 +1138,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 14,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    marginTop: 10,
-    marginBottom: 28,
+    paddingVertical: 12,
+    marginTop: 8,
+    marginBottom: 24,
   },
   alignmentItem: {
     flexDirection: 'row',
@@ -1440,7 +1170,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 14,
-    borderBottomWidth: 0.5,
   },
   recentLeft: {
     flexDirection: 'column',
@@ -1470,34 +1199,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  breathingOrbContainer: {
-    width: 140,
-    height: 140,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    alignSelf: 'center',
-  },
-  progressRingSvg: {
-    position: 'absolute',
-  },
-  breathingOrb: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  breathingOrbText: {
-    fontSize: 10,
-    letterSpacing: 1.2,
-    fontWeight: 'bold',
-  },
   lotusPetal: {
     position: 'absolute',
   },
@@ -1506,5 +1207,121 @@ const styles = StyleSheet.create({
     width: 3.5,
     height: 3.5,
     borderRadius: 1.75,
+  },
+  morphOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    zIndex: 100,
+  },
+  morphHeader: {
+    paddingTop: Platform.OS === 'ios' ? 60 : 45,
+    paddingHorizontal: 24,
+    paddingBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  morphBackButton: {
+    width: 44,
+    height: 44,
+    marginLeft: -12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 22,
+  },
+  morphScrollContent: {
+    paddingHorizontal: 24,
+    paddingTop: 18,
+    paddingBottom: 132,
+  },
+  morphHeroBlock: {
+    paddingTop: 18,
+    paddingBottom: 26,
+  },
+  morphDurationBand: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingVertical: 20,
+    marginBottom: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  morphPhaseDots: {
+    flexDirection: 'row',
+    gap: 7,
+  },
+  morphPhaseDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  morphSequenceList: {
+    gap: 18,
+    marginBottom: 30,
+  },
+  morphSequenceRow: {
+    minHeight: 64,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  morphSequenceRail: {
+    width: 3,
+    alignSelf: 'stretch',
+    borderRadius: 2,
+    backgroundColor: 'rgba(166,149,128,0.18)',
+  },
+  morphSequenceIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  morphSequenceCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  morphOfflineRow: {
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  morphDownloadIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  morphStickyCta: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 24,
+    paddingTop: 14,
+    paddingBottom: 28,
+  },
+  morphStartButton: {
+    height: 56,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    shadowColor: '#C44B22',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    elevation: 5,
   },
 });

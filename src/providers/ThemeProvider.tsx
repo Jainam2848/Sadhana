@@ -48,12 +48,43 @@ export interface AnimatedColors {
   manuscriptGold: SharedValue<string>;
 }
 
+export interface MotionConfig {
+  duration: {
+    quick: number;     // Micro-interactions, haptic scaling
+    standard: number;  // Morph elements, fade transitions
+    slow: number;      // Large layout expansions, route changes
+    ambient: number;   // Slow breathing, color fading
+  };
+  spring: {
+    calm: { damping: number; stiffness: number; mass: number };
+    responsive: { damping: number; stiffness: number };
+    bouncy: { damping: number; stiffness: number; mass: number };
+  };
+}
+
+export interface ShadowStyle {
+  shadowColor: string;
+  shadowOffset: { width: number; height: number };
+  shadowOpacity: number;
+  shadowRadius: number;
+  elevation: number;
+}
+
+export interface ThemeShadows {
+  none: ShadowStyle;
+  sm: ShadowStyle;
+  md: ShadowStyle;
+  lg: ShadowStyle;
+  hero: ShadowStyle;
+}
+
 export interface Theme {
   dark: boolean;
   mode: ThemeMode;
   colors: ThemeColors;
   animatedColors: AnimatedColors;
   spacing: {
+    unit: number; // grid base unit (4px)
     base: number;
     xs: number;
     sm: number;
@@ -68,6 +99,8 @@ export interface Theme {
     lg: number;
     xl: number;
   };
+  shadows: ThemeShadows;
+  motion: MotionConfig;
   setMode: (mode: ThemeMode) => void;
 }
 
@@ -121,6 +154,7 @@ const eveningColors: ThemeColors = {
 };
 
 const spacing = {
+  unit: 4,
   base: 4,
   xs: 4,
   sm: 8,
@@ -135,6 +169,28 @@ const borderRadius = {
   md: 12,
   lg: 20,
   xl: 28,
+};
+
+const shadows: ThemeShadows = {
+  none: { shadowColor: 'transparent', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0, shadowRadius: 0, elevation: 0 },
+  sm: { shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  md: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 6, elevation: 3 },
+  lg: { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 12, elevation: 6 },
+  hero: { shadowColor: '#000', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.18, shadowRadius: 24, elevation: 12 },
+};
+
+const motion: MotionConfig = {
+  duration: {
+    quick: 180,      // Micro-interactions, haptic scaling
+    standard: 280,   // Morph elements, fade transitions
+    slow: 450,       // Large layout expansions, route changes
+    ambient: 1500,   // Slow breathing, color fading
+  },
+  spring: {
+    calm: { damping: 20, stiffness: 90, mass: 1 },
+    responsive: { damping: 15, stiffness: 150 },
+    bouncy: { damping: 12, stiffness: 180, mass: 0.8 },
+  },
 };
 
 /**
@@ -306,6 +362,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     },
     spacing,
     borderRadius,
+    shadows,
+    motion,
     setMode: setThemeMode,
   };
 

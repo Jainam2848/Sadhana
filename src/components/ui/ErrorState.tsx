@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from '@/tw';
 import { Heading, Body } from './Typography';
-import { PressableAnimated } from './PressableAnimated';
-import { AlertCircle, RefreshCw } from 'lucide-react-native';
+import { Button } from './Button';
+import { AlertCircle } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 export interface ErrorStateProps {
@@ -24,7 +24,7 @@ export function ErrorState({
       </View>
 
       {/* Headline & Friendly Body Copy */}
-      <Heading className="text-primary-text text-lg font-serif mb-2 text-center">
+      <Heading className="text-primary-text text-lg mb-2 text-center">
         Connection Interrupted
       </Heading>
       <Body className="text-secondary-text text-sm text-center mb-8 max-w-[290px] leading-relaxed">
@@ -32,16 +32,11 @@ export function ErrorState({
       </Body>
 
       {/* Retry Action */}
-      <PressableAnimated
-        haptic="medium"
+      <Button
+        variant="primary"
+        title="Retry Connection"
         onPress={onRetry}
-        className="bg-accent-terracotta px-6 py-3 rounded-full flex-row items-center gap-2 active:opacity-90 shadow-sm"
-      >
-        <RefreshCw size={14} color="#FFFFFF" />
-        <Body className="text-white font-sans font-bold text-xs">
-          Retry Connection
-        </Body>
-      </PressableAnimated>
+      />
     </View>
   );
 }

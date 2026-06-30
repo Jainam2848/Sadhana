@@ -11,7 +11,7 @@ import { useTheme } from '@/hooks/useTheme';
 
 const AnimatedG = Animated.createAnimatedComponent(G) as any;
 
-export type PracticeIconType = 'asana' | 'pranayama' | 'dhyana' | 'diya' | 'om-coin';
+export type PracticeIconType = 'asana' | 'pranayama' | 'dhyana' | 'diya' | 'om-coin' | 'lotus' | 'temple-dome' | 'manuscript';
 
 export interface PracticeIconProps extends ViewProps {
   type: PracticeIconType;
@@ -192,6 +192,59 @@ export function PracticeIcon({
           {/* Upper bindu (dot) and crescent */}
           <Path d="M 13.5 10 C 14.5 10, 15.5 9, 15.5 9" />
           <Circle cx="15.5" cy="7.5" r="0.5" fill={iconColor} />
+        </Svg>
+      );
+
+    case 'lotus':
+      return (
+        <Svg
+          {...commonProps}
+          accessibilityLabel="Lotus Icon"
+          style={style}
+          {...props as any}
+        >
+          {/* Central petal */}
+          <Path d="M 12 5 C 10 9, 10 17, 12 20 C 14 17, 14 9, 12 5 Z" />
+          {/* Left petal */}
+          <Path d="M 12 11 C 9 13, 6 15, 8 18 C 10 18, 11 15, 12 11 Z" />
+          {/* Right petal */}
+          <Path d="M 12 11 C 15 13, 18 15, 16 18 C 14 18, 13 15, 12 11 Z" />
+          {/* Bottom pad leaf */}
+          <Path d="M 5 19 C 8 21, 16 21, 19 19" />
+        </Svg>
+      );
+
+    case 'temple-dome':
+      return (
+        <Svg
+          {...commonProps}
+          accessibilityLabel="Temple Dome Icon"
+          style={style}
+          {...props as any}
+        >
+          {/* Dome Arch Profile */}
+          <Path d="M 4 19 C 4 19, 4 13, 7 10 C 9 8, 10.5 5, 12 3 C 13.5 5, 15 8, 17 10 C 20 13, 20 19, 20 19 Z" />
+          {/* Base floor */}
+          <Path d="M 2 19 L 22 19" />
+          {/* Inner geometric accent */}
+          <Path d="M 12 9 L 12 16" opacity={0.5} />
+          <Circle cx="12" cy="11" r="1.5" opacity={0.5} />
+        </Svg>
+      );
+
+    case 'manuscript':
+      return (
+        <Svg
+          {...commonProps}
+          accessibilityLabel="Manuscript Scroll Icon"
+          style={style}
+          {...props as any}
+        >
+          {/* Scroll Body */}
+          <Path d="M 5 6 C 5 4, 19 4, 19 6 C 19 8, 5 8, 5 10 C 5 12, 19 12, 19 14 C 19 16, 5 16, 5 18 C 5 20, 19 20, 19 18" />
+          {/* Rolled manuscript lines */}
+          <Path d="M 9 9 L 15 9" opacity={0.5} />
+          <Path d="M 9 13 L 15 13" opacity={0.5} />
         </Svg>
       );
 

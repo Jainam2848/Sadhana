@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, ViewProps } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 import Animated, {
   useSharedValue,
   useAnimatedProps,
@@ -31,7 +31,7 @@ const L3 = 2 * Math.PI * R3;
  * Stroke colors dynamically transition on the UI thread as the time-of-day theme shifts.
  */
 export function MandalaThread({ progress = 0.5, style, ...props }: MandalaThreadProps) {
-  const { animatedColors } = useTheme();
+  const { animatedColors, colors } = useTheme();
   
   // Progress animation shared value
   const animatedProgress = useSharedValue(progress);
@@ -83,6 +83,21 @@ export function MandalaThread({ progress = 0.5, style, ...props }: MandalaThread
       {...props}
     >
       <Svg width="300" height="300" viewBox="0 0 300 300">
+        {/* Radial guidelines (sacred geometry alignment) */}
+        <Path d="M 300 0 L 0 0" stroke={colors.accent} strokeWidth={0.5} opacity={0.06} />
+        <Path d="M 300 0 L 40.2 150" stroke={colors.accent} strokeWidth={0.5} opacity={0.04} />
+        <Path d="M 300 0 L 87.9 212.1" stroke={colors.accent} strokeWidth={0.5} opacity={0.05} />
+        <Path d="M 300 0 L 150 259.8" stroke={colors.accent} strokeWidth={0.5} opacity={0.04} />
+        <Path d="M 300 0 L 300 300" stroke={colors.accent} strokeWidth={0.5} opacity={0.06} />
+
+        {/* Rotated sacred square / diamond structures */}
+        <Path d="M 140 0 L 300 160" stroke={colors.accent} strokeWidth={0.5} opacity={0.05} />
+        <Path d="M 80 0 L 300 220" stroke={colors.accent} strokeWidth={0.5} opacity={0.04} />
+
+        {/* Dashed intermediate rings to mimic drafts/manuscripts */}
+        <Circle cx="300" cy="0" r="130" fill="none" stroke={colors.accent} strokeWidth={0.5} strokeDasharray="2, 4" opacity={0.05} />
+        <Circle cx="300" cy="0" r="190" fill="none" stroke={colors.accent} strokeWidth={0.5} strokeDasharray="3, 5" opacity={0.04} />
+
         {/* Circle 1 */}
         <AnimatedCircle
           cx="300"

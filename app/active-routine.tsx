@@ -15,7 +15,7 @@ import { PressableAnimated } from '@/components/ui/PressableAnimated';
 const PHASES = ['Asana', 'Pranayama', 'Dhyana'] as const;
 
 export default function ActiveRoutinePlayerScreen() {
-  const { colors } = useTheme();
+  const { colors, motion } = useTheme();
   const router = useRouter();
   const submitSession = useSubmitSession();
   const { planId, asanaId, asanaDuration, pranayamaId, pranayamaDuration, dhyanaId, dhyanaDuration } = useLocalSearchParams<{
@@ -55,6 +55,36 @@ export default function ActiveRoutinePlayerScreen() {
   const visualizerScale = useSharedValue(1);
   const visualizerRotation = useSharedValue(0);
   const visualizerOpacity = useSharedValue(0.42);
+
+  const entranceProgress = useSharedValue(0);
+
+  useEffect(() => {
+    entranceProgress.value = withTiming(1, { duration: motion.duration.slow, easing: Easing.bezier(0.25, 1, 0.5, 1) });
+    return () => {
+      cancelAnimation(entranceProgress);
+    };
+  }, []);
+
+  const animatedTopBarStyle = useAnimatedStyle(() => {
+    return {
+      opacity: entranceProgress.value,
+      transform: [{ translateY: -20 + 20 * entranceProgress.value }],
+    };
+  });
+
+  const animatedStageStyle = useAnimatedStyle(() => {
+    return {
+      opacity: entranceProgress.value,
+      transform: [{ translateY: 30 - 30 * entranceProgress.value }],
+    };
+  });
+
+  const animatedControlsStyle = useAnimatedStyle(() => {
+    return {
+      opacity: entranceProgress.value,
+      transform: [{ translateY: 40 - 40 * entranceProgress.value }],
+    };
+  });
 
   // Total durations for each segment in seconds
   const durations = useMemo(
@@ -578,7 +608,7 @@ export default function ActiveRoutinePlayerScreen() {
   return (
     <View style={styles.screen}>
       {/* Top Bar Navigation */}
-      <View style={styles.topBar}>
+      <Animated.View style={[styles.topBar, animatedTopBarStyle]}>
         <PressableAnimated style={styles.iconButton} onPress={() => router.back()} haptic="light" accessibilityLabel="Go back">
           <ArrowLeft size={20} color="#FDFAF5" />
         </PressableAnimated>
@@ -611,7 +641,7 @@ export default function ActiveRoutinePlayerScreen() {
             </PressableAnimated>
           )}
         </View>
-      </View>
+      </Animated.View>
 
       {/* Overall Progress Tracker */}
       <View style={styles.overallTrack}>
@@ -619,7 +649,7 @@ export default function ActiveRoutinePlayerScreen() {
       </View>
 
       {/* Visual Stage */}
-      <View style={styles.visualStage}>
+      <Animated.View style={[styles.visualStage, animatedStageStyle]}>
         {isIntermission ? (
           /* Transition Intermission View */
           <View style={styles.intermissionView}>
@@ -742,10 +772,10 @@ export default function ActiveRoutinePlayerScreen() {
             </View>
           </View>
         )}
-      </View>
+      </Animated.View>
 
       {/* Active Console Area */}
-      <View style={styles.activeConsole}>
+      <Animated.View style={[styles.activeConsole, animatedControlsStyle]}>
         {!isIntermission && (
           <View style={styles.telemetryDock}>
             {currentSegment === 0 ? (
@@ -879,7 +909,7 @@ export default function ActiveRoutinePlayerScreen() {
             <SkipForward size={14} color="#CDBEA8" />
           </PressableAnimated>
         </View>
-      </View>
+      </Animated.View>
 
       {/* Sanskrit Notes Modal Drawer */}
       <Modal animationType="slide" transparent visible={isGlossaryOpen} onRequestClose={() => setIsGlossaryOpen(false)}>
@@ -914,7 +944,7 @@ export default function ActiveRoutinePlayerScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#0D0A06',
+    backgroundColor: 'transparent',
   },
   topBar: {
     paddingTop: Platform.OS === 'ios' ? 58 : 38,

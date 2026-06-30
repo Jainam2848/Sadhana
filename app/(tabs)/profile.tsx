@@ -68,11 +68,11 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View className="flex-1 bg-background relative">
+    <View className="flex-1 bg-transparent relative">
       <MandalaThread />
 
       {/* Top App Bar */}
-      <View className="pt-12 pb-3 px-6 z-40 bg-background/80 flex-row justify-between items-center border-b border-surface-border">
+      <View className="pt-12 pb-3 px-6 z-40 bg-transparent flex-row justify-between items-center border-b border-surface-border">
         <Heading className="text-primary font-serif">Profile</Heading>
         <PressableAnimated
           haptic="light"
